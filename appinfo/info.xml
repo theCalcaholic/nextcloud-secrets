@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+    <!--
+    SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
+    SPDX-License-Identifier: CC0-1.0
+    -->
+    <id>secrets</id>
+    <name>Secrets</name>
+    <summary>Securely share data with anyone</summary>
+    <description><![CDATA[Securely and share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfullly]]></description>
+    <version>0.0.1</version>
+    <licence>agpl</licence>
+    <author mail="thecalcaholic@web.de" homepage="https://github.com/theCalcaholic">Tobias Knöppler</author>
+    <namespace>Secrets</namespace>
+    <category>security</category>
+    <category>social</category>
+    <category>tools</category>
+    <bugs>https://github.com/theCalcaholic/nextcloud-secrets</bugs>
+    <dependencies>
+        <nextcloud min-version="24" max-version="24"/>
+    </dependencies>
+    <navigations>
+        <navigation>
+            <name>Secrets</name>
+            <route>secrets.page.index</route>
+        </navigation>
+    </navigations>
+</info>
