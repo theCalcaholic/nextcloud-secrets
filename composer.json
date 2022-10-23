@@ -34,5 +34,9 @@
 		"platform": {
 			"php": "7.4"
 		}
-	}
+	},
+  "require": {
+    "ext-openssl": "*",
+	  "ext-json": "*"
+  }
 }

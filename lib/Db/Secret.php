@@ -11,23 +11,30 @@ use OCP\AppFramework\Db\Entity;
 
 /**
  * @method getId(): int
+ * @method getUUId(): string
+ * @method setUuid(string $uuid): void
  * @method getTitle(): string
  * @method setTitle(string $title): void
- * @method getContent(): string
- * @method setContent(string $content): void
+ * @method getEncrypted(): string
+ * @method setEncrypted(string $encrypted): void
+ * @method getIv(): string
+ * @method setIv(string $iv): void
  * @method getUserId(): string
  * @method setUserId(string $userId): void
  */
-class Note extends Entity implements JsonSerializable {
+class Secret extends Entity implements JsonSerializable {
 	protected string $title = '';
-	protected string $content = '';
+	protected string $encrypted = '';
 	protected string $userId = '';
+	protected string $uuid = '';
+	protected string $iv = '';
 
 	public function jsonSerialize(): array {
 		return [
-			'id' => $this->id,
+			'uuid' => $this->uuid,
 			'title' => $this->title,
-			'content' => $this->content
+			'encrypted' => $this->encrypted,
+			'iv' => $this->iv
 		];
 	}
 }

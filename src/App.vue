@@ -6,51 +6,53 @@
 	<div id="content" class="app-secrets">
 		<AppNavigation>
 			<AppNavigationNew v-if="!loading"
-				:text="t('secrets', 'New note')"
+				:text="t('secrets', 'New secret')"
 				:disabled="false"
 				button-id="new-secrets-button"
 				button-class="icon-add"
-				@click="newNote" />
+				@click="newSecret" />
 			<ul>
-				<AppNavigationItem v-for="note in notes"
-					:key="note.id"
-					:title="note.title ? note.title : t('secrets', 'New note')"
-					:class="{active: currentNoteId === note.id}"
-					@click="openNote(note)">
+				<AppNavigationItem v-for="secret in secrets"
+					:key="secret.uuid"
+					:title="secret.title ? secret.title : t('secrets', 'New secret')"
+					:class="{active: currentSecretUUId === secret.uuid}"
+					@click="openSecret(secret)">
 					<template slot="actions">
-						<ActionButton v-if="note.id === -1"
+						<ActionButton v-if="secret.uuid === ''"
 							icon="icon-close"
-							@click="cancelNewNote(note)">
+							@click="cancelNewSecret(secret)">
 							{{
-							t('secrets', 'Cancel note creation') }}
+							t('secrets', 'Cancel secret creation') }}
 						</ActionButton>
 						<ActionButton v-else
 							icon="icon-delete"
-							@click="deleteNote(note)">
+							@click="deleteSecret(secret)">
 							{{
-							 t('secrets', 'Delete note') }}
+							 t('secrets', 'Delete secret') }}
 						</ActionButton>
 					</template>
 				</AppNavigationItem>
 			</ul>
 		</AppNavigation>
 		<AppContent>
-			<div v-if="currentNote">
+			<div v-if="currentSecret">
 				<input ref="title"
-					v-model="currentNote.title"
+					v-model="currentSecret.title"
 					type="text"
 					:disabled="updating">
-				<textarea ref="content" v-model="currentNote.content" :disabled="updating" />
+				<p>{{ currentFormattedUUID }}</p>
+				<p>{{ currentSecretLink }}</p>
+				<textarea ref="content" v-model="currentSecret.content" :disabled="updating" />
 				<input type="button"
 					class="primary"
 					:value="t('secrets', 'Save')"
 					:disabled="updating || !savePossible"
-					@click="saveNote">
+					@click="saveSecret">
 			</div>
 			<div v-else id="emptycontent">
 				<div class="icon-file" />
 				<h2>{{
-				 t('secrets', 'Create a note to get started') }}</h2>
+				 t('secrets', 'Create a secret to get started') }}</h2>
 			</div>
 		</AppContent>
 	</div>
@@ -79,83 +81,97 @@ export default {
 	},
 	data() {
 		return {
-			notes: [],
-			currentNoteId: null,
+			secrets: [],
+			currentSecretUUId: null,
 			updating: false,
 			loading: true,
 		}
 	},
 	computed: {
 		/**
-		 * Return the currently selected note object
+		 * Return the currently selected secret object
 		 * @returns {Object|null}
 		 */
-		currentNote() {
-			if (this.currentNoteId === null) {
+		currentSecret() {
+			if (this.currentSecretUUId === null) {
 				return null
 			}
-			return this.notes.find((note) => note.id === this.currentNoteId)
+			return this.secrets.find((secret) => secret.uuid === this.currentSecretUUId)
+		},
+
+		currentSecretURL() {
+			let k = window.crypto.subtle.generateKey();
+			k.buffer
+			return window.crypto.subtle.exportKey("raw", this.currentSecret.key)
 		},
 
 		/**
-		 * Returns true if a note is selected and its title is not empty
+		 * Returns true if a secret is selected and its title is not empty
 		 * @returns {Boolean}
 		 */
 		savePossible() {
-			return this.currentNote && this.currentNote.title !== ''
+			return this.currentSecret && this.currentSecret.uuid === ''
 		},
+		currentFormattedUUID() {
+			if (this.currentSecretUUId === null)
+				return null;
+			let uuid = this.currentSecretUUId
+			return `${uuid.substring(0, 8)}-${uuid.substring(8, 4)}-${uuid.substring(12, 4)}-${uuid.substring(16, 4)}`
+				+ `-${uuid.substring(20, 12)}`;
+		}
 	},
 	/**
-	 * Fetch list of notes when the component is loaded
+	 * Fetch list of secrets when the component is loaded
 	 */
 	async mounted() {
 		try {
-			const response = await axios.get(generateUrl('/apps/secrets/notes'))
-			this.notes = response.data
+			const response = await axios.get(generateUrl('/apps/secrets/secrets'))
+			this.secrets = response.data;
 		} catch (e) {
 			console.error(e)
-			showError(t('notestutorial', 'Could not fetch notes'))
+			showError(t('secrets', 'Could not fetch secrets'))
 		}
 		this.loading = false
 	},
 
 	methods: {
 		/**
-		 * Create a new note and focus the note content field automatically
-		 * @param {Object} note Note object
+		 * Create a new secret and focus the secret content field automatically
+		 * @param {Object} secret Secret object
 		 */
-		openNote(note) {
+		openSecret(secret) {
 			if (this.updating) {
 				return
 			}
-			this.currentNoteId = note.id
+			this.currentSecretUUId = secret.uuid
 			this.$nextTick(() => {
 				this.$refs.content.focus()
 			})
 		},
 		/**
 		 * Action tiggered when clicking the save button
-		 * create a new note or save
+		 * create a new secret or save
 		 */
-		saveNote() {
-			if (this.currentNoteId === -1) {
-				this.createNote(this.currentNote)
+		saveSecret() {
+			if (this.currentSecretUUId === "") {
+				this.createSecret(this.currentSecret)
 			} else {
-				this.updateNote(this.currentNote)
+				this.updateSecret(this.currentSecret)
 			}
 		},
 		/**
-		 * Create a new note and focus the note content field automatically
-		 * The note is not yet saved, therefore an id of -1 is used until it
+		 * Create a new secret and focus the secret content field automatically
+		 * The secret is not yet saved, therefore an id of "" is used until it
 		 * has been persisted in the backend
 		 */
-		newNote() {
-			if (this.currentNoteId !== -1) {
-				this.currentNoteId = -1
-				this.notes.push({
-					id: -1,
-					title: '',
-					content: '',
+		async newSecret() {
+			if (this.currentSecretUUId !== "") {
+				this.currentSecretUUId = ""
+				this.secrets.push({
+					uuid: "",
+					title: 'new secret',
+					_content: '',
+					key: await this.generateCryptoKey()
 				})
 				this.$nextTick(() => {
 					this.$refs.title.focus()
@@ -163,58 +179,114 @@ export default {
 			}
 		},
 		/**
-		 * Abort creating a new note
+		 * Abort creating a new secret
 		 */
-		cancelNewNote() {
-			this.notes.splice(this.notes.findIndex((note) => note.id === -1), 1)
-			this.currentNoteId = null
+		cancelNewSecret() {
+			this.secrets.splice(this.secrets.findIndex((secret) => secret.uuid === ""), 1)
+			this.currentSecretUUId = null
+		},
+		async generateCryptoKey() {
+			return await window.crypto.subtle.generateKey({
+					name: "AES-GCM",
+					length: 256
+				},
+				true,
+				["encrypt", "decrypt"]);
+		},
+		async encryptSecret(secret, key) {
+			let encoder = new TextEncoder();
+			const iv = window.crypto.getRandomValues(new Uint16Array(12));
+			const encrypted = await window.crypto.subtle.encrypt({ name: "AES-GCM", iv: iv },
+				key,
+				encoder.encode(secret.content)
+			);
+
+			return {
+				uuid: secret.uuid,
+				title: secret.title,
+				encrypted: String.fromCharCode.apply(null, new Uint16Array(encrypted)),
+				iv: String.fromCharCode.apply(null, iv)
+			}
+		},
+		stringToArrayBuffer(str) {
+			const buff = new ArrayBuffer(str.length * 2)
+			const buffView = new Uint16Array(buff)
+			for(let i = 0, strLen = str.length; i < strLen; i++) {
+				buffView[i] = str.charCodeAt(i);
+			}
+			return buff;
+		},
+		async decryptSecret(secret, key) {
+			const iv = this.stringToArrayBuffer(secret.iv);
+			const encrypted = this.stringToArrayBuffer(secret.encrypted);
+			const decrypted = await window.crypto.subtle.decrypt({ name: "AES-GCM", iv: iv }, key, encrypted);
+			let decoder = new TextDecoder();
+			console.log("decrypted:");
+			console.log(decrypted);
+			console.log(String.fromCharCode.apply(null, decrypted));
+			console.log(decoder.decode(decrypted));
+
+			return {
+				uuid: secret.uuid,
+				title: secret.title,
+				iv: secret.iv,
+				content: decoder.decode(decrypted),
+				encrypted: secret.encrypted
+			};
 		},
 		/**
-		 * Create a new note by sending the information to the server
-		 * @param {Object} note Note object
+		 * Create a new secret by sending the information to the server
+		 * @param {Object} secret Secret object
 		 */
-		async createNote(note) {
+		async createSecret(secret) {
 			this.updating = true
 			try {
-				const response = await axios.post(generateUrl('/apps/secrets/notes'), note)
-				const index = this.notes.findIndex((match) => match.id === this.currentNoteId)
-				this.$set(this.notes, index, response.data)
-				this.currentNoteId = response.data.id
+				const key = await this.generateCryptoKey();
+				const encryptedSecret = await this.encryptSecret(secret, key);
+				console.log("encrypted:");
+				console.log(encryptedSecret);
+				const response = await axios.post(generateUrl('/apps/secrets/secrets'), encryptedSecret)
+				const decryptedSecret = await this.decryptSecret(response.data, key)
+				console.log("decrypted:");
+				console.log(decryptedSecret);
+				const index = this.secrets.findIndex((match) => match.uuid === this.currentSecretUUId)
+				this.$set(this.secrets, index, decryptedSecret)
+				this.currentSecretUUId = response.data.uuid
 			} catch (e) {
 				console.error(e)
-				showError(t('notestutorial', 'Could not create the note'))
+				showError(t('secrets', 'Could not create the secret'))
 			}
 			this.updating = false
 		},
 		/**
-		 * Update an existing note on the server
-		 * @param {Object} note Note object
+		 * Update an existing secret on the server
+		 * @param {Object} secret Secret object
 		 */
-		async updateNote(note) {
+		async updateSecret(secret) {
 			this.updating = true
 			try {
-				await axios.put(generateUrl(`/apps/secrets/notes/${note.id}`), note)
+				await axios.put(generateUrl(`/apps/secrets/secrets/${secret.uuid}`), secret)
 			} catch (e) {
 				console.error(e)
-				showError(t('notestutorial', 'Could not update the note'))
+				showError(t('secrets', 'Could not update the secret'))
 			}
 			this.updating = false
 		},
 		/**
-		 * Delete a note, remove it from the frontend and show a hint
-		 * @param {Object} note Note object
+		 * Delete a secret, remove it from the frontend and show a hint
+		 * @param {Object} secret Secret object
 		 */
-		async deleteNote(note) {
+		async deleteSecret(secret) {
 			try {
-				await axios.delete(generateUrl(`/apps/secrets/notes/${note.id}`))
-				this.notes.splice(this.notes.indexOf(note), 1)
-				if (this.currentNoteId === note.id) {
-					this.currentNoteId = null
+				await axios.delete(generateUrl(`/apps/secrets/secrets/${secret.uuid}`))
+				this.secrets.splice(this.secrets.indexOf(secret), 1)
+				if (this.currentSecretUUId === secret.uuid) {
+					this.currentSecretUUId = null
 				}
-				showSuccess(t('secrets', 'Note deleted'))
+				showSuccess(t('secrets', 'Secret deleted'))
 			} catch (e) {
 				console.error(e)
-				showError(t('secrets', 'Could not delete the note'))
+				showError(t('secrets', 'Could not delete the secret'))
 			}
 		},
 	},

@@ -9,12 +9,12 @@ use OCP\AppFramework\App;
 use OCP\IRequest;
 use PHPUnit\Framework\TestCase;
 
-use OCA\Secrets\Db\Note;
-use OCA\Secrets\Db\NoteMapper;
-use OCA\Secrets\Controller\NoteController;
+use OCA\Secrets\Db\Secret;
+use OCA\Secrets\Db\SecretMapper;
+use OCA\Secrets\Controller\SecretController;
 
 class NoteIntegrationTest extends TestCase {
-	private NoteController $controller;
+	private SecretController $controller;
 	private QBMapper $mapper;
 	private string $userId = 'john';
 
@@ -32,25 +32,25 @@ class NoteIntegrationTest extends TestCase {
 			return $this->createMock(IRequest::class);
 		});
 
-		$this->controller = $container->get(NoteController::class);
-		$this->mapper = $container->get(NoteMapper::class);
+		$this->controller = $container->get(SecretController::class);
+		$this->mapper = $container->get(SecretMapper::class);
 	}
 
 	public function testUpdate(): void {
 		// create a new note that should be updated
-		$note = new Note();
+		$note = new Secret();
 		$note->setTitle('old_title');
-		$note->setContent('old_content');
+		$note->setEncrypted('old_content');
 		$note->setUserId($this->userId);
 
 		$id = $this->mapper->insert($note)->getId();
 
 		// fromRow does not set the fields as updated
-		$updatedNote = Note::fromRow([
+		$updatedNote = Secret::fromRow([
 			'id' => $id,
 			'user_id' => $this->userId
 		]);
-		$updatedNote->setContent('content');
+		$updatedNote->setEncrypted('content');
 		$updatedNote->setTitle('title');
 
 		$result = $this->controller->update($id, 'title', 'content');

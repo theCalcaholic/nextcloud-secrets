@@ -7,29 +7,45 @@ namespace OCA\Secrets\Db;
 
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\Entity;
+use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\AppFramework\Db\QBMapper;
+use OCP\DB\Exception;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 
 /**
  * @template-extends QBMapper<Note>
  */
-class NoteMapper extends QBMapper {
+class SecretMapper extends QBMapper {
 	public function __construct(IDBConnection $db) {
-		parent::__construct($db, 'secrets', Note::class);
+		parent::__construct($db, 'secrets', Secret::class);
 	}
 
 	/**
-	 * @throws \OCP\AppFramework\Db\MultipleObjectsReturnedException
+	 * @throws MultipleObjectsReturnedException
 	 * @throws DoesNotExistException
 	 */
-	public function find(int $id, string $userId): Note {
+	public function find(string $uuid, string $userId): Secret {
 		/* @var $qb IQueryBuilder */
 		$qb = $this->db->getQueryBuilder();
 		$qb->select('*')
 			->from('secrets')
-			->where($qb->expr()->eq('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT)))
+			->where($qb->expr()->eq('uuid', $qb->createNamedParameter($uuid)))
 			->andWhere($qb->expr()->eq('user_id', $qb->createNamedParameter($userId)));
+		return $this->findEntity($qb);
+	}
+
+	/**
+	 * @throws MultipleObjectsReturnedException
+	 * @throws DoesNotExistException
+	 */
+	public function findPublic(string $uuid): Secret {
+		/* @var $db IQueryBuilder */
+		$qb = $this->db->getQueryBuilder();
+		$qb->select('*')
+			->from('secrets')
+			->where($qb->expr()->eq('uuid', $qb->createNamedParameter($uuid)))
+			->andWhere($qb->expr()->eq('public', true));
 		return $this->findEntity($qb);
 	}
 

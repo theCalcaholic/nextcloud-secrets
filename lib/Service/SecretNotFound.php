@@ -5,5 +5,5 @@ declare(strict_types=1);
 
 namespace OCA\Secrets\Service;
 
-class NoteNotFound extends \Exception {
+class SecretNotFound extends \Exception {
 }

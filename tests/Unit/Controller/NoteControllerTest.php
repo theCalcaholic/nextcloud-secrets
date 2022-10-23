@@ -10,22 +10,22 @@ use PHPUnit\Framework\TestCase;
 use OCP\AppFramework\Http;
 use OCP\IRequest;
 
-use OCA\Secrets\Service\NoteNotFound;
-use OCA\Secrets\Service\NoteService;
-use OCA\Secrets\Controller\NoteController;
+use OCA\Secrets\Service\SecretNotFound;
+use OCA\Secrets\Service\SecretService;
+use OCA\Secrets\Controller\SecretController;
 
 class NoteControllerTest extends TestCase {
-	protected NoteController $controller;
+	protected SecretController $controller;
 	protected string $userId = 'john';
 	protected $service;
 	protected $request;
 
 	public function setUp(): void {
 		$this->request = $this->getMockBuilder(IRequest::class)->getMock();
-		$this->service = $this->getMockBuilder(NoteService::class)
+		$this->service = $this->getMockBuilder(SecretService::class)
 			->disableOriginalConstructor()
 			->getMock();
-		$this->controller = new NoteController($this->request, $this->service, $this->userId);
+		$this->controller = new SecretController($this->request, $this->service, $this->userId);
 	}
 
 	public function testUpdate(): void {
@@ -48,7 +48,7 @@ class NoteControllerTest extends TestCase {
 		// test the correct status code if no note is found
 		$this->service->expects($this->once())
 			->method('update')
-			->will($this->throwException(new NoteNotFound()));
+			->will($this->throwException(new SecretNotFound()));
 
 		$result = $this->controller->update(3, 'title', 'content');
 
