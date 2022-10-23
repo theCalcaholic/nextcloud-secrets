@@ -34,6 +34,7 @@ class SecretController extends Controller {
 
 	/**
 	 * @NoAdminRequired
+	 * @PublicPage
 	 */
 	public function show(string $uuid): DataResponse {
 		return $this->handleNotFound(function () use ($uuid) {

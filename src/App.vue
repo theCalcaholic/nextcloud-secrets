@@ -35,24 +35,16 @@
 			</ul>
 		</AppNavigation>
 		<AppContent>
-			<div v-if="currentSecret">
-				<input ref="title"
-					v-model="currentSecret.title"
-					type="text"
-					:disabled="updating">
-				<p>{{ currentFormattedUUID }}</p>
-				<p>{{ currentSecretLink }}</p>
-				<textarea ref="content" v-model="currentSecret.content" :disabled="updating" />
-				<input type="button"
-					class="primary"
-					:value="t('secrets', 'Save')"
-					:disabled="updating || !savePossible"
-					@click="saveSecret">
-			</div>
+			<!--v-on:secret-changed="changeSecret"-->
+			<Secret v-if="currentSecret"
+					:encrypted="currentSecret.encrypted"
+					:secret="currentSecret"
+					:locked="locked" :readonly="false"
+					v-on:title-changed="updateCurrentSecret"
+					v-on:save-secret="saveSecret"></Secret>
 			<div v-else id="emptycontent">
 				<div class="icon-file" />
-				<h2>{{
-				 t('secrets', 'Create a secret to get started') }}</h2>
+				<h2>{{ t('secrets', 'Create a secret to get started') }}</h2>
 			</div>
 		</AppContent>
 	</div>
@@ -64,6 +56,7 @@ import AppContent from '@nextcloud/vue/dist/Components/AppContent'
 import AppNavigation from '@nextcloud/vue/dist/Components/AppNavigation'
 import AppNavigationItem from '@nextcloud/vue/dist/Components/AppNavigationItem'
 import AppNavigationNew from '@nextcloud/vue/dist/Components/AppNavigationNew'
+import Secret from "./Secret";
 
 import '@nextcloud/dialogs/styles/toast.scss'
 import { generateUrl } from '@nextcloud/router'
@@ -78,11 +71,13 @@ export default {
 		AppNavigation,
 		AppNavigationItem,
 		AppNavigationNew,
+		Secret
 	},
 	data() {
 		return {
 			secrets: [],
 			currentSecretUUId: null,
+			currentSecretKeyBuf: null,
 			updating: false,
 			loading: true,
 		}
@@ -92,17 +87,29 @@ export default {
 		 * Return the currently selected secret object
 		 * @returns {Object|null}
 		 */
-		currentSecret() {
-			if (this.currentSecretUUId === null) {
-				return null
-			}
-			return this.secrets.find((secret) => secret.uuid === this.currentSecretUUId)
-		},
+		currentSecret: {
+			get()
+			{
+				if (this.currentSecretUUId === null) {
+					return null
+				}
+				return this.secrets.find((secret) => secret.uuid === this.currentSecretUUId)
+			},
+			set(val) {
+				// this.$set(this.secrets, index, val);
+				console.log("setSecret(", val, ")");
 
-		currentSecretURL() {
-			let k = window.crypto.subtle.generateKey();
-			k.buffer
-			return window.crypto.subtle.exportKey("raw", this.currentSecret.key)
+				const index = this.secrets.findIndex((secret) => secret.uuid === this.currentSecretUUId)
+				this.$set(this.secrets, index, val);
+				// const currentSecret = this.currentSecret;
+				// if (currentSecret === null) {
+				// 	return;
+				// }
+				// currentSecret.uuid = val.uuid;
+				// currentSecret.title = val.title;
+				// currentSecret.encrypted = val.encrypted;
+				// currentSecret.iv = val.iv;
+			}
 		},
 
 		/**
@@ -110,14 +117,14 @@ export default {
 		 * @returns {Boolean}
 		 */
 		savePossible() {
-			return this.currentSecret && this.currentSecret.uuid === ''
+			return this.currentSecret && this.currentSecret.key;
 		},
-		currentFormattedUUID() {
-			if (this.currentSecretUUId === null)
-				return null;
-			let uuid = this.currentSecretUUId
-			return `${uuid.substring(0, 8)}-${uuid.substring(8, 4)}-${uuid.substring(12, 4)}-${uuid.substring(16, 4)}`
-				+ `-${uuid.substring(20, 12)}`;
+		/**
+		 *
+		 * @returns {boolean}
+		 */
+		locked() {
+			return this.updating || this.loading;
 		}
 	},
 	/**
@@ -144,46 +151,9 @@ export default {
 				return
 			}
 			this.currentSecretUUId = secret.uuid
-			this.$nextTick(() => {
-				this.$refs.content.focus()
-			})
-		},
-		/**
-		 * Action tiggered when clicking the save button
-		 * create a new secret or save
-		 */
-		saveSecret() {
-			if (this.currentSecretUUId === "") {
-				this.createSecret(this.currentSecret)
-			} else {
-				this.updateSecret(this.currentSecret)
-			}
-		},
-		/**
-		 * Create a new secret and focus the secret content field automatically
-		 * The secret is not yet saved, therefore an id of "" is used until it
-		 * has been persisted in the backend
-		 */
-		async newSecret() {
-			if (this.currentSecretUUId !== "") {
-				this.currentSecretUUId = ""
-				this.secrets.push({
-					uuid: "",
-					title: 'new secret',
-					_content: '',
-					key: await this.generateCryptoKey()
-				})
-				this.$nextTick(() => {
-					this.$refs.title.focus()
-				})
-			}
-		},
-		/**
-		 * Abort creating a new secret
-		 */
-		cancelNewSecret() {
-			this.secrets.splice(this.secrets.findIndex((secret) => secret.uuid === ""), 1)
-			this.currentSecretUUId = null
+			// this.$nextTick(() => {
+			// 	this.$refs.currentSecret.focus()
+			// })
 		},
 		async generateCryptoKey() {
 			return await window.crypto.subtle.generateKey({
@@ -193,46 +163,54 @@ export default {
 				true,
 				["encrypt", "decrypt"]);
 		},
-		async encryptSecret(secret, key) {
-			let encoder = new TextEncoder();
-			const iv = window.crypto.getRandomValues(new Uint16Array(12));
-			const encrypted = await window.crypto.subtle.encrypt({ name: "AES-GCM", iv: iv },
-				key,
-				encoder.encode(secret.content)
-			);
-
-			return {
-				uuid: secret.uuid,
-				title: secret.title,
-				encrypted: String.fromCharCode.apply(null, new Uint16Array(encrypted)),
-				iv: String.fromCharCode.apply(null, iv)
+		/**
+		 * Action tiggered when clicking the save button
+		 * create a new secret or save
+		 */
+		saveSecret(secret) {
+			if (this.currentSecretUUId === "") {
+				this.createSecret(secret);
+			} else {
+				this.updateSecret(secret);
 			}
 		},
-		stringToArrayBuffer(str) {
-			const buff = new ArrayBuffer(str.length * 2)
-			const buffView = new Uint16Array(buff)
-			for(let i = 0, strLen = str.length; i < strLen; i++) {
-				buffView[i] = str.charCodeAt(i);
+		/**
+		 * Create a new secret and focus the secret content field automatically
+		 * The secret is not yet saved, therefore an id of "" is used until it
+		 * has been persisted in the backend
+		 */
+		async newSecret() {
+			const key = await this.generateCryptoKey();
+			const iv = window.crypto.getRandomValues(new Uint8Array(12));
+			const decoder = new TextDecoder();
+			if (this.currentSecretUUId !== "") {
+				this.currentSecretUUId = ""
+				this.secrets.push({
+					uuid: "",
+					title: 'new secret',
+					key: key,
+					iv: Array.from(iv).map(b => String.fromCharCode(b)).join(''),
+					encrypted: ""
+				})
+				// this.$nextTick(() => {
+				// 	this.$refs.title.focus()
+				// })
 			}
-			return buff;
 		},
-		async decryptSecret(secret, key) {
-			const iv = this.stringToArrayBuffer(secret.iv);
-			const encrypted = this.stringToArrayBuffer(secret.encrypted);
-			const decrypted = await window.crypto.subtle.decrypt({ name: "AES-GCM", iv: iv }, key, encrypted);
-			let decoder = new TextDecoder();
-			console.log("decrypted:");
-			console.log(decrypted);
-			console.log(String.fromCharCode.apply(null, decrypted));
-			console.log(decoder.decode(decrypted));
+		/**
+		 * Abort creating a new secret
+		 */
+		cancelNewSecret() {
+			this.secrets.splice(this.secrets.findIndex((secret) => secret.uuid === ""), 1)
+			this.currentSecretUUId = null
+		},
+		updateCurrentSecret(secret) {
 
-			return {
-				uuid: secret.uuid,
-				title: secret.title,
-				iv: secret.iv,
-				content: decoder.decode(decrypted),
-				encrypted: secret.encrypted
-			};
+			// this.currentSecret.title = secret.title;
+			// this.currentSecret.encrypted = secret.encrypted;
+			const index = this.secrets.findIndex((match) => match.uuid === this.currentSecretUUId);
+			this.$set(this.secrets, index, secret);
+			// this.currentSecret.title = title;
 		},
 		/**
 		 * Create a new secret by sending the information to the server
@@ -241,17 +219,20 @@ export default {
 		async createSecret(secret) {
 			this.updating = true
 			try {
-				const key = await this.generateCryptoKey();
-				const encryptedSecret = await this.encryptSecret(secret, key);
+				const encryptedSecret = {uuid: secret.uuid, title: secret.title, encrypted: secret.encrypted, iv: secret.iv};
 				console.log("encrypted:");
 				console.log(encryptedSecret);
 				const response = await axios.post(generateUrl('/apps/secrets/secrets'), encryptedSecret)
-				const decryptedSecret = await this.decryptSecret(response.data, key)
-				console.log("decrypted:");
-				console.log(decryptedSecret);
+				// const decryptedSecret = await this.decryptSecret(response.data, secret.key)
+				// console.log("decrypted:");
+				// console.log(decryptedSecret);
 				const index = this.secrets.findIndex((match) => match.uuid === this.currentSecretUUId)
-				this.$set(this.secrets, index, decryptedSecret)
+				this.$set(this.secrets, index, {
+					key: secret.key,
+					...response.data
+				})
 				this.currentSecretUUId = response.data.uuid
+				this.currentSecretKeyBuf = await window.crypto.subtle.exportKey("raw", this.currentSecret.key)
 			} catch (e) {
 				console.error(e)
 				showError(t('secrets', 'Could not create the secret'))
@@ -282,6 +263,7 @@ export default {
 				this.secrets.splice(this.secrets.indexOf(secret), 1)
 				if (this.currentSecretUUId === secret.uuid) {
 					this.currentSecretUUId = null
+					this.currentSecretKeyBuf = null;
 				}
 				showSuccess(t('secrets', 'Secret deleted'))
 			} catch (e) {
@@ -293,21 +275,5 @@ export default {
 }
 </script>
 <style scoped>
-	#app-content > div {
-		width: 100%;
-		height: 100%;
-		padding: 20px;
-		display: flex;
-		flex-direction: column;
-		flex-grow: 1;
-	}
 
-	input[type='text'] {
-		width: 100%;
-	}
-
-	textarea {
-		flex-grow: 1;
-		width: 100%;
-	}
 </style>
