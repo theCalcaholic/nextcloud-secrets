@@ -44,8 +44,8 @@ class SecretMapper extends QBMapper {
 		$qb = $this->db->getQueryBuilder();
 		$qb->select('*')
 			->from('secrets')
-			->where($qb->expr()->eq('uuid', $qb->createNamedParameter($uuid)))
-			->andWhere($qb->expr()->eq('public', true));
+			->where($qb->expr()->eq('uuid', $qb->createNamedParameter($uuid)));
+			//->andWhere($qb->expr()->eq('public', '1', IQueryBuilder::PARAM_BOOL));
 		return $this->findEntity($qb);
 	}
 

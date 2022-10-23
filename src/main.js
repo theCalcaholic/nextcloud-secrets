@@ -5,8 +5,11 @@
 
 import { generateFilePath } from '@nextcloud/router'
 
+import lib from './common';
 import Vue from 'vue'
+Object.defineProperty(Vue.prototype, '$secrets', {value: lib});
 import App from './App'
+import Share from './Share'
 
 // eslint-disable-next-line
 __webpack_public_path__ = generateFilePath(appName, '', 'js/')
@@ -15,5 +18,11 @@ Vue.mixin({ methods: { t, n } })
 
 export default new Vue({
 	el: '#content',
-	render: h => h(App),
+	render: h => {
+		if (window.location.pathname.endsWith("app/secrets/show")) {
+			return h(App);
+		} else {
+			return h(Share);
+		}
+	},
 })
