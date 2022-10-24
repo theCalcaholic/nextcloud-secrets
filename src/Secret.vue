@@ -2,18 +2,18 @@
 	<div class="secret-container">
 		<input ref="title"
 			   class="secret-title"
-			   v-model="title"
+			   v-model="value.title"
 			   type="text"
 			   :disabled="!isUnlocked || locked || readonly">
 		<p v-if="!readonly">{{ formattedUUID }}</p>
 		<a v-if="!readonly && url" :href="url">Share Link</a>
 		<textarea :class="isUnlocked ? '' : 'warning'"
-				  v-model="decrypted" :disabled="!isUnlocked || locked || readonly" />
+				  v-model="value._decrypted" :disabled="!isUnlocked || locked || readonly" />
 		<input v-if="!readonly" type="button"
 			   class="primary"
 			   :value="t('secrets', 'Save')"
 			   :disabled="locked || !isUnlocked"
-			   @click="$emit('save-secret', secret.uuid)">
+			   @click="$emit('save-secret', value)">
 	</div>
 </template>
 
@@ -41,71 +41,30 @@ export default {
 	data() {
 		return {
 			keyBuf: null,
-			decryptedContent: null,
-			encryptedContent: this.secret.encrypted,
-			title: this.secret.title
 		}
 	},
-	props: ['secret', 'locked', 'readonly'],
+	props: ['value', 'locked', 'readonly'],
 	computed: {
 		isUnlocked() {
-			return this.secret.key;
-		},
-
-		decrypted: {
-			get() {
-				if (this.isUnlocked) {
-					return this.decryptedContent;
-				}
-				return "Can't decrypt: Key not available.";
-			},
-			set(val) {
-				if (!this.isUnlocked) {
-					return;
-				}
-				this.encryptString(val, this.secret.key, this.secret.iv).then(encrypted => {
-					this.encryptedContent = encrypted;
-				}, e => {
-					console.error(e);
-				})
-			}
+			return this.value.key;
 		},
 
 		url() {
 			if (!this.isUnlocked || !this.keyBuf)
 				return null;
 			return generateUrl(
-				`/apps/secrets/secrets/show/${this.secret.uuid}`
+				`/apps/secrets/secrets/show/${this.value.uuid}`
 				+ `#${window.btoa(String.fromCharCode(...new Uint8Array(this.keyBuf)))}`
 			);
 		},
 		formattedUUID() {
-			if (this.secret.uuid === "")
+			if (this.value.uuid === "")
 				return null;
-			let uuid = this.secret.uuid
+			let uuid = this.value.uuid
 			return `${uuid.substring(0, 8)}-${uuid.substring(8, 4)}-${uuid.substring(12, 4)}-${uuid.substring(16, 4)}`
 				+ `-${uuid.substring(20, 12)}`;
 		},
-		async mounted() {
-			if (this.isUnlocked)
-				this.decryptedContent = await this.decryptString(this.secret.encrypted, this.secret.key, this.secret.iv);
-		}
 
-	},
-	watch: {
-		async value() {
-			if (this.isUnlocked)
-				this.decryptedContent = await this.decryptString(this.secret.encrypted, this.secret.key, this.secret.iv);
-		},
-		secret() {
-			if (this.isUnlocked)
-				this.decryptString(this.secret.encrypted, this.secret.key, this.secret.iv).then(decrypted => {
-					this.decryptedContent = decrypted;
-				});
-		},
-		title() {
-			this.$emit('title-changed', {...this.secret, title: this.title, encrypted: this.encryptedContent})
-		}
 	},
 	methods: {
 		// async encryptSecret(secret, key) {
@@ -144,23 +103,23 @@ export default {
 			}
 			return buff;
 		},
-		b64encode(bytes) {
-			let binary = "";
-			const len = bytes.byteLength;
-			for (let i =0; i < len; i++) {
-				binary += String.fromCharCode(bytes[i]);
-			}
-			return window.btoa(binary);
-		},
-		b64decode(str) {
-			let bString = window.atob(str);
-			let len = bString.length;
-			let buf = new Uint8Array(len);
-			for (let i = 0; i < len; i++) {
-				buf[i] = bString.charCodeAt(i);
-			}
-			return buf;
-		},
+		// b64encode(bytes) {
+		// 	let binary = "";
+		// 	const len = bytes.byteLength;
+		// 	for (let i =0; i < len; i++) {
+		// 		binary += String.fromCharCode(bytes[i]);
+		// 	}
+		// 	return window.btoa(binary);
+		// },
+		// b64decode(str) {
+		// 	let bString = window.atob(str);
+		// 	let len = bString.length;
+		// 	let buf = new Uint8Array(len);
+		// 	for (let i = 0; i < len; i++) {
+		// 		buf[i] = bString.charCodeAt(i);
+		// 	}
+		// 	return buf;
+		// },
 		async decryptString(s, key, iv) {
 			console.log("decrypt(", s, key, iv, ")");
 			if (s === "")
@@ -171,14 +130,11 @@ export default {
 			const decrypted = await window.crypto.subtle.decrypt(
 				{name: "AES-GCM", iv: new Uint8Array(Array.from(iv).map(ch => ch.charCodeAt(0)))},
 				key,
-				window.atob(s)
-			).then( decrypted => {
-				const decoder = new TextDecoder();
-				return decoder.decode(decrypted);
-			}, e => {
-				console.error(e);
-				throw e;
-			});
+				encoder.encode(s)
+			)
+			const decoder = new TextDecoder();
+			return decoder.decode(decrypted);
+
 
 		},
 		// async decryptSecret(secret, key) {

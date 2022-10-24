@@ -5,9 +5,9 @@
 
 import { generateFilePath } from '@nextcloud/router'
 
-import secrets from './secrets';
+import lib from './common';
 import Vue from 'vue'
-Object.defineProperty(Vue.prototype, "$secrets", {value: secrets})
+Object.defineProperty(Vue.prototype, "$secrets", {value: lib})
 import App from './App'
 
 // eslint-disable-next-line

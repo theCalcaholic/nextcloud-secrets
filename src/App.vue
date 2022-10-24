@@ -37,10 +37,8 @@
 		<AppContent>
 			<!--v-on:secret-changed="changeSecret"-->
 			<Secret v-if="currentSecret"
-					:encrypted="currentSecret.encrypted"
-					:secret="currentSecret"
+					v-model="currentSecret"
 					:locked="locked" :readonly="false"
-					v-on:title-changed="updateCurrentSecret"
 					v-on:save-secret="saveSecret"></Secret>
 			<div v-else id="emptycontent">
 				<div class="icon-file" />
@@ -182,15 +180,14 @@ export default {
 		async newSecret() {
 			const key = await this.generateCryptoKey();
 			const iv = window.crypto.getRandomValues(new Uint8Array(12));
-			const decoder = new TextDecoder();
 			if (this.currentSecretUUId !== "") {
 				this.currentSecretUUId = ""
 				this.secrets.push({
 					uuid: "",
 					title: 'new secret',
 					key: key,
-					iv: Array.from(iv).map(b => String.fromCharCode(b)).join(''),
-					encrypted: ""
+					iv: iv,
+					_decrypted: ""
 				})
 				// this.$nextTick(() => {
 				// 	this.$refs.title.focus()
@@ -219,17 +216,22 @@ export default {
 		async createSecret(secret) {
 			this.updating = true
 			try {
-				const encryptedSecret = {uuid: secret.uuid, title: secret.title, encrypted: secret.encrypted, iv: secret.iv};
-				console.log("encrypted:");
-				console.log(encryptedSecret);
+				const encrypted = await this.$secrets.encrypt(secret._decrypted, secret.key, secret.iv);
+				const encryptedSecret = {
+					title: secret.title,
+					encrypted: encrypted,
+					iv: String.fromCharCode.apply(null, secret.iv)
+				};
+				console.log("encrypted:", encrypted);
 				const response = await axios.post(generateUrl('/apps/secrets/secrets'), encryptedSecret)
-				// const decryptedSecret = await this.decryptSecret(response.data, secret.key)
-				// console.log("decrypted:");
-				// console.log(decryptedSecret);
+				const decrypted = await this.$secrets.decrypt(response.data.encrypted, secret.key, secret.iv)
+				console.log("decrypted:", decrypted);
 				const index = this.secrets.findIndex((match) => match.uuid === this.currentSecretUUId)
 				this.$set(this.secrets, index, {
+					...response.data,
+					_decrypted: decrypted,
 					key: secret.key,
-					...response.data
+					iv: this.$secrets.stringToArrayBuffer(response.data.iv)
 				})
 				this.currentSecretUUId = response.data.uuid
 				this.currentSecretKeyBuf = await window.crypto.subtle.exportKey("raw", this.currentSecret.key)
