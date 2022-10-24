@@ -224,7 +224,10 @@ export default {
 				};
 				console.log("encrypted:", encrypted);
 				const response = await axios.post(generateUrl('/apps/secrets/secrets'), encryptedSecret)
-				const decrypted = await this.$secrets.decrypt(response.data.encrypted, secret.key, secret.iv)
+				const decrypted = await this.$secrets.decrypt(
+					response.data.encrypted,
+					secret.key,
+					this.$secrets.stringToArrayBuffer(response.data.iv))
 				console.log("decrypted:", decrypted);
 				const index = this.secrets.findIndex((match) => match.uuid === this.currentSecretUUId)
 				this.$set(this.secrets, index, {

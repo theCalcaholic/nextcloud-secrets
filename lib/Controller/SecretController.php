@@ -44,9 +44,8 @@ class SecretController extends Controller {
 
 	/**
 	 * @CORS
+	 * @PublicPage
 	 * @NoCSRFRequired
-	 * @NoAdminRequired
-	 *
 	 * @param string $uuid
 	 * @return DataResponse
 	 */

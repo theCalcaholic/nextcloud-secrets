@@ -1,4 +1,5 @@
 export default {
+	ALGO: "AES-GCM",
 	/**
 	 *
 	 * @param plain {String}
@@ -34,6 +35,7 @@ export default {
 	 * @returns {Promise<String>}
 	 */
 	async decrypt(cipher, key, iv) {
+		console.log("decrypt(", cipher, ",", key, ",", iv, ")");
 		const plainBuffer = await window.crypto.subtle.decrypt(
 			{ name: "AES-GCM", iv: iv },
 			key,

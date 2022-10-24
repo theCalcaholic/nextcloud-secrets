@@ -52,9 +52,11 @@ export default {
 		url() {
 			if (!this.isUnlocked || !this.keyBuf)
 				return null;
+			const keyArray = Array.from(new Uint8Array(this.keyBuf));
+			const keyStr = keyArray.map(byte => String.fromCharCode(byte)).join('');
 			return generateUrl(
-				`/apps/secrets/secrets/show/${this.value.uuid}`
-				+ `#${window.btoa(String.fromCharCode(...new Uint8Array(this.keyBuf)))}`
+				`/apps/secrets/show/${this.value.uuid}`
+				+ `#${window.btoa(keyStr)}`
 			);
 		},
 		formattedUUID() {
@@ -65,6 +67,11 @@ export default {
 				+ `-${uuid.substring(20, 12)}`;
 		},
 
+	},
+	watch: {
+		async value() {
+			this.keyBuf = await window.crypto.subtle.exportKey("raw", this.value.key);
+		}
 	},
 	methods: {
 		// async encryptSecret(secret, key) {

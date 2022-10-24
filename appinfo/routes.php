@@ -21,6 +21,7 @@ return [
 		['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
 		['name' => 'secrets_api#preflighted_cors', 'url' => '/api/0.1/{path}',
 			'verb' => 'OPTIONS', 'requirements' => ['path' => '.+']],
-		['name' => 'SecretShare#get', 'url' => '/show/{token}', 'verb' => 'GET']
+		['name' => 'SecretShare#get', 'url' => '/show/{token}', 'verb' => 'GET'],
+		['name' => 'Secret#showPublic', 'url' => '/api/show/{uuid}', 'verb' => 'GET']
 	]
 ];

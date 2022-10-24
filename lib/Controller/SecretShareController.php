@@ -10,10 +10,12 @@ use OCA\Secrets\Service\SecretNotFound;
 use OCA\Secrets\Service\SecretService;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\DataResponse;
+use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IRequest;
 
 use OCP\AppFramework\PublicShareController;
 use OCP\ISession;
+use OCP\Util;
 use function PHPUnit\Framework\throwException;
 
 class SecretShareController extends PublicShareController {
@@ -50,7 +52,9 @@ class SecretShareController extends PublicShareController {
 	 * @PublicPage
 	 * @NoCSRFRequired
 	 */
-	public function get() {
-		return "hello world";
+	public function get(): TemplateResponse {
+		Util::addScript(Application::APP_ID, 'secrets-main');
+
+		return new TemplateResponse(Application::APP_ID, 'public');
 	}
 }
