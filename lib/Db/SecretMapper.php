@@ -5,6 +5,7 @@ declare(strict_types=1);
 
 namespace OCA\Secrets\Db;
 
+use OCA\Secrets\Service\SecretNotFound;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\Entity;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
@@ -44,9 +45,48 @@ class SecretMapper extends QBMapper {
 		$qb = $this->db->getQueryBuilder();
 		$qb->select('*')
 			->from('secrets')
+			->where($qb->expr()->eq('uuid', $qb->createNamedParameter($uuid)))
+			->andWhere($qb->expr()->isNotNull('encrypted'));
+		$params = $this->findOneQuery($qb);
+		return Secret::fromParams([
+			'uuid' => $params["uuid"],
+			'title' => "Shared Secret",
+			'encrypted' => $params["encrypted"],
+			'iv' => $params["iv"]
+		]);
+	}
+
+	/**
+	 * @param string $uuid
+	 * @return Secret
+	 * @throws DoesNotExistException
+	 * @throws MultipleObjectsReturnedException
+	 * @throws Exception
+	 */
+	public function invalidate(string $uuid): Secret {
+		$qb = $this->db->getQueryBuilder();
+		$qb->select('*')
+			->from('secrets')
+			->where($qb->expr()->eq('uuid', $qb->createNamedParameter($uuid)))
+			->andWhere($qb->expr()->isNotNull('encrypted'));
+		$secret = $this->findEntity($qb);
+		$secret->setEncrypted(null);
+		$secret->setIv(null);
+		return $this->update($secret);
+	}
+
+	/**
+	 * @throws DoesNotExistException
+	 * @throws MultipleObjectsReturnedException
+	 */
+	public function getId(string $uuid): int {
+
+		/* @var $db IQueryBuilder */
+		$qb = $this->db->getQueryBuilder();
+		$qb->select('id')
+			->from('secrets')
 			->where($qb->expr()->eq('uuid', $qb->createNamedParameter($uuid)));
-			//->andWhere($qb->expr()->eq('public', '1', IQueryBuilder::PARAM_BOOL));
-		return $this->findEntity($qb);
+		return $this->findOneQuery($qb)['id'];
 	}
 
 	/**

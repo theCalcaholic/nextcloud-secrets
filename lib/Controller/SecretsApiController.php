@@ -59,18 +59,6 @@ class SecretsApiController extends ApiController {
 	 * @NoCSRFRequired
 	 * @NoAdminRequired
 	 */
-	public function update(string $uuid, string $title,
-						   string $encrypted, string $iv): DataResponse {
-		return $this->handleNotFound(function () use ($uuid, $title, $encrypted, $iv) {
-			return $this->service->update($uuid, $title, $encrypted, $iv, $this->userId);
-		});
-	}
-
-	/**
-	 * @CORS
-	 * @NoCSRFRequired
-	 * @NoAdminRequired
-	 */
 	public function destroy(string $uuid): DataResponse {
 		return $this->handleNotFound(function () use ($uuid) {
 			return $this->service->delete($uuid, $this->userId);

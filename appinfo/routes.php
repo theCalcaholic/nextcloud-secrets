@@ -12,16 +12,18 @@ declare(strict_types=1);
  * it's instantiated in there
  */
 return [
-	'resources' => [
-		'secrets_api' => ['url' => '/api/0.1/secrets'],
-		'secret' => ['url' => '/secrets'],
-		'shared-secret' => ['url' => '/secrets/shared']
-	],
+//	'resources' => [
+//		'secret' => ['url' => '/secrets'],
+//	],
 	'routes' => [
 		['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
-		['name' => 'secrets_api#preflighted_cors', 'url' => '/api/0.1/{path}',
+		['name' => 'secrets_api#preflighted_cors', 'url' => '/api/v1/{path}',
 			'verb' => 'OPTIONS', 'requirements' => ['path' => '.+']],
 		['name' => 'SecretShare#get', 'url' => '/show/{token}', 'verb' => 'GET'],
-		['name' => 'Secret#showPublic', 'url' => '/api/show/{uuid}', 'verb' => 'GET']
+		['name' => 'Secret#showPublic', 'url' => '/api/v1/show/{uuid}', 'verb' => 'GET'],
+		['name' => 'secret#index', 'url' => '/secrets', 'verb' => 'GET'],
+		['name' => 'secret#show', 'url' => '/secrets/{uuid}', 'verb' => 'GET'],
+		['name' => 'secret#create', 'url' => '/secrets', 'verb' => 'POST'],
+		['name' => 'secret#delete', 'url' => '/secrets/{uuid}', 'verb' => 'DELETE'],
 	]
 ];

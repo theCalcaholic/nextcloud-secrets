@@ -6,9 +6,12 @@
 	<div id="content" class="app-secrets">
 		<AppContent>
 			<!--v-on:secret-changed="changeSecret"-->
+			<div class="warning">
+				Please make sure you have copied and stored the secret before closing this page! It is now deleted on the server.
+			</div>
 			<Secret v-if="secret"
 					v-model="secret"
-					:locked="false" :readonly="true"></Secret>
+					:locked="false" :editable="false"></Secret>
 			<div v-else id="emptycontent">
 				<div class="icon-file" />
 				<h2>{{ t('secrets', 'Create a secret to get started') }}</h2>
@@ -50,18 +53,24 @@ export default {
 		try {
 			const uuidIndex = window.location.pathname.lastIndexOf('/');
 			const uuid = window.location.pathname.substring(uuidIndex + 1);
-			const response = await axios.get(generateUrl(`/apps/secrets/api/show/${uuid}`))
+			const response = await axios.get(generateUrl(`/apps/secrets/api/v1/show/${uuid}`))
 			const secret = response.data;
+			console.log("secret: ", secret);
 			const iv = this.$secrets.stringToArrayBuffer(response.data.iv);
-			secret._decrypted = await this.$secrets.decrypt(secret.encrypted,
-				await window.crypto.subtle.importKey(
-					'raw',
-					new Uint8Array(Array.from(window.atob(window.location.hash.substring(1))).map(ch => ch.charCodeAt(0))),
-					{name: this.$secrets.ALGO, iv: iv},
-					false,
-					['decrypt']
-				),
-				iv)
+			try {
+				secret._decrypted = await this.$secrets.decrypt(secret.encrypted,
+					await window.crypto.subtle.importKey(
+						'raw',
+						new Uint8Array(Array.from(window.atob(window.location.hash.substring(1))).map(ch => ch.charCodeAt(0))),
+						{name: this.$secrets.ALGO, iv: iv},
+						false,
+						['decrypt']
+					),
+					iv)
+			} catch (e) {
+				console.error(e);
+				showError("Could not decrypt secret. Is the secret link valid?");
+			}
 			this.secret = secret;
 		} catch (e) {
 			console.error(e)

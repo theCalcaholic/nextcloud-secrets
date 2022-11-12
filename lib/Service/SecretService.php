@@ -12,6 +12,7 @@ use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
 use OCA\Secrets\Db\Secret;
 use OCA\Secrets\Db\SecretMapper;
+use Sabre\DAV\Exception\MethodNotAllowed;
 
 class SecretService {
 	private SecretMapper $mapper;
@@ -21,7 +22,8 @@ class SecretService {
 	}
 
 	/**
-	 * @return list<Secret>
+	 * @param string $userId
+	 * @return array<Secret>
 	 */
 	public function findAll(string $userId): array {
 		return $this->mapper->findAll($userId);
@@ -29,6 +31,7 @@ class SecretService {
 
 	/**
 	 * @return never
+	 * @throws SecretNotFound
 	 */
 	private function handleException(Exception $e) {
 		if ($e instanceof DoesNotExistException ||
@@ -52,6 +55,9 @@ class SecretService {
 		}
 	}
 
+	/**
+	 * @throws SecretNotFound
+	 */
 	public function findPublic(string $uuid): Secret {
 		try {
 			return $this->mapper->findPublic($uuid);
@@ -74,23 +80,33 @@ class SecretService {
 		return $this->mapper->insert($secret);
 	}
 
-	public function update(string $uuid, string $title, string $encrypted, string $iv, string $userId): Secret {
+	/**
+	 * @throws DoesNotExistException
+	 * @throws MultipleObjectsReturnedException
+	 */
+	public function getId(string $uuid): int {
+		return $this->mapper->getId($uuid);
+	}
+
+	/**
+	 * @throws SecretNotFound
+	 */
+	public function invalidate(string $uuid): Secret {
 		try {
-			$secret = $this->mapper->find($uuid, $userId);
-			$secret->setTitle($title);
-			$secret->setIv($iv);
-			$secret->setEncrypted($encrypted);
-			return $this->mapper->update($secret);
+			return $this->mapper->invalidate($uuid);
 		} catch (Exception $e) {
 			$this->handleException($e);
 		}
 	}
 
+	/**
+	 * @throws SecretNotFound
+	 */
 	public function delete(string $uuid, string $userId): Secret {
 		try {
-			$note = $this->mapper->find($uuid, $userId);
-			$this->mapper->delete($note);
-			return $note;
+			$secret = $this->mapper->find($uuid, $userId);
+			$this->mapper->delete($secret);
+			return $secret;
 		} catch (Exception $e) {
 			$this->handleException($e);
 		}

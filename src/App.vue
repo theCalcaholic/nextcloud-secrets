@@ -15,7 +15,11 @@
 				<AppNavigationItem v-for="secret in secrets"
 					:key="secret.uuid"
 					:title="secret.title ? secret.title : t('secrets', 'New secret')"
-					:class="{active: currentSecretUUId === secret.uuid}"
+					:class="{
+						active: currentSecretUUId === secret.uuid,
+						invalidated: secret.encrypted === null
+					}"
+				   :icon="secret.encrypted === null ? 'icon-toggle' : 'icon-password'"
 					@click="openSecret(secret)">
 					<template slot="actions">
 						<ActionButton v-if="secret.uuid === ''"
@@ -35,10 +39,9 @@
 			</ul>
 		</AppNavigation>
 		<AppContent>
-			<!--v-on:secret-changed="changeSecret"-->
 			<Secret v-if="currentSecret"
 					v-model="currentSecret"
-					:locked="locked" :readonly="false"
+					:locked="locked"
 					v-on:save-secret="saveSecret"></Secret>
 			<div v-else id="emptycontent">
 				<div class="icon-file" />
@@ -132,6 +135,7 @@ export default {
 		try {
 			const response = await axios.get(generateUrl('/apps/secrets/secrets'))
 			this.secrets = response.data;
+			console.log("secrets: ", this.secrets);
 		} catch (e) {
 			console.error(e)
 			showError(t('secrets', 'Could not fetch secrets'))
@@ -245,25 +249,13 @@ export default {
 			this.updating = false
 		},
 		/**
-		 * Update an existing secret on the server
-		 * @param {Object} secret Secret object
-		 */
-		async updateSecret(secret) {
-			this.updating = true
-			try {
-				await axios.put(generateUrl(`/apps/secrets/secrets/${secret.uuid}`), secret)
-			} catch (e) {
-				console.error(e)
-				showError(t('secrets', 'Could not update the secret'))
-			}
-			this.updating = false
-		},
-		/**
 		 * Delete a secret, remove it from the frontend and show a hint
 		 * @param {Object} secret Secret object
 		 */
 		async deleteSecret(secret) {
 			try {
+				if (!secret.uuid)
+					throw new Error("Secret has no UUID!");
 				await axios.delete(generateUrl(`/apps/secrets/secrets/${secret.uuid}`))
 				this.secrets.splice(this.secrets.indexOf(secret), 1)
 				if (this.currentSecretUUId === secret.uuid) {
@@ -279,6 +271,9 @@ export default {
 	},
 }
 </script>
-<style scoped>
-
+<style>
+.app-navigation-entry.invalidated .app-navigation-entry-link {
+	color: var(--color-warning);
+	opacity: 0.7;
+}
 </style>

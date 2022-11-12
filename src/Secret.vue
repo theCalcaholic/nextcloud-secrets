@@ -4,15 +4,26 @@
 			   class="secret-title"
 			   v-model="value.title"
 			   type="text"
-			   :disabled="!isUnlocked || locked || readonly">
-		<p v-if="!readonly">{{ formattedUUID }}</p>
-		<a v-if="!readonly && url" :href="url">Share Link</a>
-		<textarea :class="isUnlocked ? '' : 'warning'"
-				  v-model="value._decrypted" :disabled="!isUnlocked || locked || readonly" />
-		<input v-if="!readonly" type="button"
+			   :disabled="!isDecrypted || locked || !isEditable">
+		<div v-if="!isEditable && isDecrypted && value.encrypted">
+			<p class="info">
+				Your secret is stored end-to-end encrypted on the server. It can only be decrypted by someone who has been given the link.
+				Once retrieved successfully, the secret will be deleted on the server
+			</p>
+			<input type="text" disabled="disabled" :value="url" class="url-field"/>
+			<Actions class="secret-actions">
+				<ActionButton
+					:icon="copyButtonIcon"
+					@click="copyToClipboard(url)" ariaLabel="Copy Secret Link">
+				</ActionButton>
+			</Actions>
+		</div>
+		<textarea :class="isDecrypted ? '' : 'warning'"
+				  v-model="value._decrypted" :disabled="!isDecrypted || locked || !isEditable" />
+		<input v-if="isEditable" type="button"
 			   class="primary"
 			   :value="t('secrets', 'Save')"
-			   :disabled="locked || !isUnlocked"
+			   :disabled="locked || !isDecrypted"
 			   @click="$emit('save-secret', value)">
 	</div>
 </template>
@@ -36,25 +47,28 @@ export default {
 		AppContent,
 		AppNavigation,
 		AppNavigationItem,
-		AppNavigationNew,
+		AppNavigationNew
 	},
 	data() {
 		return {
 			keyBuf: null,
+			copyState: 'ready'
 		}
 	},
-	props: ['value', 'locked', 'readonly'],
+	props: ['value', 'locked'],
 	computed: {
-		isUnlocked() {
-			return this.value.key;
+		isDecrypted() {
+			return !!this.value.key;
 		},
-
+		isEditable() {
+			return !this.value.uuid;
+		},
 		url() {
-			if (!this.isUnlocked || !this.keyBuf)
+			if (!this.isDecrypted || !this.keyBuf)
 				return null;
 			const keyArray = Array.from(new Uint8Array(this.keyBuf));
 			const keyStr = keyArray.map(byte => String.fromCharCode(byte)).join('');
-			return generateUrl(
+			return window.location.protocol + '//' + window.location.host + generateUrl(
 				`/apps/secrets/show/${this.value.uuid}`
 				+ `#${window.btoa(keyStr)}`
 			);
@@ -66,29 +80,22 @@ export default {
 			return `${uuid.substring(0, 8)}-${uuid.substring(8, 4)}-${uuid.substring(12, 4)}-${uuid.substring(16, 4)}`
 				+ `-${uuid.substring(20, 12)}`;
 		},
+		copyButtonIcon() {
+			if (this.copyState === 'success')
+				return 'icon-checkmark';
+			if (this.copyState === 'error')
+				return 'icon-error';
+			return 'icon-clippy';
+		},
 
 	},
 	watch: {
 		async value() {
-			this.keyBuf = await window.crypto.subtle.exportKey("raw", this.value.key);
+			if (this.value.key)
+				this.keyBuf = await window.crypto.subtle.exportKey("raw", this.value.key);
 		}
 	},
 	methods: {
-		// async encryptSecret(secret, key) {
-		// 	let encoder = new TextEncoder();
-		// 	const iv = window.crypto.getRandomValues(new Uint16Array(12));
-		// 	const encrypted = await window.crypto.subtle.encrypt({ name: "AES-GCM", iv: iv },
-		// 		key,
-		// 		encoder.encode(secret.content)
-		// 	);
-		//
-		// 	return {
-		// 		uuid: secret.uuid,
-		// 		title: secret.title,
-		// 		encrypted: String.fromCharCode.apply(null, new Uint16Array(encrypted)),
-		// 		iv: String.fromCharCode.apply(null, iv)
-		// 	}
-		// },
 		async encryptString(s, key, iv) {
 			if (s === "")
 				return "";
@@ -110,23 +117,6 @@ export default {
 			}
 			return buff;
 		},
-		// b64encode(bytes) {
-		// 	let binary = "";
-		// 	const len = bytes.byteLength;
-		// 	for (let i =0; i < len; i++) {
-		// 		binary += String.fromCharCode(bytes[i]);
-		// 	}
-		// 	return window.btoa(binary);
-		// },
-		// b64decode(str) {
-		// 	let bString = window.atob(str);
-		// 	let len = bString.length;
-		// 	let buf = new Uint8Array(len);
-		// 	for (let i = 0; i < len; i++) {
-		// 		buf[i] = bString.charCodeAt(i);
-		// 	}
-		// 	return buf;
-		// },
 		async decryptString(s, key, iv) {
 			console.log("decrypt(", s, key, iv, ")");
 			if (s === "")
@@ -144,21 +134,16 @@ export default {
 
 
 		},
-		// async decryptSecret(secret, key) {
-		// 	const iv = this.stringToArrayBuffer(secret.iv);
-		// 	const encrypted = this.stringToArrayBuffer(secret.encrypted);
-		// 	const decrypted = await window.crypto.subtle.decrypt({ name: "AES-GCM", iv: iv }, key, encrypted);
-		// 	let decoder = new TextDecoder();
-		//
-		// 	return {
-		// 		uuid: secret.uuid,
-		// 		title: secret.title,
-		// 		key: key,
-		// 		iv: secret.iv,
-		// 		content: decoder.decode(decrypted),
-		// 		encrypted: secret.encrypted
-		// 	};
-		// },
+		async copyToClipboard(url) {
+			try {
+				await navigator.clipboard.writeText(url);
+				this.copyButtonIcon = 'icon-success'
+			} catch (e) {
+				showError(e.message);
+				console.error(e);
+			}
+
+		}
 
 	}
 }
@@ -185,6 +170,21 @@ export default {
 	}
 
 	textarea.warning {
-		color: #ff9955;
+		color: var(--color-warning);
+	}
+
+	.secret-actions {
+		display: inline-block;
+	}
+
+	input.url-field {
+		float: left;
+		max-width: 90%;
+		width: 30em;
+	}
+</style>
+<style>
+	actions.secret-actions li {
+		list-style: none;
 	}
 </style>

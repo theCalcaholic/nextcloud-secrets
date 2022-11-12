@@ -24,6 +24,10 @@ class Version000000Date20181013124731 extends SimpleMigrationStep {
 
 		if (!$schema->hasTable('secrets')) {
 			$table = $schema->createTable('secrets');
+			$table->addColumn('id', 'integer', [
+				'autoincrement' => true,
+				'notnull' => true,
+			]);
 			$table->addColumn('uuid', 'string', [
 				'notnull' => true,
 				'length' => 32
@@ -37,15 +41,15 @@ class Version000000Date20181013124731 extends SimpleMigrationStep {
 				'length' => 200,
 			]);
 			$table->addColumn('encrypted', 'blob', [
-				'notnull' => true,
-				'default' => ''
+				'notnull' => false,
+				'default' => null
 			]);
 			$table->addColumn('iv', 'blob', [
-				'notnull' => true,
-				'default' => ''
+				'notnull' => false,
+				'default' => null
 			]);
 
-			$table->setPrimaryKey(['uuid']);
+			$table->setPrimaryKey(['id']);
 			$table->addIndex(['user_id'], 'secrets_user_id_index');
 		}
 		return $schema;

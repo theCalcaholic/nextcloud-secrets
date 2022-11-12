@@ -16,18 +16,22 @@ use OCP\AppFramework\Db\Entity;
  * @method getTitle(): string
  * @method setTitle(string $title): void
  * @method getEncrypted(): string
- * @method setEncrypted(string $encrypted): void
+ * @method setEncrypted(?string $encrypted): void
  * @method getIv(): string
- * @method setIv(string $iv): void
+ * @method setIv(?string $iv): void
  * @method getUserId(): string
  * @method setUserId(string $userId): void
  */
 class Secret extends Entity implements JsonSerializable {
 	protected string $title = '';
-	protected string $encrypted = '';
+	protected ?string $encrypted = null;
 	protected string $userId = '';
 	protected string $uuid = '';
-	protected string $iv = '';
+	protected ?string $iv = null;
+
+	public function __construct() {
+		$this->addType('id','int');
+	}
 
 	public function jsonSerialize(): array {
 		return [

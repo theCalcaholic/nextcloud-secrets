@@ -51,7 +51,9 @@ class SecretController extends Controller {
 	 */
 	public function showPublic(string $uuid): DataResponse {
 		return $this->handleNotFound(function () use ($uuid) {
-			return $this->service->findPublic($uuid);
+			$secret = $this->service->findPublic($uuid);
+			$this->service->invalidate($uuid);
+			return $secret;
 		});
 	}
 
@@ -65,18 +67,11 @@ class SecretController extends Controller {
 
 	/**
 	 * @NoAdminRequired
+	 * @param string $uuid
+	 * @return DataResponse
 	 */
-	public function update(string $uuid, string $title,
-						   string $encrypted, string $iv): DataResponse {
-		return $this->handleNotFound(function () use ($uuid, $title, $encrypted, $iv) {
-			return $this->service->update($uuid, $title, $encrypted, $iv, $this->userId);
-		});
-	}
-
-	/**
-	 * @NoAdminRequired
-	 */
-	public function destroy(string $uuid): DataResponse {
+	public function delete(string $uuid): DataResponse {
+		error_log("uuid: " . $uuid );
 		return $this->handleNotFound(function () use ($uuid) {
 			return $this->service->delete($uuid, $this->userId);
 		});
