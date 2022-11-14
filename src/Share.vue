@@ -21,11 +21,11 @@
 </template>
 
 <script>
-import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
-import AppContent from '@nextcloud/vue/dist/Components/AppContent'
-import AppNavigation from '@nextcloud/vue/dist/Components/AppNavigation'
-import AppNavigationItem from '@nextcloud/vue/dist/Components/AppNavigationItem'
-import AppNavigationNew from '@nextcloud/vue/dist/Components/AppNavigationNew'
+import ActionButton from '@nextcloud/vue/dist/Components/NcActionButton'
+import AppContent from '@nextcloud/vue/dist/Components/NcAppContent'
+import AppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation'
+import AppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem'
+import AppNavigationNew from '@nextcloud/vue/dist/Components/NcAppNavigationNew'
 import Secret from "./Secret";
 
 import '@nextcloud/dialogs/styles/toast.scss'

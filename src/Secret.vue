@@ -1,11 +1,6 @@
 <template>
 	<div class="secret-container">
-		<input ref="title"
-			   class="secret-title"
-			   v-model="value.title"
-			   type="text"
-			   :disabled="!isDecrypted || locked || !isEditable">
-		<div v-if="!isEditable && isDecrypted && value.encrypted">
+		<div v-if="isDecrypted && value.encrypted">
 			<p class="info">
 				Your secret is stored end-to-end encrypted on the server. It can only be decrypted by someone who has been given the link.
 				Once retrieved successfully, the secret will be deleted on the server
@@ -19,21 +14,16 @@
 			</Actions>
 		</div>
 		<textarea :class="isDecrypted ? '' : 'warning'"
-				  v-model="value._decrypted" :disabled="!isDecrypted || locked || !isEditable" />
-		<input v-if="isEditable" type="button"
-			   class="primary"
-			   :value="t('secrets', 'Save')"
-			   :disabled="locked || !isDecrypted"
-			   @click="$emit('save-secret', value)">
+				  v-model="value._decrypted" :disabled="!isDecrypted || locked" />
 	</div>
 </template>
 
 <script>
-import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
-import AppContent from '@nextcloud/vue/dist/Components/AppContent'
-import AppNavigation from '@nextcloud/vue/dist/Components/AppNavigation'
-import AppNavigationItem from '@nextcloud/vue/dist/Components/AppNavigationItem'
-import AppNavigationNew from '@nextcloud/vue/dist/Components/AppNavigationNew'
+import ActionButton from '@nextcloud/vue/dist/Components/NcActionButton'
+import AppContent from '@nextcloud/vue/dist/Components/NcAppContent'
+import AppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation'
+import AppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem'
+import AppNavigationNew from '@nextcloud/vue/dist/Components/NcAppNavigationNew'
 
 import '@nextcloud/dialogs/styles/toast.scss'
 import { generateUrl } from '@nextcloud/router'
@@ -64,6 +54,7 @@ export default {
 			return !this.value.uuid;
 		},
 		url() {
+			console.log(`decrypted? ${this.isDecrypted}, keyBuf: ${this.keyBuf}`)
 			if (!this.isDecrypted || !this.keyBuf)
 				return null;
 			const keyArray = Array.from(new Uint8Array(this.keyBuf));
@@ -91,9 +82,14 @@ export default {
 	},
 	watch: {
 		async value() {
+			console.log("value watcher", this.value.key);
 			if (this.value.key)
 				this.keyBuf = await window.crypto.subtle.exportKey("raw", this.value.key);
 		}
+	},
+	async mounted() {
+		if (this.value.key)
+			this.keyBuf = await window.crypto.subtle.exportKey("raw", this.value.key);
 	},
 	methods: {
 		async encryptString(s, key, iv) {

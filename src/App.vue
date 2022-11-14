@@ -14,13 +14,16 @@
 			<ul>
 				<AppNavigationItem v-for="secret in secrets"
 					:key="secret.uuid"
-					:title="secret.title ? secret.title : t('secrets', 'New secret')"
+					:title="secret.title"
 					:class="{
 						active: currentSecretUUId === secret.uuid,
 						invalidated: secret.encrypted === null
 					}"
+				   :editable="true"
+				   :editLabel="t('secrets', 'Change Title')"
 				   :icon="secret.encrypted === null ? 'icon-toggle' : 'icon-password'"
-					@click="openSecret(secret)">
+				   @update:title="(title) => updateSecretTitle(secret, title)"
+				   @click="openSecret(secret)">
 					<template slot="actions">
 						<ActionButton v-if="secret.uuid === ''"
 							icon="icon-close"
@@ -39,10 +42,12 @@
 			</ul>
 		</AppNavigation>
 		<AppContent>
-			<Secret v-if="currentSecret"
+			<SecretEditor v-if="currentSecret && currentSecretUUId === ''"
+						  :locked="locked"
+						  v-on:save-secret="saveCurrentSecret"/>
+			<Secret v-else-if="currentSecret"
 					v-model="currentSecret"
-					:locked="locked"
-					v-on:save-secret="saveSecret"></Secret>
+					:locked="locked" />
 			<div v-else id="emptycontent">
 				<div class="icon-file" />
 				<h2>{{ t('secrets', 'Create a secret to get started') }}</h2>
@@ -52,12 +57,13 @@
 </template>
 
 <script>
-import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
-import AppContent from '@nextcloud/vue/dist/Components/AppContent'
-import AppNavigation from '@nextcloud/vue/dist/Components/AppNavigation'
-import AppNavigationItem from '@nextcloud/vue/dist/Components/AppNavigationItem'
-import AppNavigationNew from '@nextcloud/vue/dist/Components/AppNavigationNew'
+import ActionButton from '@nextcloud/vue/dist/Components/NcActionButton'
+import AppContent from '@nextcloud/vue/dist/Components/NcAppContent'
+import AppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation'
+import AppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem'
+import AppNavigationNew from '@nextcloud/vue/dist/Components/NcAppNavigationNew'
 import Secret from "./Secret";
+import SecretEditor from "./SecretEditor";
 
 import '@nextcloud/dialogs/styles/toast.scss'
 import { generateUrl } from '@nextcloud/router'
@@ -72,7 +78,8 @@ export default {
 		AppNavigation,
 		AppNavigationItem,
 		AppNavigationNew,
-		Secret
+		Secret,
+		SecretEditor
 	},
 	data() {
 		return {
@@ -165,16 +172,18 @@ export default {
 				true,
 				["encrypt", "decrypt"]);
 		},
+		saveCurrentSecret(decrypted) {
+			this.currentSecret._decrypted = decrypted;
+			this.saveSecret(this.currentSecret);
+		},
 		/**
 		 * Action tiggered when clicking the save button
 		 * create a new secret or save
 		 */
 		saveSecret(secret) {
-			if (this.currentSecretUUId === "") {
-				this.createSecret(secret);
-			} else {
-				this.updateSecret(secret);
-			}
+			if (this.currentSecretUUId !== "")
+				showError("Can't save existing secret");
+			this.createSecret(secret);
 		},
 		/**
 		 * Create a new secret and focus the secret content field automatically
@@ -188,7 +197,7 @@ export default {
 				this.currentSecretUUId = ""
 				this.secrets.push({
 					uuid: "",
-					title: 'new secret',
+					title: t('secrets', 'New Secret'),
 					key: key,
 					iv: iv,
 					_decrypted: ""
@@ -226,13 +235,11 @@ export default {
 					encrypted: encrypted,
 					iv: String.fromCharCode.apply(null, secret.iv)
 				};
-				console.log("encrypted:", encrypted);
 				const response = await axios.post(generateUrl('/apps/secrets/secrets'), encryptedSecret)
 				const decrypted = await this.$secrets.decrypt(
 					response.data.encrypted,
 					secret.key,
 					this.$secrets.stringToArrayBuffer(response.data.iv))
-				console.log("decrypted:", decrypted);
 				const index = this.secrets.findIndex((match) => match.uuid === this.currentSecretUUId)
 				this.$set(this.secrets, index, {
 					...response.data,
@@ -268,6 +275,12 @@ export default {
 				showError(t('secrets', 'Could not delete the secret'))
 			}
 		},
+		async updateSecretTitle(secret, title) {
+			if (secret.uuid) {
+				await axios.put(generateUrl(`/apps/secrets/secrets/${secret.uuid}/title`), {title: title});
+			}
+			secret.title = title;
+		}
 	},
 }
 </script>

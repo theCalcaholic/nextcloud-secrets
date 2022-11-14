@@ -35,6 +35,19 @@ class SecretMapper extends QBMapper {
 			->andWhere($qb->expr()->eq('user_id', $qb->createNamedParameter($userId)));
 		return $this->findEntity($qb);
 	}
+	/**
+	 * @throws MultipleObjectsReturnedException
+	 * @throws DoesNotExistException
+	 */
+	public function findById(int $id, string $userId): Secret {
+		/* @var $qb IQueryBuilder */
+		$qb = $this->db->getQueryBuilder();
+		$qb->select('*')
+			->from('secrets')
+			->where($qb->expr()->eq('id', $qb->createNamedParameter($id)))
+			->andWhere($qb->expr()->eq('user_id', $qb->createNamedParameter($userId)));
+		return $this->findEntity($qb);
+	}
 
 	/**
 	 * @throws MultipleObjectsReturnedException

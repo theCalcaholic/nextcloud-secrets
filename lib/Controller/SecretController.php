@@ -67,6 +67,20 @@ class SecretController extends Controller {
 
 	/**
 	 * @NoAdminRequired
+	 *
+	 * @param string $uuid
+	 * @param string $title
+	 */
+	public function updateTitle(string $uuid, string $title): DataResponse {
+		error_log("uuid: $uuid");
+		error_log("title: $title");
+		return $this->handleNotFound(function() use ($uuid, $title) {
+			return $this->service->updateTitle($uuid, $this->userId, $title);
+		});
+	}
+
+	/**
+	 * @NoAdminRequired
 	 * @param string $uuid
 	 * @return DataResponse
 	 */

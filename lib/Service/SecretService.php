@@ -111,4 +111,18 @@ class SecretService {
 			$this->handleException($e);
 		}
 	}
+
+	/**
+	 *
+	 * @throws SecretNotFound
+	 */
+	public function updateTitle(string $uuid, string $userId, string $title): Secret {
+		try {
+			$secret = $this->mapper->find($uuid, $userId);
+			$secret->setTitle($title);
+			return $this->mapper->update($secret);
+		} catch (Exception $e) {
+			$this->handleException($e);
+		}
+	}
 }

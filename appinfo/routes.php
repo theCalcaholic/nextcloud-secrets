@@ -25,5 +25,6 @@ return [
 		['name' => 'secret#show', 'url' => '/secrets/{uuid}', 'verb' => 'GET'],
 		['name' => 'secret#create', 'url' => '/secrets', 'verb' => 'POST'],
 		['name' => 'secret#delete', 'url' => '/secrets/{uuid}', 'verb' => 'DELETE'],
+		['name' => 'secret#updateTitle', 'url' => '/secrets/{uuid}/title', 'verb' => 'PUT']
 	]
 ];
