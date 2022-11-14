@@ -1,6 +1,10 @@
 <template>
 	<div class="secret-container">
-		<textarea v-model="value" :disabled="locked" />
+		<p>
+			<label for="expires">Expires on:</label>
+			<DatetimePicker name="expires" :clearable="false" v-model="value.expires" type="date"/>
+		</p>
+		<textarea v-model="value._decrypted" :disabled="locked" />
 		<input type="button"
 			   class="primary"
 			   :value="t('secrets', 'Save')"
@@ -15,6 +19,7 @@ import AppContent from '@nextcloud/vue/dist/Components/NcAppContent'
 import AppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation'
 import AppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem'
 import AppNavigationNew from '@nextcloud/vue/dist/Components/NcAppNavigationNew'
+import DatetimePicker from '@nextcloud/vue/dist/Components/NcDatetimePicker';
 
 import '@nextcloud/dialogs/styles/toast.scss'
 import { generateUrl } from '@nextcloud/router'
@@ -28,14 +33,10 @@ export default {
 		AppContent,
 		AppNavigation,
 		AppNavigationItem,
-		AppNavigationNew
+		AppNavigationNew,
+		DatetimePicker
 	},
-	props: ['locked', 'title'],
-	data() {
-		return {
-			value: ''
-		};
-	},
+	props: ['locked', 'title', 'value'],
 	computed: {
 	},
 	methods: {
@@ -47,7 +48,7 @@ export default {
 
 	div.secret-container {
 		width: 100%;
-		height: 100%;
+		min-height: 50%;
 		padding: 20px;
 		display: flex;
 		flex-direction: column;

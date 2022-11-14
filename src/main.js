@@ -16,7 +16,13 @@ __webpack_public_path__ = generateFilePath(appName, '', 'js/')
 
 Vue.mixin({ methods: { t, n } })
 
+let app;
+if (window.location.pathname.indexOf("/apps/secrets/show/") === -1)
+	app = App;
+else
+	app = Share;
+
 export default new Vue({
-	el: '#content',
-	render: h => h(window.location.pathname.indexOf("/apps/secrets/show/") !== -1 ? Share : App),
-})
+	el: '#secret-root',
+	render: h => h(app),
+});

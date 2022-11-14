@@ -5,14 +5,15 @@ declare(strict_types=1);
 
 namespace OCA\Secrets\Service;
 
+use DateTime;
 use Exception;
 
+use InvalidArgumentException;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
 use OCA\Secrets\Db\Secret;
 use OCA\Secrets\Db\SecretMapper;
-use Sabre\DAV\Exception\MethodNotAllowed;
 
 class SecretService {
 	private SecretMapper $mapper;
@@ -56,6 +57,8 @@ class SecretService {
 	}
 
 	/**
+	 * @param string $uuid
+	 * @return Secret
 	 * @throws SecretNotFound
 	 */
 	public function findPublic(string $uuid): Secret {
@@ -66,7 +69,7 @@ class SecretService {
 		}
 	}
 
-	public function create(string $title, string $encrypted, string $iv, string $userId): Secret {
+	public function create(string $title, string $encrypted, string $iv, ?string $expires, string $userId): Secret {
 		$uuid_bytes = openssl_random_pseudo_bytes(16);
 		$uuid_bytes[6] = chr(ord($uuid_bytes[6]) & 0x0f | 0x40); // set version to 4 (0100)
 		$uuid_bytes[8] = chr(ord($uuid_bytes[8]) & 0x3f | 0x80); // set bits 6-7 to 10
@@ -77,6 +80,7 @@ class SecretService {
 		$secret->setEncrypted($encrypted);
 		$secret->setIv($iv);
 		$secret->setUserId($userId);
+		$secret->setExpires($expires);
 		return $this->mapper->insert($secret);
 	}
 

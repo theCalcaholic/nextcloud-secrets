@@ -44,17 +44,14 @@
 		<AppContent>
 			<SecretEditor v-if="currentSecret && currentSecretUUId === ''"
 						  :locked="locked"
-						  v-on:save-secret="saveCurrentSecret"/>
-			<Secret v-else-if="currentSecret && currentSecret.key && currentSecret.encrypted"
+						  v-model="currentSecret"
+						  v-on:save-secret="saveSecret"/>
+			<Secret v-else-if="currentSecret && currentSecret.encrypted"
 					v-model="currentSecret"
 					:locked="locked" />
 			<div v-else-if="currentSecret && !currentSecret.encrypted" id="emptycontent">
 				<div class="icon-toggle" />
 				<h2>{{ t('secrets', 'This secret has already been retrieved and was consequently deleted from the server.') }}</h2>
-			</div>
-			<div v-else-if="currentSecret" id="emptycontent">
-				<div class="icon-password" />
-				<h2>{{ t('secrets', 'Could not decrypt secret (key not available).') }}</h2>
 			</div>
 			<div v-else id="emptycontent">
 				<div class="icon-file" />
@@ -112,19 +109,9 @@ export default {
 				return this.secrets.find((secret) => secret.uuid === this.currentSecretUUId)
 			},
 			set(val) {
-				// this.$set(this.secrets, index, val);
-				console.log("setSecret(", val, ")");
 
 				const index = this.secrets.findIndex((secret) => secret.uuid === this.currentSecretUUId)
 				this.$set(this.secrets, index, val);
-				// const currentSecret = this.currentSecret;
-				// if (currentSecret === null) {
-				// 	return;
-				// }
-				// currentSecret.uuid = val.uuid;
-				// currentSecret.title = val.title;
-				// currentSecret.encrypted = val.encrypted;
-				// currentSecret.iv = val.iv;
 			}
 		},
 
@@ -150,7 +137,6 @@ export default {
 		try {
 			const response = await axios.get(generateUrl('/apps/secrets/secrets'))
 			this.secrets = response.data;
-			console.log("secrets: ", this.secrets);
 		} catch (e) {
 			console.error(e)
 			showError(t('secrets', 'Could not fetch secrets'))
@@ -200,16 +186,16 @@ export default {
 			const iv = window.crypto.getRandomValues(new Uint8Array(12));
 			if (this.currentSecretUUId !== "") {
 				this.currentSecretUUId = ""
+				let expiryDate = new Date();
+				expiryDate.setDate((new Date()).getDate() + 7);
 				this.secrets.push({
 					uuid: "",
 					title: t('secrets', 'New Secret'),
 					key: key,
 					iv: iv,
+					expires: expiryDate,
 					_decrypted: ""
 				})
-				// this.$nextTick(() => {
-				// 	this.$refs.title.focus()
-				// })
 			}
 		},
 		/**
@@ -221,11 +207,8 @@ export default {
 		},
 		updateCurrentSecret(secret) {
 
-			// this.currentSecret.title = secret.title;
-			// this.currentSecret.encrypted = secret.encrypted;
 			const index = this.secrets.findIndex((match) => match.uuid === this.currentSecretUUId);
 			this.$set(this.secrets, index, secret);
-			// this.currentSecret.title = title;
 		},
 		/**
 		 * Create a new secret by sending the information to the server
@@ -234,9 +217,13 @@ export default {
 		async createSecret(secret) {
 			this.updating = true
 			try {
+				console.log("expires: ", secret.expires);
 				const encrypted = await this.$secrets.encrypt(secret._decrypted, secret.key, secret.iv);
+				let expiresStr = secret.expires.toISOString();
+				expiresStr = expiresStr.substring(0, expiresStr.indexOf('T'));
 				const encryptedSecret = {
 					title: secret.title,
+					expires: expiresStr,
 					encrypted: encrypted,
 					iv: String.fromCharCode.apply(null, secret.iv)
 				};

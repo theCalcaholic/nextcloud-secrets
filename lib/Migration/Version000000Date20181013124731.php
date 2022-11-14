@@ -48,6 +48,15 @@ class Version000000Date20181013124731 extends SimpleMigrationStep {
 				'notnull' => false,
 				'default' => null
 			]);
+			$table->addColumn('expires', 'date', [
+				'notnull' => false,
+				'default' => null,
+			]);
+			$table->addColumn('pw_hash', 'string', [
+				'notnull' => false,
+				'length' => 64,
+				'default' => null
+			]);
 
 			$table->setPrimaryKey(['id']);
 			$table->addIndex(['user_id'], 'secrets_user_id_index');

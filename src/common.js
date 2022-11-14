@@ -27,6 +27,9 @@ export default {
 		}
 		return buff;
 	},
+	arrayBufferToString(buf) {
+		return String.fromCharCode.apply(null, buf)
+	},
 	/**
 	 *
 	 * @param cipher {String}
@@ -37,7 +40,7 @@ export default {
 	async decrypt(cipher, key, iv) {
 		console.log("decrypt(", cipher, ",", key, ",", iv, ")");
 		const plainBuffer = await window.crypto.subtle.decrypt(
-			{ name: "AES-GCM", iv: iv },
+			{ name: this.ALGO, iv: iv },
 			key,
 			new Uint8Array(Array.from(window.atob(cipher)).map(ch => ch.charCodeAt(0)))
 		);

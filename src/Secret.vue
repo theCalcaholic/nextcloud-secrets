@@ -1,20 +1,34 @@
 <template>
 	<div class="secret-container">
-		<div v-if="isDecrypted && value.encrypted">
-			<p class="info">
-				Your secret is stored end-to-end encrypted on the server. It can only be decrypted by someone who has been given the link.
-				Once retrieved successfully, the secret will be deleted on the server
+		<div>
+			<NoteCard type="success">
+				<p>
+					Your secret is stored end-to-end encrypted on the server. It can only be decrypted by someone who has been given the link.
+					Once retrieved successfully, the secret will be deleted on the server
+				</p>
+			</NoteCard>
+			<p class="expires-container">
+				<label for="expires">Expires on:</label>
+				<input v-if="value.expires" type="date" name="expires" v-model="formattedDate" disabled="disabled">
+				<input v-else type="text" name="expires" disabled="disabled" value="never"/>
 			</p>
-			<input type="text" disabled="disabled" :value="url" class="url-field"/>
-			<Actions class="secret-actions">
-				<ActionButton
-					:icon="copyButtonIcon"
-					@click="copyToClipboard(url)" ariaLabel="Copy Secret Link">
-				</ActionButton>
-			</Actions>
+			<p class="url-container" v-if="url">
+				<label for="url">Share Link:</label>
+				<input type="text" name="url" disabled="disabled" :value="url" :size="url.length" class="url-field"/>
+				<Actions class="secret-actions">
+					<ActionButton
+						:icon="copyButtonIcon"
+						@click="copyToClipboard(url)" ariaLabel="Copy Secret Link">
+					</ActionButton>
+				</Actions>
+			</p>
 		</div>
-		<textarea :class="isDecrypted ? '' : 'warning'"
-				  v-model="value._decrypted" :disabled="!isDecrypted || locked" />
+		<textarea v-if="value.key" :class="isDecrypted ? '' : 'warning'"
+				  v-model="value._decrypted" disabled="disabled" />
+		<div v-else id="emptycontent">
+			<div class="icon-password" />
+			<h2>{{ t('secrets', 'Could not decrypt secret (key not available).') }}</h2>
+		</div>
 	</div>
 </template>
 
@@ -24,6 +38,7 @@ import AppContent from '@nextcloud/vue/dist/Components/NcAppContent'
 import AppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation'
 import AppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem'
 import AppNavigationNew from '@nextcloud/vue/dist/Components/NcAppNavigationNew'
+import NoteCard from '@nextcloud/vue/dist/Components/NcNoteCard'
 
 import '@nextcloud/dialogs/styles/toast.scss'
 import { generateUrl } from '@nextcloud/router'
@@ -37,7 +52,8 @@ export default {
 		AppContent,
 		AppNavigation,
 		AppNavigationItem,
-		AppNavigationNew
+		AppNavigationNew,
+		NoteCard
 	},
 	data() {
 		return {
@@ -71,6 +87,12 @@ export default {
 			return `${uuid.substring(0, 8)}-${uuid.substring(8, 4)}-${uuid.substring(12, 4)}-${uuid.substring(16, 4)}`
 				+ `-${uuid.substring(20, 12)}`;
 		},
+		formattedDate() {
+			let timeIndex = this.value.expires.indexOf('T');
+			if (timeIndex === -1)
+				return this.value.expires;
+			return this.value.expires.substring(0, timeIndex);
+		},
 		copyButtonIcon() {
 			if (this.copyState === 'success')
 				return 'icon-checkmark';
@@ -82,7 +104,6 @@ export default {
 	},
 	watch: {
 		async value() {
-			console.log("value watcher", this.value.key);
 			if (this.value.key)
 				this.keyBuf = await window.crypto.subtle.exportKey("raw", this.value.key);
 		}
@@ -92,44 +113,6 @@ export default {
 			this.keyBuf = await window.crypto.subtle.exportKey("raw", this.value.key);
 	},
 	methods: {
-		async encryptString(s, key, iv) {
-			if (s === "")
-				return "";
-			const encoder = new TextEncoder()
-			const encrypted = await window.crypto.subtle.encrypt(
-				{ name: "AES-GCM", iv: new Uint8Array(Array.from(iv).map(ch => ch.charCodeAt(0))) },
-				key,
-				encoder.encode(s)
-			);
-			console.log('encrypted', encrypted);
-			const decoder = new TextDecoder();
-			return decoder.decode(encrypted);
-		},
-		stringToArrayBuffer(str) {
-			const buff = new ArrayBuffer(str.length * 2)
-			const buffView = new Uint16Array(buff)
-			for(let i = 0, strLen = str.length; i < strLen; i++) {
-				buffView[i] = str.charCodeAt(i);
-			}
-			return buff;
-		},
-		async decryptString(s, key, iv) {
-			console.log("decrypt(", s, key, iv, ")");
-			if (s === "")
-				return "";
-			const encoder = new TextEncoder();
-			console.log(encoder.encode(iv));
-			console.log(encoder.encode(s));
-			const decrypted = await window.crypto.subtle.decrypt(
-				{name: "AES-GCM", iv: new Uint8Array(Array.from(iv).map(ch => ch.charCodeAt(0)))},
-				key,
-				encoder.encode(s)
-			)
-			const decoder = new TextDecoder();
-			return decoder.decode(decrypted);
-
-
-		},
 		async copyToClipboard(url) {
 			try {
 				await navigator.clipboard.writeText(url);
@@ -149,7 +132,7 @@ export default {
 
 	div.secret-container {
 		width: 100%;
-		height: 100%;
+		min-height: 50%;
 		padding: 20px;
 		display: flex;
 		flex-direction: column;
@@ -165,19 +148,37 @@ export default {
 		width: 100%;
 	}
 
-	textarea.warning {
-		color: var(--color-warning);
-	}
+	/*textarea.warning {*/
+	/*	color: var(--color-warning);*/
+	/*}*/
 
 	.secret-actions {
 		display: inline-block;
 	}
 
-	input.url-field {
-		float: left;
-		max-width: 90%;
-		width: 30em;
+	.url-container, .expires-container {
+		display: flex;
+		flex-wrap: nowrap;
+		flex-direction: row;
 	}
+
+	.url-container label, .expires-container label {
+		line-height: 36px;
+		flex-grow: 0;
+		flex-shrink: 0;
+		white-space: nowrap;
+		width: 8em;
+		margin: 3px;
+	}
+
+	.url-container actions {
+		flex-grow: 0;
+	}
+
+	input.url-field {
+		width: 100%;
+	}
+
 </style>
 <style>
 	actions.secret-actions li {

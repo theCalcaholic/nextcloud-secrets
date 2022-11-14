@@ -5,9 +5,12 @@ declare(strict_types=1);
 
 namespace OCA\Secrets\Db;
 
+use DateTime;
+use InvalidArgumentException;
 use JsonSerializable;
 
 use OCP\AppFramework\Db\Entity;
+use Sabre\VObject\Property\VCard\Date;
 
 /**
  * @method getId(): int
@@ -21,16 +24,31 @@ use OCP\AppFramework\Db\Entity;
  * @method setIv(?string $iv): void
  * @method getUserId(): string
  * @method setUserId(string $userId): void
+ * @method getPwHash(): ?string
+ * @method setPwHash(?string $pwHash): void
+ * @method getExpires(): ?string
+ * @method setExpires(?string $expires): void
  */
 class Secret extends Entity implements JsonSerializable {
 	protected string $title = '';
 	protected ?string $encrypted = null;
 	protected string $userId = '';
 	protected string $uuid = '';
-	protected ?string $iv = null;
+	protected ?string $iv = '';
+	protected ?string $pwHash = null;
+	protected ?string $expires = null;
 
 	public function __construct() {
 		$this->addType('id','int');
+	}
+
+	public function getExpiryDate(): DateTime {
+		$expiryDate = DateTime::createFromFormat("Y-m-d", $this->expires);
+		if ($expiryDate === false) {
+			throw new InvalidArgumentException("Error parsing date $this->expires");
+		}
+		return $expiryDate;
+
 	}
 
 	public function jsonSerialize(): array {
@@ -38,6 +56,7 @@ class Secret extends Entity implements JsonSerializable {
 			'uuid' => $this->uuid,
 			'title' => $this->title,
 			'encrypted' => $this->encrypted,
+			'expires' => $this->expires,
 			'iv' => $this->iv
 		];
 	}

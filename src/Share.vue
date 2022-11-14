@@ -4,74 +4,77 @@
 	SPDX-License-Identifier: AGPL-3.0-or-later
 	-->
 	<div id="content" class="app-secrets">
-		<AppContent>
+		<AppContent class="centered">
+			<h2>The following secret has been shared with you securely:</h2>
 			<!--v-on:secret-changed="changeSecret"-->
-			<div class="warning">
+			<NoteCard type="warning">
+				<p>
 				Please make sure you have copied and stored the secret before closing this page! It is now deleted on the server.
-			</div>
+				</p>
+			</NoteCard>
 			<Secret v-if="secret"
 					v-model="secret"
-					:locked="false" :editable="false"></Secret>
+					:locked="false"></Secret>
+			<div v-else-if="loading" id="emptycontent">
+				<div class="icon-loading" />
+				<h2>{{ t('secrets', 'Retrieving secret...') }}</h2>
+			</div>
 			<div v-else id="emptycontent">
-				<div class="icon-file" />
-				<h2>{{ t('secrets', 'Create a secret to get started') }}</h2>
+				<div class="icon-password" />
+				<h2>{{ t('secrets', 'Error loading secret. Is your link correct?') }}</h2>
 			</div>
 		</AppContent>
 	</div>
 </template>
 
 <script>
-import ActionButton from '@nextcloud/vue/dist/Components/NcActionButton'
 import AppContent from '@nextcloud/vue/dist/Components/NcAppContent'
-import AppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation'
-import AppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem'
-import AppNavigationNew from '@nextcloud/vue/dist/Components/NcAppNavigationNew'
+import NoteCard from "@nextcloud/vue/dist/Components/NcNoteCard";
 import Secret from "./Secret";
 
 import '@nextcloud/dialogs/styles/toast.scss'
-import { generateUrl } from '@nextcloud/router'
 import { showError, showSuccess } from '@nextcloud/dialogs'
-import axios from '@nextcloud/axios'
 
 
 export default {
 	name: 'App',
 	components: {
-		ActionButton,
 		AppContent,
-		AppNavigation,
-		AppNavigationItem,
-		AppNavigationNew,
-		Secret
+		Secret,
+		NoteCard
 	},
 	data() {
 		return {
-			secret: null
+			secret: null,
+			loading: true
 		}
 	},
 	async mounted() {
 		try {
-			const uuidIndex = window.location.pathname.lastIndexOf('/');
-			const uuid = window.location.pathname.substring(uuidIndex + 1);
-			const response = await axios.get(generateUrl(`/apps/secrets/api/v1/show/${uuid}`))
-			const secret = response.data;
-			console.log("secret: ", secret);
-			const iv = this.$secrets.stringToArrayBuffer(response.data.iv);
-			try {
-				secret._decrypted = await this.$secrets.decrypt(secret.encrypted,
-					await window.crypto.subtle.importKey(
+			const dataEl = document.getElementById("secret");
+			const ivStr = dataEl.getAttribute("data-iv");
+			const encryptedStr = dataEl.getAttribute("data-encrypted");
+			const iv = this.$secrets.stringToArrayBuffer(ivStr);
+			const encrypted = encryptedStr;
+			console.log("to decrypt:", encryptedStr, ivStr, window.location.hash.substring(1));
+			const key = await window.crypto.subtle.importKey(
 						'raw',
-						new Uint8Array(Array.from(window.atob(window.location.hash.substring(1))).map(ch => ch.charCodeAt(0))),
+						this.$secrets.stringToArrayBuffer(window.atob(window.location.hash.substring(1))),
 						{name: this.$secrets.ALGO, iv: iv},
 						false,
 						['decrypt']
-					),
-					iv)
-			} catch (e) {
-				console.error(e);
-				showError("Could not decrypt secret. Is the secret link valid?");
+					);
+			console.log(key);
+			const decrypted = await this.$secrets.decrypt(encryptedStr,
+				key,
+				iv)
+			this.secret = {
+				title: t('secrets', 'Shared Secret'),
+				iv: iv,
+				encrypted: this.$secrets.stringToArrayBuffer(encrypted),
+				_decrypted: decrypted
 			}
-			this.secret = secret;
+			console.log("decrypted: ", decrypted);
 		} catch (e) {
 			console.error(e)
 			showError(t('secrets', 'Could not fetch secrets'))
@@ -80,3 +83,21 @@ export default {
 	}
 }
 </script>
+
+<style scoped>
+.centered {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+textarea {
+	width: 400px;
+	height: 400px;
+	margin: 2em;
+	min-width: calc(100% - 4em);
+}
+input[type="button"] {
+	display: block;
+	margin: auto;
+}
+</style>

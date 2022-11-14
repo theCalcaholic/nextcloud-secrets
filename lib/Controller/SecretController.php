@@ -43,26 +43,11 @@ class SecretController extends Controller {
 	}
 
 	/**
-	 * @CORS
-	 * @PublicPage
-	 * @NoCSRFRequired
-	 * @param string $uuid
-	 * @return DataResponse
-	 */
-	public function showPublic(string $uuid): DataResponse {
-		return $this->handleNotFound(function () use ($uuid) {
-			$secret = $this->service->findPublic($uuid);
-			$this->service->invalidate($uuid);
-			return $secret;
-		});
-	}
-
-	/**
 	 * @NoAdminRequired
 	 */
-	public function create(string $title, string $encrypted, string $iv): DataResponse {
+	public function create(string $title, string $encrypted, string $iv, ?string $expires): DataResponse {
 		error_log("create_secret( $title, $encrypted, $iv )");
-		return new DataResponse($this->service->create($title, $encrypted, $iv, $this->userId));
+		return new DataResponse($this->service->create($title, $encrypted, $iv, $expires, $this->userId));
 	}
 
 	/**
@@ -72,8 +57,6 @@ class SecretController extends Controller {
 	 * @param string $title
 	 */
 	public function updateTitle(string $uuid, string $title): DataResponse {
-		error_log("uuid: $uuid");
-		error_log("title: $title");
 		return $this->handleNotFound(function() use ($uuid, $title) {
 			return $this->service->updateTitle($uuid, $this->userId, $title);
 		});
@@ -85,7 +68,6 @@ class SecretController extends Controller {
 	 * @return DataResponse
 	 */
 	public function delete(string $uuid): DataResponse {
-		error_log("uuid: " . $uuid );
 		return $this->handleNotFound(function () use ($uuid) {
 			return $this->service->delete($uuid, $this->userId);
 		});

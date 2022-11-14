@@ -5,7 +5,6 @@ declare(strict_types=1);
 
 namespace OCA\Secrets\Db;
 
-use OCA\Secrets\Service\SecretNotFound;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\Entity;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
@@ -35,6 +34,7 @@ class SecretMapper extends QBMapper {
 			->andWhere($qb->expr()->eq('user_id', $qb->createNamedParameter($userId)));
 		return $this->findEntity($qb);
 	}
+
 	/**
 	 * @throws MultipleObjectsReturnedException
 	 * @throws DoesNotExistException
@@ -104,7 +104,7 @@ class SecretMapper extends QBMapper {
 
 	/**
 	 * @param string $userId
-	 * @return array
+	 * @return array<Secret>
 	 */
 	public function findAll(string $userId): array {
 		/* @var $qb IQueryBuilder */
