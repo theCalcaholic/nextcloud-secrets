@@ -45,9 +45,17 @@
 			<SecretEditor v-if="currentSecret && currentSecretUUId === ''"
 						  :locked="locked"
 						  v-on:save-secret="saveCurrentSecret"/>
-			<Secret v-else-if="currentSecret"
+			<Secret v-else-if="currentSecret && currentSecret.key && currentSecret.encrypted"
 					v-model="currentSecret"
 					:locked="locked" />
+			<div v-else-if="currentSecret && !currentSecret.encrypted" id="emptycontent">
+				<div class="icon-toggle" />
+				<h2>{{ t('secrets', 'This secret has already been retrieved and was consequently deleted from the server.') }}</h2>
+			</div>
+			<div v-else-if="currentSecret" id="emptycontent">
+				<div class="icon-password" />
+				<h2>{{ t('secrets', 'Could not decrypt secret (key not available).') }}</h2>
+			</div>
 			<div v-else id="emptycontent">
 				<div class="icon-file" />
 				<h2>{{ t('secrets', 'Create a secret to get started') }}</h2>
@@ -160,9 +168,6 @@ export default {
 				return
 			}
 			this.currentSecretUUId = secret.uuid
-			// this.$nextTick(() => {
-			// 	this.$refs.currentSecret.focus()
-			// })
 		},
 		async generateCryptoKey() {
 			return await window.crypto.subtle.generateKey({
