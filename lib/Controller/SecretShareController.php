@@ -11,6 +11,7 @@ use OCA\Secrets\Db\Secret;
 use OCA\Secrets\Service\SecretNotFound;
 use OCA\Secrets\Service\SecretService;
 use OCP\AppFramework\AuthPublicShareController;
+use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IRequest;
 
@@ -125,11 +126,12 @@ class SecretShareController extends AuthPublicShareController {
 	{
 		Util::addScript(Application::APP_ID, 'secrets-main');
 
-		$resp = new TemplateResponse(Application::APP_ID, 'public',
-			array("encrypted" => $this->getSecret()->getEncrypted(), "iv" => $this->getSecret()->getIv()));
+		$resp = new TemplateResponse(Application::APP_ID, 'public', []);
+			//array("encrypted" => $this->getSecret()->getEncrypted(), "iv" => $this->getSecret()->getIv()));
 
 		error_log("pw hash: " . $this->getSecret()->getPwHash());
-		$this->service->invalidate($this->getSecret()->getUuid());
+		//$this->service->invalidate($this->getSecret()->getUuid());
 		return $resp;
 	}
+
 }

@@ -5,11 +5,11 @@ declare(strict_types=1);
 
 namespace OCA\Secrets\Tests\Unit\Controller;
 
-use OCA\Secrets\Controller\SecretsApiController;
+use OCA\Secrets\Controller\SecretApiController;
 
 class NoteApiControllerTest extends NoteControllerTest {
 	public function setUp(): void {
 		parent::setUp();
-		$this->controller = new SecretsApiController($this->request, $this->service, $this->userId);
+		$this->controller = new SecretApiController($this->request, $this->service, $this->userId);
 	}
 }

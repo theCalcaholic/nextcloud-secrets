@@ -20,8 +20,13 @@ return [
 		['name' => 'secret#delete', 'url' => '/secrets/{uuid}', 'verb' => 'DELETE'],
 		['name' => 'secret#updateTitle', 'url' => '/secrets/{uuid}/title', 'verb' => 'PUT'],
 
-		['name' => 'SecretShare#showShare', 'url' => '/show/{token}', 'verb' => 'GET'],
-		['name' => 'SecretShare#showAuthenticate', 'url' => '/show/{token}/authenticate/{redirect}', 'verb' => 'GET'],
-		['name' => 'SecretShare#authenticate', 'url' => '/show/{token}/authenticate/{redirect}', 'verb' => 'POST'],
+		['name' => 'SecretApi#getSecret', 'url' => '/api/get', 'verb' => 'POST'],
+
+		['name' => 'SecretShare#showShare', 'root' => '/secret',
+			'url' => '/show/{token}', 'verb' => 'GET'],
+		['name' => 'SecretShare#showAuthenticate', 'root' => '/secret',
+			'url' => '/show/{token}/authenticate/{redirect}', 'verb' => 'GET'],
+		['name' => 'SecretShare#authenticate', 'root' => '/secret',
+			'url' => '/show/{token}/authenticate/{redirect}', 'verb' => 'POST'],
 	]
 ];

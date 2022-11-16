@@ -43,6 +43,8 @@ import Secret from "./Secret";
 
 import '@nextcloud/dialogs/styles/toast.scss'
 import { showError, showSuccess } from '@nextcloud/dialogs'
+import axios from "@nextcloud/axios";
+import {generateUrl} from "@nextcloud/router";
 
 
 export default {
@@ -88,11 +90,15 @@ export default {
 	},
 	async mounted() {
 		try {
-			const dataEl = document.getElementById("secret");
-			const ivStr = dataEl.getAttribute("data-iv");
-			const encryptedStr = dataEl.getAttribute("data-encrypted");
-			const iv = this.$secrets.stringToArrayBuffer(ivStr);
-			console.log("to decrypt:", encryptedStr, ivStr, window.location.hash.substring(1));
+			let uuid = window.location.pathname;
+			uuid = uuid.substring(uuid.lastIndexOf('/') + 1);
+			const response = await axios.post(generateUrl(`/apps/secrets/api/get`), {'uuid': uuid});
+			let secret = response.data;
+			// const dataEl = document.getElementById("secret");
+			// const ivStr = dataEl.getAttribute("data-iv");
+			// const encryptedStr = dataEl.getAttribute("data-encrypted");
+			const iv = this.$secrets.stringToArrayBuffer(secret.iv);
+			console.log("to decrypt:", secret.encrypted, secret.iv, window.location.hash.substring(1));
 			const key = await window.crypto.subtle.importKey(
 						'raw',
 						this.$secrets.stringToArrayBuffer(window.atob(window.location.hash.substring(1))),
@@ -101,7 +107,7 @@ export default {
 						['decrypt']
 					);
 			console.log(key);
-			this.decrypted = await this.$secrets.decrypt(encryptedStr,
+			this.decrypted = await this.$secrets.decrypt(secret.encrypted,
 				key,
 				iv)
 		} catch (e) {
