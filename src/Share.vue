@@ -92,7 +92,6 @@ export default {
 			const ivStr = dataEl.getAttribute("data-iv");
 			const encryptedStr = dataEl.getAttribute("data-encrypted");
 			const iv = this.$secrets.stringToArrayBuffer(ivStr);
-			const encrypted = encryptedStr;
 			console.log("to decrypt:", encryptedStr, ivStr, window.location.hash.substring(1));
 			const key = await window.crypto.subtle.importKey(
 						'raw',
@@ -107,7 +106,7 @@ export default {
 				iv)
 		} catch (e) {
 			console.error(e)
-			showError(t('secrets', 'Could not fetch secrets'))
+			showError(t('secrets', 'Could not decrypt secret'))
 		}
 		this.loading = false
 	}
@@ -115,6 +114,15 @@ export default {
 </script>
 
 <style scoped>
+	div.secret-container {
+		width: 100%;
+		min-height: 50%;
+		padding: 20px;
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+	}
+
 	.centered {
 		text-align: center;
 		margin-left: auto;
@@ -131,18 +139,13 @@ export default {
 		margin: auto;
 	}
 
-	div.secret-container {
-		width: 100%;
-		min-height: 50%;
-		padding: 20px;
-		display: flex;
-		flex-direction: column;
-		flex-grow: 1;
-	}
 	textarea {
 		flex-grow: 1;
 		width: 100%;
 		margin: 0;
+	}
+	#content {
+		width: 100%;
 	}
 </style>
 <style>

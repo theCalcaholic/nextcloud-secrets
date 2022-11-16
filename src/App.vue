@@ -46,16 +46,12 @@
 						  :locked="locked"
 						  v-model="currentSecret"
 						  v-on:save-secret="saveSecret"/>
-			<Secret v-else-if="currentSecret && currentSecret.encrypted"
+			<Secret v-else-if="currentSecret"
 					v-model="currentSecret"
 					:locked="locked"
 					:success="t('secrets', 'Your secret is stored end-to-end encrypted on the server. ' +
 					 'It can only be decrypted by someone who has been given the link.\n' +
 					 'Once retrieved successfully, the secret will be deleted on the server')" />
-			<div v-else-if="currentSecret && !currentSecret.encrypted" id="emptycontent">
-				<div class="icon-toggle" />
-				<h2>{{ t('secrets', 'This secret has already been retrieved and was consequently deleted from the server.') }}</h2>
-			</div>
 			<div v-else id="emptycontent">
 				<div class="icon-file" />
 				<h2>{{ t('secrets', 'Create a secret to get started') }}</h2>
@@ -290,5 +286,8 @@ export default {
 }
 .active .app-navigation-entry {
 	background-color: var(--color-background-dark);
+}
+#content {
+	width: 100%;
 }
 </style>

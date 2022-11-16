@@ -7,14 +7,17 @@
 			<NoteCard v-if="warning" type="warning">
 				<p>{{ warning }}</p>
 			</NoteCard>
-			<CheckboxRadioSwitch :checked="value.pwHash !== null" :disabled="true">
-				password protected
-			</CheckboxRadioSwitch>
-			<p class="expires-container">
+			<NoteCard v-else type="warning"  v-if="daysToDeletion <= 7">
+				<p>{{ t('secrets', 'Will be deleted in $X$ days').replace('$X$', '' + daysToDeletion) }}</p>
+			</NoteCard>
+			<p class="expires-container" v-if="value.encrypted">
 				<label for="expires">Expires on:</label>
 				<input v-if="value.expires" type="date" name="expires" v-model="formattedDate" disabled="disabled">
 				<input v-else type="text" name="expires" disabled="disabled" value="never"/>
 			</p>
+			<CheckboxRadioSwitch :checked="value.pwHash !== null" :disabled="true">
+				password protected
+			</CheckboxRadioSwitch>
 			<p class="url-container" v-if="url">
 				<label for="url">Share Link:</label>
 				<input type="text" name="url" disabled="disabled" :value="url" :size="url.length" class="url-field"/>
@@ -28,6 +31,11 @@
 		</div>
 		<textarea v-if="value._decrypted"
 				  v-model="value._decrypted" disabled="disabled" />
+
+		<div v-else-if="!value.encrypted" id="emptycontent">
+			<div class="icon-toggle" />
+			<h2>{{ t('secrets', 'This secret has already been retrieved and its content was consequently deleted from the server.') }}</h2>
+		</div>
 		<div v-else id="emptycontent">
 			<div class="icon-password" />
 			<h2>{{ t('secrets', 'Could not decrypt secret (key not available locally).') }}</h2>
@@ -99,6 +107,19 @@ export default {
 			if (timeIndex === -1)
 				return this.value.expires;
 			return this.value.expires.substring(0, timeIndex);
+		},
+		daysToDeletion() {
+			if (!this.value.expires)
+				return 999;
+			let deletionDate = new Date(this.formattedDate);
+			deletionDate.setDate(deletionDate.getDate() + 7);
+			let today = new Date();
+			console.log(today);
+			today.setHours(0);
+			today.setMinutes(0);
+			today.setSeconds(0);
+			today.setMilliseconds(0);
+			return Math.floor((deletionDate - today) / 86400000);
 		},
 		copyButtonIcon() {
 			if (this.copyState === 'success')

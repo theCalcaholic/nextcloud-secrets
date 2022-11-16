@@ -1,6 +1,8 @@
 <?php
 namespace OCA\Secrets\Cron;
 
+use DateInterval;
+use DateTime;
 use OCA\Secrets\Service\SecretService;
 use OCP\BackgroundJob\TimedJob;
 use OCP\AppFramework\Utility\ITimeFactory;
@@ -21,7 +23,9 @@ class CleanupExpiredSecrets extends TimedJob {
 	 */
 	protected function run($argument)
 	{
-		$this->service->deleteExpired();
+		$dt = new DateTime();
+		$dt->add(New DateInterval('P7d'));
+		$this->service->deleteExpiredAfter($dt->format('Y-m-d'));
 	}
 }
 ?>

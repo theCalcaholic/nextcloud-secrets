@@ -108,8 +108,8 @@ class SecretService {
 	/**
 	 * @throws \OCP\DB\Exception
 	 */
-	public function deleteExpired(): Secret {
-		$this->mapper->deleteExpired();
+	public function deleteExpiredAfter(string $date): Secret {
+		$this->mapper->deleteExpired($date);
 	}
 
 	/**

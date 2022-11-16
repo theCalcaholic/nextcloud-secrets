@@ -87,12 +87,11 @@ class SecretMapper extends QBMapper {
 	/**
 	 * @throws Exception
 	 */
-	public function deleteExpired(): void {
-		$today = date('Y-m-d');
+	public function deleteExpired(string $date): void {
 		$qb = $this->db->getQueryBuilder();
 		$qb->delete($this->tableName)
 			->where(
-				$qb->expr()->lt('expires', $qb->createNamedParameter($today))
+				$qb->expr()->lt('expires', $qb->createNamedParameter($date))
 			);
 		$qb->executeStatement();
 	}

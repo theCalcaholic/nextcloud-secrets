@@ -61,17 +61,9 @@ export default {
 		flex-grow: 1;
 	}
 
-	input.secret-title[type='text'] {
-		width: 100%;
-		margin-top: 2.2em !important;
-	}
 	textarea {
 		flex-grow: 1;
 		width: 100%;
-	}
-
-	textarea.warning {
-		color: var(--color-warning);
 	}
 
 	.secret-actions {
