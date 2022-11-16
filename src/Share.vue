@@ -14,6 +14,12 @@
 							'before closing this page! It is now deleted on the server.') }}</p>
 					</NoteCard>
 				</div>
+				<Actions class="secret-actions">
+					<ActionButton
+						:icon="copyButtonIcon"
+						@click="copyToClipboard(decrypted)" :title="t('secrets', 'Copy to Clipboard')">
+					</ActionButton>
+				</Actions>
 				<textarea v-if="decrypted"
 						  v-model="decrypted" disabled="disabled" />
 			</div>
@@ -32,6 +38,7 @@
 <script>
 import AppContent from '@nextcloud/vue/dist/Components/NcAppContent'
 import NoteCard from "@nextcloud/vue/dist/Components/NcNoteCard";
+import ActionButton from '@nextcloud/vue/dist/Components/NcActionButton'
 import Secret from "./Secret";
 
 import '@nextcloud/dialogs/styles/toast.scss'
@@ -42,13 +49,41 @@ export default {
 	name: 'App',
 	components: {
 		AppContent,
+		ActionButton,
 		Secret,
 		NoteCard
 	},
 	data() {
 		return {
 			decrypted: null,
-			loading: true
+			loading: true,
+			copyState: 'ready'
+		}
+	},
+	computed: {
+
+		copyButtonIcon() {
+			if (this.copyState === 'success')
+				return 'icon-checkmark';
+			if (this.copyState === 'error')
+				return 'icon-error';
+			return 'icon-clippy';
+		},
+	},
+	methods: {
+
+		async copyToClipboard(content) {
+			try {
+				await navigator.clipboard.writeText(content);
+				this.copyState = 'success';
+				setTimeout(() => this.copyState = 'ready', 3000);
+			} catch (e) {
+				showError(e.message);
+				console.error(e);
+				this.copyState = 'error';
+				setTimeout(() => this.copyState = 'ready', 3000);
+			}
+
 		}
 	},
 	async mounted() {

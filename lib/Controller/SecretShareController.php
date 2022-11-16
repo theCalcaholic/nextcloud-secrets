@@ -129,7 +129,7 @@ class SecretShareController extends AuthPublicShareController {
 			array("encrypted" => $this->getSecret()->getEncrypted(), "iv" => $this->getSecret()->getIv()));
 
 		error_log("pw hash: " . $this->getSecret()->getPwHash());
-		//$this->service->invalidate($this->getSecret()->getUuid());
+		$this->service->invalidate($this->getSecret()->getUuid());
 		return $resp;
 	}
 }

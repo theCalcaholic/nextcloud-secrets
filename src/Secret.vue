@@ -37,6 +37,7 @@
 
 <script>
 import ActionButton from '@nextcloud/vue/dist/Components/NcActionButton'
+import Actions from '@nextcloud/vue/dist/Components/NcActions';
 import AppContent from '@nextcloud/vue/dist/Components/NcAppContent'
 import AppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation'
 import AppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem'
@@ -53,6 +54,7 @@ export default {
 	name: 'Secret',
 	components: {
 		ActionButton,
+		Actions,
 		AppContent,
 		AppNavigation,
 		AppNavigationItem,
