@@ -3,7 +3,7 @@
 	SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
 	SPDX-License-Identifier: AGPL-3.0-or-later
 	-->
-	<div id="content" class="app-secrets">
+	<div id="content-wrapper" class="app-secrets">
 		<AppContent class="centered">
 			<h2>The following secret has been shared with you securely:</h2>
 			<!--v-on:secret-changed="changeSecret"-->
@@ -150,9 +150,13 @@ export default {
 		width: 100%;
 		margin: 0;
 	}
-	#content {
+	#content-wrapper {
+		display: flex;
 		width: 100%;
+		border-radius: var(--body-container-radius);
+		overflow: hidden;
 	}
+
 </style>
 <style>
 	.app-content {

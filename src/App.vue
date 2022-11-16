@@ -3,39 +3,39 @@
     SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
     SPDX-License-Identifier: AGPL-3.0-or-later
     -->
-	<div id="content" class="app-secrets">
+	<div id="content-wrapper">
 		<AppNavigation>
-			<template slot="list">
+			<template #list>
 				<AppNavigationNew v-if="!loading"
-					:text="t('secrets', 'New secret')"
-					:disabled="false"
-					button-id="new-secrets-button"
-					button-class="icon-add"
-					@click="newSecret" />
+								  :text="t('secrets', 'New secret')"
+								  :disabled="false"
+								  button-id="new-secrets-button"
+								  button-class="icon-add"
+								  @click="newSecret" />
 				<AppNavigationItem v-for="secret in secrets"
-					:key="secret.uuid"
-					:title="secret.title"
-					:class="{
-						active: currentSecretUUId === secret.uuid,
-						invalidated: secret.encrypted === null
-					}"
-				   :editable="true"
-				   :editLabel="t('secrets', 'Change Title')"
-				   :icon="secret.uuid === '' ? 'icon-template-add' : (secret.encrypted === null ? 'icon-toggle' : 'icon-password')"
-				   @update:title="(title) => updateSecretTitle(secret, title)"
-				   @click="openSecret(secret)">
+								   :key="secret.uuid"
+								   :title="secret.title"
+								   :class="{
+									   active: currentSecretUUId === secret.uuid,
+									   invalidated: secret.encrypted === null
+								   }"
+								   :editable="true"
+								   :editLabel="t('secrets', 'Change Title')"
+								   :icon="secret.uuid === '' ? 'icon-template-add' : (secret.encrypted === null ? 'icon-toggle' : 'icon-password')"
+								   @update:title="(title) => updateSecretTitle(secret, title)"
+								   @click="openSecret(secret)">
 					<template slot="actions">
 						<ActionButton v-if="secret.uuid === ''"
-							icon="icon-close"
-							@click="cancelNewSecret(secret)">
+									  icon="icon-close"
+									  @click="cancelNewSecret(secret)">
 							{{
-							t('secrets', 'Cancel secret creation') }}
+								t('secrets', 'Cancel secret creation') }}
 						</ActionButton>
 						<ActionButton v-else
-							icon="icon-delete"
-							@click="deleteSecret(secret)">
+									  icon="icon-delete"
+									  @click="deleteSecret(secret)">
 							{{
-							 t('secrets', 'Delete secret') }}
+								t('secrets', 'Delete secret') }}
 						</ActionButton>
 					</template>
 				</AppNavigationItem>
@@ -66,8 +66,9 @@ import AppContent from '@nextcloud/vue/dist/Components/NcAppContent'
 import AppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation'
 import AppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem'
 import AppNavigationNew from '@nextcloud/vue/dist/Components/NcAppNavigationNew'
-import Secret from "./Secret";
-import SecretEditor from "./SecretEditor";
+import Secret from "./Secret"
+import SecretEditor from "./SecretEditor"
+import Content from '@nextcloud/vue/dist/Components/NcContent'
 
 import '@nextcloud/dialogs/styles/toast.scss'
 import { generateUrl } from '@nextcloud/router'
@@ -75,13 +76,14 @@ import { showError, showSuccess } from '@nextcloud/dialogs'
 import axios from '@nextcloud/axios'
 
 export default {
-	name: 'App',
+	name: 'Secrets',
 	components: {
 		ActionButton,
 		AppContent,
 		AppNavigation,
 		AppNavigationItem,
 		AppNavigationNew,
+		Content,
 		Secret,
 		SecretEditor
 	},
@@ -287,7 +289,10 @@ export default {
 .active .app-navigation-entry {
 	background-color: var(--color-background-dark);
 }
-#content {
+#content-wrapper {
+	display: flex;
 	width: 100%;
+	border-radius: var(--body-container-radius);
+	overflow: hidden;
 }
 </style>
