@@ -19,6 +19,12 @@ export default {
 		const cipherStr = cipherArray.map(byte => String.fromCharCode(byte)).join('');
 		return window.btoa(cipherStr);
 	},
+	async md5Digest(str) {
+		let textBuffer = new TextEncoder().encode(str);
+		const hashBuffer = await crypto.subtle.digest('SHA-256', textBuffer);
+		const hashArray = Array.from(new Uint8Array(hashBuffer));
+		return window.btoa(hashArray.map(byte => String.fromCharCode(byte)).join(''));
+	},
 	stringToArrayBuffer(str) {
 		const buff = new ArrayBuffer(str.length)
 		const buffView = new Uint8Array(buff)

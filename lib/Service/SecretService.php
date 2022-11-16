@@ -63,13 +63,14 @@ class SecretService {
 	 */
 	public function findPublic(string $uuid): Secret {
 		try {
-			return $this->mapper->findPublic($uuid);
+			$secret = $this->mapper->findPublic($uuid);
+			return $secret;
 		} catch (Exception $e) {
 			$this->handleException($e);
 		}
 	}
 
-	public function create(string $title, string $encrypted, string $iv, ?string $expires, string $userId): Secret {
+	public function create(string $title, string $encrypted, string $iv, ?string $expires, ?string $password, string $userId): Secret {
 		$uuid_bytes = openssl_random_pseudo_bytes(16);
 		$uuid_bytes[6] = chr(ord($uuid_bytes[6]) & 0x0f | 0x40); // set version to 4 (0100)
 		$uuid_bytes[8] = chr(ord($uuid_bytes[8]) & 0x3f | 0x80); // set bits 6-7 to 10
@@ -81,6 +82,7 @@ class SecretService {
 		$secret->setIv($iv);
 		$secret->setUserId($userId);
 		$secret->setExpires($expires);
+		$secret->setPwHash($password ? hash("sha256", $password . $secret->getUuid()) : null);
 		return $this->mapper->insert($secret);
 	}
 

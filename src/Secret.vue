@@ -1,12 +1,15 @@
 <template>
 	<div class="secret-container">
 		<div>
-			<NoteCard type="success">
-				<p>
-					Your secret is stored end-to-end encrypted on the server. It can only be decrypted by someone who has been given the link.
-					Once retrieved successfully, the secret will be deleted on the server
-				</p>
+			<NoteCard v-if="success" type="success">
+				<p>{{ success }}</p>
 			</NoteCard>
+			<NoteCard v-if="warning" type="warning">
+				<p>{{ warning }}</p>
+			</NoteCard>
+			<CheckboxRadioSwitch :checked="value.pwHash !== null" :disabled="true">
+				password protected
+			</CheckboxRadioSwitch>
 			<p class="expires-container">
 				<label for="expires">Expires on:</label>
 				<input v-if="value.expires" type="date" name="expires" v-model="formattedDate" disabled="disabled">
@@ -23,11 +26,11 @@
 				</Actions>
 			</p>
 		</div>
-		<textarea v-if="value.key" :class="isDecrypted ? '' : 'warning'"
+		<textarea v-if="value._decrypted"
 				  v-model="value._decrypted" disabled="disabled" />
 		<div v-else id="emptycontent">
 			<div class="icon-password" />
-			<h2>{{ t('secrets', 'Could not decrypt secret (key not available).') }}</h2>
+			<h2>{{ t('secrets', 'Could not decrypt secret (key not available locally).') }}</h2>
 		</div>
 	</div>
 </template>
@@ -39,6 +42,7 @@ import AppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation'
 import AppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem'
 import AppNavigationNew from '@nextcloud/vue/dist/Components/NcAppNavigationNew'
 import NoteCard from '@nextcloud/vue/dist/Components/NcNoteCard'
+import CheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch';
 
 import '@nextcloud/dialogs/styles/toast.scss'
 import { generateUrl } from '@nextcloud/router'
@@ -53,6 +57,7 @@ export default {
 		AppNavigation,
 		AppNavigationItem,
 		AppNavigationNew,
+		CheckboxRadioSwitch,
 		NoteCard
 	},
 	data() {
@@ -61,7 +66,7 @@ export default {
 			copyState: 'ready'
 		}
 	},
-	props: ['value', 'locked'],
+	props: ['value', 'locked', 'warning', 'success'],
 	computed: {
 		isDecrypted() {
 			return !!this.value.key;
@@ -116,10 +121,13 @@ export default {
 		async copyToClipboard(url) {
 			try {
 				await navigator.clipboard.writeText(url);
-				this.copyButtonIcon = 'icon-success'
+				this.copyState = 'success';
+				setTimeout(() => this.copyState = 'ready', 3000);
 			} catch (e) {
 				showError(e.message);
 				console.error(e);
+				this.copyState = 'error';
+				setTimeout(() => this.copyState = 'ready', 3000);
 			}
 
 		}
@@ -133,16 +141,11 @@ export default {
 	div.secret-container {
 		width: 100%;
 		min-height: 50%;
-		padding: 20px;
 		display: flex;
 		flex-direction: column;
 		flex-grow: 1;
 	}
 
-	input.secret-title[type='text'] {
-		width: 100%;
-		margin-top: 2.2em !important;
-	}
 	textarea {
 		flex-grow: 1;
 		width: 100%;

@@ -45,9 +45,9 @@ class SecretController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 */
-	public function create(string $title, string $encrypted, string $iv, ?string $expires): DataResponse {
+	public function create(string $title, string $encrypted, string $iv, ?string $expires, ?string $password): DataResponse {
 		error_log("create_secret( $title, $encrypted, $iv )");
-		return new DataResponse($this->service->create($title, $encrypted, $iv, $expires, $this->userId));
+		return new DataResponse($this->service->create($title, $encrypted, $iv, $expires, $password, $this->userId));
 	}
 
 	/**

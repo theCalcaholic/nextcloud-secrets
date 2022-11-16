@@ -5,13 +5,13 @@
     -->
 	<div id="content" class="app-secrets">
 		<AppNavigation>
-			<AppNavigationNew v-if="!loading"
-				:text="t('secrets', 'New secret')"
-				:disabled="false"
-				button-id="new-secrets-button"
-				button-class="icon-add"
-				@click="newSecret" />
-			<ul>
+			<template slot="list">
+				<AppNavigationNew v-if="!loading"
+					:text="t('secrets', 'New secret')"
+					:disabled="false"
+					button-id="new-secrets-button"
+					button-class="icon-add"
+					@click="newSecret" />
 				<AppNavigationItem v-for="secret in secrets"
 					:key="secret.uuid"
 					:title="secret.title"
@@ -21,7 +21,7 @@
 					}"
 				   :editable="true"
 				   :editLabel="t('secrets', 'Change Title')"
-				   :icon="secret.encrypted === null ? 'icon-toggle' : 'icon-password'"
+				   :icon="secret.uuid === '' ? 'icon-template-add' : (secret.encrypted === null ? 'icon-toggle' : 'icon-password')"
 				   @update:title="(title) => updateSecretTitle(secret, title)"
 				   @click="openSecret(secret)">
 					<template slot="actions">
@@ -39,7 +39,7 @@
 						</ActionButton>
 					</template>
 				</AppNavigationItem>
-			</ul>
+			</template>
 		</AppNavigation>
 		<AppContent>
 			<SecretEditor v-if="currentSecret && currentSecretUUId === ''"
@@ -48,7 +48,10 @@
 						  v-on:save-secret="saveSecret"/>
 			<Secret v-else-if="currentSecret && currentSecret.encrypted"
 					v-model="currentSecret"
-					:locked="locked" />
+					:locked="locked"
+					:success="t('secrets', 'Your secret is stored end-to-end encrypted on the server. ' +
+					 'It can only be decrypted by someone who has been given the link.\n' +
+					 'Once retrieved successfully, the secret will be deleted on the server')" />
 			<div v-else-if="currentSecret && !currentSecret.encrypted" id="emptycontent">
 				<div class="icon-toggle" />
 				<h2>{{ t('secrets', 'This secret has already been retrieved and was consequently deleted from the server.') }}</h2>
@@ -191,6 +194,8 @@ export default {
 				this.secrets.push({
 					uuid: "",
 					title: t('secrets', 'New Secret'),
+					password: null,
+					pwHash: null,
 					key: key,
 					iv: iv,
 					expires: expiryDate,
@@ -218,13 +223,15 @@ export default {
 			this.updating = true
 			try {
 				console.log("expires: ", secret.expires);
-				const encrypted = await this.$secrets.encrypt(secret._decrypted, secret.key, secret.iv);
+				const encryptedPromise = this.$secrets.encrypt(secret._decrypted, secret.key, secret.iv);
+				//const pwHash = secret.password ? await this.$secrets.md5Digest(secret.password) : null;
 				let expiresStr = secret.expires.toISOString();
 				expiresStr = expiresStr.substring(0, expiresStr.indexOf('T'));
 				const encryptedSecret = {
 					title: secret.title,
+					password: secret.password,
 					expires: expiresStr,
-					encrypted: encrypted,
+					encrypted: await encryptedPromise,
 					iv: String.fromCharCode.apply(null, secret.iv)
 				};
 				const response = await axios.post(generateUrl('/apps/secrets/secrets'), encryptedSecret)
@@ -276,9 +283,12 @@ export default {
 	},
 }
 </script>
+
 <style>
-.app-navigation-entry.invalidated .app-navigation-entry-link {
-	color: var(--color-warning);
-	opacity: 0.7;
+.app-content {
+	padding: 44px 20px 20px;
+}
+.active .app-navigation-entry {
+	background-color: var(--color-background-dark);
 }
 </style>

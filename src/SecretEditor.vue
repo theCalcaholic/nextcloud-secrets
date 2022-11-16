@@ -2,8 +2,12 @@
 	<div class="secret-container">
 		<p>
 			<label for="expires">Expires on:</label>
-			<DatetimePicker name="expires" :clearable="false" v-model="value.expires" type="date"/>
+			<DatetimePicker name="expires" :clearable="false" v-model="value.expires" type="date"
+							placeholder="Expiration Date"/>
 		</p>
+		<PasswordField :value="value.password" label="share password (optional)"
+					   :value.sync="value.password"
+					   :minlength="4" :required="false"/>
 		<textarea v-model="value._decrypted" :disabled="locked" />
 		<input type="button"
 			   class="primary"
@@ -20,6 +24,7 @@ import AppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation'
 import AppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem'
 import AppNavigationNew from '@nextcloud/vue/dist/Components/NcAppNavigationNew'
 import DatetimePicker from '@nextcloud/vue/dist/Components/NcDatetimePicker';
+import PasswordField from '@nextcloud/vue/dist/Components/NcPasswordField';
 
 import '@nextcloud/dialogs/styles/toast.scss'
 import { generateUrl } from '@nextcloud/router'
@@ -34,7 +39,8 @@ export default {
 		AppNavigation,
 		AppNavigationItem,
 		AppNavigationNew,
-		DatetimePicker
+		DatetimePicker,
+		PasswordField
 	},
 	props: ['locked', 'title', 'value'],
 	computed: {

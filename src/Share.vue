@@ -7,14 +7,16 @@
 		<AppContent class="centered">
 			<h2>The following secret has been shared with you securely:</h2>
 			<!--v-on:secret-changed="changeSecret"-->
-			<NoteCard type="warning">
-				<p>
-				Please make sure you have copied and stored the secret before closing this page! It is now deleted on the server.
-				</p>
-			</NoteCard>
-			<Secret v-if="secret"
-					v-model="secret"
-					:locked="false"></Secret>
+			<div class="secret-container">
+				<div>
+					<NoteCard type="warning">
+						<p>{{ t('secrets', 'Please make sure you have copied and stored the secret ' +
+							'before closing this page! It is now deleted on the server.') }}</p>
+					</NoteCard>
+				</div>
+				<textarea v-if="decrypted"
+						  v-model="decrypted" disabled="disabled" />
+			</div>
 			<div v-else-if="loading" id="emptycontent">
 				<div class="icon-loading" />
 				<h2>{{ t('secrets', 'Retrieving secret...') }}</h2>
@@ -45,7 +47,7 @@ export default {
 	},
 	data() {
 		return {
-			secret: null,
+			decrypted: null,
 			loading: true
 		}
 	},
@@ -65,16 +67,9 @@ export default {
 						['decrypt']
 					);
 			console.log(key);
-			const decrypted = await this.$secrets.decrypt(encryptedStr,
+			this.decrypted = await this.$secrets.decrypt(encryptedStr,
 				key,
 				iv)
-			this.secret = {
-				title: t('secrets', 'Shared Secret'),
-				iv: iv,
-				encrypted: this.$secrets.stringToArrayBuffer(encrypted),
-				_decrypted: decrypted
-			}
-			console.log("decrypted: ", decrypted);
 		} catch (e) {
 			console.error(e)
 			showError(t('secrets', 'Could not fetch secrets'))
@@ -85,19 +80,38 @@ export default {
 </script>
 
 <style scoped>
-.centered {
-	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
-}
-textarea {
-	width: 400px;
-	height: 400px;
-	margin: 2em;
-	min-width: calc(100% - 4em);
-}
-input[type="button"] {
-	display: block;
-	margin: auto;
-}
+	.centered {
+		text-align: center;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	textarea {
+		width: 400px;
+		height: 400px;
+		margin: 2em;
+		min-width: calc(100% - 4em);
+	}
+	input[type="button"] {
+		display: block;
+		margin: auto;
+	}
+
+	div.secret-container {
+		width: 100%;
+		min-height: 50%;
+		padding: 20px;
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+	}
+	textarea {
+		flex-grow: 1;
+		width: 100%;
+		margin: 0;
+	}
+</style>
+<style>
+	.app-content {
+		padding: 44px 20px 20px;
+	}
 </style>

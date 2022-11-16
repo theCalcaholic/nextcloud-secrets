@@ -14,7 +14,7 @@ use Sabre\VObject\Property\VCard\Date;
 
 /**
  * @method getId(): int
- * @method getUUId(): string
+ * @method getUuid(): string
  * @method setUuid(string $uuid): void
  * @method getTitle(): string
  * @method setTitle(string $title): void
@@ -55,6 +55,8 @@ class Secret extends Entity implements JsonSerializable {
 		return [
 			'uuid' => $this->uuid,
 			'title' => $this->title,
+			// We make sure to never return the pw hash to the client
+			'pwHash' => $this->pwHash === null ? null : '',
 			'encrypted' => $this->encrypted,
 			'expires' => $this->expires,
 			'iv' => $this->iv

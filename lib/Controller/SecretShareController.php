@@ -10,24 +10,23 @@ use OCA\Secrets\AppInfo\Application;
 use OCA\Secrets\Db\Secret;
 use OCA\Secrets\Service\SecretNotFound;
 use OCA\Secrets\Service\SecretService;
-use OCP\AppFramework\Controller;
-use OCP\AppFramework\Http\DataResponse;
+use OCP\AppFramework\AuthPublicShareController;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IRequest;
 
-use OCP\AppFramework\PublicShareController;
 use OCP\ISession;
+use OCP\IURLGenerator;
 use OCP\Util;
-use function PHPUnit\Framework\throwException;
 
-class SecretShareController extends PublicShareController {
+class SecretShareController extends AuthPublicShareController {
 	private SecretService $service;
 	private Secret $secret;
 
 	public function __construct(IRequest      $request,
 								ISession $session,
-								SecretService $service) {
-		parent::__construct(Application::APP_ID, $request, $session);
+								SecretService $service,
+								IURLGenerator $urlGenerator) {
+		parent::__construct(Application::APP_ID, $request, $session, $urlGenerator);
 		$this->service = $service;
 	}
 
@@ -36,8 +35,7 @@ class SecretShareController extends PublicShareController {
 	 */
 	protected function getPasswordHash(): string
 	{
-		$this->retrieveSecret();
-		return $this->secret->getPwHash();
+		return $this->getSecret()->getPwHash();
 	}
 
 	/**
@@ -45,22 +43,20 @@ class SecretShareController extends PublicShareController {
 	 * @throws InvalidArgumentException
 	 * @return void
 	 */
-	private function retrieveSecret(): void {
-		if (isset($this->secret)) {
-			error_log("secret already set: " . $this->secret->getTitle());
-			return;
+	private function getSecret(): ?Secret {
+		if (!isset($this->secret)) {
+			if (!$this->getToken()) {
+				throw new InvalidArgumentException("secret uuid is not defined");
+			}
+			$this->secret = $this->service->findPublic($this->getToken());
 		}
-		if (!$this->getToken()) {
-			throw new InvalidArgumentException("secret uuid is not defined");
-		}
-		$this->secret = $this->service->findPublic($this->getToken());
+		return $this->secret;
 	}
 
 	public function isValidToken(): bool
 	{
 		try {
-			$this->retrieveSecret();
-			return true;
+			return $this->getSecret() !== null;
 		} catch (SecretNotFound | InvalidArgumentException $e) {
 			error_log($e->getMessage());
 			return false;
@@ -72,21 +68,68 @@ class SecretShareController extends PublicShareController {
 	 */
 	protected function isPasswordProtected(): bool
 	{
-		$this->retrieveSecret();
-		error_log("pw hash: " . $this->secret->getPwHash());
-		return $this->secret->getPwHash() !== null;
+		return $this->getSecret()->getPwHash() !== null;
+	}
+
+	protected function verifyPassword(string $password): bool
+	{
+		try {
+			return hash("sha256", $password . $this->getSecret()->getUuid()) === $this->getPasswordHash();
+		} catch (SecretNotFound $e) {
+			return false;
+		}
 	}
 
 	/**
 	 * @PublicPage
 	 * @NoCSRFRequired
+	 *
+	 * Show the authentication page
+	 * The form has to submit to the authenticate method route
+	 *
+	 * @since 14.0.0
+	 */
+	public function showAuthenticate(): TemplateResponse {
+		error_log("showAuthenticate");
+		return new TemplateResponse('secrets', 'publicshareauth',
+			[], 'guest');
+	}
+
+	/**
+	 * The template to show when authentication failed
+	 *
+	 * @since 14.0.0
+	 */
+	protected function showAuthFailed(): TemplateResponse {
+		error_log("showAuthFailed");
+		return new TemplateResponse('secrets', 'publicshareauth', ['wrongpw' => true], 'guest');
+	}
+
+	/**
+	 * The template to show after user identification
+	 *
+	 * @since 24.0.0
+	 */
+	protected function showIdentificationResult(bool $success): TemplateResponse {
+		error_log("showIdentificationResult");
+		return new TemplateResponse('secrets', 'publicshareauth', ['identityOk' => $success], 'guest');
+	}
+
+	/**
+	 * @PublicPage
+	 * @NoCSRFRequired
+	 *
 	 * @throws SecretNotFound
 	 */
-	public function get(): TemplateResponse {
-		$this->retrieveSecret();
+	public function showShare(): TemplateResponse
+	{
 		Util::addScript(Application::APP_ID, 'secrets-main');
 
-		return new TemplateResponse(Application::APP_ID, 'public',
-			array("encrypted" => $this->secret->getEncrypted(), "iv" => $this->secret->getIv()));
+		$resp = new TemplateResponse(Application::APP_ID, 'public',
+			array("encrypted" => $this->getSecret()->getEncrypted(), "iv" => $this->getSecret()->getIv()));
+
+		error_log("pw hash: " . $this->getSecret()->getPwHash());
+		//$this->service->invalidate($this->getSecret()->getUuid());
+		return $resp;
 	}
 }
