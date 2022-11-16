@@ -60,7 +60,7 @@ class SecretMapper extends QBMapper {
 			->from('secrets')
 			->where($qb->expr()->eq('uuid', $qb->createNamedParameter($uuid)))
 			->andWhere($qb->expr()->isNotNull('encrypted'))
-			->andWhere($qb->expr()->lt($qb->createNamedParameter(date("Y-m-d")), 'expires'));
+			->andWhere($qb->expr()->gt('expires', $qb->createNamedParameter(date("Y-m-d"))));
 		return $this->findEntity($qb);
 	}
 
@@ -82,6 +82,19 @@ class SecretMapper extends QBMapper {
 		$secret->setIv(null);
 		$secret->setExpires(date('Y-m-d'));
 		return $this->update($secret);
+	}
+
+	/**
+	 * @throws Exception
+	 */
+	public function deleteExpired(): void {
+		$today = date('Y-m-d');
+		$qb = $this->db->getQueryBuilder();
+		$qb->delete($this->tableName)
+			->where(
+				$qb->expr()->lt('expires', $qb->createNamedParameter($today))
+			);
+		$qb->executeStatement();
 	}
 
 	/**

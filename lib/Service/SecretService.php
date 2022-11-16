@@ -106,6 +106,13 @@ class SecretService {
 	}
 
 	/**
+	 * @throws \OCP\DB\Exception
+	 */
+	public function deleteExpired(): Secret {
+		$this->mapper->deleteExpired();
+	}
+
+	/**
 	 * @throws SecretNotFound
 	 */
 	public function delete(string $uuid, string $userId): Secret {
