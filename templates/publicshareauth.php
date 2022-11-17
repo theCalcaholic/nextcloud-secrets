@@ -1,4 +1,6 @@
 <?php
+// SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
+// SPDX-License-Identifier: GPL-3.0-or-later
 /** @var array $_ */
 /** @var \OCP\IL10N $l */
 \OCP\Util::addStyle('core', 'guest');

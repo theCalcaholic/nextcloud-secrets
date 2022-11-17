@@ -1,4 +1,8 @@
 <template>
+	<!--
+	SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
+	SPDX-License-Identifier: GPL-3.0-or-later
+	-->
 	<div class="dialog-container">
 		<h3>{{ t('secrets', 'Share Link') }}</h3>
 		<ActionButton icon="icon-close">Close</ActionButton>

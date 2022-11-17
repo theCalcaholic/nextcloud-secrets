@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 document.addEventListener('DOMContentLoaded', function() {
 	// Enables password submit button only when user has typed something in the password field
 	const passwordInput = document.getElementById('password');

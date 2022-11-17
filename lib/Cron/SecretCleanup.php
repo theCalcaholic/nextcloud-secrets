@@ -1,4 +1,7 @@
 <?php
+// SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 namespace OCA\Secrets\Cron;
 
 use DateInterval;

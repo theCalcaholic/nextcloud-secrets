@@ -1,4 +1,8 @@
 <template>
+	<!--
+	SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
+	SPDX-License-Identifier: GPL-3.0-or-later
+	-->
 	<div class="secret-container">
 		<p>
 			<label for="expires">Expires on:</label>
