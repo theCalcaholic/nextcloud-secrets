@@ -21,14 +21,12 @@ jobs:
       with:
         node-version: ${{ steps.versions.outputs.nodeVersion }}
     - name: Build app
-      run: make
+      run: make appstore
     - name: "Create release"
       run: |
         set -x
-        mkdir secrets
-        make
-        mv appinfo img js lib LICENSES templates secrets
-        tar -caf secrets.tar.gz secrets
+        make appstore
+        mv build/artifacts/appstore/secrets.tar.gz ./
         tag_name="${GITHUB_REF##*/}"
         hub release create -a secrets.tar.gz -m "$tag_name" "$tag_name"
       env:
