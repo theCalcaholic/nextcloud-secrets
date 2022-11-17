@@ -8,6 +8,7 @@ jobs:
   run:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
     - name: Read package.json node and npm engines version
       uses: skjnldsv/read-package-engines-version-actions@v1.2
       id: versions
@@ -15,7 +16,6 @@ jobs:
         fallbackNode: '^12'
         fallbackNpm: '^6'
 
-    - uses: actions/checkout@v2
     - name: Set up node ${{ steps.versions.outputs.nodeVersion }}
       uses: actions/setup-node@v3
       with:
