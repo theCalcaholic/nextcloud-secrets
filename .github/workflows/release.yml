@@ -26,7 +26,7 @@ jobs:
       run: |
         set -x
         make appstore
-        mv build/artifacts/appstore/secrets.tar.gz ./
+        mv build/artifacts/appstore/nextcloud-secrets.tar.gz ./secrets.tar.gz
         tag_name="${GITHUB_REF##*/}"
         hub release create -a secrets.tar.gz -m "$tag_name" "$tag_name"
       env:
