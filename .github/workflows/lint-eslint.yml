@@ -2,18 +2,28 @@
 #
 # https://github.com/nextcloud/.github
 # https://docs.github.com/en/actions/learn-github-actions/sharing-workflows-with-your-organization
-# SPDX-FileCopyrightText: Nextcloud contributors
-# SPDX-License-Identifier: AGPL-3.0-or-later
 
 name: Lint
 
 on:
   pull_request:
-  push:
-    branches:
-      - main
-      - master
-      - stable*
+    paths:
+      - '.github/workflows/**'
+      - 'src/**'
+      - 'appinfo/info.xml'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'tsconfig.json'
+      - '**.js'
+      - '**.ts'
+      - '**.vue'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lint-eslint-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
 
 jobs:
   lint:
@@ -32,13 +42,13 @@ jobs:
           fallbackNode: '^12'
           fallbackNpm: '^6'
 
-      - name: Set up node $
+      - name: Set up node ${{ steps.versions.outputs.nodeVersion }}
         uses: actions/setup-node@v3
         with:
-          node-version: $
+          node-version: ${{ steps.versions.outputs.nodeVersion }}
 
-      - name: Set up npm $
-        run: npm i -g npm@"$"
+      - name: Set up npm ${{ steps.versions.outputs.npmVersion }}
+        run: npm i -g npm@"${{ steps.versions.outputs.npmVersion }}"
 
       - name: Install dependencies
         run: npm ci
