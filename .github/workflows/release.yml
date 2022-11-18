@@ -14,6 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+      with:
+        path: secrets
     - name: Read package.json node and npm engines version
       uses: skjnldsv/read-package-engines-version-actions@v1.2
       id: versions
