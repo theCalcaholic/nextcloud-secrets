@@ -5,6 +5,8 @@
 
 set -e
 tmp_dir="$(mktemp -d)"
+trap 'rm -r "$tmp_dir"' EXIT
+
 wget -q -O "$tmp_dir/secrets.tar.gz" https://github.com/theCalcaholic/nextcloud-secrets/releases/latest/download/secrets.tar.gz
 wget -q -O "$tmp_dir/secrets.sha256" https://github.com/theCalcaholic/nextcloud-secrets/releases/latest/download/secrets.sha256
 
@@ -17,4 +19,5 @@ checksum="$(cd "$tmp_dir"; sha256sum "secrets.tar.gz")"
 }
 
 openssl dgst -sha512 -sign "$HOME/.nextcloud/certificates/secrets.key" "$tmp_dir/secrets.tar.gz" | openssl base64
+
 
