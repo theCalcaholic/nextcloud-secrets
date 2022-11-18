@@ -1,7 +1,7 @@
 {
   "name": "secrets",
   "description": "Securely share data with anyone",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "author": "Tobias Knöppler <thecalcaholic@web.de>",
   "contributors": [],
   "bugs": {
@@ -23,7 +23,7 @@
     "@nextcloud/axios": "^1.10.0",
     "@nextcloud/dialogs": "^3.1.4",
     "@nextcloud/router": "^2.0.0",
-    "@nextcloud/vue": "^5.4.0",
+    "@nextcloud/vue": "^7.0.1",
     "vue": "^2.7.0"
   },
   "browserslist": [
