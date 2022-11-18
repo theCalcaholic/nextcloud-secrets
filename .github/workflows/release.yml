@@ -16,26 +16,26 @@ jobs:
     - uses: actions/checkout@v2
       with:
         path: secrets
-    - name: enter repository
-      run: |
-        cd secrets
-        ls -l ..
+
     - name: Read package.json node and npm engines version
       uses: skjnldsv/read-package-engines-version-actions@v1.2
       id: versions
       with:
         fallbackNode: '^12'
         fallbackNpm: '^6'
+        path: './secrets'
 
     - name: Set up node ${{ steps.versions.outputs.nodeVersion }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ steps.versions.outputs.nodeVersion }}
+
     - name: Build app
       run: make appstore
     - name: "Create release"
       run: |
         set -x
+        cd secrets
         make appstore
         mv build/artifacts/appstore/secrets.tar.gz ./secrets.tar.gz
         sha256sum secrets.tar.gz > secrets.sha256
