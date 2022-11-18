@@ -27,6 +27,11 @@ export default {
 		const hashArray = Array.from(new Uint8Array(hashBuffer));
 		return window.btoa(hashArray.map(byte => String.fromCharCode(byte)).join(''));
 	},
+	/**
+	 *
+	 * @param str
+	 * @returns {ArrayBuffer}
+	 */
 	stringToArrayBuffer(str) {
 		const buff = new ArrayBuffer(str.length)
 		const buffView = new Uint8Array(buff)
@@ -35,6 +40,11 @@ export default {
 		}
 		return buff;
 	},
+	/**
+	 *
+	 * @param buf {ArrayBuffer}
+	 * @returns {string}
+	 */
 	arrayBufferToString(buf) {
 		return String.fromCharCode.apply(null, buf)
 	},
@@ -67,4 +77,19 @@ export default {
 			true,
 			["encrypt", "decrypt"]);
 	},
+	/**
+	 *
+	 * @param hexKey {String}
+	 * @param iv {Uint8Array}
+	 * @returns {Promise<CryptoKey>}
+	 */
+	async importDecryptionKey(hexKey, iv) {
+		return await window.crypto.subtle.importKey(
+			'raw',
+			this.stringToArrayBuffer(window.atob(hexKey)),
+			{name: this.ALGO, iv: iv},
+			false,
+			['decrypt']
+		);
+	}
 }

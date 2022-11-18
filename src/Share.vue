@@ -94,22 +94,11 @@ export default {
 			uuid = uuid.substring(uuid.lastIndexOf('/') + 1);
 			const response = await axios.post(generateUrl(`/apps/secrets/api/get`), {'uuid': uuid});
 			let secret = response.data;
-			// const dataEl = document.getElementById("secret");
-			// const ivStr = dataEl.getAttribute("data-iv");
-			// const encryptedStr = dataEl.getAttribute("data-encrypted");
 			const iv = this.$cryptolib.stringToArrayBuffer(secret.iv);
 			console.log("to decrypt:", secret.encrypted, secret.iv, window.location.hash.substring(1));
-			const key = await window.crypto.subtle.importKey(
-						'raw',
-						this.$cryptolib.stringToArrayBuffer(window.atob(window.location.hash.substring(1))),
-						{name: this.$cryptolib.ALGO, iv: iv},
-						false,
-						['decrypt']
-					);
+			const key = await this.$cryptolib.importDecryptionKey(window.location.hash.substring(1), iv);
 			console.log(key);
-			this.decrypted = await this.$cryptolib.decrypt(secret.encrypted,
-				key,
-				iv)
+			this.decrypted = await this.$cryptolib.decrypt(secret.encrypted, key, iv)
 		} catch (e) {
 			console.error(e)
 			showError(t('secrets', 'Could not decrypt secret'))
