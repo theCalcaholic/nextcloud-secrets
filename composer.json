@@ -35,6 +35,11 @@
 			"php": "7.4"
 		}
 	},
+	"autoload": {
+		"psr-4": {
+			"OCA\\Secrets\\": "lib/"
+		}
+	},
   "require": {
     "ext-openssl": "*",
 	  "ext-json": "*"
