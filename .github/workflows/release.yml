@@ -32,15 +32,17 @@ jobs:
 
     - name: Build app
       run: make appstore
+      working-directory: ./secrets
+
     - name: "Create release"
       run: |
         set -x
-        cd secrets
         make appstore
         mv build/artifacts/appstore/secrets.tar.gz ./secrets.tar.gz
         sha256sum secrets.tar.gz > secrets.sha256
         tag_name="${GITHUB_REF##*/}"
         hub release create -a secrets.tar.gz -a secrets.sha256 -m "$tag_name" "$tag_name"
+      working-directory: ./secrets
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
