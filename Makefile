@@ -85,6 +85,7 @@ ifeq (,$(wildcard $(CURDIR)/package.json))
 else
 	npm run build
 endif
+	cp -R js-static/* js/
 
 # Removes the appstore build
 .PHONY: clean
