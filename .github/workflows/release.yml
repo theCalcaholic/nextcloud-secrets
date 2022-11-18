@@ -31,7 +31,9 @@ jobs:
         node-version: ${{ steps.versions.outputs.nodeVersion }}
 
     - name: Build app
-      run: make build
+      run: |
+        npm install --dev
+        make build
       working-directory: ./secrets
 
     - name: "Create release"
