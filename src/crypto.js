@@ -54,4 +54,17 @@ export default {
 		);
 		return new TextDecoder().decode(plainBuffer);
 	},
+
+	/**
+	 *
+	 * @returns {Promise<CryptoKey>}
+	 */
+	async generateCryptoKey() {
+		return await window.crypto.subtle.generateKey({
+				name: "AES-GCM",
+				length: 256
+			},
+			true,
+			["encrypt", "decrypt"]);
+	},
 }

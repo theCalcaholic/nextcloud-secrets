@@ -97,17 +97,17 @@ export default {
 			// const dataEl = document.getElementById("secret");
 			// const ivStr = dataEl.getAttribute("data-iv");
 			// const encryptedStr = dataEl.getAttribute("data-encrypted");
-			const iv = this.$secrets.stringToArrayBuffer(secret.iv);
+			const iv = this.$cryptolib.stringToArrayBuffer(secret.iv);
 			console.log("to decrypt:", secret.encrypted, secret.iv, window.location.hash.substring(1));
 			const key = await window.crypto.subtle.importKey(
 						'raw',
-						this.$secrets.stringToArrayBuffer(window.atob(window.location.hash.substring(1))),
-						{name: this.$secrets.ALGO, iv: iv},
+						this.$cryptolib.stringToArrayBuffer(window.atob(window.location.hash.substring(1))),
+						{name: this.$cryptolib.ALGO, iv: iv},
 						false,
 						['decrypt']
 					);
 			console.log(key);
-			this.decrypted = await this.$secrets.decrypt(secret.encrypted,
+			this.decrypted = await this.$cryptolib.decrypt(secret.encrypted,
 				key,
 				iv)
 		} catch (e) {

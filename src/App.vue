@@ -156,14 +156,6 @@ export default {
 			}
 			this.currentSecretUUId = secret.uuid
 		},
-		async generateCryptoKey() {
-			return await window.crypto.subtle.generateKey({
-					name: "AES-GCM",
-					length: 256
-				},
-				true,
-				["encrypt", "decrypt"]);
-		},
 		saveCurrentSecret(decrypted) {
 			this.currentSecret._decrypted = decrypted;
 			this.saveSecret(this.currentSecret);
@@ -183,7 +175,7 @@ export default {
 		 * has been persisted in the backend
 		 */
 		async newSecret() {
-			const key = await this.generateCryptoKey();
+			const key = await this.$cryptolib.generateCryptoKey();
 			const iv = window.crypto.getRandomValues(new Uint8Array(12));
 			if (this.currentSecretUUId !== "") {
 				this.currentSecretUUId = ""
@@ -221,8 +213,8 @@ export default {
 			this.updating = true
 			try {
 				console.log("expires: ", secret.expires);
-				const encryptedPromise = this.$secrets.encrypt(secret._decrypted, secret.key, secret.iv);
-				//const pwHash = secret.password ? await this.$secrets.md5Digest(secret.password) : null;
+				const encryptedPromise = this.$cryptolib.encrypt(secret._decrypted, secret.key, secret.iv);
+				//const pwHash = secret.password ? await this.$cryptolib.md5Digest(secret.password) : null;
 				let expiresStr = secret.expires.toISOString();
 				expiresStr = expiresStr.substring(0, expiresStr.indexOf('T'));
 				const encryptedSecret = {
@@ -233,16 +225,16 @@ export default {
 					iv: String.fromCharCode.apply(null, secret.iv)
 				};
 				const response = await axios.post(generateUrl('/apps/secrets/secrets'), encryptedSecret)
-				const decrypted = await this.$secrets.decrypt(
+				const decrypted = await this.$cryptolib.decrypt(
 					response.data.encrypted,
 					secret.key,
-					this.$secrets.stringToArrayBuffer(response.data.iv))
+					this.$cryptolib.stringToArrayBuffer(response.data.iv))
 				const index = this.secrets.findIndex((match) => match.uuid === this.currentSecretUUId)
 				this.$set(this.secrets, index, {
 					...response.data,
 					_decrypted: decrypted,
 					key: secret.key,
-					iv: this.$secrets.stringToArrayBuffer(response.data.iv)
+					iv: this.$cryptolib.stringToArrayBuffer(response.data.iv)
 				})
 				this.currentSecretUUId = response.data.uuid
 				this.currentSecretKeyBuf = await window.crypto.subtle.exportKey("raw", this.currentSecret.key)
