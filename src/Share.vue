@@ -1,7 +1,7 @@
 <template>
 	<!--
 	SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
-	SPDX-License-Identifier: GPL-3.0-or-later
+	SPDX-License-Identifier: AGPL-3.0-or-later
 	-->
 	<div id="content-wrapper" class="app-secrets">
 		<AppContent class="centered">

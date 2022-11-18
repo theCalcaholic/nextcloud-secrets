@@ -1,7 +1,7 @@
 <phpunit bootstrap="bootstrap.php" colors="true">
     <!--
     SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
-    SPDX-License-Identifier: GPL-3.0-or-later
+    SPDX-License-Identifier: AGPL-3.0-or-later
     -->
     <testsuites>
         <testsuite name="unit">

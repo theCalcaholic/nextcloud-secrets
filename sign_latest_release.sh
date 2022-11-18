@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 set -e
 tmp_dir="$(mktemp -d)"
 wget -q -O "$tmp_dir/secrets.tar.gz" https://github.com/theCalcaholic/nextcloud-secrets/releases/latest/download/secrets.tar.gz
