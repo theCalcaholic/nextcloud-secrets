@@ -1,8 +1,13 @@
+# SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 name: Release
 
 on:
   push:
-    tags: ["v*"]
+    tags:
+      - "v*"
+      - "test*"
 
 jobs:
   run:
@@ -26,9 +31,10 @@ jobs:
       run: |
         set -x
         make appstore
-        mv build/artifacts/appstore/nextcloud-secrets.tar.gz ./secrets.tar.gz
+        mv build/artifacts/appstore/secrets.tar.gz ./secrets.tar.gz
+        sha256sum secrets.tar.gz > secrets.sha256
         tag_name="${GITHUB_REF##*/}"
-        hub release create -a secrets.tar.gz -m "$tag_name" "$tag_name"
+        hub release create -a secrets.tar.gz -a secrets.sha256 -m "$tag_name" "$tag_name"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
