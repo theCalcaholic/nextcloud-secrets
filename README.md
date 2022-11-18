@@ -4,6 +4,9 @@ SPDX-License-Identifier: CC0-1.0
 -->
 
 # Secrets
+
+![screenshot](./screenshots/share_link.png)
+
 Place this app in **nextcloud/apps/**
 
 ## Building the app

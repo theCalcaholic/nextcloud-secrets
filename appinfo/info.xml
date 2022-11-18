@@ -17,6 +17,11 @@
     <category>social</category>
     <category>tools</category>
     <bugs>https://github.com/theCalcaholic/nextcloud-secrets</bugs>
+	<screenshot small-thumbnail="https://raw.githubusercontent.com/theCalcaholic/nextcloud-secrets/main/screenshots/share_link.png">
+		https://raw.githubusercontent.com/theCalcaholic/nextcloud-secrets/main/screenshots/share_link.png
+	</screenshot>
+	<screenshot>https://raw.githubusercontent.com/theCalcaholic/nextcloud-secrets/main/screenshots/public_share.png</screenshot>
+	<screenshot>https://raw.githubusercontent.com/theCalcaholic/nextcloud-secrets/main/screenshots/new_secret.png</screenshot>
     <dependencies>
         <nextcloud min-version="24" max-version="26"/>
     </dependencies>
