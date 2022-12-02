@@ -5,10 +5,8 @@ declare(strict_types=1);
 
 namespace OCA\Secrets\Service;
 
-use DateTime;
 use Exception;
 
-use InvalidArgumentException;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
@@ -108,7 +106,7 @@ class SecretService {
 	/**
 	 * @throws \OCP\DB\Exception
 	 */
-	public function deleteExpiredAfter(string $date): Secret {
+	public function deleteExpiredAfter(string $date): void {
 		$this->mapper->deleteExpired($date);
 	}
 
