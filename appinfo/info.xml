@@ -25,13 +25,13 @@
     <dependencies>
         <nextcloud min-version="24" max-version="26"/>
     </dependencies>
+	<background-jobs>
+		<job>OCA\Secrets\Cron\SecretCleanup</job>
+	</background-jobs>
     <navigations>
         <navigation>
             <name>Secrets</name>
             <route>secrets.page.index</route>
         </navigation>
     </navigations>
-	<background-jobs>
-		<job>OCA\Secrets\Cron\SecretCleanup</job>
-	</background-jobs>
 </info>
