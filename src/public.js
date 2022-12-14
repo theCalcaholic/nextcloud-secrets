@@ -8,7 +8,7 @@ import { generateFilePath } from '@nextcloud/router'
 import cryptolib from './crypto';
 import Vue from 'vue'
 Object.defineProperty(Vue.prototype, "$cryptolib", {value: cryptolib})
-import App from './App'
+import Share from './Share'
 
 // eslint-disable-next-line
 __webpack_public_path__ = generateFilePath(appName, '', 'js/')
@@ -17,5 +17,5 @@ Vue.mixin({ methods: { t, n } })
 
 export default new Vue({
 	el: '#secret-root',
-	render: h => h(App),
+	render: h => h(Share),
 });
