@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 namespace OCA\Secrets\Tests\Unit\Controller;
 
+use OCA\Secrets\Controller\PageController;
 use PHPUnit\Framework\TestCase;
 
 use OCP\AppFramework\Http\TemplateResponse;
