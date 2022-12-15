@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 // SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
 // SPDX-License-Identifier: AGPL-3.0-or-later
@@ -10,7 +11,6 @@ use InvalidArgumentException;
 use JsonSerializable;
 
 use OCP\AppFramework\Db\Entity;
-use Sabre\VObject\Property\VCard\Date;
 
 /**
  * @method getId(): int
@@ -39,7 +39,7 @@ class Secret extends Entity implements JsonSerializable {
 	protected ?string $expires = null;
 
 	public function __construct() {
-		$this->addType('id','int');
+		$this->addType('id', 'int');
 	}
 
 	public function getExpiryDate(): DateTime {
@@ -48,7 +48,6 @@ class Secret extends Entity implements JsonSerializable {
 			throw new InvalidArgumentException("Error parsing date $this->expires");
 		}
 		return $expiryDate;
-
 	}
 
 	public function jsonSerialize(): array {

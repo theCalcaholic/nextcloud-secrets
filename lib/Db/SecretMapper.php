@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 // SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
 // SPDX-License-Identifier: AGPL-3.0-or-later
@@ -6,7 +7,6 @@ declare(strict_types=1);
 namespace OCA\Secrets\Db;
 
 use OCP\AppFramework\Db\DoesNotExistException;
-use OCP\AppFramework\Db\Entity;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\AppFramework\Db\QBMapper;
 use OCP\DB\Exception;
@@ -101,7 +101,6 @@ class SecretMapper extends QBMapper {
 	 * @throws MultipleObjectsReturnedException
 	 */
 	public function getId(string $uuid): int {
-
 		/* @var $db IQueryBuilder */
 		$qb = $this->db->getQueryBuilder();
 		$qb->select('id')

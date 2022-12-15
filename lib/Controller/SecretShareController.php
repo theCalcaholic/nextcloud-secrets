@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 // SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
 // SPDX-License-Identifier: AGPL-3.0-or-later
@@ -11,7 +12,6 @@ use OCA\Secrets\Db\Secret;
 use OCA\Secrets\Service\SecretNotFound;
 use OCA\Secrets\Service\SecretService;
 use OCP\AppFramework\AuthPublicShareController;
-use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IRequest;
 
@@ -34,8 +34,7 @@ class SecretShareController extends AuthPublicShareController {
 	/**
 	 * @throws SecretNotFound
 	 */
-	protected function getPasswordHash(): string
-	{
+	protected function getPasswordHash(): string {
 		return $this->getSecret()->getPwHash();
 	}
 
@@ -54,8 +53,7 @@ class SecretShareController extends AuthPublicShareController {
 		return $this->secret;
 	}
 
-	public function isValidToken(): bool
-	{
+	public function isValidToken(): bool {
 		try {
 			return $this->getSecret() !== null;
 		} catch (SecretNotFound | InvalidArgumentException $e) {
@@ -67,13 +65,11 @@ class SecretShareController extends AuthPublicShareController {
 	/**
 	 * @throws SecretNotFound
 	 */
-	protected function isPasswordProtected(): bool
-	{
+	protected function isPasswordProtected(): bool {
 		return $this->getSecret()->getPwHash() !== null;
 	}
 
-	protected function verifyPassword(string $password): bool
-	{
+	protected function verifyPassword(string $password): bool {
 		try {
 			return hash("sha256", $password . $this->getSecret()->getUuid()) === $this->getPasswordHash();
 		} catch (SecretNotFound $e) {
@@ -133,5 +129,4 @@ class SecretShareController extends AuthPublicShareController {
 		//$this->service->invalidate($this->getSecret()->getUuid());
 		return $resp;
 	}
-
 }
