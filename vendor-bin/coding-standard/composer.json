@@ -1,4 +1,10 @@
 {
+    "license": "AGPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Vitor Mattos"
+        }
+    ],
     "require-dev": {
         "nextcloud/coding-standard": "^1.0"
     }
