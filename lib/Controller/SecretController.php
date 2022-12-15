@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 // SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
 // SPDX-License-Identifier: AGPL-3.0-or-later
@@ -57,7 +58,7 @@ class SecretController extends Controller {
 	 * @param string $title
 	 */
 	public function updateTitle(string $uuid, string $title): DataResponse {
-		return $this->handleNotFound(function() use ($uuid, $title) {
+		return $this->handleNotFound(function () use ($uuid, $title) {
 			return $this->service->updateTitle($uuid, $this->userId, $title);
 		});
 	}

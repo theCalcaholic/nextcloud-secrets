@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 // SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
 // SPDX-License-Identifier: AGPL-3.0-or-later
@@ -22,7 +23,7 @@ class SecretApiController extends ApiController {
 
 	public function __construct(IRequest      $request,
 								ISession $session,
-                                SecretService $service) {
+								SecretService $service) {
 		parent::__construct(Application::APP_ID, $request);
 		$this->service = $service;
 		$this->session = $session;
@@ -48,7 +49,7 @@ class SecretApiController extends ApiController {
 		$pwHash = null;
 		if ($password) {
 			$pwHash = hash("sha256", $password . $secret->getUuid());
-		} else if ($this->session->get('public_link_authenticated_token') === $uuid) {
+		} elseif ($this->session->get('public_link_authenticated_token') === $uuid) {
 			$pwHash = $this->session->get('public_link_authenticated_password_hash');
 		}
 		if ($secret->getPwHash() !== null && $secret->getPwHash() !== $pwHash) {

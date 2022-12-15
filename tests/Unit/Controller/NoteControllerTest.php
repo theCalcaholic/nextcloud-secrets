@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 // SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
 // SPDX-License-Identifier: AGPL-3.0-or-later
@@ -34,8 +35,8 @@ class NoteControllerTest extends TestCase {
 		$this->service->expects($this->once())
 			->method('updateTitle')
 			->with($this->equalTo('3'),
-					$this->equalTo($this->userId),
-					$this->equalTo('title'));
+				$this->equalTo($this->userId),
+				$this->equalTo('title'));
 
 		$this->controller->updateTitle('3', 'title');
 	}
