@@ -17,6 +17,7 @@ use OCA\Secrets\Db\SecretMapper;
 class NoteServiceTest extends TestCase {
 	private SecretService $service;
 	private string $userId = 'john';
+	/** @var SecretMapper|MockObject */
 	private $mapper;
 
 	public function setUp(): void {
@@ -26,28 +27,26 @@ class NoteServiceTest extends TestCase {
 		$this->service = new SecretService($this->mapper);
 	}
 
-	public function testUpdate(): void {
+	public function testUpdateWithSuccess(): void {
 		// the existing note
 		$note = Secret::fromRow([
-			'id' => 3,
+			'uuid' => '3',
 			'title' => 'yo',
-			'content' => 'nope'
 		]);
 		$this->mapper->expects($this->once())
 			->method('find')
-			->with($this->equalTo(3))
+			->with($this->equalTo('3'))
 			->will($this->returnValue($note));
 
 		// the note when updated
-		$updatedNote = Secret::fromRow(['id' => 3]);
+		$updatedNote = Secret::fromRow(['uuid' => '3']);
 		$updatedNote->setTitle('title');
-		$updatedNote->setEncrypted('content');
 		$this->mapper->expects($this->once())
 			->method('update')
 			->with($this->equalTo($updatedNote))
 			->will($this->returnValue($updatedNote));
 
-		$result = $this->service->update(3, 'title', 'content', $this->userId);
+		$result = $this->service->updateTitle('3', $this->userId, 'title');
 
 		$this->assertEquals($updatedNote, $result);
 	}
@@ -60,6 +59,6 @@ class NoteServiceTest extends TestCase {
 			->with($this->equalTo(3))
 			->will($this->throwException(new DoesNotExistException('')));
 
-		$this->service->update(3, 'title', 'content', $this->userId);
+		$this->service->updateTitle('3', $this->userId, 'title');
 	}
 }
