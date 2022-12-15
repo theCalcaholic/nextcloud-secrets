@@ -14,6 +14,7 @@ env:
   # Location of the phpunit.xml and phpunit.integration.xml files
   PHPUNIT_CONFIG: ./tests/phpunit.xml
   PHPUNIT_INTEGRATION_CONFIG: ./tests/phpunit.integration.xml
+  APP_NAME: secrets
 
 jobs:
   phpunit-mysql:
@@ -37,7 +38,7 @@ jobs:
       - name: Set app env
         run: |
           # Split and keep last
-          echo "APP_NAME=${GITHUB_REPOSITORY##*/}" >> $GITHUB_ENV
+          echo "APP_NAME=secrets" >> $GITHUB_ENV
 
       - name: Enable ONLY_FULL_GROUP_BY MySQL option
         run: |
@@ -89,7 +90,7 @@ jobs:
         # Only run if phpunit config file exists
         if: steps.check_phpunit.outputs.files_exists == 'true'
         working-directory: apps/${{ env.APP_NAME }}
-        run: ./vendor/phpunit/phpunit/phpunit -c ${{ env.PHPUNIT_CONFIG }}
+        run: vendor/bin/phpunit -c ${{ env.PHPUNIT_CONFIG }}
 
       - name: Check PHPUnit integration config file existence
         id: check_integration
@@ -101,7 +102,7 @@ jobs:
         # Only run if phpunit integration config file exists
         if: steps.check_integration.outputs.files_exists == 'true'
         working-directory: apps/${{ env.APP_NAME }}
-        run: ./vendor/phpunit/phpunit/phpunit -c ${{ env.PHPUNIT_INTEGRATION_CONFIG }}
+        run: vendor/bin/phpunit -c ${{ env.PHPUNIT_INTEGRATION_CONFIG }}
 
   summary:
     runs-on: ubuntu-latest
