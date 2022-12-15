@@ -12,6 +12,8 @@ use PHPUnit\Framework\TestCase;
 use OCA\Secrets\Db\Secret;
 use OCA\Secrets\Db\SecretMapper;
 use OCA\Secrets\Controller\SecretController;
+use OCA\Secrets\Service\SecretService;
+use OCP\AppFramework\Db\QBMapper;
 
 class NoteIntegrationTest extends TestCase {
 	private SecretController $controller;
@@ -37,25 +39,25 @@ class NoteIntegrationTest extends TestCase {
 	}
 
 	public function testUpdate(): void {
+		$uuid = SecretService::getRandomUuid();
 		// create a new note that should be updated
 		$note = new Secret();
 		$note->setTitle('old_title');
-		$note->setEncrypted('old_content');
+		$note->setUuid($uuid);
 		$note->setUserId($this->userId);
 
-		$id = $this->mapper->insert($note)->getId();
+		$newNote = $this->mapper->insert($note);
 
 		// fromRow does not set the fields as updated
 		$updatedNote = Secret::fromRow([
-			'id' => $id,
+			'uuid' => $uuid,
 			'user_id' => $this->userId
 		]);
-		$updatedNote->setEncrypted('content');
 		$updatedNote->setTitle('title');
 
-		$result = $this->controller->update($id, 'title', 'content');
+		$result = $this->controller->updateTitle($uuid, 'title');
 
-		$this->assertEquals($updatedNote, $result->getData());
+		$this->assertEquals('title', $result->getData()->getTitle());
 
 		// clean up
 		$this->mapper->delete($result->getData());
