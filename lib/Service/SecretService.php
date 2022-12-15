@@ -68,13 +68,19 @@ class SecretService {
 		}
 	}
 
-	public function create(string $title, string $encrypted, string $iv, ?string $expires, ?string $password, string $userId): Secret {
+	public static function getRandomUuid(): string {
 		$uuid_bytes = openssl_random_pseudo_bytes(16);
 		$uuid_bytes[6] = chr(ord($uuid_bytes[6]) & 0x0f | 0x40); // set version to 4 (0100)
 		$uuid_bytes[8] = chr(ord($uuid_bytes[8]) & 0x3f | 0x80); // set bits 6-7 to 10
 
+		return bin2hex($uuid_bytes);
+	}
+
+	public function create(string $title, string $encrypted, string $iv, ?string $expires, ?string $password, string $userId): Secret {
+		$uuid = self::getRandomUuid();
+
 		$secret = new Secret();
-		$secret->setUuid(bin2hex($uuid_bytes));
+		$secret->setUuid($uuid);
 		$secret->setTitle($title);
 		$secret->setEncrypted($encrypted);
 		$secret->setIv($iv);
