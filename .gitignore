@@ -3,7 +3,7 @@
 .idea
 *.iml
 /vendor/
-/vendor-bin/
+/vendor-bin/**/vendor/
 /build/
 node_modules/
 /.php-cs-fixer.cache
