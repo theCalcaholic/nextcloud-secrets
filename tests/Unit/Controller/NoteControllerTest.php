@@ -17,7 +17,9 @@ use OCA\Secrets\Controller\SecretController;
 class NoteControllerTest extends TestCase {
 	protected SecretController $controller;
 	protected string $userId = 'john';
+	/** @var SecretService|MockObject */
 	protected $service;
+	/** @var IRequest|MockObject */
 	protected $request;
 
 	public function setUp(): void {
@@ -28,29 +30,24 @@ class NoteControllerTest extends TestCase {
 		$this->controller = new SecretController($this->request, $this->service, $this->userId);
 	}
 
-	public function testUpdate(): void {
-		$note = 'just check if this value is returned correctly';
+	public function testUpdateWithSuccess(): void {
 		$this->service->expects($this->once())
-			->method('update')
-			->with($this->equalTo(3),
-					$this->equalTo('title'),
-					$this->equalTo('content'),
-				   $this->equalTo($this->userId))
-			->will($this->returnValue($note));
+			->method('updateTitle')
+			->with($this->equalTo('3'),
+					$this->equalTo($this->userId),
+					$this->equalTo('title'));
 
-		$result = $this->controller->update(3, 'title', 'content');
-
-		$this->assertEquals($note, $result->getData());
+		$this->controller->updateTitle('3', 'title');
 	}
 
 
 	public function testUpdateNotFound(): void {
 		// test the correct status code if no note is found
 		$this->service->expects($this->once())
-			->method('update')
+			->method('updateTitle')
 			->will($this->throwException(new SecretNotFound()));
 
-		$result = $this->controller->update(3, 'title', 'content');
+		$result = $this->controller->updateTitle('3', 'title');
 
 		$this->assertEquals(Http::STATUS_NOT_FOUND, $result->getStatus());
 	}
