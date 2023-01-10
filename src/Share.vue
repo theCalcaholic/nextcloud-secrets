@@ -124,21 +124,18 @@ export default {
 		margin-right: auto;
 	}
 	textarea {
-		width: 400px;
+		width: 100%;
+		margin: 0;
 		height: 400px;
-		margin: 2em;
 		min-width: calc(100% - 4em);
+		font-family: "Lucida Console", monospace;
+		flex-grow: 1;
 	}
 	input[type="button"] {
 		display: block;
 		margin: auto;
 	}
 
-	textarea {
-		flex-grow: 1;
-		width: 100%;
-		margin: 0;
-	}
 	#content-wrapper {
 		display: flex;
 		width: 100%;
