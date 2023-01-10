@@ -1,7 +1,18 @@
 // SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
 // SPDX-License-Identifier: AGPL-3.0-or-later
-export default {
-	ALGO: "AES-GCM",
+
+
+const ALGO = "AES-GCM"
+
+export default class CryptoLib {
+
+	/**
+	 * @param crypto {Crypto}
+	 */
+	constructor(theCrypto) {
+		this.crypto = theCrypto;
+	}
+
 	/**
 	 *
 	 * @param plain {String}
@@ -10,44 +21,41 @@ export default {
 	 * @returns {Promise<String>}
 	 */
 	async encrypt(plain, key, iv) {
-		console.log("encryptString( '", plain, "', '", key, "', '", iv, "' )");
-		const cipherBuffer = await window.crypto.subtle.encrypt(
-			{ name: "AES-GCM", iv: iv },
+		console.debug("encryptString(...)");
+		const cipherBuffer = await this.crypto.subtle.encrypt(
+			{ name: ALGO, iv: iv },
 			key,
 			new TextEncoder().encode(plain)
 		);
 
-		const cipherArray = Array.from(new Uint8Array(cipherBuffer));
-		const cipherStr = cipherArray.map(byte => String.fromCharCode(byte)).join('');
-		return window.btoa(cipherStr);
-	},
-	async md5Digest(str) {
+		return this.arrayBufferToString(new Uint8Array(cipherBuffer))
+	}
+	async sha256Digest(str) {
+		console.debug("md5Digest(...)")
 		let textBuffer = new TextEncoder().encode(str);
-		const hashBuffer = await crypto.subtle.digest('SHA-256', textBuffer);
+		const hashBuffer = await this.crypto.subtle.digest('SHA-256', textBuffer);
 		const hashArray = Array.from(new Uint8Array(hashBuffer));
 		return window.btoa(hashArray.map(byte => String.fromCharCode(byte)).join(''));
-	},
+	}
 	/**
 	 *
 	 * @param str
-	 * @returns {ArrayBuffer}
+	 * @returns {Uint8Array}
 	 */
-	stringToArrayBuffer(str) {
-		const buff = new ArrayBuffer(str.length)
-		const buffView = new Uint8Array(buff)
-		for(let i = 0, strLen = str.length; i < strLen; i++) {
-			buffView[i] = str.charCodeAt(i);
-		}
-		return buff;
-	},
+	b64StringToArrayBuffer(str) {
+		console.debug("stringToArrayBuffer(...)");
+
+		return new Uint8Array(Array.from(window.atob(str)).map(ch => ch.charCodeAt(0)))
+	}
 	/**
 	 *
-	 * @param buf {ArrayBuffer}
+	 * @param buf {Uint8Array}
 	 * @returns {string}
 	 */
 	arrayBufferToString(buf) {
-		return String.fromCharCode.apply(null, buf)
-	},
+		console.debug("arrayBufferToString(...)")
+		return window.btoa(Array.from(buf).map(byte => String.fromCharCode(byte)).join(''));
+	}
 	/**
 	 *
 	 * @param cipher {String}
@@ -56,27 +64,27 @@ export default {
 	 * @returns {Promise<String>}
 	 */
 	async decrypt(cipher, key, iv) {
-		console.log("decrypt(", cipher, ",", key, ",", iv, ")");
-		const plainBuffer = await window.crypto.subtle.decrypt(
+		const plainBuffer = await this.crypto.subtle.decrypt(
 			{ name: this.ALGO, iv: iv },
 			key,
-			new Uint8Array(Array.from(window.atob(cipher)).map(ch => ch.charCodeAt(0)))
+			this.stringToArrayBuffer(cipher)
 		);
 		return new TextDecoder().decode(plainBuffer);
-	},
+	}
 
 	/**
 	 *
 	 * @returns {Promise<CryptoKey>}
 	 */
 	async generateCryptoKey() {
-		return await window.crypto.subtle.generateKey({
-				name: "AES-GCM",
+		console.debug("generateCryptoKey()")
+		return await this.crypto.subtle.generateKey({
+				name: ALGO,
 				length: 256
 			},
 			true,
 			["encrypt", "decrypt"]);
-	},
+	}
 	/**
 	 *
 	 * @param hexKey {String}
@@ -84,9 +92,10 @@ export default {
 	 * @returns {Promise<CryptoKey>}
 	 */
 	async importDecryptionKey(hexKey, iv) {
-		return await window.crypto.subtle.importKey(
+		console.debug("importDecryptionKey(...)")
+		return await this.crypto.subtle.importKey(
 			'raw',
-			this.stringToArrayBuffer(window.atob(hexKey)),
+			this.stringToArrayBuffer(hexKey),
 			{name: this.ALGO, iv: iv},
 			false,
 			['decrypt']
