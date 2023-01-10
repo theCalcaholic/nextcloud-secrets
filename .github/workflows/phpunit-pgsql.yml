@@ -7,8 +7,11 @@ on:
   pull_request:
   push:
     branches:
-      - master
+      - main
       - stable*
+    tags:
+      - "v*"
+      - "test*"
 
 env:
   # Location of the phpunit.xml and phpunit.integration.xml files
