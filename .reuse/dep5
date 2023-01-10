@@ -7,6 +7,10 @@ Files: package-lock.json package.json composer.json composer.lock
 Copyright: Tobias Knöppler <thecalcaholic@web.de>
 License: GPL-3.0-or-later
 
+Files: vendor-bin/*/composer.json vendor-bin/*/composer.lock
+Copyright: Vitor Mattos <vitor@php.rio>
+License: GPL-3.0-or-later
+
 Files: l10n/*.js l10n/*.json
 Copyright: Nextcloud translators <https://www.transifex.com/nextcloud/>
 License: AGPL-3.0-or-later

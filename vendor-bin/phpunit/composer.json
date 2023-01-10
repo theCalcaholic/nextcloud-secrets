@@ -1,0 +1,11 @@
+{
+    "license": "AGPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Vitor Mattos"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
+}

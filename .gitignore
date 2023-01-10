@@ -3,8 +3,10 @@
 .idea
 *.iml
 /vendor/
+/vendor-bin/**/vendor/
 /build/
 node_modules/
-/.php_cs.cache
+/.php-cs-fixer.cache
+.phpunit.result.cache
 js/*hot-update.*
 js/
