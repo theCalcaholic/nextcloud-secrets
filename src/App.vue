@@ -215,7 +215,6 @@ export default {
 			this.updating = true
 			try {
 				const encryptedPromise = this.$cryptolib.encrypt(secret._decrypted, secret.key, secret.iv)
-				// const pwHash = secret.password ? await this.$cryptolib.md5Digest(secret.password) : null;
 				let expiresStr = secret.expires.toISOString()
 				expiresStr = expiresStr.substring(0, expiresStr.indexOf('T'))
 				const encryptedSecret = {
@@ -223,8 +222,8 @@ export default {
 					password: secret.password,
 					expires: expiresStr,
 					encrypted: await encryptedPromise,
-					iv: String.fromCharCode.apply(null, secret.iv),
-				}
+					iv: this.$cryptolib.arrayBufferToString(secret.iv),
+				};
 				const response = await axios.post(generateUrl('/apps/secrets/secrets'), encryptedSecret)
 				const decrypted = await this.$cryptolib.decrypt(
 					response.data.encrypted,
