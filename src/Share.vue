@@ -38,22 +38,20 @@
 </template>
 
 <script>
-import AppContent from '@nextcloud/vue/dist/Components/NcAppContent'
-import NoteCard from '@nextcloud/vue/dist/Components/NcNoteCard'
-import ActionButton from '@nextcloud/vue/dist/Components/NcActionButton'
-import Secret from './Secret'
+import AppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
+import NoteCard from '@nextcloud/vue/dist/Components/NcNoteCard.js'
+import ActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 
 import '@nextcloud/dialogs/styles/toast.scss'
-import { showError, showSuccess } from '@nextcloud/dialogs'
+import { showError } from '@nextcloud/dialogs'
 import axios from '@nextcloud/axios'
 import { generateUrl } from '@nextcloud/router'
 
 export default {
-	name: 'App',
+	name: 'Share',
 	components: {
 		AppContent,
 		ActionButton,
-		Secret,
 		NoteCard,
 	},
 	data() {
@@ -92,12 +90,12 @@ export default {
 			try {
 				await navigator.clipboard.writeText(content)
 				this.copyState = 'success'
-				setTimeout(() => this.copyState = 'ready', 3000)
+				setTimeout(() => { this.copyState = 'ready' }, 3000)
 			} catch (e) {
 				showError(e.message)
 				console.error(e)
 				this.copyState = 'error'
-				setTimeout(() => this.copyState = 'ready', 3000)
+				setTimeout(() => { this.copyState = 'ready' }, 3000)
 			}
 
 		},
