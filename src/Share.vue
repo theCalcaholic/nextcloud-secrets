@@ -23,7 +23,7 @@
 				<textarea v-if="decrypted"
 						  v-model="decrypted" disabled="disabled" />
 			</div>
-			<div v-else-if="loading" id="emptycontent">
+			<div v-if="loading" id="emptycontent">
 				<div class="icon-loading" />
 				<h2>{{ t('secrets', 'Retrieving secret...') }}</h2>
 			</div>
