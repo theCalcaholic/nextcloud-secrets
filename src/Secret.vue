@@ -176,7 +176,7 @@ export default {
 	textarea {
 		flex-grow: 1;
 		width: 100%;
-		font-family: "Lucida Console", monospace;
+		font-family: 'Lucida Console', monospace;
 	}
 
 	/*textarea.warning {*/
