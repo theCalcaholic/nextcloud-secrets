@@ -278,9 +278,11 @@ export default {
 .app-content {
 	padding: 44px 20px 20px;
 }
+
 .active .app-navigation-entry {
 	background-color: var(--color-background-dark);
 }
+
 #content-wrapper {
 	display: flex;
 	width: 100%;
