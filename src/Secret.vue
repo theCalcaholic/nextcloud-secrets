@@ -45,8 +45,8 @@
 				</Actions>
 			</p>
 		</div>
-		<textarea v-if="value._decrypted"
-			v-model="value._decrypted"
+		<textarea v-if="secret._decrypted"
+			v-model="secret._decrypted"
 			disabled="disabled" />
 
 		<div v-else-if="!value.encrypted" id="emptycontent">
@@ -61,37 +61,46 @@
 </template>
 
 <script>
-import ActionButton from '@nextcloud/vue/dist/Components/NcActionButton'
-import Actions from '@nextcloud/vue/dist/Components/NcActions'
-import AppContent from '@nextcloud/vue/dist/Components/NcAppContent'
-import AppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation'
-import AppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem'
-import AppNavigationNew from '@nextcloud/vue/dist/Components/NcAppNavigationNew'
-import NoteCard from '@nextcloud/vue/dist/Components/NcNoteCard'
-import CheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch'
+import ActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
+import Actions from '@nextcloud/vue/dist/Components/NcActions.js'
+import NoteCard from '@nextcloud/vue/dist/Components/NcNoteCard.js'
+import CheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
 
 import '@nextcloud/dialogs/styles/toast.scss'
 import { generateUrl } from '@nextcloud/router'
-import { showError, showSuccess } from '@nextcloud/dialogs'
-import axios from '@nextcloud/axios'
+import { showError } from '@nextcloud/dialogs'
 
 export default {
 	name: 'Secret',
 	components: {
 		ActionButton,
 		Actions,
-		AppContent,
-		AppNavigation,
-		AppNavigationItem,
-		AppNavigationNew,
 		CheckboxRadioSwitch,
 		NoteCard,
 	},
-	props: ['value', 'locked', 'warning', 'success'],
+	props: {
+		value: {
+			type: Object,
+			default: () => {},
+		},
+		locked: {
+			type: String,
+			default: '',
+		},
+		warning: {
+			type: String,
+			default: '',
+		},
+		success: {
+			type: String,
+			default: '',
+		},
+	},
 	data() {
 		return {
 			keyBuf: null,
 			copyState: 'ready',
+			secret: this.value,
 		}
 	},
 	computed: {
@@ -152,12 +161,12 @@ export default {
 			try {
 				await navigator.clipboard.writeText(url)
 				this.copyState = 'success'
-				setTimeout(() => this.copyState = 'ready', 3000)
+				setTimeout(() => { this.copyState = 'ready' }, 3000)
 			} catch (e) {
 				showError(e.message)
 				console.error(e)
 				this.copyState = 'error'
-				setTimeout(() => this.copyState = 'ready', 3000)
+				setTimeout(() => { this.copyState = 'ready' }, 3000)
 			}
 
 		},
@@ -182,9 +191,9 @@ export default {
 		font-family: 'Lucida Console', monospace;
 	}
 
-	/*textarea.warning {*/
-	/*	color: var(--color-warning);*/
-	/*}*/
+	textarea.warning {
+		color: var(--color-warning);
+	}
 
 	.secret-actions {
 		display: inline-block;
