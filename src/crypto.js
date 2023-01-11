@@ -4,9 +4,9 @@ export default {
 	ALGO: 'AES-GCM',
 	/**
 	 *
-	 * @param {string} plain
-	 * @param {CryptoKey} key
-	 * @param {Uint8Array} iv
+	 * @param {string} plain plain
+	 * @param {CryptoKey} key key
+	 * @param {Uint8Array} iv iv
 	 * @return {Promise<string>}
 	 */
 	async encrypt(plain, key, iv) {
@@ -28,7 +28,7 @@ export default {
 	},
 	/**
 	 *
-	 * @param {string} str
+	 * @param {string} str str
 	 * @return {ArrayBuffer}
 	 */
 	stringToArrayBuffer(str) {
@@ -41,7 +41,7 @@ export default {
 	},
 	/**
 	 *
-	 * @param {ArrayBuffer} buf
+	 * @param {ArrayBuffer} buf buf
 	 * @return {string}
 	 */
 	arrayBufferToString(buf) {
@@ -49,9 +49,9 @@ export default {
 	},
 	/**
 	 *
-	 * @param {string} cipher
-	 * @param {CryptoKey} key
-	 * @param {Uint8Array} iv
+	 * @param {string} cipher Cipher
+	 * @param {CryptoKey} key Key
+	 * @param {Uint8Array} iv Iv
 	 * @return {Promise<string>}
 	 */
 	async decrypt(cipher, key, iv) {
@@ -77,8 +77,8 @@ export default {
 	},
 	/**
 	 *
-	 * @param {string} hexKey
-	 * @param {Uint8Array} iv
+	 * @param {string} hexKey hexKey
+	 * @param {Uint8Array} iv Iv
 	 * @return {Promise<CryptoKey>}
 	 */
 	async importDecryptionKey(hexKey, iv) {
