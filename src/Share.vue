@@ -123,15 +123,17 @@ export default {
 		margin-left: auto;
 		margin-right: auto;
 	}
+
 	textarea {
 		width: 100%;
 		margin: 0;
 		height: 400px;
 		min-width: calc(100% - 4em);
-		font-family: "Lucida Console", monospace;
+		font-family: 'Lucida Console', monospace;
 		flex-grow: 1;
 	}
-	input[type="button"] {
+
+	input[type='button'] {
 		display: block;
 		margin: auto;
 	}
