@@ -61,14 +61,13 @@
 </template>
 
 <script>
-import ActionButton from '@nextcloud/vue/dist/Components/NcActionButton'
-import AppContent from '@nextcloud/vue/dist/Components/NcAppContent'
-import AppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation'
-import AppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem'
-import AppNavigationNew from '@nextcloud/vue/dist/Components/NcAppNavigationNew'
-import Secret from './Secret'
-import SecretEditor from './SecretEditor'
-import Content from '@nextcloud/vue/dist/Components/NcContent'
+import ActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
+import AppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
+import AppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation.js'
+import AppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js'
+import AppNavigationNew from '@nextcloud/vue/dist/Components/NcAppNavigationNew.js'
+import Secret from './Secret.vue'
+import SecretEditor from './SecretEditor.vue'
 
 import '@nextcloud/dialogs/styles/toast.scss'
 import { generateUrl } from '@nextcloud/router'
@@ -76,14 +75,13 @@ import { showError, showSuccess } from '@nextcloud/dialogs'
 import axios from '@nextcloud/axios'
 
 export default {
-	name: 'Secrets',
+	name: 'App',
 	components: {
 		ActionButton,
 		AppContent,
 		AppNavigation,
 		AppNavigationItem,
 		AppNavigationNew,
-		Content,
 		Secret,
 		SecretEditor,
 	},
@@ -166,7 +164,7 @@ export default {
 		 * Action tiggered when clicking the save button
 		 * create a new secret or save
 		 *
-		 * @param secret
+		 * @param {object} secret Secret object
 		 */
 		saveSecret(secret) {
 			if (this.currentSecretUUId !== '') { showError("Can't save existing secret") }
