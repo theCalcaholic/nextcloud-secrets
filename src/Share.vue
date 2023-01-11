@@ -78,9 +78,7 @@ export default {
 			const response = await axios.post(generateUrl('/apps/secrets/api/get'), { uuid })
 			const secret = response.data
 			const iv = this.$cryptolib.stringToArrayBuffer(secret.iv)
-			console.log('to decrypt:', secret.encrypted, secret.iv, window.location.hash.substring(1))
 			const key = await this.$cryptolib.importDecryptionKey(window.location.hash.substring(1), iv)
-			console.log(key)
 			this.decrypted = await this.$cryptolib.decrypt(secret.encrypted, key, iv)
 		} catch (e) {
 			console.error(e)

@@ -102,7 +102,6 @@ export default {
 			return !this.value.uuid
 		},
 		url() {
-			console.log(`decrypted? ${this.isDecrypted}, keyBuf: ${this.keyBuf}`)
 			if (!this.isDecrypted || !this.keyBuf) { return null }
 			const keyArray = Array.from(new Uint8Array(this.keyBuf))
 			const keyStr = keyArray.map(byte => String.fromCharCode(byte)).join('')
@@ -127,7 +126,6 @@ export default {
 			const deletionDate = new Date(this.formattedDate)
 			deletionDate.setDate(deletionDate.getDate() + 7)
 			const today = new Date()
-			console.log(today)
 			today.setHours(0)
 			today.setMinutes(0)
 			today.setSeconds(0)

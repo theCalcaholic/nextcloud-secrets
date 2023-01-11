@@ -10,7 +10,6 @@ export default {
 	 * @return {Promise<string>}
 	 */
 	async encrypt(plain, key, iv) {
-		console.log("encryptString( '", plain, "', '", key, "', '", iv, "' )")
 		const cipherBuffer = await window.crypto.subtle.encrypt(
 			{ name: 'AES-GCM', iv },
 			key,
@@ -56,7 +55,6 @@ export default {
 	 * @return {Promise<string>}
 	 */
 	async decrypt(cipher, key, iv) {
-		console.log('decrypt(', cipher, ',', key, ',', iv, ')')
 		const plainBuffer = await window.crypto.subtle.decrypt(
 			{ name: this.ALGO, iv },
 			key,

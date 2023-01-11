@@ -216,7 +216,6 @@ export default {
 		async createSecret(secret) {
 			this.updating = true
 			try {
-				console.log('expires: ', secret.expires)
 				const encryptedPromise = this.$cryptolib.encrypt(secret._decrypted, secret.key, secret.iv)
 				// const pwHash = secret.password ? await this.$cryptolib.md5Digest(secret.password) : null;
 				let expiresStr = secret.expires.toISOString()
