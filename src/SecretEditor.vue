@@ -9,7 +9,7 @@
 			<DatetimePicker name="expires" :clearable="false" v-model="value.expires" type="date"
 							placeholder="Expiration Date"/>
 		</p>
-		<PasswordField :value="value.password" label="share password (optional)"
+		<PasswordField label="share password (optional)"
 					   :value.sync="value.password"
 					   :minlength="4" :required="false"/>
 		<textarea v-model="value._decrypted" :disabled="locked" />
