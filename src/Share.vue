@@ -10,18 +10,20 @@
 			<div class="secret-container">
 				<div>
 					<NoteCard type="warning">
-						<p>{{ t('secrets', 'Please make sure you have copied and stored the secret ' +
-							'before closing this page! It is now deleted on the server.') }}</p>
+						<p>
+							{{ t('secrets', 'Please make sure you have copied and stored the secret ' +
+								'before closing this page! It is now deleted on the server.') }}
+						</p>
 					</NoteCard>
 				</div>
 				<Actions class="secret-actions">
-					<ActionButton
-						:icon="copyButtonIcon"
-						@click="copyToClipboard(decrypted)" :title="t('secrets', 'Copy to Clipboard')">
-					</ActionButton>
+					<ActionButton :icon="copyButtonIcon"
+						:title="t('secrets', 'Copy to Clipboard')"
+						@click="copyToClipboard(decrypted)" />
 				</Actions>
 				<textarea v-if="decrypted"
-						  v-model="decrypted" disabled="disabled" />
+					v-model="decrypted"
+					disabled="disabled" />
 			</div>
 			<div v-if="loading" id="emptycontent">
 				<div class="icon-loading" />
@@ -37,15 +39,14 @@
 
 <script>
 import AppContent from '@nextcloud/vue/dist/Components/NcAppContent'
-import NoteCard from "@nextcloud/vue/dist/Components/NcNoteCard";
+import NoteCard from '@nextcloud/vue/dist/Components/NcNoteCard'
 import ActionButton from '@nextcloud/vue/dist/Components/NcActionButton'
-import Secret from "./Secret";
+import Secret from './Secret'
 
 import '@nextcloud/dialogs/styles/toast.scss'
 import { showError, showSuccess } from '@nextcloud/dialogs'
-import axios from "@nextcloud/axios";
-import {generateUrl} from "@nextcloud/router";
-
+import axios from '@nextcloud/axios'
+import { generateUrl } from '@nextcloud/router'
 
 export default {
 	name: 'App',
@@ -53,58 +54,56 @@ export default {
 		AppContent,
 		ActionButton,
 		Secret,
-		NoteCard
+		NoteCard,
 	},
 	data() {
 		return {
 			decrypted: null,
 			loading: true,
-			copyState: 'ready'
+			copyState: 'ready',
 		}
 	},
 	computed: {
 
 		copyButtonIcon() {
-			if (this.copyState === 'success')
-				return 'icon-checkmark';
-			if (this.copyState === 'error')
-				return 'icon-error';
-			return 'icon-clippy';
+			if (this.copyState === 'success') { return 'icon-checkmark' }
+			if (this.copyState === 'error') { return 'icon-error' }
+			return 'icon-clippy'
 		},
-	},
-	methods: {
-
-		async copyToClipboard(content) {
-			try {
-				await navigator.clipboard.writeText(content);
-				this.copyState = 'success';
-				setTimeout(() => this.copyState = 'ready', 3000);
-			} catch (e) {
-				showError(e.message);
-				console.error(e);
-				this.copyState = 'error';
-				setTimeout(() => this.copyState = 'ready', 3000);
-			}
-
-		}
 	},
 	async mounted() {
 		try {
-			let uuid = window.location.pathname;
-			uuid = uuid.substring(uuid.lastIndexOf('/') + 1);
-			const response = await axios.post(generateUrl(`/apps/secrets/api/get`), {'uuid': uuid});
-			let secret = response.data;
-			const iv = this.$cryptolib.stringToArrayBuffer(secret.iv);
-			console.log("to decrypt:", secret.encrypted, secret.iv, window.location.hash.substring(1));
-			const key = await this.$cryptolib.importDecryptionKey(window.location.hash.substring(1), iv);
-			console.log(key);
+			let uuid = window.location.pathname
+			uuid = uuid.substring(uuid.lastIndexOf('/') + 1)
+			const response = await axios.post(generateUrl('/apps/secrets/api/get'), { uuid })
+			const secret = response.data
+			const iv = this.$cryptolib.stringToArrayBuffer(secret.iv)
+			console.log('to decrypt:', secret.encrypted, secret.iv, window.location.hash.substring(1))
+			const key = await this.$cryptolib.importDecryptionKey(window.location.hash.substring(1), iv)
+			console.log(key)
 			this.decrypted = await this.$cryptolib.decrypt(secret.encrypted, key, iv)
 		} catch (e) {
 			console.error(e)
 			showError(t('secrets', 'Could not decrypt secret'))
 		}
 		this.loading = false
-	}
+	},
+	methods: {
+
+		async copyToClipboard(content) {
+			try {
+				await navigator.clipboard.writeText(content)
+				this.copyState = 'success'
+				setTimeout(() => this.copyState = 'ready', 3000)
+			} catch (e) {
+				showError(e.message)
+				console.error(e)
+				this.copyState = 'error'
+				setTimeout(() => this.copyState = 'ready', 3000)
+			}
+
+		},
+	},
 }
 </script>
 
