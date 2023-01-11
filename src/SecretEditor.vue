@@ -6,17 +6,17 @@
 	<div class="secret-container">
 		<p>
 			<label for="expires">Expires on:</label>
-			<DatetimePicker v-model="value.expires"
+			<DatetimePicker v-model="expires"
 				name="expires"
 				:clearable="false"
 				type="date"
 				placeholder="Expiration Date" />
 		</p>
 		<PasswordField label="share password (optional)"
-			:value.sync="value.password"
+			:value.sync="password"
 			:minlength="4"
 			:required="false" />
-		<textarea v-model="value._decrypted" :disabled="locked" />
+		<textarea v-model="_decrypted" :disabled="locked" />
 		<input type="button"
 			class="primary"
 			:value="t('secrets', 'Save')"
@@ -26,31 +26,31 @@
 </template>
 
 <script>
-import ActionButton from '@nextcloud/vue/dist/Components/NcActionButton'
-import AppContent from '@nextcloud/vue/dist/Components/NcAppContent'
-import AppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation'
-import AppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem'
-import AppNavigationNew from '@nextcloud/vue/dist/Components/NcAppNavigationNew'
-import DatetimePicker from '@nextcloud/vue/dist/Components/NcDatetimePicker'
-import PasswordField from '@nextcloud/vue/dist/Components/NcPasswordField'
+import DatetimePicker from '@nextcloud/vue/dist/Components/NcDatetimePicker.js'
+import PasswordField from '@nextcloud/vue/dist/Components/NcPasswordField.js'
 
 import '@nextcloud/dialogs/styles/toast.scss'
-import { generateUrl } from '@nextcloud/router'
-import { showError, showSuccess } from '@nextcloud/dialogs'
-import axios from '@nextcloud/axios'
 
 export default {
-	name: 'Secret',
+	name: 'SecretEditor',
 	components: {
-		ActionButton,
-		AppContent,
-		AppNavigation,
-		AppNavigationItem,
-		AppNavigationNew,
 		DatetimePicker,
 		PasswordField,
 	},
-	props: ['locked', 'title', 'value'],
+	props: {
+		locked: {
+			type: Boolean,
+			default: false,
+		},
+		title: {
+			type: String,
+			default: '',
+		},
+		value: {
+			type: String,
+			default: '',
+		},
+	},
 	computed: {
 	},
 	methods: {
