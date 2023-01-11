@@ -9,20 +9,25 @@
 			Close
 		</ActionButton>
 		<input type="text" disabled="disabled" :value="url">
-		<ActionButton :icon="copyButtonIcon"
+		<NcActionButton :icon="copyButtonIcon"
 			@click="copyToClipboard(url)">
 			Copy Secret Link
-		</ActionButton>
+		</NcActionButton>
 	</div>
 </template>
 
 <script>
-import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
+import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 import { showError } from '@nextcloud/dialogs'
 export default {
 	name: 'LinkShareDialog',
-	components: { ActionButton },
-	props: ['url'],
+	components: { NcActionButton },
+	props: {
+		url: {
+			type: String,
+			default: '',
+		},
+	},
 	data() {
 		return {
 			copyState: 'ready',
@@ -33,9 +38,6 @@ export default {
 			if (this.copyState === 'success') { return 'icon-checkmark' }
 			if (this.copyState === 'error') { return 'icon-error' }
 			return 'icon-copy'
-		},
-		copyButtonColor() {
-
 		},
 	},
 	methods: {
