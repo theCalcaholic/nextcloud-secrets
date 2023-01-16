@@ -18,8 +18,9 @@
 				</div>
 				<Actions class="secret-actions">
 					<ActionButton :icon="copyButtonIcon"
-						:title="t('secrets', 'Copy to Clipboard')"
-						@click="copyToClipboard(decrypted)" />
+						@click="copyToClipboard(decrypted)">
+						{{ t('secrets', 'Copy to Clipboard') }}
+					</ActionButton>
 				</Actions>
 				<textarea v-if="decrypted"
 					v-model="decrypted"
@@ -40,6 +41,7 @@
 <script>
 import AppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
 import NoteCard from '@nextcloud/vue/dist/Components/NcNoteCard.js'
+import Actions from '@nextcloud/vue/dist/Components/NcActions.js'
 import ActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 
 import '@nextcloud/dialogs/styles/toast.scss'
@@ -51,6 +53,7 @@ export default {
 	name: 'Share',
 	components: {
 		AppContent,
+		Actions,
 		ActionButton,
 		NoteCard,
 	},
