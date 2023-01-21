@@ -111,19 +111,20 @@ export default {
 			return !this.value.uuid
 		},
 		url() {
+			console.debug(`decrypted? ${this.isDecrypted}, keyBuf: ${this.keyBuf}`)
 			if (!this.isDecrypted || !this.keyBuf) { return null }
-			const keyArray = Array.from(new Uint8Array(this.keyBuf))
-			const keyStr = keyArray.map(byte => String.fromCharCode(byte)).join('')
+			const keyStr = this.$cryptolib.arrayBufferToB64String(new Uint8Array(this.keyBuf))
+			console.debug("serialized key: ", keyStr)
 			return window.location.protocol + '//' + window.location.host + generateUrl(
 				`/apps/secrets/show/${this.value.uuid}`
-				+ `#${window.btoa(keyStr)}`
+				+ `#${keyStr}`
 			)
 		},
 		formattedUUID() {
-			if (this.value.uuid === '') { return null }
-			const uuid = this.value.uuid
-			return `${uuid.substring(0, 8)}-${uuid.substring(8, 4)}-${uuid.substring(12, 4)}-${uuid.substring(16, 4)}`
-				+ `-${uuid.substring(20, 12)}`
+			if (this.value.uuid === "") { return null }
+			let uuid = this.value.uuid
+			return `${uuid.substring(0, 8)}-${uuid.substring(8, 4)}-${uuid.substring(12, 4)}`
+				+ `-${uuid.substring(16, 4)}-${uuid.substring(20, 12)}`
 		},
 		formattedDate() {
 			const timeIndex = this.value.expires.indexOf('T')
@@ -191,9 +192,11 @@ export default {
 		font-family: 'Lucida Console', monospace;
 	}
 
+	/*
 	textarea.warning {
 		color: var(--color-warning);
 	}
+	*/
 
 	.secret-actions {
 		display: inline-block;

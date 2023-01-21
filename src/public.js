@@ -5,10 +5,10 @@
 
 import { generateFilePath } from '@nextcloud/router'
 
-import cryptolib from './crypto.js'
+import CryptoLib from './crypto.js'
 import Vue from 'vue'
 import Share from './Share.vue'
-Object.defineProperty(Vue.prototype, '$cryptolib', { value: cryptolib })
+Object.defineProperty(Vue.prototype, '$cryptolib', { value: new CryptoLib(window.crypto) })
 
 // eslint-disable-next-line
 __webpack_public_path__ = generateFilePath(appName, '', 'js/')
