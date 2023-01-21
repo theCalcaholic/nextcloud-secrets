@@ -7,10 +7,11 @@ const ALGO = "AES-GCM"
 export default class CryptoLib {
 
 	/**
-	 * @param crypto {Crypto}
+	 * @param theCrypto {Crypto}
 	 */
 	constructor(theCrypto) {
 		this.crypto = theCrypto;
+		this.algorithm = ALGO
 	}
 
 	/**
@@ -23,19 +24,18 @@ export default class CryptoLib {
 	async encrypt(plain, key, iv) {
 		console.debug("encryptString(...)");
 		const cipherBuffer = await this.crypto.subtle.encrypt(
-			{ name: ALGO, iv: iv },
+			{ name: this.algorithm, iv: iv },
 			key,
 			new TextEncoder().encode(plain)
 		);
 
-		return this.arrayBufferToString(new Uint8Array(cipherBuffer))
+		return this.arrayBufferToB64String(new Uint8Array(cipherBuffer))
 	}
 	async sha256Digest(str) {
 		console.debug("md5Digest(...)")
 		let textBuffer = new TextEncoder().encode(str);
 		const hashBuffer = await this.crypto.subtle.digest('SHA-256', textBuffer);
-		const hashArray = Array.from(new Uint8Array(hashBuffer));
-		return window.btoa(hashArray.map(byte => String.fromCharCode(byte)).join(''));
+		return this.arrayBufferToB64String(new Uint8Array(hashBuffer));
 	}
 	/**
 	 *
@@ -43,17 +43,18 @@ export default class CryptoLib {
 	 * @returns {Uint8Array}
 	 */
 	b64StringToArrayBuffer(str) {
-		console.debug("stringToArrayBuffer(...)");
-
+		console.debug("b64StringToArrayBuffer(...)");
 		return new Uint8Array(Array.from(window.atob(str)).map(ch => ch.charCodeAt(0)))
+		//return new Uint8Array(Array.from(window.atob(str)).map(ch => ch.charCodeAt(0)))
 	}
 	/**
 	 *
 	 * @param buf {Uint8Array}
 	 * @returns {string}
 	 */
-	arrayBufferToString(buf) {
-		console.debug("arrayBufferToString(...)")
+	arrayBufferToB64String(buf) {
+		console.debug("arrayBufferToB64String(...)")
+		//return window.btoa(buf)
 		return window.btoa(Array.from(buf).map(byte => String.fromCharCode(byte)).join(''));
 	}
 	/**
@@ -65,21 +66,30 @@ export default class CryptoLib {
 	 */
 	async decrypt(cipher, key, iv) {
 		const plainBuffer = await this.crypto.subtle.decrypt(
-			{ name: this.ALGO, iv: iv },
+			{ name: this.algorithm, iv: iv },
 			key,
-			this.stringToArrayBuffer(cipher)
+			this.b64StringToArrayBuffer(cipher)
 		);
 		return new TextDecoder().decode(plainBuffer);
 	}
 
 	/**
-	 *
+	 * generates random IV
+	 * @returns {Promise<Uint8Array>}
+	 */
+	async generateIv() {
+		return window.crypto.getRandomValues(new Uint8Array(12))
+	}
+
+	/**
+	 * generates random crypto key for AES encryption
 	 * @returns {Promise<CryptoKey>}
 	 */
 	async generateCryptoKey() {
 		console.debug("generateCryptoKey()")
+		console.debug(this.crypto.subtle.generateKey)
 		return await this.crypto.subtle.generateKey({
-				name: ALGO,
+				name: this.algorithm,
 				length: 256
 			},
 			true,
@@ -95,8 +105,8 @@ export default class CryptoLib {
 		console.debug("importDecryptionKey(...)")
 		return await this.crypto.subtle.importKey(
 			'raw',
-			this.stringToArrayBuffer(hexKey),
-			{name: this.ALGO, iv: iv},
+			this.b64StringToArrayBuffer(hexKey),
+			{name: this.algorithm, iv: iv},
 			false,
 			['decrypt']
 		);

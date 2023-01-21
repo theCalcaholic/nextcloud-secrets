@@ -176,7 +176,7 @@ export default {
 		 */
 		async newSecret() {
 			const key = await this.$cryptolib.generateCryptoKey();
-			const iv = window.crypto.getRandomValues(new Uint8Array(12));
+			const iv = await this.$cryptolib.generateIv();
 			if (this.currentSecretUUId !== "") {
 				this.currentSecretUUId = ""
 				let expiryDate = new Date();
@@ -223,19 +223,19 @@ export default {
 					password: secret.password,
 					expires: expiresStr,
 					encrypted: await encryptedPromise,
-					iv: this.$cryptolib.arrayBufferToString(secret.iv)
+					iv: this.$cryptolib.arrayBufferToB64String(secret.iv)
 				};
 				const response = await axios.post(generateUrl('/apps/secrets/secrets'), encryptedSecret)
 				const decrypted = await this.$cryptolib.decrypt(
 					response.data.encrypted,
 					secret.key,
-					this.$cryptolib.stringToArrayBuffer(response.data.iv))
+					this.$cryptolib.b64StringToArrayBuffer(response.data.iv))
 				const index = this.secrets.findIndex((match) => match.uuid === this.currentSecretUUId)
 				this.$set(this.secrets, index, {
 					...response.data,
 					_decrypted: decrypted,
 					key: secret.key,
-					iv: this.$cryptolib.stringToArrayBuffer(response.data.iv)
+					iv: this.$cryptolib.b64StringToArrayBuffer(response.data.iv)
 				})
 				this.currentSecretUUId = response.data.uuid
 				this.currentSecretKeyBuf = await window.crypto.subtle.exportKey("raw", this.currentSecret.key)
