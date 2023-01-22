@@ -43,6 +43,6 @@ describe('Cryptolib Test Suite', () => {
 
 		// await cryptoLib.importDecryptionKey(
 		// 	cryptoLib.arrayBufferToB64String(new Uint8Array(await crypto.subtle.exportKey('raw', cryptoKey))),
-		// 	await cryptoLib.generateIv())
+		// 	cryptoLib.generateIv())
 	})
 })
