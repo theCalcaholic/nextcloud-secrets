@@ -78,7 +78,7 @@ export default class CryptoLib {
 	 *
 	 * @return {Promise<Uint8Array>}
 	 */
-	async generateIv() {
+	generateIv() {
 		return window.crypto.getRandomValues(new Uint8Array(12))
 	}
 
