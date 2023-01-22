@@ -176,7 +176,7 @@ export default {
 		 */
 		async newSecret() {
 			const key = await this.$cryptolib.generateCryptoKey();
-			const iv = await this.$cryptolib.generateIv();
+			const iv = this.$cryptolib.generateIv();
 			if (this.currentSecretUUId !== "") {
 				this.currentSecretUUId = ""
 				let expiryDate = new Date();
