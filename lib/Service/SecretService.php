@@ -6,6 +6,8 @@ declare(strict_types=1);
 
 namespace OCA\Secrets\Service;
 
+use DateTime;
+use DateTimeInterface;
 use Exception;
 
 use OCP\AppFramework\Db\DoesNotExistException;
@@ -13,12 +15,14 @@ use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
 use OCA\Secrets\Db\Secret;
 use OCA\Secrets\Db\SecretMapper;
+use Psr\Log\LoggerInterface;
 
 class SecretService {
 	private SecretMapper $mapper;
 
-	public function __construct(SecretMapper $mapper) {
+	public function __construct(SecretMapper $mapper, LoggerInterface $logger) {
 		$this->mapper = $mapper;
+		$this->logger = $logger;
 	}
 
 	/**
@@ -86,7 +90,7 @@ class SecretService {
 		$secret->setEncrypted($encrypted);
 		$secret->setIv($iv);
 		$secret->setUserId($userId);
-		$secret->setExpires($expires);
+		$secret->setExpiresFromISO8601String($expires);
 		$secret->setPwHash($password ? hash("sha256", $password . $secret->getUuid()) : null);
 		return $this->mapper->insert($secret);
 	}
