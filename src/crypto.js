@@ -76,7 +76,7 @@ export default class CryptoLib {
 	/**
 	 * generates random IV
 	 *
-	 * @return {Promise<Uint8Array>}
+	 * @return {Uint8Array}
 	 */
 	generateIv() {
 		return window.crypto.getRandomValues(new Uint8Array(12))
