@@ -27,7 +27,10 @@ declare(strict_types=1);
 namespace OCA\Secrets\Migration;
 
 use Closure;
+use OCP\DB\Exception;
 use OCP\DB\ISchemaWrapper;
+use OCP\DB\Types;
+use OCP\IDBConnection;
 use OCP\Migration\IOutput;
 use OCP\Migration\SimpleMigrationStep;
 use function Sodium\add;
@@ -36,6 +39,15 @@ use function Sodium\add;
  * Auto-generated migration step: Please modify to your needs!
  */
 class Version1000Date20230122142756 extends SimpleMigrationStep {
+
+	/**
+	 * Version1008Date20181105104826 constructor.
+	 *
+	 * @param IDBConnection $connection
+	 */
+	public function __construct(IDBConnection $connection) {
+		$this->connection = $connection;
+	}
 
 	/**
 	 * @param IOutput $output
@@ -52,23 +64,41 @@ class Version1000Date20230122142756 extends SimpleMigrationStep {
 	 * @return null|ISchemaWrapper
 	 */
 	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options): ?ISchemaWrapper {
-		return null;
+		$schema = $schemaClosure();
+		$table = $schema->getTable("secrets");
+		$col_iv = $table->getColumn("iv");
+		$table->addColumn("iv_str", Types::TEXT, ['notnull' => false, 'length' => null]);
+		return $schema;
 	}
 
 	/**
 	 * @param IOutput $output
 	 * @param Closure $schemaClosure The `\Closure` returns a `ISchemaWrapper`
 	 * @param array $options
+	 * @throws Exception
 	 */
 	public function postSchemaChange(IOutput $output, Closure $schemaClosure, array $options): void {
+		$qb = $this->connection->getQueryBuilder();
+		$results = $qb->select('id', 'iv')
+			->from('secrets')
+			->where($qb->expr()->isNotNull('iv'))
+			->executeQuery();
+		$secret = null;
+		do {
+			$secret = $results->fetchAssociative();
+			$qb->update("secrets")
+				->where($qb->expr()->eq('id', $secret['id']))
+				->set('iv_str', self::fixSerialization($secret['iv']));
+
+		} while($secret);
+
 	}
 
-	static public function convertSerializedIv(string $iv): string|array|false {
-//		$iv_charcodes = [];
-//		foreach($iv as $c) {
-//			$iv_charcodes[] = ord($c);
-//		}
-		return iconv('utf8', 'utf16', pack('C*', $iv));
-		return base64_encode(mb_convert_encoding($iv, "UTF-8", "UTF-16"));
+	static public function fixSerialization(string $utf8Str): string|null {
+		if ($utf8Str == null) {
+			return null;
+		}
+
+		return base64_encode(utf8_decode($utf8Str));
 	}
 }
