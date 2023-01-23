@@ -12,12 +12,14 @@ use OCP\AppFramework\Db\QBMapper;
 use OCP\DB\Exception;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
+use Psr\Log\LoggerInterface;
 
 /**
  * @template-extends QBMapper<Note>
  */
 class SecretMapper extends QBMapper {
-	public function __construct(IDBConnection $db) {
+	public function __construct(IDBConnection $db, LoggerInterface $logger) {
+		$this->logger = $logger;
 		parent::__construct($db, 'secrets', Secret::class);
 	}
 
@@ -89,10 +91,12 @@ class SecretMapper extends QBMapper {
 	 */
 	public function deleteExpired(string $date): void {
 		$qb = $this->db->getQueryBuilder();
+		$param = $qb->createNamedParameter($date);
 		$qb->delete($this->tableName)
 			->where(
-				$qb->expr()->lt('expires', $qb->createNamedParameter($date))
+				$qb->expr()->lt('expires', $param)
 			);
+		$this->logger->warning("Deleting expired secrets: '" . $qb->getSQL() . "', param = '" . $date . "'");
 		$qb->executeStatement();
 	}
 

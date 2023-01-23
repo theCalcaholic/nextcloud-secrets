@@ -137,7 +137,17 @@ export default {
 	async mounted() {
 		try {
 			const response = await axios.get(generateUrl('/apps/secrets/secrets'))
-			this.secrets = response.data;
+			this.secrets = response.data.map(secret => {
+				return {
+					...secret,
+					expires: new Date(secret.expires),
+					iv: secret.iv === null ? null : this.$cryptolib.stringToArrayBuffer(secret.iv),
+					_decrypted: null,
+					key: null,
+				};
+			});
+			console.log(this.secrets);
+
 		} catch (e) {
 			console.error(e)
 			showError(t('secrets', 'Could not fetch secrets'))
@@ -217,7 +227,8 @@ export default {
 				console.log("encryption successful")
 				//const pwHash = secret.password ? await this.$cryptolib.md5Digest(secret.password) : null;
 				let expiresStr = secret.expires.toISOString();
-				expiresStr = expiresStr.substring(0, expiresStr.indexOf('T'));
+				// console.log("expiresStr:", expiresStr);
+				// expiresStr = expiresStr.substring(0, expiresStr.indexOf('T'));
 				const encryptedSecret = {
 					title: secret.title,
 					password: secret.password,
@@ -225,18 +236,23 @@ export default {
 					encrypted: await encryptedPromise,
 					iv: this.$cryptolib.arrayBufferToB64String(secret.iv)
 				};
+				console.log("Secret to create: ", encryptedSecret);
 				const response = await axios.post(generateUrl('/apps/secrets/secrets'), encryptedSecret)
 				const decrypted = await this.$cryptolib.decrypt(
 					response.data.encrypted,
 					secret.key,
 					this.$cryptolib.b64StringToArrayBuffer(response.data.iv))
 				const index = this.secrets.findIndex((match) => match.uuid === this.currentSecretUUId)
+				console.log("response: ", response);
 				this.$set(this.secrets, index, {
 					...response.data,
+					expires: new Date(response.data.expires),
 					_decrypted: decrypted,
 					key: secret.key,
 					iv: this.$cryptolib.b64StringToArrayBuffer(response.data.iv)
 				})
+				console.log("updated secret:", this.secrets[index]);
+				console.log("expires from data: ", response.data.expires, new Date(response.data.expires));
 				this.currentSecretUUId = response.data.uuid
 				this.currentSecretKeyBuf = await window.crypto.subtle.exportKey("raw", this.currentSecret.key)
 			} catch (e) {

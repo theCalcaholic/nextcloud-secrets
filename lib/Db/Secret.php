@@ -7,10 +7,12 @@ declare(strict_types=1);
 namespace OCA\Secrets\Db;
 
 use DateTime;
+use DateTimeInterface;
 use InvalidArgumentException;
 use JsonSerializable;
 
 use OCP\AppFramework\Db\Entity;
+use Psr\Log\LoggerInterface;
 
 /**
  * @method getId(): int
@@ -29,6 +31,9 @@ use OCP\AppFramework\Db\Entity;
  * @method getExpires(): ?string
  * @method setExpires(?string $expires): void
  */
+
+const DATETIME_FORMAT_INTERNAL = 'Y-m-d H:i:s';
+const DATETIME_FORMAT_ISO8601 = 'Y-m-d\TH:i:s.uP';
 class Secret extends Entity implements JsonSerializable {
 	protected string $title = '';
 	protected ?string $encrypted = null;
@@ -42,12 +47,59 @@ class Secret extends Entity implements JsonSerializable {
 		$this->addType('id', 'int');
 	}
 
-	public function getExpiryDate(): DateTime {
-		$expiryDate = DateTime::createFromFormat("Y-m-d", $this->expires);
-		if ($expiryDate === false) {
-			throw new InvalidArgumentException("Error parsing date $this->expires");
+//	public function getExpiryDate(): DateTime {
+//		$expiryDate = DateTime::createFromFormat("Y-m-d", $this->expires);
+//		if ($expiryDate === false) {
+//			throw new InvalidArgumentException("Error parsing date $this->expires");
+//		}
+//		return $expiryDate;
+//	}
+
+	/**
+	 * @param $date_str ?string
+	 * @return ?DateTime
+	 */
+	static public function ISO8601ToDateTime(?string $date_str): ?DateTime {
+		if ( $date_str == null ) {
+			return null;
 		}
-		return $expiryDate;
+
+		$date = DateTime::createFromFormat(DATETIME_FORMAT_ISO8601, $date_str);
+
+		if (!$date)
+			throw new InvalidArgumentException("Invalid date format: " . $date_str);
+
+		return $date;
+	}
+
+	/**
+	 * @param string|null $date_str
+	 * @return void
+	 */
+	public function setExpiresFromISO8601String(?string $date_str): void
+	{
+		if ($date_str == null) {
+			$this->setExpires(null);
+			return;
+		}
+
+		$date = DateTime::createFromFormat(DATETIME_FORMAT_ISO8601, $date_str);
+		$this->setExpires($date->format(DATETIME_FORMAT_INTERNAL));
+	}
+
+	/**
+	 * @return DateTime|null
+	 */
+	public function getExpiresAsDateTime(): ?DateTime {
+		if ($this->expires == null) {
+			return null;
+		}
+
+		return DateTime::createFromFormat(DATETIME_FORMAT_INTERNAL, $this->expires);
+	}
+
+	public function getExpiresAsISO8601(): ?string {
+		return $this->getExpiresAsDateTime()?->format(DATETIME_FORMAT_ISO8601);
 	}
 
 	public function jsonSerialize(): array {
@@ -57,7 +109,7 @@ class Secret extends Entity implements JsonSerializable {
 			// We make sure to never return the pw hash to the client
 			'pwHash' => $this->pwHash === null ? null : '',
 			'encrypted' => $this->encrypted,
-			'expires' => $this->expires,
+			'expires' => $this->getExpiresAsISO8601(),
 			'iv' => $this->iv
 		];
 	}
