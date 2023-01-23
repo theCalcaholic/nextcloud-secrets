@@ -8,6 +8,7 @@ namespace OCA\Secrets\Migration;
 
 use Closure;
 use OCP\DB\ISchemaWrapper;
+use OCP\DB\Types;
 use OCP\Migration\SimpleMigrationStep;
 use OCP\Migration\IOutput;
 
@@ -24,35 +25,35 @@ class Version000000Date20181013124731 extends SimpleMigrationStep {
 
 		if (!$schema->hasTable('secrets')) {
 			$table = $schema->createTable('secrets');
-			$table->addColumn('id', 'integer', [
+			$table->addColumn('id', Types::INTEGER, [
 				'autoincrement' => true,
 				'notnull' => true,
 			]);
-			$table->addColumn('uuid', 'string', [
+			$table->addColumn('uuid', Types::STRING, [
 				'notnull' => true,
 				'length' => 32
 			]);
-			$table->addColumn('title', 'string', [
+			$table->addColumn('title', Types::STRING, [
 				'notnull' => false,
 				'length' => 200
 			]);
-			$table->addColumn('user_id', 'string', [
+			$table->addColumn('user_id', Types::STRING, [
 				'notnull' => true,
 				'length' => 200,
 			]);
-			$table->addColumn('encrypted', 'blob', [
+			$table->addColumn('encrypted', Types::BLOB, [
 				'notnull' => false,
 				'default' => null
 			]);
-			$table->addColumn('iv', 'blob', [
+			$table->addColumn('iv', Types::BLOB, [
 				'notnull' => false,
 				'default' => null
 			]);
-			$table->addColumn('expires', 'date', [
+			$table->addColumn('expires', Types::DATE, [
 				'notnull' => false,
 				'default' => null,
 			]);
-			$table->addColumn('pw_hash', 'string', [
+			$table->addColumn('pw_hash', Types::STRING, [
 				'notnull' => false,
 				'length' => 64,
 				'default' => null
