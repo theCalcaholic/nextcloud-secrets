@@ -94,7 +94,7 @@ export default {
 			uuid = uuid.substring(uuid.lastIndexOf('/') + 1);
 			const response = await axios.post(generateUrl(`/apps/secrets/api/get`), {'uuid': uuid});
 			let secret = response.data;
-			const iv = this.$cryptolib.stringToArrayBuffer(secret.iv);
+			const iv = this.$cryptolib.b64StringToArrayBuffer(secret.iv);
 			console.log("to decrypt:", secret.encrypted, secret.iv, window.location.hash.substring(1));
 			const key = await this.$cryptolib.importDecryptionKey(window.location.hash.substring(1), iv);
 			console.log(key);
