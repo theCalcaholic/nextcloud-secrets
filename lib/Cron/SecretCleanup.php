@@ -21,7 +21,7 @@ class SecretCleanup extends TimedJob {
 		parent::__construct($time);
 		$this->logger = $logger;
 		$this->service = $service;
-		$this->setInterval(300);
+		$this->setInterval(12 * 3600);
 	}
 
 	/**
