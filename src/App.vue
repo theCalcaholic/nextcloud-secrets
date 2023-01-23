@@ -136,7 +136,17 @@ export default {
 	async mounted() {
 		try {
 			const response = await axios.get(generateUrl('/apps/secrets/secrets'))
-			this.secrets = response.data
+			this.secrets = response.data.map(secret => {
+				return {
+					...secret,
+					expires: new Date(secret.expires),
+					iv: secret.iv === null ? null : this.$cryptolib.stringToArrayBuffer(secret.iv),
+					_decrypted: null,
+					key: null,
+				}
+			})
+			console.log(this.secrets)
+
 		} catch (e) {
 			console.error(e)
 			showError(t('secrets', 'Could not fetch secrets'))
@@ -216,7 +226,6 @@ export default {
 			try {
 				const encryptedPromise = this.$cryptolib.encrypt(secret._decrypted, secret.key, secret.iv)
 				let expiresStr = secret.expires.toISOString()
-				expiresStr = expiresStr.substring(0, expiresStr.indexOf('T'))
 				const encryptedSecret = {
 					title: secret.title,
 					password: secret.password,
@@ -232,6 +241,7 @@ export default {
 				const index = this.secrets.findIndex((match) => match.uuid === this.currentSecretUUId)
 				this.$set(this.secrets, index, {
 					...response.data,
+					expires: new Date(response.data.expires),
 					_decrypted: decrypted,
 					key: secret.key,
 					iv: this.$cryptolib.b64StringToArrayBuffer(response.data.iv),
