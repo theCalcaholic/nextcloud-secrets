@@ -38,10 +38,10 @@ use function Sodium\add;
 /**
  * Auto-generated migration step: Please modify to your needs!
  */
-class Version1000Date20230122142756 extends SimpleMigrationStep {
+class Version1001Date20230122142756 extends SimpleMigrationStep {
 
 	/**
-	 * Version1008Date20181105104826 constructor.
+	 * Version1000Date20230122142756 constructor.
 	 *
 	 * @param IDBConnection $connection
 	 */
@@ -66,8 +66,10 @@ class Version1000Date20230122142756 extends SimpleMigrationStep {
 	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options): ?ISchemaWrapper {
 		$schema = $schemaClosure();
 		$table = $schema->getTable("secrets");
-		$col_iv = $table->getColumn("iv");
-		$table->addColumn("iv_str", Types::TEXT, ['notnull' => false, 'length' => null]);
+		if ($table->hasColumn("iv_str")) {
+			return null;
+		}
+		$table->addColumn("iv_str", Types::TEXT, ['notnull' => false, 'length' => null, 'default' => '']);
 		return $schema;
 	}
 
@@ -83,18 +85,16 @@ class Version1000Date20230122142756 extends SimpleMigrationStep {
 			->from('secrets')
 			->where($qb->expr()->isNotNull('iv'))
 			->executeQuery();
-		$secret = null;
 		do {
-			$secret = $results->fetchAssociative();
+			$secret = $results->fetch();
 			$qb->update("secrets")
-				->where($qb->expr()->eq('id', $secret['id']))
-				->set('iv_str', self::fixSerialization($secret['iv']));
-
+				->where($qb->expr()->eq('id', $qb->createNamedParameter($secret['id'])))
+				->set('iv_str', $qb->createNamedParameter(self::fixSerialization($secret['iv'])));
+			$qb->executeStatement();
 		} while($secret);
-
 	}
 
-	static public function fixSerialization(string $utf8Str): string|null {
+	static public function fixSerialization(string|null $utf8Str): string|null {
 		if ($utf8Str == null) {
 			return null;
 		}
