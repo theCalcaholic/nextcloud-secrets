@@ -38,14 +38,16 @@ use function Sodium\add;
 /**
  * Auto-generated migration step: Please modify to your needs!
  */
-class Version1001Date20230122142756 extends SimpleMigrationStep {
+class Version1001Date20230122142756 extends SimpleMigrationStep
+{
 
 	/**
 	 * Version1000Date20230122142756 constructor.
 	 *
 	 * @param IDBConnection $connection
 	 */
-	public function __construct(IDBConnection $connection) {
+	public function __construct(IDBConnection $connection)
+	{
 		$this->connection = $connection;
 	}
 
@@ -54,7 +56,8 @@ class Version1001Date20230122142756 extends SimpleMigrationStep {
 	 * @param Closure $schemaClosure The `\Closure` returns a `ISchemaWrapper`
 	 * @param array $options
 	 */
-	public function preSchemaChange(IOutput $output, Closure $schemaClosure, array $options): void {
+	public function preSchemaChange(IOutput $output, Closure $schemaClosure, array $options): void
+	{
 	}
 
 	/**
@@ -63,7 +66,8 @@ class Version1001Date20230122142756 extends SimpleMigrationStep {
 	 * @param array $options
 	 * @return null|ISchemaWrapper
 	 */
-	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options): ?ISchemaWrapper {
+	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options): ?ISchemaWrapper
+	{
 		$schema = $schemaClosure();
 		$table = $schema->getTable("secrets");
 		if ($table->hasColumn("iv_str")) {
@@ -79,7 +83,8 @@ class Version1001Date20230122142756 extends SimpleMigrationStep {
 	 * @param array $options
 	 * @throws Exception
 	 */
-	public function postSchemaChange(IOutput $output, Closure $schemaClosure, array $options): void {
+	public function postSchemaChange(IOutput $output, Closure $schemaClosure, array $options): void
+	{
 		$qb = $this->connection->getQueryBuilder();
 		$results = $qb->select('id', 'iv')
 			->from('secrets')
@@ -91,10 +96,11 @@ class Version1001Date20230122142756 extends SimpleMigrationStep {
 				->where($qb->expr()->eq('id', $qb->createNamedParameter($secret['id'])))
 				->set('iv_str', $qb->createNamedParameter(self::fixSerialization($secret['iv'])));
 			$qb->executeStatement();
-		} while($secret);
+		} while ($secret);
 	}
 
-	static public function fixSerialization(string|null $utf8Str): string|null {
+	static public function fixSerialization(string|null $utf8Str): string|null
+	{
 		if ($utf8Str == null) {
 			return null;
 		}
