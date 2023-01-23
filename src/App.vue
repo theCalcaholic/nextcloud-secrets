@@ -141,7 +141,7 @@ export default {
 				return {
 					...secret,
 					expires: new Date(secret.expires),
-					iv: secret.iv === null ? null : this.$cryptolib.stringToArrayBuffer(secret.iv),
+					iv: secret.iv === null ? null : this.$cryptolib.b64StringToArrayBuffer(secret.iv),
 					_decrypted: null,
 					key: null,
 				};
