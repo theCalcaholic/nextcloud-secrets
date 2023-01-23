@@ -34,7 +34,8 @@ use OCP\Migration\SimpleMigrationStep;
 /**
  * Auto-generated migration step: Please modify to your needs!
  */
-class Version1001Date20230123012034 extends SimpleMigrationStep {
+class Version1001Date20230123012034 extends SimpleMigrationStep
+{
 
 	/**
 	 * @param IOutput $output
@@ -42,10 +43,11 @@ class Version1001Date20230123012034 extends SimpleMigrationStep {
 	 * @param array $options
 	 * @return null|ISchemaWrapper
 	 */
-	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options): ?ISchemaWrapper {
+	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options): ?ISchemaWrapper
+	{
 		$schema = $schemaClosure();
 		$table = $schema->getTable("secrets");
-		if (! $table->hasColumn("iv_str")) {
+		if (!$table->hasColumn("iv_str")) {
 			return null;
 		}
 		$table->dropColumn("iv_str");

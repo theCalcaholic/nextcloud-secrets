@@ -5,7 +5,7 @@
 
 import { generateFilePath } from '@nextcloud/router'
 
-import CryptoLib from './crypto';
+import CryptoLib from './crypto.js';
 import Vue from 'vue'
 Object.defineProperty(Vue.prototype, "$cryptolib", {value: new CryptoLib(window.crypto)})
 import Share from './Share'

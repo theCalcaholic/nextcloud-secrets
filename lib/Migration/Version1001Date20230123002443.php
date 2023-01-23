@@ -37,33 +37,38 @@ use OCP\Migration\SimpleMigrationStep;
 /**
  * Auto-generated migration step: Please modify to your needs!
  */
-class Version1001Date20230123002443 extends SimpleMigrationStep {
+class Version1001Date20230123002443 extends SimpleMigrationStep
+{
 
 	/**
 	 * Version1000Date20230123002443 constructor.
 	 *
 	 * @param IDBConnection $connection
 	 */
-	public function __construct(IDBConnection $connection) {
+	public function __construct(IDBConnection $connection)
+	{
 		$this->connection = $connection;
 	}
+
 	/**
 	 * @param IOutput $output
 	 * @param Closure(): ISchemaWrapper $schemaClosure
 	 * @param array $options
 	 * @return null|ISchemaWrapper
 	 */
-	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options): ?ISchemaWrapper {
+	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options): ?ISchemaWrapper
+	{
 
 		$schema = $schemaClosure();
 		$table = $schema->getTable("secrets");
-		if (! $table->hasColumn("iv_str")) {
+		if (!$table->hasColumn("iv_str")) {
 			return null;
 		}
 		$table->dropColumn("iv");
 		$table->addColumn("iv", Types::TEXT, ['notnull' => false, 'length' => null, 'default' => '']);
 		return $schema;
 	}
+
 	/**
 	 * @param IOutput $output
 	 * @param Closure $schemaClosure The `\Closure` returns a `ISchemaWrapper`
