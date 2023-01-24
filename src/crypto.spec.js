@@ -2,6 +2,9 @@
   runtimeEnv: 'dom'
 } */
 
+// SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 const crypto = require('crypto')
 import CryptoLib from './crypto';
 
