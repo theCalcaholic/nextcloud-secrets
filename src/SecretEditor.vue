@@ -6,51 +6,60 @@
 	<div class="secret-container">
 		<p>
 			<label for="expires">Expires on:</label>
-			<DatetimePicker name="expires" :clearable="false" v-model="value.expires" type="date"
-							placeholder="Expiration Date"/>
+			<DatetimePicker v-model="value.expires"
+				name="expires"
+				:clearable="false"
+				type="date"
+				placeholder="Expiration Date" />
 		</p>
-		<PasswordField :value="value.password" label="share password (optional)"
-					   :value.sync="value.password"
-					   :minlength="4" :required="false"/>
+		<PasswordField label="share password (optional)"
+		    :value="value.password"
+			:value.sync="value.password"
+			:minlength="4"
+			:required="false" />
 		<textarea v-model="value._decrypted" :disabled="locked" />
 		<input type="button"
-			   class="primary"
-			   :value="t('secrets', 'Save')"
-			   :disabled="locked"
-			   @click="$emit('save-secret', value)">
+			class="primary"
+			:value="t('secrets', 'Save')"
+			:disabled="locked"
+			@click="$emit('save-secret', value)">
 	</div>
 </template>
 
 <script>
-import ActionButton from '@nextcloud/vue/dist/Components/NcActionButton'
-import AppContent from '@nextcloud/vue/dist/Components/NcAppContent'
-import AppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation'
-import AppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem'
-import AppNavigationNew from '@nextcloud/vue/dist/Components/NcAppNavigationNew'
-import DatetimePicker from '@nextcloud/vue/dist/Components/NcDatetimePicker';
-import PasswordField from '@nextcloud/vue/dist/Components/NcPasswordField';
+import DatetimePicker from '@nextcloud/vue/dist/Components/NcDatetimePicker.js'
+import PasswordField from '@nextcloud/vue/dist/Components/NcPasswordField.js'
 
 import '@nextcloud/dialogs/styles/toast.scss'
-import { generateUrl } from '@nextcloud/router'
-import { showError, showSuccess } from '@nextcloud/dialogs'
-import axios from '@nextcloud/axios'
 
 export default {
-	name: 'Secret',
+	name: 'SecretEditor',
 	components: {
-		ActionButton,
-		AppContent,
-		AppNavigation,
-		AppNavigationItem,
-		AppNavigationNew,
 		DatetimePicker,
-		PasswordField
+		PasswordField,
 	},
-	props: ['locked', 'title', 'value'],
+	props: {
+		locked: {
+			type: Boolean,
+			default: false,
+		},
+		title: {
+			type: String,
+			default: '',
+		},
+		value: {
+			type: Object,
+			default: () => ({
+				expires: new Date(),
+				password: '',
+				_decrypted: ''
+			}),
+		},
+	},
 	computed: {
 	},
 	methods: {
-	}
+	},
 }
 </script>
 
@@ -68,7 +77,7 @@ export default {
 	textarea {
 		flex-grow: 1;
 		width: 100%;
-		font-family: "Lucida Console", monospace;
+		font-family: 'Lucida Console', monospace;
 	}
 
 	.secret-actions {

@@ -128,8 +128,7 @@ class SecretShareController extends AuthPublicShareController
 	 *
 	 * @throws SecretNotFound
 	 */
-	public function showShare(): TemplateResponse
-	{
+	public function showShare(): TemplateResponse {
 		Util::addScript(Application::APP_ID, 'secrets-public');
 
 		$resp = new TemplateResponse(Application::APP_ID, 'public', [], TemplateResponse::RENDER_AS_BASE);

@@ -10,101 +10,102 @@
 			<div class="secret-container">
 				<div>
 					<NoteCard type="warning">
-						<p>{{ t('secrets', 'Please make sure you have copied and stored the secret ' +
-							'before closing this page! It is now deleted on the server.') }}</p>
+						<p>
+							{{ t('secrets', 'Please make sure you have copied and stored the secret ' +
+								'before closing this page! It is now deleted on the server.') }}
+						</p>
 					</NoteCard>
 				</div>
 				<Actions class="secret-actions">
-					<ActionButton
-						:icon="copyButtonIcon"
-						@click="copyToClipboard(decrypted)" :title="t('secrets', 'Copy to Clipboard')">
+					<ActionButton :icon="copyButtonIcon"
+						@click="copyToClipboard(decrypted)">
+						{{ t('secrets', 'Copy to Clipboard') }}
 					</ActionButton>
 				</Actions>
 				<textarea v-if="decrypted"
-						  v-model="decrypted" disabled="disabled" />
-			</div>
-			<div v-else-if="loading" id="emptycontent">
-				<div class="icon-loading" />
-				<h2>{{ t('secrets', 'Retrieving secret...') }}</h2>
-			</div>
-			<div v-else id="emptycontent">
-				<div class="icon-password" />
-				<h2>{{ t('secrets', 'Error loading secret. Is your link correct?') }}</h2>
+					v-model="decrypted"
+					disabled="disabled" />
+				<div v-else-if="loading" id="emptycontent">
+					<div class="icon-loading" />
+					<h2>{{ t('secrets', 'Retrieving secret...') }}</h2>
+				</div>
+				<div v-else id="emptycontent">
+					<div class="icon-password" />
+					<h2>{{ t('secrets', 'Error loading secret. Is your link correct?') }}</h2>
+				</div>
 			</div>
 		</AppContent>
 	</div>
 </template>
 
 <script>
-import AppContent from '@nextcloud/vue/dist/Components/NcAppContent'
-import NoteCard from "@nextcloud/vue/dist/Components/NcNoteCard";
-import ActionButton from '@nextcloud/vue/dist/Components/NcActionButton'
-import Secret from "./Secret";
+import AppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
+import NoteCard from '@nextcloud/vue/dist/Components/NcNoteCard.js'
+import Actions from '@nextcloud/vue/dist/Components/NcActions.js'
+import ActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 
 import '@nextcloud/dialogs/styles/toast.scss'
-import { showError, showSuccess } from '@nextcloud/dialogs'
-import axios from "@nextcloud/axios";
-import {generateUrl} from "@nextcloud/router";
-
+import { showError } from '@nextcloud/dialogs'
+import axios from '@nextcloud/axios'
+import { generateUrl } from '@nextcloud/router'
 
 export default {
-	name: 'App',
+	name: 'Share',
 	components: {
 		AppContent,
+		Actions,
 		ActionButton,
-		Secret,
-		NoteCard
+		NoteCard,
 	},
 	data() {
 		return {
 			decrypted: null,
 			loading: true,
-			copyState: 'ready'
+			copyState: 'ready',
 		}
 	},
 	computed: {
 
 		copyButtonIcon() {
-			if (this.copyState === 'success')
-				return 'icon-checkmark';
-			if (this.copyState === 'error')
-				return 'icon-error';
-			return 'icon-clippy';
+			if (this.copyState === 'success') { return 'icon-checkmark' }
+			if (this.copyState === 'error') { return 'icon-error' }
+			return 'icon-clippy'
 		},
-	},
-	methods: {
-
-		async copyToClipboard(content) {
-			try {
-				await navigator.clipboard.writeText(content);
-				this.copyState = 'success';
-				setTimeout(() => this.copyState = 'ready', 3000);
-			} catch (e) {
-				showError(e.message);
-				console.error(e);
-				this.copyState = 'error';
-				setTimeout(() => this.copyState = 'ready', 3000);
-			}
-
-		}
 	},
 	async mounted() {
 		try {
-			let uuid = window.location.pathname;
-			uuid = uuid.substring(uuid.lastIndexOf('/') + 1);
-			const response = await axios.post(generateUrl(`/apps/secrets/api/get`), {'uuid': uuid});
-			let secret = response.data;
-			const iv = this.$cryptolib.b64StringToArrayBuffer(secret.iv);
+			let uuid = window.location.pathname
+			uuid = uuid.substring(uuid.lastIndexOf('/') + 1)
+			const response = await axios.post(generateUrl('/apps/secrets/api/get'), { uuid })
+			const secret = response.data
+			const iv = this.$cryptolib.b64StringToArrayBuffer(secret.iv)
 			console.log("to decrypt:", secret.encrypted, secret.iv, window.location.hash.substring(1));
-			const key = await this.$cryptolib.importDecryptionKey(window.location.hash.substring(1), iv);
+			const key = await this.$cryptolib.importDecryptionKey(window.location.hash.substring(1), iv)
 			console.log(key);
 			this.decrypted = await this.$cryptolib.decrypt(secret.encrypted, key, iv)
+			console.log("decrypted", this.decrypted)
 		} catch (e) {
 			console.error(e)
 			showError(t('secrets', 'Could not decrypt secret'))
 		}
 		this.loading = false
-	}
+	},
+	methods: {
+
+		async copyToClipboard(content) {
+			try {
+				await navigator.clipboard.writeText(content)
+				this.copyState = 'success'
+				setTimeout(() => { this.copyState = 'ready' }, 3000)
+			} catch (e) {
+				showError(e.message)
+				console.error(e)
+				this.copyState = 'error'
+				setTimeout(() => { this.copyState = 'ready' }, 3000)
+			}
+
+		},
+	},
 }
 </script>
 
@@ -123,15 +124,17 @@ export default {
 		margin-left: auto;
 		margin-right: auto;
 	}
+
 	textarea {
 		width: 100%;
 		margin: 0;
 		height: 400px;
 		min-width: calc(100% - 4em);
-		font-family: "Lucida Console", monospace;
+		font-family: 'Lucida Console', monospace;
 		flex-grow: 1;
 	}
-	input[type="button"] {
+
+	input[type='button'] {
 		display: block;
 		margin: auto;
 	}

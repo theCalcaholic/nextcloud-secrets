@@ -11,30 +11,43 @@
 			<NoteCard v-if="warning" type="warning">
 				<p>{{ warning }}</p>
 			</NoteCard>
-			<NoteCard v-else type="warning"  v-if="daysToDeletion <= 7">
+			<NoteCard v-if="daysToDeletion <= 7" type="warning">
 				<p>{{ t('secrets', 'Will be deleted in $X$ days').replace('$X$', '' + daysToDeletion) }}</p>
 			</NoteCard>
-			<p class="expires-container" v-if="value.encrypted">
+			<p v-if="value.encrypted" class="expires-container">
 				<label for="expires">Expires on:</label>
-				<input v-if="value.expires" type="date" name="expires" v-model="formattedDate" disabled="disabled">
-				<input v-else type="text" name="expires" disabled="disabled" value="never"/>
+				<input v-if="value.expires"
+					v-model="formattedDate"
+					type="date"
+					name="expires"
+					disabled="disabled">
+				<input v-else
+					type="text"
+					name="expires"
+					disabled="disabled"
+					value="never">
 			</p>
 			<CheckboxRadioSwitch :checked="value.pwHash !== null" :disabled="true">
 				password protected
 			</CheckboxRadioSwitch>
-			<p class="url-container" v-if="url">
+			<p v-if="url" class="url-container">
 				<label for="url">Share Link:</label>
-				<input type="text" name="url" disabled="disabled" :value="url" :size="url.length" class="url-field"/>
+				<input type="text"
+					name="url"
+					disabled="disabled"
+					:value="url"
+					:size="url.length"
+					class="url-field">
 				<Actions class="secret-actions">
-					<ActionButton
-						:icon="copyButtonIcon"
-						@click="copyToClipboard(url)" ariaLabel="Copy Secret Link">
-					</ActionButton>
+					<ActionButton :icon="copyButtonIcon"
+						aria-label="Copy Secret Link"
+						@click="copyToClipboard(url)" />
 				</Actions>
 			</p>
 		</div>
-		<textarea v-if="value._decrypted"
-				  v-model="value._decrypted" disabled="disabled" />
+		<textarea v-if="secret._decrypted"
+			v-model="secret._decrypted"
+			disabled="disabled" />
 
 		<div v-else-if="!value.encrypted" id="emptycontent">
 			<div class="icon-toggle" />
@@ -48,63 +61,70 @@
 </template>
 
 <script>
-import ActionButton from '@nextcloud/vue/dist/Components/NcActionButton'
-import Actions from '@nextcloud/vue/dist/Components/NcActions';
-import AppContent from '@nextcloud/vue/dist/Components/NcAppContent'
-import AppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation'
-import AppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem'
-import AppNavigationNew from '@nextcloud/vue/dist/Components/NcAppNavigationNew'
-import NoteCard from '@nextcloud/vue/dist/Components/NcNoteCard'
-import CheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch';
+import ActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
+import Actions from '@nextcloud/vue/dist/Components/NcActions.js'
+import NoteCard from '@nextcloud/vue/dist/Components/NcNoteCard.js'
+import CheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
 
 import '@nextcloud/dialogs/styles/toast.scss'
 import { generateUrl } from '@nextcloud/router'
-import { showError, showSuccess } from '@nextcloud/dialogs'
-import axios from '@nextcloud/axios'
+import { showError } from '@nextcloud/dialogs'
 
 export default {
 	name: 'Secret',
 	components: {
 		ActionButton,
 		Actions,
-		AppContent,
-		AppNavigation,
-		AppNavigationItem,
-		AppNavigationNew,
 		CheckboxRadioSwitch,
-		NoteCard
+		NoteCard,
+	},
+	props: {
+		value: {
+			type: Object,
+			default: () => {},
+		},
+		locked: {
+			type: String,
+			default: '',
+		},
+		warning: {
+			type: String,
+			default: '',
+		},
+		success: {
+			type: String,
+			default: '',
+		},
 	},
 	data() {
 		return {
 			keyBuf: null,
-			copyState: 'ready'
+			copyState: 'ready',
+			secret: this.value,
 		}
 	},
-	props: ['value', 'locked', 'warning', 'success'],
 	computed: {
 		isDecrypted() {
-			return !!this.value.key;
+			return !!this.value.key
 		},
 		isEditable() {
-			return !this.value.uuid;
+			return !this.value.uuid
 		},
 		url() {
 			console.debug(`decrypted? ${this.isDecrypted}, keyBuf: ${this.keyBuf}`)
-			if (!this.isDecrypted || !this.keyBuf)
-				return null;
-			const keyStr = this.$cryptolib.arrayBufferToB64String(new Uint8Array(this.keyBuf));
-			console.debug("serialized key: ", keyStr);
+			if (!this.isDecrypted || !this.keyBuf) { return null }
+			const keyStr = this.$cryptolib.arrayBufferToB64String(new Uint8Array(this.keyBuf))
+			console.debug("serialized key: ", keyStr)
 			return window.location.protocol + '//' + window.location.host + generateUrl(
 				`/apps/secrets/show/${this.value.uuid}`
 				+ `#${keyStr}`
-			);
+			)
 		},
 		formattedUUID() {
-			if (this.value.uuid === "")
-				return null;
+			if (this.value.uuid === "") { return null }
 			let uuid = this.value.uuid
 			return `${uuid.substring(0, 8)}-${uuid.substring(8, 4)}-${uuid.substring(12, 4)}`
-				+ `-${uuid.substring(16, 4)}-${uuid.substring(20, 12)}`;
+				+ `-${uuid.substring(16, 4)}-${uuid.substring(20, 12)}`
 		},
 		// expiryDate() {
 		// 	console.log('expires', this.value.expires);
@@ -114,61 +134,55 @@ export default {
 		// 	// return new Date(this.value.expires.substring(0, timeIndex));
 		// },
 		formattedDate() {
-			const formattedDate = this.value.expires.getFullYear() + "-"
-				+ `${this.value.expires.getMonth()+1}`.padStart(2, "0") + "-"
-				+ `${this.value.expires.getDate()}`.padStart(2, "0");
-			console.log("date: ", formattedDate, this.value.expires);
+			const formattedDate = this.value.expires.getFullYear() + '-'
+				+ `${this.value.expires.getMonth()+1}`.padStart(2, '0') + '-'
+				+ `${this.value.expires.getDate()}`.padStart(2, '0')
+			console.debug("date: ", formattedDate, this.value.expires)
 			//return this.value.expires.toISOString().substring(0, 10);
 			return formattedDate;
 		},
 		daysToDeletion() {
-			if (!this.value.expires)
-				return 999;
-			let deletionDate = new Date(this.value.expires.toISOString());
-			deletionDate.setDate(deletionDate.getDate() + 7);
-			let today = new Date();
-			console.log(today);
-			today.setHours(0);
-			today.setMinutes(0);
-			today.setSeconds(0);
-			today.setMilliseconds(0);
-			return Math.floor((deletionDate - today) / 86400000);
+			if (!this.value.expires) { return 999 }
+			let deletionDate = new Date(this.value.expires.toISOString())
+			deletionDate.setDate(deletionDate.getDate() + 7)
+			let today = new Date()
+			today.setHours(0)
+			today.setMinutes(0)
+			today.setSeconds(0)
+			today.setMilliseconds(0)
+			return Math.floor((deletionDate - today) / 86400000)
 		},
 		copyButtonIcon() {
-			if (this.copyState === 'success')
-				return 'icon-checkmark';
-			if (this.copyState === 'error')
-				return 'icon-error';
-			return 'icon-clippy';
+			if (this.copyState === 'success') { return 'icon-checkmark' }
+			if (this.copyState === 'error') { return 'icon-error' }
+			return 'icon-clippy'
 		},
 
 	},
 	watch: {
 		async value() {
-			if (this.value.key)
-				this.keyBuf = await window.crypto.subtle.exportKey("raw", this.value.key);
-		}
+			if (this.value.key) { this.keyBuf = await window.crypto.subtle.exportKey('raw', this.value.key) }
+		},
 	},
 	async mounted() {
-		if (this.value.key)
-			this.keyBuf = await window.crypto.subtle.exportKey("raw", this.value.key);
+		if (this.value.key) { this.keyBuf = await window.crypto.subtle.exportKey('raw', this.value.key) }
 	},
 	methods: {
 		async copyToClipboard(url) {
 			try {
-				await navigator.clipboard.writeText(url);
-				this.copyState = 'success';
-				setTimeout(() => this.copyState = 'ready', 3000);
+				await navigator.clipboard.writeText(url)
+				this.copyState = 'success'
+				setTimeout(() => { this.copyState = 'ready' }, 3000)
 			} catch (e) {
-				showError(e.message);
-				console.error(e);
-				this.copyState = 'error';
-				setTimeout(() => this.copyState = 'ready', 3000);
+				showError(e.message)
+				console.error(e)
+				this.copyState = 'error'
+				setTimeout(() => { this.copyState = 'ready' }, 3000)
 			}
 
-		}
+		},
 
-	}
+	},
 }
 </script>
 
@@ -185,12 +199,14 @@ export default {
 	textarea {
 		flex-grow: 1;
 		width: 100%;
-		font-family: "Lucida Console", monospace;
+		font-family: 'Lucida Console', monospace;
 	}
 
-	/*textarea.warning {*/
-	/*	color: var(--color-warning);*/
-	/*}*/
+	/*
+	textarea.warning {
+		color: var(--color-warning);
+	}
+	*/
 
 	.secret-actions {
 		display: inline-block;
