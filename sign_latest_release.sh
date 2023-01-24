@@ -9,6 +9,8 @@ trap 'rm -r "$tmp_dir"' EXIT
 
 wget -q -O "$tmp_dir/secrets.tar.gz" https://github.com/theCalcaholic/nextcloud-secrets/releases/latest/download/secrets.tar.gz
 wget -q -O "$tmp_dir/secrets.sha256" https://github.com/theCalcaholic/nextcloud-secrets/releases/latest/download/secrets.sha256
+echo "Release SHA256 sum:"
+cat "$tmp_dir/secrets.sha256"
 
 checksum="$(cd "$tmp_dir"; sha256sum "secrets.tar.gz")"
 [[ "$checksum" == "$(cat "$tmp_dir/secrets.sha256")" ]] || {

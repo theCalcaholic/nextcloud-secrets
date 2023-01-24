@@ -29,8 +29,8 @@ class SecretCleanup extends TimedJob {
 	 */
 	protected function run($argument) {
 		$this->logger->warning("CRON: Cleaning expired secrets...");
-		$dt = new DateTime();
-		$dt->sub(new DateInterval('P6D'));
+		$dt = new DateTime('now');
+		$dt = $dt->add(new DateInterval('P6D'));
 		$this->service->deleteExpiredAfter($dt->format('Y-m-d'));
 	}
 }
