@@ -37,7 +37,6 @@ use OCP\Migration\SimpleMigrationStep;
  * Auto-generated migration step: Please modify to your needs!
  */
 class Version1002Date20230123031526 extends SimpleMigrationStep {
-
 	/**
 	 * @param IOutput $output
 	 * @param Closure(): ISchemaWrapper $schemaClosure
@@ -60,13 +59,5 @@ class Version1002Date20230123031526 extends SimpleMigrationStep {
 		}
 		$table->dropColumn("expires_datetime");
 		return $schema;
-	}
-
-	/**
-	 * @param IOutput $output
-	 * @param Closure(): ISchemaWrapper $schemaClosure
-g	 * @param array $options
-	 */
-	public function postSchemaChange(IOutput $output, Closure $schemaClosure, array $options): void {
 	}
 }

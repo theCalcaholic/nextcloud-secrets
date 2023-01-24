@@ -7,12 +7,9 @@ declare(strict_types=1);
 namespace OCA\Secrets\Db;
 
 use DateTime;
-use DateTimeInterface;
-use InvalidArgumentException;
 use JsonSerializable;
 
 use OCP\AppFramework\Db\Entity;
-use Psr\Log\LoggerInterface;
 
 /**
  * @method getId(): int
@@ -47,37 +44,11 @@ class Secret extends Entity implements JsonSerializable {
 		$this->addType('id', 'int');
 	}
 
-//	public function getExpiryDate(): DateTime {
-//		$expiryDate = DateTime::createFromFormat("Y-m-d", $this->expires);
-//		if ($expiryDate === false) {
-//			throw new InvalidArgumentException("Error parsing date $this->expires");
-//		}
-//		return $expiryDate;
-//	}
-
-	/**
-	 * @param $date_str ?string
-	 * @return ?DateTime
-	 */
-	static public function ISO8601ToDateTime(?string $date_str): ?DateTime {
-		if ( $date_str == null ) {
-			return null;
-		}
-
-		$date = DateTime::createFromFormat(DATETIME_FORMAT_ISO8601, $date_str);
-
-		if (!$date)
-			throw new InvalidArgumentException("Invalid date format: " . $date_str);
-
-		return $date;
-	}
-
 	/**
 	 * @param string|null $date_str
 	 * @return void
 	 */
-	public function setExpiresFromISO8601String(?string $date_str): void
-	{
+	public function setExpiresFromISO8601String(?string $date_str): void {
 		if ($date_str == null) {
 			$this->setExpires(null);
 			return;
@@ -99,7 +70,11 @@ class Secret extends Entity implements JsonSerializable {
 	}
 
 	public function getExpiresAsISO8601(): ?string {
-		return $this->getExpiresAsDateTime()?->format(DATETIME_FORMAT_ISO8601);
+		$date = $this->getExpiresAsDateTime();
+		if ($date == null) {
+			return null;
+		}
+		return $this->getExpiresAsDateTime()->format(DATETIME_FORMAT_ISO8601);
 	}
 
 	public function jsonSerialize(): array {

@@ -14,6 +14,7 @@ use OCP\AppFramework\Db\DoesNotExistException;
 use OCA\Secrets\Db\Secret;
 use OCA\Secrets\Service\SecretService;
 use OCA\Secrets\Db\SecretMapper;
+use Psr\Log\NullLogger;
 
 class NoteServiceTest extends TestCase {
 	private SecretService $service;
@@ -25,7 +26,7 @@ class NoteServiceTest extends TestCase {
 		$this->mapper = $this->getMockBuilder(SecretMapper::class)
 			->disableOriginalConstructor()
 			->getMock();
-		$this->service = new SecretService($this->mapper);
+		$this->service = new SecretService($this->mapper, new NullLogger());
 	}
 
 	public function testUpdateWithSuccess(): void {

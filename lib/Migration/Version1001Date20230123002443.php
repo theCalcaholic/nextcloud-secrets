@@ -39,16 +39,13 @@ use OCP\Migration\SimpleMigrationStep;
 /**
  * Auto-generated migration step: Please modify to your needs!
  */
-class Version1001Date20230123002443 extends SimpleMigrationStep
-{
-
+class Version1001Date20230123002443 extends SimpleMigrationStep {
 	/**
-	 * Version1000Date20230123002443 constructor.
+	 * Version1001Date20230123002443 constructor.
 	 *
 	 * @param IDBConnection $connection
 	 */
-	public function __construct(IDBConnection $connection)
-	{
+	public function __construct(IDBConnection $connection) {
 		$this->connection = $connection;
 	}
 
@@ -58,9 +55,7 @@ class Version1001Date20230123002443 extends SimpleMigrationStep
 	 * @param array $options
 	 * @return null|ISchemaWrapper
 	 */
-	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options): ?ISchemaWrapper
-	{
-
+	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options): ?ISchemaWrapper {
 		$schema = $schemaClosure();
 		$table = $schema->getTable("secrets");
 		if (!$table->hasColumn("iv_str")) {
@@ -77,8 +72,7 @@ class Version1001Date20230123002443 extends SimpleMigrationStep
 	 * @param array $options
 	 * @throws Exception
 	 */
-	public function postSchemaChange(IOutput $output, Closure $schemaClosure, array $options): void
-	{
+	public function postSchemaChange(IOutput $output, Closure $schemaClosure, array $options): void {
 		$qb = $this->connection->getQueryBuilder();
 		$qb->update('secrets')->set('iv', 'iv_str');
 		$qb->executeStatement();

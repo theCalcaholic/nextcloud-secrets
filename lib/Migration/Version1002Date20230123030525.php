@@ -40,9 +40,8 @@ use OCP\Migration\SimpleMigrationStep;
  * Auto-generated migration step: Please modify to your needs!
  */
 class Version1002Date20230123030525 extends SimpleMigrationStep {
-
 	/**
-	 * Version1008Date20181105104826 constructor.
+	 * Version1002Date20230123030525 constructor.
 	 *
 	 * @param IDBConnection $connection
 	 */

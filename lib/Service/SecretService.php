@@ -6,8 +6,6 @@ declare(strict_types=1);
 
 namespace OCA\Secrets\Service;
 
-use DateTime;
-use DateTimeInterface;
 use Exception;
 
 use OCP\AppFramework\Db\DoesNotExistException;

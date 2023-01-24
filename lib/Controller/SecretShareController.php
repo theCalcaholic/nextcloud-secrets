@@ -19,16 +19,14 @@ use OCP\ISession;
 use OCP\IURLGenerator;
 use OCP\Util;
 
-class SecretShareController extends AuthPublicShareController
-{
+class SecretShareController extends AuthPublicShareController {
 	private SecretService $service;
 	private Secret $secret;
 
 	public function __construct(IRequest      $request,
 								ISession      $session,
 								SecretService $service,
-								IURLGenerator $urlGenerator)
-	{
+								IURLGenerator $urlGenerator) {
 		parent::__construct(Application::APP_ID, $request, $session, $urlGenerator);
 		$this->service = $service;
 	}
@@ -36,8 +34,7 @@ class SecretShareController extends AuthPublicShareController
 	/**
 	 * @throws SecretNotFound
 	 */
-	protected function getPasswordHash(): string
-	{
+	protected function getPasswordHash(): string {
 		return $this->getSecret()->getPwHash();
 	}
 
@@ -46,8 +43,7 @@ class SecretShareController extends AuthPublicShareController
 	 * @throws InvalidArgumentException
 	 * @throws SecretNotFound
 	 */
-	private function getSecret(): ?Secret
-	{
+	private function getSecret(): ?Secret {
 		if (!isset($this->secret)) {
 			if (!$this->getToken()) {
 				throw new InvalidArgumentException("secret uuid is not defined");
@@ -57,8 +53,7 @@ class SecretShareController extends AuthPublicShareController
 		return $this->secret;
 	}
 
-	public function isValidToken(): bool
-	{
+	public function isValidToken(): bool {
 		try {
 			return $this->getSecret() !== null;
 		} catch (SecretNotFound|InvalidArgumentException $e) {
@@ -70,13 +65,11 @@ class SecretShareController extends AuthPublicShareController
 	/**
 	 * @throws SecretNotFound
 	 */
-	protected function isPasswordProtected(): bool
-	{
+	protected function isPasswordProtected(): bool {
 		return $this->getSecret()->getPwHash() !== null;
 	}
 
-	protected function verifyPassword(string $password): bool
-	{
+	protected function verifyPassword(string $password): bool {
 		try {
 			return hash("sha256", $password . $this->getSecret()->getUuid()) === $this->getPasswordHash();
 		} catch (SecretNotFound $e) {
@@ -93,8 +86,7 @@ class SecretShareController extends AuthPublicShareController
 	 *
 	 * @since 14.0.0
 	 */
-	public function showAuthenticate(): TemplateResponse
-	{
+	public function showAuthenticate(): TemplateResponse {
 		error_log("showAuthenticate");
 		return new TemplateResponse('secrets', 'publicshareauth',
 			[], 'guest');
@@ -105,8 +97,7 @@ class SecretShareController extends AuthPublicShareController
 	 *
 	 * @since 14.0.0
 	 */
-	protected function showAuthFailed(): TemplateResponse
-	{
+	protected function showAuthFailed(): TemplateResponse {
 		error_log("showAuthFailed");
 		return new TemplateResponse('secrets', 'publicshareauth', ['wrongpw' => true], 'guest');
 	}
@@ -116,8 +107,7 @@ class SecretShareController extends AuthPublicShareController
 	 *
 	 * @since 24.0.0
 	 */
-	protected function showIdentificationResult(bool $success): TemplateResponse
-	{
+	protected function showIdentificationResult(bool $success): TemplateResponse {
 		error_log("showIdentificationResult");
 		return new TemplateResponse('secrets', 'publicshareauth', ['identityOk' => $success], 'guest');
 	}
