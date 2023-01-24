@@ -6,17 +6,18 @@
 	<div class="secret-container">
 		<p>
 			<label for="expires">Expires on:</label>
-			<DatetimePicker v-model="expires"
+			<DatetimePicker v-model="value.expires"
 				name="expires"
 				:clearable="false"
 				type="date"
 				placeholder="Expiration Date" />
 		</p>
 		<PasswordField label="share password (optional)"
-			:value.sync="password"
+		    :value="value.password"
+			:value.sync="value.password"
 			:minlength="4"
 			:required="false" />
-		<textarea v-model="_decrypted" :disabled="locked" />
+		<textarea v-model="value._decrypted" :disabled="locked" />
 		<input type="button"
 			class="primary"
 			:value="t('secrets', 'Save')"
@@ -47,8 +48,12 @@ export default {
 			default: '',
 		},
 		value: {
-			type: String,
-			default: '',
+			type: Object,
+			default: () => ({
+				expires: new Date(),
+				password: '',
+				_decrypted: ''
+			}),
 		},
 	},
 	computed: {

@@ -25,14 +25,14 @@
 				<textarea v-if="decrypted"
 					v-model="decrypted"
 					disabled="disabled" />
-			</div>
-			<div v-if="loading" id="emptycontent">
-				<div class="icon-loading" />
-				<h2>{{ t('secrets', 'Retrieving secret...') }}</h2>
-			</div>
-			<div v-else id="emptycontent">
-				<div class="icon-password" />
-				<h2>{{ t('secrets', 'Error loading secret. Is your link correct?') }}</h2>
+				<div v-else-if="loading" id="emptycontent">
+					<div class="icon-loading" />
+					<h2>{{ t('secrets', 'Retrieving secret...') }}</h2>
+				</div>
+				<div v-else id="emptycontent">
+					<div class="icon-password" />
+					<h2>{{ t('secrets', 'Error loading secret. Is your link correct?') }}</h2>
+				</div>
 			</div>
 		</AppContent>
 	</div>
@@ -79,8 +79,11 @@ export default {
 			const response = await axios.post(generateUrl('/apps/secrets/api/get'), { uuid })
 			const secret = response.data
 			const iv = this.$cryptolib.b64StringToArrayBuffer(secret.iv)
+			console.log("to decrypt:", secret.encrypted, secret.iv, window.location.hash.substring(1));
 			const key = await this.$cryptolib.importDecryptionKey(window.location.hash.substring(1), iv)
+			console.log(key);
 			this.decrypted = await this.$cryptolib.decrypt(secret.encrypted, key, iv)
+			console.log("decrypted", this.decrypted)
 		} catch (e) {
 			console.error(e)
 			showError(t('secrets', 'Could not decrypt secret'))
