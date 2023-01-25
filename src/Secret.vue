@@ -12,7 +12,7 @@
 				<p>{{ warning }}</p>
 			</NoteCard>
 			<NoteCard v-if="daysToDeletion <= 7" type="warning">
-				<p>{{ t('secrets', 'Will be deleted in $X$ days').replace('$X$', '' + daysToDeletion) }}</p>
+				<p>{{ n('secrets', 'Will be deleted in %n day', 'Will be deleted in %n days', daysToDeletion) }}</p>
 			</NoteCard>
 			<p v-if="value.encrypted" class="expires-container">
 				<label for="expires">Expires on:</label>
