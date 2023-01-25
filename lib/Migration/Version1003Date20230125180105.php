@@ -49,13 +49,6 @@ class Version1003Date20230125180105 extends SimpleMigrationStep {
 		$this->connection = $connection;
 		$this->logger = $logger;
 	}
-	/**
-	 * @param IOutput $output
-	 * @param Closure(): ISchemaWrapper $schemaClosure
-	 * @param array $options
-	 */
-	public function preSchemaChange(IOutput $output, Closure $schemaClosure, array $options): void {
-	}
 
 	/**
 	 * @param IOutput $output
