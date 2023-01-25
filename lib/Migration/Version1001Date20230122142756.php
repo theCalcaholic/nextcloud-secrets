@@ -95,7 +95,7 @@ class Version1001Date20230122142756 extends SimpleMigrationStep {
 		} while ($secret);
 	}
 
-	public static function fixSerialization(mixed $utf8Data): ?string {
+	public static function fixSerialization($utf8Data): ?string {
 		if ($utf8Data == null) {
 			return null;
 		}
