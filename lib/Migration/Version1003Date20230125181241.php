@@ -1,8 +1,6 @@
 <?php
 
 declare(strict_types=1);
-// SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
-// SPDX-License-Identifier: AGPL-3.0-or-later
 
 /**
  * @copyright Copyright (c) 2023 Your name <your@email.com>
@@ -29,30 +27,18 @@ declare(strict_types=1);
 namespace OCA\Secrets\Migration;
 
 use Closure;
-use OCP\DB\Exception;
 use OCP\DB\ISchemaWrapper;
-use OCP\DB\Types;
-use OCP\IDBConnection;
 use OCP\Migration\IOutput;
 use OCP\Migration\SimpleMigrationStep;
-use phpDocumentor\Reflection\Types\Resource_;
 
 /**
  * Auto-generated migration step: Please modify to your needs!
  */
-class Version1001Date20230122142756 extends SimpleMigrationStep {
-	/**
-	 * Version1001Date20230122142756 constructor.
-	 *
-	 * @param IDBConnection $connection
-	 */
-	public function __construct(IDBConnection $connection) {
-		$this->connection = $connection;
-	}
+class Version1003Date20230125181241 extends SimpleMigrationStep {
 
 	/**
 	 * @param IOutput $output
-	 * @param Closure $schemaClosure The `\Closure` returns a `ISchemaWrapper`
+	 * @param Closure(): ISchemaWrapper $schemaClosure
 	 * @param array $options
 	 */
 	public function preSchemaChange(IOutput $output, Closure $schemaClosure, array $options): void {
@@ -60,53 +46,25 @@ class Version1001Date20230122142756 extends SimpleMigrationStep {
 
 	/**
 	 * @param IOutput $output
-	 * @param Closure $schemaClosure The `\Closure` returns a `ISchemaWrapper`
+	 * @param Closure(): ISchemaWrapper $schemaClosure
 	 * @param array $options
 	 * @return null|ISchemaWrapper
 	 */
 	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options): ?ISchemaWrapper {
 		$schema = $schemaClosure();
 		$table = $schema->getTable("secrets");
-		if ($table->hasColumn("iv_str")) {
+		if (!$table->hasColumn('encrypted_str')) {
 			return null;
 		}
-		$table->addColumn("iv_str", Types::TEXT, ['notnull' => false, 'length' => null, 'default' => '']);
+		$table->dropColumn('encrypted_str');
 		return $schema;
 	}
 
 	/**
 	 * @param IOutput $output
-	 * @param Closure $schemaClosure The `\Closure` returns a `ISchemaWrapper`
-	 * @param array $options
-	 * @throws Exception
+	 * @param Closure(): ISchemaWrapper $schemaClosure
+g	 * @param array $options
 	 */
 	public function postSchemaChange(IOutput $output, Closure $schemaClosure, array $options): void {
-		$qb = $this->connection->getQueryBuilder();
-		$results = $qb->select('id', 'iv')
-			->from('secrets')
-			->executeQuery();
-		$secret = $results->fetch();
-		while($secret) {
-			$qb = $this->connection->getQueryBuilder();
-			$qb->update("secrets")
-				->where($qb->expr()->eq('id', $qb->createNamedParameter($secret['id'])))
-				->set('iv_str', $qb->createNamedParameter(self::fixSerialization($secret['iv'])));
-			$qb->executeStatement();
-		}
-	}
-
-	public static function fixSerialization($utf8Data): ?string {
-		if ($utf8Data == null) {
-			return null;
-		}
-
-		if (is_resource($utf8Data)) {
-			$utf8Str = stream_get_contents($utf8Data);
-			fclose($utf8Data);
-		} else {
-			$utf8Str = $utf8Data;
-		}
-
-		return base64_encode(utf8_decode($utf8Str));
 	}
 }

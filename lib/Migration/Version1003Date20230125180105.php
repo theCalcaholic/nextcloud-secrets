@@ -1,8 +1,6 @@
 <?php
 
 declare(strict_types=1);
-// SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
-// SPDX-License-Identifier: AGPL-3.0-or-later
 
 /**
  * @copyright Copyright (c) 2023 Your name <your@email.com>
@@ -29,30 +27,31 @@ declare(strict_types=1);
 namespace OCA\Secrets\Migration;
 
 use Closure;
+use http\Exception\InvalidArgumentException;
 use OCP\DB\Exception;
 use OCP\DB\ISchemaWrapper;
 use OCP\DB\Types;
 use OCP\IDBConnection;
 use OCP\Migration\IOutput;
 use OCP\Migration\SimpleMigrationStep;
-use phpDocumentor\Reflection\Types\Resource_;
+use Psr\Log\LoggerInterface;
 
 /**
  * Auto-generated migration step: Please modify to your needs!
  */
-class Version1001Date20230122142756 extends SimpleMigrationStep {
+class Version1003Date20230125180105 extends SimpleMigrationStep {
 	/**
-	 * Version1001Date20230122142756 constructor.
+	 * Version1003Date20230125180105 constructor.
 	 *
 	 * @param IDBConnection $connection
 	 */
-	public function __construct(IDBConnection $connection) {
+	public function __construct(IDBConnection $connection, LoggerInterface $logger) {
 		$this->connection = $connection;
+		$this->logger = $logger;
 	}
-
 	/**
 	 * @param IOutput $output
-	 * @param Closure $schemaClosure The `\Closure` returns a `ISchemaWrapper`
+	 * @param Closure(): ISchemaWrapper $schemaClosure
 	 * @param array $options
 	 */
 	public function preSchemaChange(IOutput $output, Closure $schemaClosure, array $options): void {
@@ -60,29 +59,34 @@ class Version1001Date20230122142756 extends SimpleMigrationStep {
 
 	/**
 	 * @param IOutput $output
-	 * @param Closure $schemaClosure The `\Closure` returns a `ISchemaWrapper`
+	 * @param Closure(): ISchemaWrapper $schemaClosure
 	 * @param array $options
 	 * @return null|ISchemaWrapper
+	 * @throws Exception
 	 */
 	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options): ?ISchemaWrapper {
 		$schema = $schemaClosure();
 		$table = $schema->getTable("secrets");
-		if ($table->hasColumn("iv_str")) {
+		$col = $table->getColumn("encrypted");
+		if ($col->getType()->getName() != Types::BLOB ) {
+			var_dump($col->getType());
+			$this->logger->error("encrypted col has type" . gettype($col->getType()));
+			throw new Exception($col->getType()->getName());
 			return null;
 		}
-		$table->addColumn("iv_str", Types::TEXT, ['notnull' => false, 'length' => null, 'default' => '']);
+		$table->addColumn("encrypted_str", Types::TEXT, ['notnull' => false, 'length' => null, 'default' => '']);
 		return $schema;
 	}
 
 	/**
 	 * @param IOutput $output
-	 * @param Closure $schemaClosure The `\Closure` returns a `ISchemaWrapper`
-	 * @param array $options
+	 * @param Closure(): ISchemaWrapper $schemaClosure
+	 * g     * @param array $options
 	 * @throws Exception
 	 */
 	public function postSchemaChange(IOutput $output, Closure $schemaClosure, array $options): void {
 		$qb = $this->connection->getQueryBuilder();
-		$results = $qb->select('id', 'iv')
+		$results = $qb->select('id', 'encrypted')
 			->from('secrets')
 			->executeQuery();
 		$secret = $results->fetch();
@@ -90,23 +94,25 @@ class Version1001Date20230122142756 extends SimpleMigrationStep {
 			$qb = $this->connection->getQueryBuilder();
 			$qb->update("secrets")
 				->where($qb->expr()->eq('id', $qb->createNamedParameter($secret['id'])))
-				->set('iv_str', $qb->createNamedParameter(self::fixSerialization($secret['iv'])));
+				->set('encrypted_str', $qb->createNamedParameter(self::convertToString($secret['encrypted'])));
+			$this->logger->warning($qb->getSQL());
 			$qb->executeStatement();
+			$secret = $results->fetch();
 		}
 	}
 
-	public static function fixSerialization($utf8Data): ?string {
-		if ($utf8Data == null) {
+	public static function convertToString($blobData): ?string {
+		if ($blobData == null) {
 			return null;
 		}
 
-		if (is_resource($utf8Data)) {
-			$utf8Str = stream_get_contents($utf8Data);
-			fclose($utf8Data);
+		if (is_resource($blobData)) {
+			$utf8Str = stream_get_contents($blobData);
+			fclose($blobData);
 		} else {
-			$utf8Str = $utf8Data;
+			$utf8Str = (string) $blobData;
 		}
 
-		return base64_encode(utf8_decode($utf8Str));
+		return $utf8Str;
 	}
 }
