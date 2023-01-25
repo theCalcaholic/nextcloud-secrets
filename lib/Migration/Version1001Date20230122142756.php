@@ -35,6 +35,7 @@ use OCP\DB\Types;
 use OCP\IDBConnection;
 use OCP\Migration\IOutput;
 use OCP\Migration\SimpleMigrationStep;
+use phpDocumentor\Reflection\Types\Resource_;
 
 /**
  * Auto-generated migration step: Please modify to your needs!
@@ -94,9 +95,16 @@ class Version1001Date20230122142756 extends SimpleMigrationStep {
 		} while ($secret);
 	}
 
-	public static function fixSerialization(?string $utf8Str): ?string {
-		if ($utf8Str == null) {
+	public static function fixSerialization(mixed $utf8Data): ?string {
+		if ($utf8Data == null) {
 			return null;
+		}
+
+		if (is_resource($utf8Data)) {
+			$utf8Str = stream_get_contents($utf8Data);
+			fclose($utf8Data);
+		} else {
+			$utf8Str = $utf8Data;
 		}
 
 		return base64_encode(utf8_decode($utf8Str));
