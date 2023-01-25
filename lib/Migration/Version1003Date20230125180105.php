@@ -35,7 +35,6 @@ use OCP\DB\Types;
 use OCP\IDBConnection;
 use OCP\Migration\IOutput;
 use OCP\Migration\SimpleMigrationStep;
-use Psr\Log\LoggerInterface;
 
 /**
  * Auto-generated migration step: Please modify to your needs!
@@ -46,9 +45,8 @@ class Version1003Date20230125180105 extends SimpleMigrationStep {
 	 *
 	 * @param IDBConnection $connection
 	 */
-	public function __construct(IDBConnection $connection, LoggerInterface $logger) {
+	public function __construct(IDBConnection $connection) {
 		$this->connection = $connection;
-		$this->logger = $logger;
 	}
 
 	/**
@@ -63,9 +61,6 @@ class Version1003Date20230125180105 extends SimpleMigrationStep {
 		$table = $schema->getTable("secrets");
 		$col = $table->getColumn("encrypted");
 		if ($col->getType()->getName() != Types::BLOB) {
-			var_dump($col->getType());
-			$this->logger->error("encrypted col has type" . gettype($col->getType()));
-			throw new Exception($col->getType()->getName());
 			return null;
 		}
 		$table->addColumn("encrypted_str", Types::TEXT, ['notnull' => false, 'length' => null, 'default' => '']);
