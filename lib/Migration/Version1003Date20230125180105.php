@@ -1,6 +1,8 @@
 <?php
 
 declare(strict_types=1);
+// SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
 /**
  * @copyright Copyright (c) 2023 Your name <your@email.com>
@@ -27,7 +29,6 @@ declare(strict_types=1);
 namespace OCA\Secrets\Migration;
 
 use Closure;
-use http\Exception\InvalidArgumentException;
 use OCP\DB\Exception;
 use OCP\DB\ISchemaWrapper;
 use OCP\DB\Types;
@@ -61,7 +62,7 @@ class Version1003Date20230125180105 extends SimpleMigrationStep {
 		$schema = $schemaClosure();
 		$table = $schema->getTable("secrets");
 		$col = $table->getColumn("encrypted");
-		if ($col->getType()->getName() != Types::BLOB ) {
+		if ($col->getType()->getName() != Types::BLOB) {
 			var_dump($col->getType());
 			$this->logger->error("encrypted col has type" . gettype($col->getType()));
 			throw new Exception($col->getType()->getName());
@@ -83,7 +84,7 @@ class Version1003Date20230125180105 extends SimpleMigrationStep {
 			->from('secrets')
 			->executeQuery();
 		$secret = $results->fetch();
-		while($secret) {
+		while ($secret) {
 			$qb = $this->connection->getQueryBuilder();
 			$qb->update("secrets")
 				->where($qb->expr()->eq('id', $qb->createNamedParameter($secret['id'])))

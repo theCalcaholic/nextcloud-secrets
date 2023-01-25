@@ -35,7 +35,6 @@ use OCP\DB\Types;
 use OCP\IDBConnection;
 use OCP\Migration\IOutput;
 use OCP\Migration\SimpleMigrationStep;
-use phpDocumentor\Reflection\Types\Resource_;
 
 /**
  * Auto-generated migration step: Please modify to your needs!
@@ -78,7 +77,7 @@ class Version1001Date20230122142756 extends SimpleMigrationStep {
 			->from('secrets')
 			->executeQuery();
 		$secret = $results->fetch();
-		while($secret) {
+		while ($secret) {
 			$qb = $this->connection->getQueryBuilder();
 			$qb->update("secrets")
 				->where($qb->expr()->eq('id', $qb->createNamedParameter($secret['id'])))

@@ -1,6 +1,8 @@
 <?php
 
 declare(strict_types=1);
+// SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
 /**
  * @copyright Copyright (c) 2023 Your name <your@email.com>
@@ -55,7 +57,7 @@ class Version1003Date20230125180111 extends SimpleMigrationStep {
 	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options): ?ISchemaWrapper {
 		$schema = $schemaClosure();
 		$table = $schema->getTable("secrets");
-		if(!$table->hasColumn('encrypted_str')) {
+		if (!$table->hasColumn('encrypted_str')) {
 			return null;
 		}
 		$table->dropColumn("encrypted");
@@ -66,7 +68,7 @@ class Version1003Date20230125180111 extends SimpleMigrationStep {
 	/**
 	 * @param IOutput $output
 	 * @param Closure(): ISchemaWrapper $schemaClosure
-g	 * @param array $options
+	 * @param array $options
 	 */
 	public function postSchemaChange(IOutput $output, Closure $schemaClosure, array $options): void {
 		$qb = $this->connection->getQueryBuilder();
