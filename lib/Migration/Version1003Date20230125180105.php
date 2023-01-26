@@ -60,7 +60,7 @@ class Version1003Date20230125180105 extends SimpleMigrationStep {
 		$schema = $schemaClosure();
 		$table = $schema->getTable("secrets");
 		$col = $table->getColumn("encrypted");
-		if ($col->getType()->getName() != Types::BLOB) {
+		if ($col->getType()->getName() != Types::BLOB || $table->hasColumn("encrypted_str")) {
 			return null;
 		}
 		$table->addColumn("encrypted_str", Types::TEXT, ['notnull' => false, 'length' => null, 'default' => '']);
@@ -84,7 +84,6 @@ class Version1003Date20230125180105 extends SimpleMigrationStep {
 			$qb->update("secrets")
 				->where($qb->expr()->eq('id', $qb->createNamedParameter($secret['id'])))
 				->set('encrypted_str', $qb->createNamedParameter(self::convertToString($secret['encrypted'])));
-			$this->logger->warning($qb->getSQL());
 			$qb->executeStatement();
 			$secret = $results->fetch();
 		}
