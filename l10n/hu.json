@@ -1,0 +1,6 @@
+{ "translations": {
+    "Share Link" : "Hivatkozás megosztása",
+    "This share is password-protected" : "Ez a megosztás jelszóval védett",
+    "Password" : "Jelszó"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}
