@@ -1,0 +1,7 @@
+{ "translations": {
+    "Share Link" : "Dela länk",
+    "Save" : "Spara",
+    "This share is password-protected" : "Denna delning är lösenordsskyddad",
+    "Password" : "Lösenord"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

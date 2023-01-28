@@ -1,0 +1,6 @@
+{ "translations": {
+    "Save" : "সংরক্ষণ",
+    "This share is password-protected" : "এই শেয়ারটি কূটশব্দদ্বারা সুরক্ষিত",
+    "Password" : "কূটশব্দ"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

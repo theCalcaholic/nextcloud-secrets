@@ -1,0 +1,27 @@
+{ "translations": {
+    "Secrets" : "Секреты",
+    "Securely share data via link" : "Безопасно поделиться данными по ссылке",
+    "New secret" : "Новый секрет",
+    "Change Title" : "Изменить заголовок",
+    "Cancel secret creation" : "Отменить создание секрета",
+    "Delete secret" : "Удалить секрет",
+    "Your secret is stored end-to-end encrypted on the server. " : "Ваш секрет сохраняется на сервер зашифрованный при помощи метода сквозного шифрования",
+    "Create a secret to get started" : "Создать секрет чтобы начать",
+    "Could not fetch secrets" : "Не удалось получить секреты",
+    "New Secret" : "Новый секрет",
+    "Could not create the secret" : "Не удалось создать секрет",
+    "Secret deleted" : "Секрет удален",
+    "Could not delete the secret" : "Не удалось удалить секрет",
+    "Share Link" : "Поделиться ссылкой",
+    "Could not decrypt secret (key not available locally)." : "Не удалось расшифровать секрет (ключ недоступен локально).",
+    "Save" : "Сохранить",
+    "Please make sure you have copied and stored the secret " : "Пожалуйста, убедитесь, что вы скопировали и сохранили секрет",
+    "Copy to Clipboard" : "Скопировано в буфер обмена",
+    "Retrieving secret..." : "Получение секрета...",
+    "Error loading secret. Is your link correct?" : "Ошибка загрузки секрета. Ваша ссылка корректна?",
+    "Could not decrypt secret" : "Не удалось расшифровать секрет",
+    "This share is password-protected" : "Доступ к этому ресурсу защищён паролем",
+    "Password" : "Пароль",
+    "The password is wrong or expired. Please try again." : "Пароль не верный или срок его действия истекший. Пожалуйста, попробуйте снова."
+},"pluralForm" :"nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);"
+}

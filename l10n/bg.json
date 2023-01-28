@@ -1,0 +1,7 @@
+{ "translations": {
+    "Share Link" : "Сподели връзката",
+    "Save" : "Запиши",
+    "This share is password-protected" : "Тази зона е защитена с парола.",
+    "Password" : "Парола"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}
