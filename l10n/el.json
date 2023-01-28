@@ -1,0 +1,7 @@
+{ "translations": {
+    "Share Link" : "Κοινή χρήση Συνδέσμου",
+    "Save" : "Αποθήκευση",
+    "This share is password-protected" : "Το κοινόχρηστο έχει προστασία κωδικού",
+    "Password" : "Συνθηματικό"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}
