@@ -1,7 +1,16 @@
 OC.L10N.register(
     "secrets",
     {
+    "Secrets" : "Tajemství",
+    "New secret" : "Nové tajemství",
+    "Change Title" : "Změnit nadpis",
+    "Cancel secret creation" : "Zrušit vytváření tajemství",
+    "Delete secret" : "Smazat tajemství",
+    "New Secret" : "Nové tajemství",
+    "Secret deleted" : "Tajemství smazáno",
+    "Could not delete the secret" : "Tajemství se nepodařilo smazat",
     "Share Link" : "Odkaz na sdílení",
+    "_Will be deleted in %n day_::_Will be deleted in %n days_" : ["Bude smazáno za %n den","Bude smazáno za %n dny","Bude smazáno za %n dnů","Bude smazáno za %n dny"],
     "Save" : "Uložit",
     "Copy to Clipboard" : "Zkopírovat do schránky",
     "Retrieving secret..." : "Získávání tajemství…",
