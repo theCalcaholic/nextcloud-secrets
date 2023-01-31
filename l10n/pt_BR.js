@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Secrets" : "Segredos",
     "Securely share data via link" : "Compartilhe dados com segurança via link",
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfullly" : "Compartilhe dados com segurança com qualquer pessoa. Todos os dados são criptografados de ponta a ponta pelo usuário e serão excluídos assim que forem recuperados com sucesso",
     "New secret" : "Novo segredo",
     "Change Title" : "Alterar Título",
     "Cancel secret creation" : "Cancelar criação secreta",
@@ -25,6 +26,7 @@ OC.L10N.register(
     "Error loading secret. Is your link correct?" : "Erro ao carregar segredo. Seu link está correto?",
     "Could not decrypt secret" : "Não foi possível descriptografar o segredo",
     "This share is password-protected" : "Compartilhamento protegido por senha",
+    "The password is wrong or has expired. Please try again." : "A senha está errada ou expirou. Por favor, tente novamente.",
     "Password" : "Senha",
     "Securely and share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfullly" : "Com segurança e compartilhe dados com qualquer pessoa. Todos os dados são criptografados de ponta a ponta pelo usuário e serão excluídos assim que forem recuperados com sucesso",
     "The password is wrong or expired. Please try again." : "A senha está errada ou expirou. Por favor, tente novamente."
