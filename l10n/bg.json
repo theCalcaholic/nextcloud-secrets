@@ -1,7 +1,32 @@
 { "translations": {
+    "Secrets" : "Тайни",
+    "Securely share data via link" : "Сигурно споделяне на данни чрез връзка",
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfullly" : "Сигурно споделяне на данни с всеки. Всички данни се криптират цялостно от потребителя и ще бъдат изтривани след успешното им извличане",
+    "New secret" : "Нова тайна",
+    "Change Title" : "Промяна на заглавието",
+    "Cancel secret creation" : "Отказ от създаването на тайна",
+    "Delete secret" : "Изтриване на тайна",
+    "Your secret is stored end-to-end encrypted on the server. " : "Вашата тайна е цялостно криптирана и се съхранява на сървъра. ",
+    "Create a secret to get started" : "Създайте тайна, за да започнете.",
+    "Could not fetch secrets" : "Тайните не можаха да бъдат извлечени",
+    "New Secret" : "Нова тайна",
+    "Could not create the secret" : "Неуспешно създаване на тайна",
+    "Secret deleted" : "Изтрита е тайна",
+    "Could not delete the secret" : "Неуспешно изтриване на тайната",
     "Share Link" : "Сподели връзката",
+    "This secret has already been retrieved and its content was consequently deleted from the server." : "Тази тайна вече е била изтеглена и впоследствие съдържанието й е било изтрито от сървъра.",
+    "Could not decrypt secret (key not available locally)." : "Тайната не можа да се дешифрира (ключът не е наличен локално).",
+    "_Will be deleted in %n day_::_Will be deleted in %n days_" : ["Ще бъде изтрита след %n дни","Ще бъде изтрита след %n дни"],
     "Save" : "Запиши",
+    "Please make sure you have copied and stored the secret " : "Моля, уверете се, че сте копирали и запазили тайната ",
+    "Copy to Clipboard" : "Копиране в Клипборда",
+    "Retrieving secret..." : "Извличане на тайна...",
+    "Error loading secret. Is your link correct?" : "Грешка при зареждането на тайната. Правилна ли е връзката ви?",
+    "Could not decrypt secret" : "Тайната не можа да се дешифрира",
     "This share is password-protected" : "Тази зона е защитена с парола.",
-    "Password" : "Парола"
+    "The password is wrong or has expired. Please try again." : "Паролата е грешна или е изтекла. Моля, опитайте отново.",
+    "Password" : "Парола",
+    "Securely and share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfullly" : "Сигурно споделяне на данни с всеки. Всички данни се криптират цялостно от потребителя и ще бъдат изтривани след успешното им извличане",
+    "The password is wrong or expired. Please try again." : "Паролата е грешна или е изтекла. Моля, опитайте отново."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
