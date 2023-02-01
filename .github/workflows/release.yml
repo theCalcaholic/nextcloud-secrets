@@ -39,9 +39,9 @@ jobs:
     - name: "Create release"
       run: |
         set -x
-        make appstore
+        make build
         mkdir secrets
-        mv appinfo img js lib LICENSES templates LICENSE.md secrets/
+        mv appinfo img js lib l10n LICENSES templates LICENSE.md secrets/
         tar -caf secrets.tar.gz secrets
         sha256sum secrets.tar.gz > secrets.sha256
         tag_name="${GITHUB_REF##*/}"
