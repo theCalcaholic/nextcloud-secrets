@@ -40,10 +40,9 @@ jobs:
       run: |
         set -x
         make appstore
-        # mkdir secrets
-        # mv appinfo img js lib LICENSES templates LICENSE.md secrets/
-        # tar -caf secrets.tar.gz secrets
-        cd build/artifacts/appstore
+        mkdir secrets
+        mv appinfo img js lib LICENSES templates LICENSE.md secrets/
+        tar -caf secrets.tar.gz secrets
         sha256sum secrets.tar.gz > secrets.sha256
         tag_name="${GITHUB_REF##*/}"
         hub release create -a secrets.tar.gz -a secrets.sha256 -m "$tag_name" "$tag_name"
