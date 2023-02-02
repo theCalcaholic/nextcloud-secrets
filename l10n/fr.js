@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Secrets" : "Secrets",
     "Securely share data via link" : "Partagez des messages confidentiels par liens",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfullly" : "Partager en sécurité des messages avec quiconque. Toutes les données sont chiffrées de bout en bout par l'utilisateur et seront supprimées une fois récupérées avec succès.",
     "New secret" : "Nouveau secret",
     "Change Title" : "Changer le titre",
     "Cancel secret creation" : "Annuler la création du secret",

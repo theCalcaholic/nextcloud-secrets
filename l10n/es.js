@@ -25,6 +25,7 @@ OC.L10N.register(
     "Error loading secret. Is your link correct?" : "Error cargando el secreto. ¿Es su enlace correcto?",
     "Could not decrypt secret" : "No fue posible descifrar el secreto",
     "This share is password-protected" : "Este recurso compartido está protegido por contraseña",
+    "The password is wrong or has expired. Please try again." : "La contraseña es errónea o ha caducado. Por favor, inténtelo de nuevo",
     "Password" : "Contraseña",
     "Securely and share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfullly" : "Compartir datos de forma seguro con cualquiera. Todos los datos están cifrados de extremo a extremo por el usuario y serán borrados una vez que se extraigan exitosamente",
     "The password is wrong or expired. Please try again." : "La contraseña está mal o ha caducado. Por favor, inténtalo de nuevo."

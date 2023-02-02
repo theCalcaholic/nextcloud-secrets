@@ -1,7 +1,6 @@
 { "translations": {
     "Secrets" : "Sırlar",
     "Securely share data via link" : "Bağlantı ile verileri güvenle paylaşın",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfullly" : "Verileri herhangi bir kişi ile güvenli bir şekilde paylaşın. Tüm veriler kullanıcı tarafından uçtan uca şifrelenir ve karşı taraf aldığında silinir",
     "New secret" : "Yeni sır",
     "Change Title" : "Başlığı değiştir",
     "Cancel secret creation" : "Sır oluşturmaktan vazgeç",
