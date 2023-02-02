@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Secrets" : "密鑰",
     "Securely share data via link" : "通過連結安全地分享數據",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfullly" : "與任何人安全地分享數據。所有數據均由用戶端到端加密，一旦成功檢索將被刪除",
     "New secret" : "新密鑰",
     "Change Title" : "更改標題",
     "Cancel secret creation" : "取消創建密鑰",

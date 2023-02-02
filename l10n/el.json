@@ -1,6 +1,5 @@
 { "translations": {
     "Secrets" : "Μυστικά",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfullly" : "Μοιραστείτε με ασφάλεια δεδομένα με οποιονδήποτε. Όλα τα δεδομένα είναι κρυπτογραφημένα από άκρο σε άκρο από τον χρήστη και θα διαγραφούν μόλις ανακτηθούν επιτυχώς.",
     "New secret" : "Νέο μυστικό",
     "Change Title" : "Αλλαγή τίτλου",
     "Cancel secret creation" : "Ακύρωση δημιουργίας μυστικού",
