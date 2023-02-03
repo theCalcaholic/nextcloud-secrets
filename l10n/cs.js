@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Secrets" : "Tajemství",
     "Securely share data via link" : "Sdílet data bezpečně prostřednictvím odkazu",
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Bezpečně sdílejte data s kýmkoli. Veškerá data jsou mezi koncovými body šifrována uživatelem a po úspěšném přijetí budou vymazána ze serveru",
     "New secret" : "Nové tajemství",
     "Change Title" : "Změnit nadpis",
     "Cancel secret creation" : "Zrušit vytváření tajemství",
