@@ -1,6 +1,7 @@
 { "translations": {
     "Secrets" : "Secretos",
     "Securely share data via link" : "Compartir datos de forma segura mediante un enlace",
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Compartir datos de forma segura con cualquiera. Todos los datos están cifrados de extremo a extremo por el usuario y serán eliminados una vez que se extraigan exitosamente",
     "New secret" : "Nuevo secreto",
     "Change Title" : "Cambiar título",
     "Cancel secret creation" : "Cancelar la creación del secreto",

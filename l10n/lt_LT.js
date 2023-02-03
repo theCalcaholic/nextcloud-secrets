@@ -5,6 +5,7 @@ OC.L10N.register(
     "Save" : "Įrašyti",
     "Copy to Clipboard" : "Kopijuoti į iškarpinę",
     "This share is password-protected" : "Šis viešinys yra apsaugotas slaptažodžiu",
+    "The password is wrong or has expired. Please try again." : "Slaptažodis yra neteisingas arba baigė galioti. Bandykite dar kartą.",
     "Password" : "Slaptažodis",
     "The password is wrong or expired. Please try again." : "Slaptažodis yra neteisingas arba nebegalioja. Bandykite dar kartą."
 },
