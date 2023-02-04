@@ -1,6 +1,7 @@
 OC.L10N.register(
     "secrets",
     {
+    "Change Title" : "Spremeni naziv",
     "Share Link" : "Objavi povezavo",
     "Save" : "Shrani",
     "This share is password-protected" : "To mesto souporabe je zaščiteno z geslom",
