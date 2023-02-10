@@ -3,7 +3,7 @@ OC.L10N.register(
     {
     "Secrets" : "Geheimnisse",
     "Securely share data via link" : "Daten sicher via Link freigeben",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Teilen Sie Daten sicher mit jedem. Alle Daten werden vom Benutzer Ende-zu-Ende verschlüsselt und nach erfolgreichem Abruf gelöscht",
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Teilen Sie Daten sicher mit jedem. Alle Daten werden vom Benutzer Ende-zu-Ende verschlüsselt und nach erfolgreichem Abruf gelöscht.",
     "New secret" : "Neues Geheimnis",
     "Change Title" : "Titel ändern",
     "Cancel secret creation" : "Geheimniserstellung abbrechen",
