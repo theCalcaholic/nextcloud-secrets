@@ -76,8 +76,7 @@ class Version1001Date20230122142756 extends SimpleMigrationStep {
 		$results = $qb->select('id', 'iv')
 			->from('secrets')
 			->executeQuery();
-		$secret = $results->fetch();
-		while ($secret) {
+		while ($secret = $results->fetch()) {
 			$qb = $this->connection->getQueryBuilder();
 			$qb->update("secrets")
 				->where($qb->expr()->eq('id', $qb->createNamedParameter($secret['id'])))
