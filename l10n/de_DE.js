@@ -2,7 +2,7 @@ OC.L10N.register(
     "secrets",
     {
     "Secrets" : "Geheimnisse",
-    "Securely share data via link" : "Daten sicher via Link freigeben",
+    "Securely share data via link" : "Daten sicher mittels Link freigeben",
     "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Teilen Sie Daten sicher mit jedem. Alle Daten werden vom Benutzer Ende-zu-Ende verschlüsselt und nach erfolgreichem Abruf gelöscht.",
     "New secret" : "Neues Geheimnis",
     "Change Title" : "Titel ändern",
@@ -26,9 +26,9 @@ OC.L10N.register(
     "Error loading secret. Is your link correct?" : "Laden des Geheimnisses fehlgeschlagen. Ist dein Link richtig?",
     "Could not decrypt secret" : "Geheimnis konnte nicht entschlüsselt werden",
     "This share is password-protected" : "Diese Freigabe ist passwortgeschützt",
-    "The password is wrong or has expired. Please try again." : "Das Passwort ist falsch oder abgelaufen. Bitte noch einmal versuchen.",
+    "The password is wrong or has expired. Please try again." : "Das Passwort ist falsch oder abgelaufen. Bitte erneut versuchen.",
     "Password" : "Passwort",
-    "Securely and share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfullly" : "Sichere und gemeinsame Nutzung von Daten mit Dritten. Alle Daten werden vom Benutzer Ende-zu-Ende verschlüsselt und werden nach erfolgreichem Abruf gelöscht",
-    "The password is wrong or expired. Please try again." : "Das Passwort ist falsch oder abgelaufen. Bitte versuchen Sie es erneut."
+    "Securely and share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfullly" : "Sichere und gemeinsame Nutzung von Daten mit Dritten. Alle Daten werden vom Benutzer Ende-zu-Ende verschlüsselt und nach erfolgreichem Abruf gelöscht",
+    "The password is wrong or expired. Please try again." : "Das Passwort ist falsch oder abgelaufen. Bitte erneut versuchen."
 },
 "nplurals=2; plural=(n != 1);");
