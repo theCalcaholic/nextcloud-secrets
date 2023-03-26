@@ -10,3 +10,4 @@ node_modules/
 .phpunit.result.cache
 js/*hot-update.*
 js/
+.vscode/settings.json
