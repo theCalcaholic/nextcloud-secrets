@@ -27,8 +27,6 @@ OC.L10N.register(
     "Could not decrypt secret" : "無法解密密鑰",
     "This share is password-protected" : "此分享受密碼保護",
     "The password is wrong or has expired. Please try again." : "密碼錯誤或過期。請重試。",
-    "Password" : "密碼",
-    "Securely and share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfullly" : "與任何人安全地分享數據。所有數據均由用戶端到端加密，一旦成功檢索將被刪除",
-    "The password is wrong or expired. Please try again." : "密碼錯誤或過期。請重試。"
+    "Password" : "密碼"
 },
 "nplurals=1; plural=0;");

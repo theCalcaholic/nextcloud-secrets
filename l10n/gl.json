@@ -25,8 +25,6 @@
     "Could not decrypt secret" : "Non se puido descifrar o segredo",
     "This share is password-protected" : "Este recurso compartido está protexido con contrasinal",
     "The password is wrong or has expired. Please try again." : "O contrasinal é incorrecto ou caducou. Por favor intentao de novo.",
-    "Password" : "Contrasinal",
-    "Securely and share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfullly" : "Comparte datos de forma segura e con calquera persoa. Todos os datos son cifrados de extremo a extremo polo usuario e eliminaranse unha vez recuperados correctamente",
-    "The password is wrong or expired. Please try again." : "O contrasinal é incorrecto ou caducou. Por favor intentao de novo."
+    "Password" : "Contrasinal"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

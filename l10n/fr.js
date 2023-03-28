@@ -27,8 +27,6 @@ OC.L10N.register(
     "Could not decrypt secret" : "Impossible de déchiffrer le secret",
     "This share is password-protected" : "Ce partage est protégé par mot de passe",
     "The password is wrong or has expired. Please try again." : "Le mot de passe n'est pas le bon ou a expiré. Veuillez réessayer.",
-    "Password" : "Mot de passe",
-    "Securely and share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfullly" : "Partagez des messages sécurisés avec quiconque. Toutes les données sont chiffrées de bout en bout par l'utilisateur et seront supprimées une fois récupérées avec succès.",
-    "The password is wrong or expired. Please try again." : "Le mot de passe n'est pas le bon ou a expiré. Veuillez réessayer."
+    "Password" : "Mot de passe"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

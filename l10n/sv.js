@@ -27,8 +27,6 @@ OC.L10N.register(
     "Could not decrypt secret" : "Kunde inte dekryptera hemlighet",
     "This share is password-protected" : "Denna delning är lösenordsskyddad",
     "The password is wrong or has expired. Please try again." : "Lösenordet är fel eller har gått ut. Var god försök igen.",
-    "Password" : "Lösenord",
-    "Securely and share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfullly" : "Dela data säkert med vem som helst. All data är end-to-end krypterad av användaren och kommer att raderas när den väl har hämtats",
-    "The password is wrong or expired. Please try again." : "Lösenordet är fel eller har gått ut. Var god försök igen."
+    "Password" : "Lösenord"
 },
 "nplurals=2; plural=(n != 1);");

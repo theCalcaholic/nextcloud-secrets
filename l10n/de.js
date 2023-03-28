@@ -27,8 +27,6 @@ OC.L10N.register(
     "Could not decrypt secret" : "Geheimnis konnte nicht entschlüsselt werden",
     "This share is password-protected" : "Diese Freigabe ist passwortgeschützt",
     "The password is wrong or has expired. Please try again." : "Das Passwort ist falsch oder abgelaufen. Bitte noch einmal versuchen.",
-    "Password" : "Passwort",
-    "Securely and share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfullly" : "Sichere und gemeinsame Nutzung von Daten mit Dritten. Alle Daten werden vom Benutzer Ende-zu-Ende verschlüsselt und werden nach erfolgreichem Abruf gelöscht",
-    "The password is wrong or expired. Please try again." : "Das Passwort ist falsch oder abgelaufen. Bitte versuche es erneut."
+    "Password" : "Passwort"
 },
 "nplurals=2; plural=(n != 1);");

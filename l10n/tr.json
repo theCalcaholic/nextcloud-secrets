@@ -25,8 +25,6 @@
     "Could not decrypt secret" : "Sırın şifresi çözülemedi",
     "This share is password-protected" : "Bu paylaşım parola korumalı",
     "The password is wrong or has expired. Please try again." : "Parola hatalı ya da geçerlilik süresi dolmuş. Lütfen yeniden deneyin.",
-    "Password" : "Parola",
-    "Securely and share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfullly" : "Verileri herhangi bir kişi ile güvenli bir şekilde paylaşın. Tüm veriler kullanıcı tarafından uçtan uca şifrelenir ve karşı taraf aldığında silinir",
-    "The password is wrong or expired. Please try again." : "Parola hatalı ya da geçerlilik süresi dolmuş. Lütfen yeniden deneyin."
+    "Password" : "Parola"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

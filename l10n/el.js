@@ -23,7 +23,6 @@ OC.L10N.register(
     "Could not decrypt secret" : "Αδυναμία αποκρυπτογράφησης μυστικού",
     "This share is password-protected" : "Το κοινόχρηστο έχει προστασία κωδικού",
     "The password is wrong or has expired. Please try again." : "Ο κωδικός είναι λάθος ή έχει λήξει. Παρακαλώ δοκιμάστε ξανά.",
-    "Password" : "Συνθηματικό",
-    "The password is wrong or expired. Please try again." : "Ο κωδικός είναι λάθος ή έληξε. Παρακαλώ δοκιμάστε ξανά."
+    "Password" : "Συνθηματικό"
 },
 "nplurals=2; plural=(n != 1);");

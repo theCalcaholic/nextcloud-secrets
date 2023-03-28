@@ -25,8 +25,6 @@
     "Could not decrypt secret" : "Passwort konnte nicht entschlüsselt werden",
     "This share is password-protected" : "Diese Freigabe ist passwortgeschützt",
     "The password is wrong or has expired. Please try again." : "Das Passwort ist falsch oder abgelaufen. Bitte erneut versuchen.",
-    "Password" : "Passwort",
-    "Securely and share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfullly" : "Sichere gemeinsame Nutzung von Daten mit Dritten. Alle Daten werden vom Benutzer Ende-zu-Ende verschlüsselt und nach erfolgreichem Abruf gelöscht",
-    "The password is wrong or expired. Please try again." : "Das Passwort ist falsch oder abgelaufen. Bitte erneut versuchen."
+    "Password" : "Passwort"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
