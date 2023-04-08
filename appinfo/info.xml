@@ -9,7 +9,7 @@
     <name>Secrets</name>
     <summary>Securely share data via link</summary>
     <description><![CDATA[Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully]]></description>
-    <version>1.4.0</version>
+    <version>1.4.1</version>
     <licence>agpl</licence>
     <author mail="thecalcaholic@web.de" homepage="https://github.com/theCalcaholic">Tobias Knöppler</author>
     <namespace>Secrets</namespace>
@@ -23,7 +23,7 @@
 	<screenshot>https://raw.githubusercontent.com/theCalcaholic/nextcloud-secrets/main/screenshots/public_share.png</screenshot>
 	<screenshot>https://raw.githubusercontent.com/theCalcaholic/nextcloud-secrets/main/screenshots/new_secret.png</screenshot>
     <dependencies>
-        <nextcloud min-version="24" max-version="26"/>
+        <nextcloud min-version="24" max-version="27"/>
     </dependencies>
 	<background-jobs>
 		<job>OCA\Secrets\Cron\SecretCleanup</job>
