@@ -10,11 +10,18 @@ use OCA\Secrets\AppInfo\Application;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IRequest;
+use OCP\IUserSession;
+use OCP\Notification\IManager;
 use OCP\Util;
 
 class PageController extends Controller {
-	public function __construct(IRequest $request) {
+	private IManager $notificationManager;
+	private ?string $userId;
+
+	public function __construct(IRequest $request, IManager $notificationManager, IUserSession $userSession) {
 		parent::__construct(Application::APP_ID, $request);
+		$this->notificationManager = $notificationManager;
+		$this->userId = $userSession->getUser()->getUID();
 	}
 
 	/**
@@ -25,5 +32,18 @@ class PageController extends Controller {
 		Util::addScript(Application::APP_ID, 'secrets-main');
 
 		return new TemplateResponse(Application::APP_ID, 'main');
+	}
+
+	/**
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
+	 */
+	public function show(string $uuid): TemplateResponse {
+		$notification = $this->notificationManager->createNotification();
+		$notification->setApp('secrets')
+			->setUser($this->userId)
+			->setObject('secret_retrieved', $uuid);
+		$this->notificationManager->markProcessed($notification);
+		return $this->index();
 	}
 }

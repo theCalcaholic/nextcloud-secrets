@@ -145,7 +145,10 @@ export default {
 					key: null,
 				}
 			})
-			console.log(this.secrets)
+			const secretUuidPos = window.location.pathname.indexOf('/s/')
+			if (secretUuidPos !== -1) {
+				this.currentSecretUUId = window.location.pathname.substring(secretUuidPos + 3)
+			}
 
 		} catch (e) {
 			console.error(e)

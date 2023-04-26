@@ -15,6 +15,7 @@ declare(strict_types=1);
 return [
 	'routes' => [
 		['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
+		['name' => 'page#show', 'url' => '/s/{uuid}', 'verb' => 'GET'],
 		['name' => 'secret#index', 'url' => '/secrets', 'verb' => 'GET'],
 		['name' => 'secret#show', 'url' => '/secrets/{uuid}', 'verb' => 'GET'],
 		['name' => 'secret#create', 'url' => '/secrets', 'verb' => 'POST'],
