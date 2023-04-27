@@ -11,7 +11,6 @@ use OCP\AppFramework\App;
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
-use OCP\Notification\IManager;
 
 class Application extends App implements IBootstrap {
 	public const APP_ID = 'secrets';
@@ -25,8 +24,8 @@ class Application extends App implements IBootstrap {
 	 *
 	 * @since 20.0.0
 	 */
-	public function register(IRegistrationContext $context): void
-	{ }
+	public function register(IRegistrationContext $context): void {
+	}
 
 	/**
 	 * Boot the application
@@ -40,8 +39,7 @@ class Application extends App implements IBootstrap {
 	 *
 	 * @since 20.0.0
 	 */
-	public function boot(IBootContext $context): void
-	{
+	public function boot(IBootContext $context): void {
 		$notificationManager = $this->getContainer()->getServer()->getNotificationManager();
 		$notificationManager->registerNotifierService(Notifier::class);
 	}

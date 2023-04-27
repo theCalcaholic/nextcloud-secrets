@@ -18,7 +18,6 @@ use OCP\Notification\INotification;
 use OCP\Notification\INotifier;
 
 class Notifier implements INotifier {
-
 	protected IFactory $factory;
 	protected IURLGenerator $url;
 	protected SecretService $secretService;
@@ -37,8 +36,7 @@ class Notifier implements INotifier {
 	 * @return string
 	 * @since 17.0.0
 	 */
-	public function getID(): string
-	{
+	public function getID(): string {
 		return Application::APP_ID;
 	}
 
@@ -48,8 +46,7 @@ class Notifier implements INotifier {
 	 * @return string
 	 * @since 17.0.0
 	 */
-	public function getName(): string
-	{
+	public function getName(): string {
 		return $this->factory->get(Application::APP_ID)->t('Secrets');
 	}
 
@@ -61,14 +58,12 @@ class Notifier implements INotifier {
 	 * @throws AlreadyProcessedException When the notification is not needed anymore and should be deleted
 	 * @since 9.0.0
 	 */
-	public function prepare(INotification $notification, string $languageCode): INotification
-	{
+	public function prepare(INotification $notification, string $languageCode): INotification {
 		if ($notification->getApp() != Application::APP_ID) {
 			throw new InvalidArgumentException("Unknown app: " . $notification->getApp());
 		}
 		try {
 			$secret = $this->secretService->find($notification->getObjectId(), $notification->getUser());
-
 		} catch (Exception $e) {
 			$this->logger->logException($e);
 			throw new AlreadyProcessedException();
