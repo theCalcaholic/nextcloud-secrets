@@ -2,6 +2,7 @@ OC.L10N.register(
     "secrets",
     {
     "Secrets" : "Hemligheter",
+    "Secret '{secret}' has been retrieved" : "Hemligheten '{secret}' har hämtats",
     "Securely share data via link" : "Dela data säkert via länk",
     "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Dela data säkert med vem som helst. All data är end-to-end krypterad av användaren och kommer att raderas när den väl har hämtats",
     "New secret" : "Ny hemlighet",

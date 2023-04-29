@@ -2,6 +2,7 @@ OC.L10N.register(
     "secrets",
     {
     "Secrets" : "Geheimnisse",
+    "Secret '{secret}' has been retrieved" : "Das Geheimnis „{secret}“ wurde abgerufen",
     "Securely share data via link" : "Daten sicher mittels Link freigeben",
     "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Teilen Sie Daten sicher mit jedem. Alle Daten werden vom Benutzer Ende-zu-Ende verschlüsselt und nach erfolgreichem Abruf gelöscht.",
     "New secret" : "Neues Geheimnis",

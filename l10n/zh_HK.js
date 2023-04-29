@@ -2,6 +2,7 @@ OC.L10N.register(
     "secrets",
     {
     "Secrets" : "密鑰",
+    "Secret '{secret}' has been retrieved" : "已檢索到密鑰 “{secret}”",
     "Securely share data via link" : "通過連結安全地分享數據",
     "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "與任何人安全地分享數據。所有數據均由用戶端到端加密，一旦成功檢索將被刪除",
     "New secret" : "新密鑰",

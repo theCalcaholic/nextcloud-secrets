@@ -2,6 +2,7 @@ OC.L10N.register(
     "secrets",
     {
     "Secrets" : "Тајне",
+    "Secret '{secret}' has been retrieved" : "Добављена је тајна ’{secret}’",
     "Securely share data via link" : "Безбедно делите податке линком",
     "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Безбедно делите податке са свима. Корисник све податке шифрује од-краја-до-краја и они се бришу чим се успешно преузму",
     "New secret" : "Нова тајна",
