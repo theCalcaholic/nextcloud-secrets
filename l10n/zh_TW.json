@@ -1,5 +1,6 @@
 { "translations": {
     "Secrets" : "祕密",
+    "Secret '{secret}' has been retrieved" : "已擷取祕密「{secret}」",
     "Securely share data via link" : "透過連結安全分享資料",
     "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "與任何人安全地分享資料。所有資料均由使用者端到端加密，一旦成功擷取就會被刪除",
     "New secret" : "新祕密",
