@@ -5,7 +5,7 @@
 	-->
 	<div id="content-wrapper" class="app-secrets">
 		<AppContent class="centered">
-			<h2>The following secret has been shared with you securely:</h2>
+			<h2>{{ t('secrets', 'The following secret has been shared with you securely:') }}</h2>
 			<!--v-on:secret-changed="changeSecret"-->
 			<div class="secret-container">
 				<div>
