@@ -2,6 +2,7 @@ OC.L10N.register(
     "secrets",
     {
     "Secrets" : "Titkok",
+    "Secret '{secret}' has been retrieved" : "A(z) „{secret}” titok le lett kérve",
     "Securely share data via link" : "Adatok biztonságos megosztása hivatkozással",
     "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Osszon meg biztonságosan adatok bárkivel. Az összes adat végpontok közti titkosítással rendelkezik, és a sikeres letöltés után törlődik.",
     "New secret" : "Új titok",
