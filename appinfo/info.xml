@@ -23,7 +23,7 @@
 	<screenshot>https://raw.githubusercontent.com/theCalcaholic/nextcloud-secrets/main/screenshots/public_share.png</screenshot>
 	<screenshot>https://raw.githubusercontent.com/theCalcaholic/nextcloud-secrets/main/screenshots/new_secret.png</screenshot>
     <dependencies>
-        <nextcloud min-version="24" max-version="27"/>
+        <nextcloud min-version="24" max-version="28"/>
     </dependencies>
 	<background-jobs>
 		<job>OCA\Secrets\Cron\SecretCleanup</job>
