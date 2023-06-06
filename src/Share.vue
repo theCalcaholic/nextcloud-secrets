@@ -128,7 +128,7 @@ export default {
 	textarea {
 		width: 100%;
 		margin: 0;
-		height: 400px;
+		resize: none;
 		min-width: calc(100% - 4em);
 		font-family: 'Lucida Console', monospace;
 		flex-grow: 1;
