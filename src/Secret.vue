@@ -45,8 +45,8 @@
 				</Actions>
 			</p>
 		</div>
-		<textarea v-if="secret._decrypted"
-			v-model="secret._decrypted"
+		<textarea v-if="value._decrypted"
+			v-model="value._decrypted"
 			disabled="disabled" />
 
 		<div v-else-if="!value.encrypted" id="emptycontent">
@@ -100,7 +100,6 @@ export default {
 		return {
 			keyBuf: null,
 			copyState: 'ready',
-			secret: this.value,
 		}
 	},
 	computed: {
