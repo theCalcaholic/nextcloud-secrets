@@ -15,7 +15,7 @@
 				<p>{{ n('secrets', 'Will be deleted in %n day', 'Will be deleted in %n days', daysToDeletion) }}</p>
 			</NoteCard>
 			<p v-if="value.encrypted" class="expires-container">
-				<label for="expires">Expires on:</label>
+				<label for="expires">{{ t('secrets', 'Expires on:') }}</label>
 				<input v-if="value.expires"
 					v-model="formattedDate"
 					type="date"
@@ -28,10 +28,10 @@
 					value="never">
 			</p>
 			<CheckboxRadioSwitch :checked="value.pwHash !== null" :disabled="true">
-				password protected
+				{{ t('secrets', 'password protected') }}
 			</CheckboxRadioSwitch>
 			<p v-if="url" class="url-container">
-				<label for="url">Share Link:</label>
+				<label for="url">{{ t('secrets', 'Share Link:') }}</label>
 				<input type="text"
 					name="url"
 					disabled="disabled"
@@ -40,7 +40,7 @@
 					class="url-field">
 				<Actions class="secret-actions">
 					<ActionButton :icon="copyButtonIcon"
-						aria-label="Copy Secret Link"
+						:aria-label="t('secrets', 'Copy Secret Link')"
 						@click="copyToClipboard(url)" />
 				</Actions>
 			</p>

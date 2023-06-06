@@ -5,14 +5,14 @@
 	-->
 	<div class="secret-container">
 		<p>
-			<label for="expires">Expires on:</label>
+			<label for="expires">{{ t('secrets', 'Expires on:') }}</label>
 			<DatetimePicker v-model="value.expires"
 				name="expires"
 				:clearable="false"
 				type="date"
-				placeholder="Expiration Date" />
+				:placeholder="t('secrets', 'Expiration Date')" />
 		</p>
-		<PasswordField label="share password (optional)"
+		<PasswordField :label="t('secrets', 'share password (optional)')"
 		    :value="value.password"
 			:value.sync="value.password"
 			:minlength="4"

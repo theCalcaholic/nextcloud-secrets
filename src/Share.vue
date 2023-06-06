@@ -5,20 +5,19 @@
 	-->
 	<div id="content-wrapper" class="app-secrets">
 		<AppContent class="centered">
-			<h2>The following secret has been shared with you securely:</h2>
+			<h2>{{ t('secrets', 'The following secret has been shared with you securely:') }}</h2>
 			<!--v-on:secret-changed="changeSecret"-->
 			<div class="secret-container">
 				<div>
 					<NoteCard type="warning" v-if="decrypted || error">
 						<p>
-							{{ t('secrets', 'Please make sure you have copied and stored the secret ' +
-								'before closing this page! It is now deleted on the server.') }}
+							{{ t('secrets', 'Please make sure you have copied and stored the secret before closing this page! It is now deleted on the server.') }}
 						</p>
 					</NoteCard>
 				</div>
 				<div class="secret-actions" v-if="decrypted">
 					<NcButton type="secondary" :icon="copyButtonIcon" :wide="false"
-							  aria-label="Copy the secret's content to the clipboard"
+							  :aria-label="t('secrets', 'Copy the secret\'s content to the clipboard')"
 							  @click="copyToClipboard(decrypted)">
 						<template #icon>
 							<component :is="copyButtonIcon"/>
@@ -28,7 +27,7 @@
 						</template>
 					</NcButton>
 					<NcButton type="secondary" :icon="downloadButtonIcon" :wide="false"
-							  aria-label="Download the secret's content as a file"
+							  :aria-label="t('secrets', 'Download the secret\'s content as a file')"
 							  @click="downloadAsFile(decrypted)">
 						<template #icon>
 							<component :is="downloadButtonIcon"/>
@@ -51,12 +50,12 @@
 				</div>
 				<div v-else id="reveal-wrapper">
 					<NcButton type="primary" :wide="false" icon="icon-password" @click="loadSecret()"
-							  aria-label="Reveal the secret and delete it on the server">
+							  :aria-label="t('secrets', 'Reveal the secret and delete it on the server')">
 						<template #icon>
 							<IconReveal :size="20"/>
 						</template>
 						<template>
-							Reveal Secret
+							{{ t('secrets', 'Reveal Secret') }}
 						</template>
 					</NcButton>
 					<NoteCard type="info">{{ t('secrets', 'Revealing will delete the secret from the server') }}</NoteCard>
