@@ -13,6 +13,7 @@ use OCA\Secrets\Service\SecretNotFound;
 use OCA\Secrets\Service\SecretService;
 use OCP\AppFramework\AuthPublicShareController;
 use OCP\AppFramework\Http\TemplateResponse;
+use OCP\IConfig;
 use OCP\IRequest;
 
 use OCP\ISession;
@@ -22,13 +23,16 @@ use OCP\Util;
 class SecretShareController extends AuthPublicShareController {
 	private SecretService $service;
 	private Secret $secret;
+	private bool $debug;
 
 	public function __construct(IRequest      $request,
 								ISession      $session,
 								SecretService $service,
-								IURLGenerator $urlGenerator) {
+								IURLGenerator $urlGenerator,
+								IConfig $config) {
 		parent::__construct(Application::APP_ID, $request, $session, $urlGenerator);
 		$this->service = $service;
+		$this->debug = $config->getSystemValueBool("debug");
 	}
 
 	/**
@@ -89,7 +93,7 @@ class SecretShareController extends AuthPublicShareController {
 	public function showAuthenticate(): TemplateResponse {
 		error_log("showAuthenticate");
 		return new TemplateResponse('secrets', 'publicshareauth',
-			[], 'guest');
+			["debug" => $this->debug], 'guest');
 	}
 
 	/**
@@ -99,7 +103,7 @@ class SecretShareController extends AuthPublicShareController {
 	 */
 	protected function showAuthFailed(): TemplateResponse {
 		error_log("showAuthFailed");
-		return new TemplateResponse('secrets', 'publicshareauth', ['wrongpw' => true], 'guest');
+		return new TemplateResponse('secrets', 'publicshareauth', ['wrongpw' => true, 'debug' => $this->debug], 'guest');
 	}
 
 	/**
@@ -109,7 +113,7 @@ class SecretShareController extends AuthPublicShareController {
 	 */
 	protected function showIdentificationResult(bool $success): TemplateResponse {
 		error_log("showIdentificationResult");
-		return new TemplateResponse('secrets', 'publicshareauth', ['identityOk' => $success], 'guest');
+		return new TemplateResponse('secrets', 'publicshareauth', ['identityOk' => $success, 'debug' => $this->debug], 'guest');
 	}
 
 	/**
@@ -121,7 +125,7 @@ class SecretShareController extends AuthPublicShareController {
 	public function showShare(): TemplateResponse {
 		Util::addScript(Application::APP_ID, 'secrets-public');
 
-		$resp = new TemplateResponse(Application::APP_ID, 'public', [], TemplateResponse::RENDER_AS_BASE);
+		$resp = new TemplateResponse(Application::APP_ID, 'public', ['debug' => $this->debug], TemplateResponse::RENDER_AS_BASE);
 		//array("encrypted" => $this->getSecret()->getEncrypted(), "iv" => $this->getSecret()->getIv()));
 
 		error_log("pw hash: " . $this->getSecret()->getPwHash());

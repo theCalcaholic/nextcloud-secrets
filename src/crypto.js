@@ -6,12 +6,15 @@ const ALGO = 'AES-GCM'
 
 export default class CryptoLib {
 
+	debug = false
+
 	/**
 	 * @param theCrypto {Crypto}
 	 */
-	constructor(theCrypto) {
+	constructor(theCrypto, debug) {
 		this.crypto = theCrypto;
 		this.algorithm = ALGO
+		this.debug = !!debug
 	}
 
 	/**
@@ -22,7 +25,8 @@ export default class CryptoLib {
 	 * @return {Promise<string>}
 	 */
 	async encrypt(plain, key, iv) {
-		console.debug("encryptString(...)");
+		if(this.debug)
+			console.debug("encryptString(...)");
 		const cipherBuffer = await this.crypto.subtle.encrypt(
 			{ name: this.algorithm, iv: iv },
 			key,
@@ -32,7 +36,8 @@ export default class CryptoLib {
 		return this.arrayBufferToB64String(new Uint8Array(cipherBuffer))
 	}
 	async sha256Digest(str) {
-		console.debug("md5Digest(...)")
+		if(this.debug)
+			console.debug("md5Digest(...)")
 		let textBuffer = new TextEncoder().encode(str)
 		const hashBuffer = await this.crypto.subtle.digest('SHA-256', textBuffer)
 		return this.arrayBufferToB64String(new Uint8Array(hashBuffer))
@@ -43,7 +48,8 @@ export default class CryptoLib {
 	 * @return {Uint8Array}
 	 */
 	b64StringToArrayBuffer(str) {
-		console.debug("b64StringToArrayBuffer(...)")
+		if(this.debug)
+			console.debug("b64StringToArrayBuffer(...)")
 		return new Uint8Array(Array.from(window.atob(str)).map(ch => ch.charCodeAt(0)))
 		//return new Uint8Array(Array.from(window.atob(str)).map(ch => ch.charCodeAt(0)))
 	}
@@ -53,7 +59,8 @@ export default class CryptoLib {
 	 * @returns {string}
 	 */
 	arrayBufferToB64String(buf) {
-		console.debug("arrayBufferToB64String(...)")
+		if(this.debug)
+			console.debug("arrayBufferToB64String(...)")
 		//return window.btoa(buf)
 		return window.btoa(Array.from(buf).map(byte => String.fromCharCode(byte)).join(''))
 	}
@@ -88,7 +95,8 @@ export default class CryptoLib {
 	 * @return {Promise<CryptoKey>}
 	 */
 	async generateCryptoKey() {
-		console.debug("generateCryptoKey()")
+		if(this.debug)
+			console.debug("generateCryptoKey()")
 		return await this.crypto.subtle.generateKey({
 				name: this.algorithm,
 				length: 256
@@ -103,7 +111,8 @@ export default class CryptoLib {
 	 * @return {Promise<CryptoKey>}
 	 */
 	async importDecryptionKey(hexKey, iv) {
-		console.debug("importDecryptionKey(...)")
+		if(this.debug)
+			console.debug("importDecryptionKey(...)")
 		return await this.crypto.subtle.importKey(
 			'raw',
 			this.b64StringToArrayBuffer(hexKey),

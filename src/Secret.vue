@@ -111,10 +111,12 @@ export default {
 			return !this.value.uuid
 		},
 		url() {
-			console.debug(`decrypted? ${this.isDecrypted}, keyBuf: ${this.keyBuf}`)
+			if (this.$debugsecrets)
+				console.debug(`decrypted? ${this.isDecrypted}, keyBuf: ${this.keyBuf}`)
 			if (!this.isDecrypted || !this.keyBuf) { return null }
 			const keyStr = this.$cryptolib.arrayBufferToB64String(new Uint8Array(this.keyBuf))
-			console.debug("serialized key: ", keyStr)
+			if (this.$debugsecrets)
+				console.debug("serialized key: ", keyStr)
 			return window.location.protocol + '//' + window.location.host + generateUrl(
 				`/apps/secrets/show/${this.value.uuid}`
 				+ `#${keyStr}`
@@ -137,7 +139,8 @@ export default {
 			const formattedDate = this.value.expires.getFullYear() + '-'
 				+ `${this.value.expires.getMonth()+1}`.padStart(2, '0') + '-'
 				+ `${this.value.expires.getDate()}`.padStart(2, '0')
-			console.debug("date: ", formattedDate, this.value.expires)
+			if (this.$debugsecrets)
+				console.debug("date: ", formattedDate, this.value.expires)
 			//return this.value.expires.toISOString().substring(0, 10);
 			return formattedDate;
 		},

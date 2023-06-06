@@ -9,6 +9,7 @@ namespace OCA\Secrets\Controller;
 use OCA\Secrets\AppInfo\Application;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\TemplateResponse;
+use OCP\IConfig;
 use OCP\IRequest;
 use OCP\IUserSession;
 use OCP\Notification\IManager;
@@ -17,11 +18,13 @@ use OCP\Util;
 class PageController extends Controller {
 	private IManager $notificationManager;
 	private ?string $userId;
+	private bool $debug;
 
-	public function __construct(IRequest $request, IManager $notificationManager, IUserSession $userSession) {
+	public function __construct(IRequest $request, IManager $notificationManager, IUserSession $userSession, IConfig $config) {
 		parent::__construct(Application::APP_ID, $request);
 		$this->notificationManager = $notificationManager;
 		$this->userId = $userSession->getUser()->getUID();
+		$this->debug = $config->getSystemValueBool("debug");
 	}
 
 	/**
@@ -31,7 +34,7 @@ class PageController extends Controller {
 	public function index(): TemplateResponse {
 		Util::addScript(Application::APP_ID, 'secrets-main');
 
-		return new TemplateResponse(Application::APP_ID, 'main');
+		return new TemplateResponse(Application::APP_ID, 'main', ["debug" => $this->debug]);
 	}
 
 	/**
