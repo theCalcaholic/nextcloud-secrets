@@ -237,6 +237,18 @@ export default {
 		justify-content: center;
 		align-items: center;
 	}
+	@media screen and (max-width: 800px) {
+		.secret-actions {
+			flex-direction: column;
+			justify-content: start;
+			margin: 0 1rem;
+		}
+		.secret-actions>* {
+			margin-left: 0;
+			margin-bottom: 1rem;
+			width: 100%;
+		}
+	}
 
 </style>
 <style>
