@@ -7,6 +7,7 @@ declare(strict_types=1);
 namespace OCA\Secrets\Tests\Unit\Controller;
 
 use OCA\Secrets\Controller\PageController;
+use OCP\IConfig;
 use OCP\IUser;
 use OCP\IUserSession;
 use OCP\Notification\IManager;
@@ -28,7 +29,9 @@ class PageControllerTest extends TestCase {
 		$userSession->expects($this->any())
 			->method('getUser')
 			->will($this->returnValue($user));
-		$this->controller = new PageController($request, $notificationManager, $userSession);
+		$config = $this->getMockBuilder(IConfig::class)->getMock();
+		$config->expects($this->any())->method('getSystemValueBool')->will($this->returnValue(true));
+		$this->controller = new PageController($request, $notificationManager, $userSession, $config);
 	}
 
 	public function testIndex(): void {

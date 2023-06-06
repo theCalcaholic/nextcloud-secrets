@@ -15,7 +15,7 @@ use OCA\Secrets\Service\SecretNotFound;
 use OCA\Secrets\Service\SecretService;
 use OCA\Secrets\Controller\SecretController;
 
-class NoteControllerTest extends TestCase {
+class SecretControllerTest extends TestCase {
 	protected SecretController $controller;
 	protected string $userId = 'john';
 	/** @var SecretService|MockObject */

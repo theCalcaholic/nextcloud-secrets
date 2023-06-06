@@ -16,7 +16,7 @@ use OCA\Secrets\Service\SecretService;
 use OCA\Secrets\Db\SecretMapper;
 use Psr\Log\NullLogger;
 
-class NoteServiceTest extends TestCase {
+class SecretServiceTest extends TestCase {
 	private SecretService $service;
 	private string $userId = 'john';
 	/** @var SecretMapper|MockObject */
