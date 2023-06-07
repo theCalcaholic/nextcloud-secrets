@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Share Link" : "Cumpartzi Lingòngiu",
     "Save" : "Sarva",
+    "Download" : "Iscàrriga",
     "This share is password-protected" : "Custa cumpartzidura est amparada dae una crae",
     "Password" : "Crae"
 },

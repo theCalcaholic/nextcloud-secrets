@@ -1,6 +1,7 @@
 { "translations": {
     "Share Link" : "Jaa linkki",
     "Save" : "Tallenna",
+    "Download" : "Lataa",
     "This share is password-protected" : "Jako on salasanasuojattu",
     "Password" : "Salasana"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

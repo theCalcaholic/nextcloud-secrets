@@ -21,13 +21,14 @@ OC.L10N.register(
     "Could not decrypt secret (key not available locally)." : "Тајна не може да се дешифрује (кључ није локално доступан).",
     "_Will be deleted in %n day_::_Will be deleted in %n days_" : ["Обрисаће се за %n дан","Обрисаће се за %n дана","Обрисаће се за %n дана"],
     "Save" : "Сачувај",
-    "Please make sure you have copied and stored the secret " : "Обезбедите да сте тајну копирали и сачували",
     "Copy to Clipboard" : "Копирај у клипборд",
+    "Download" : "Преузми",
     "Retrieving secret..." : "Преузимање тајне...",
     "Error loading secret. Is your link correct?" : "Грешка приликом учитавања тајне. Да ли је ваш линк исправан?",
     "Could not decrypt secret" : "Тајна не може да се дешифрује",
     "This share is password-protected" : "Ово дељење је заштићено лозинком",
     "The password is wrong or has expired. Please try again." : "Лозинка није тачна или је истекла. Молимо вас да покушате поново.",
-    "Password" : "Лозинка"
+    "Password" : "Лозинка",
+    "Please make sure you have copied and stored the secret " : "Обезбедите да сте тајну копирали и сачували"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");

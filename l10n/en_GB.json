@@ -19,13 +19,13 @@
     "Could not decrypt secret (key not available locally)." : "Could not decrypt secret (key not available locally).",
     "_Will be deleted in %n day_::_Will be deleted in %n days_" : ["Will be deleted in %n day","Will be deleted in %n days"],
     "Save" : "Save",
-    "Please make sure you have copied and stored the secret " : "Please make sure you have copied and stored the secret ",
     "Copy to Clipboard" : "Copy to Clipboard",
     "Retrieving secret..." : "Retrieving secret...",
     "Error loading secret. Is your link correct?" : "Error loading secret. Is your link correct?",
     "Could not decrypt secret" : "Could not decrypt secret",
     "This share is password-protected" : "This share is password-protected",
     "The password is wrong or has expired. Please try again." : "The password is wrong or has expired. Please try again.",
-    "Password" : "Password"
+    "Password" : "Password",
+    "Please make sure you have copied and stored the secret " : "Please make sure you have copied and stored the secret "
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

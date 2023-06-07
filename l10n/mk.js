@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Share Link" : "Сподели линк",
     "Save" : "Зачувај",
+    "Download" : "Преземи",
     "This share is password-protected" : "Ова споделување е заштитено со лозинка",
     "Password" : "Лозинка"
 },

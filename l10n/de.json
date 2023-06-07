@@ -18,13 +18,13 @@
     "Could not decrypt secret (key not available locally)." : "Geheimnis konnte nicht entschlüsselt werden (Schlüssel lokal nicht verfügbar).",
     "_Will be deleted in %n day_::_Will be deleted in %n days_" : ["Wird in %n Tag gelöscht","Wird in %n Tagen gelöscht"],
     "Save" : "Speichern",
-    "Please make sure you have copied and stored the secret " : "Bitte stelle sicher, dass du das Geheimnis kopiert und gespeichert hast",
     "Copy to Clipboard" : "In die Zwischenablage kopieren",
     "Retrieving secret..." : "Rufe Geheimnis ab...",
     "Error loading secret. Is your link correct?" : "Laden des Geheimnisses fehlgeschlagen. Ist dein Link richtig?",
     "Could not decrypt secret" : "Geheimnis konnte nicht entschlüsselt werden",
     "This share is password-protected" : "Diese Freigabe ist passwortgeschützt",
     "The password is wrong or has expired. Please try again." : "Das Passwort ist falsch oder abgelaufen. Bitte noch einmal versuchen.",
-    "Password" : "Passwort"
+    "Password" : "Passwort",
+    "Please make sure you have copied and stored the secret " : "Bitte stelle sicher, dass du das Geheimnis kopiert und gespeichert hast"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

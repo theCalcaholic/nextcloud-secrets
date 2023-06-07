@@ -19,13 +19,13 @@
     "Could not decrypt secret (key not available locally)." : "Тайната не можа да се дешифрира (ключът не е наличен локално).",
     "_Will be deleted in %n day_::_Will be deleted in %n days_" : ["Ще бъде изтрита след %n дни","Ще бъде изтрита след %n дни"],
     "Save" : "Запиши",
-    "Please make sure you have copied and stored the secret " : "Моля, уверете се, че сте копирали и запазили тайната ",
     "Copy to Clipboard" : "Копиране в Клипборда",
     "Retrieving secret..." : "Извличане на тайна...",
     "Error loading secret. Is your link correct?" : "Грешка при зареждането на тайната. Правилна ли е връзката ви?",
     "Could not decrypt secret" : "Тайната не можа да се дешифрира",
     "This share is password-protected" : "Тази зона е защитена с парола.",
     "The password is wrong or has expired. Please try again." : "Паролата е грешна или е изтекла. Моля, опитайте отново.",
-    "Password" : "Парола"
+    "Password" : "Парола",
+    "Please make sure you have copied and stored the secret " : "Моля, уверете се, че сте копирали и запазили тайната "
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

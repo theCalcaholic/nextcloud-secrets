@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Share Link" : "Jaa linkki",
     "Save" : "Tallenna",
+    "Download" : "Lataa",
     "This share is password-protected" : "Jako on salasanasuojattu",
     "Password" : "Salasana"
 },

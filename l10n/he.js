@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Share Link" : "שיתוף קישור",
     "Save" : "שמירה",
+    "Download" : "הורדה",
     "This share is password-protected" : "שיתוף זה מוגן בססמה",
     "Password" : "ססמה"
 },

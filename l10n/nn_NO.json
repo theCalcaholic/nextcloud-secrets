@@ -1,5 +1,6 @@
 { "translations": {
     "Save" : "Lagre",
+    "Download" : "Last ned",
     "Password" : "Passord"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

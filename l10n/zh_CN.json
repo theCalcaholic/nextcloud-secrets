@@ -19,13 +19,14 @@
     "Could not decrypt secret (key not available locally)." : "无法解密密信（密钥在本地不可用）。",
     "_Will be deleted in %n day_::_Will be deleted in %n days_" : ["将在%n天之内删除"],
     "Save" : "保存",
-    "Please make sure you have copied and stored the secret " : "请确保您已复制并存储密信",
     "Copy to Clipboard" : "复制到剪贴板",
+    "Download" : "下载",
     "Retrieving secret..." : "正在读取密信……",
     "Error loading secret. Is your link correct?" : "加载密信时发生错误。您的链接是正确的吗？",
     "Could not decrypt secret" : "无法解密密信",
     "This share is password-protected" : "该分享受密码保护",
     "The password is wrong or has expired. Please try again." : "密码错误或已过期。请重试。",
-    "Password" : "密码"
+    "Password" : "密码",
+    "Please make sure you have copied and stored the secret " : "请确保您已复制并存储密信"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

@@ -21,13 +21,14 @@ OC.L10N.register(
     "Could not decrypt secret (key not available locally)." : "無法解密祕密（金鑰在本機無法使用）。",
     "_Will be deleted in %n day_::_Will be deleted in %n days_" : ["將在%n天後刪除"],
     "Save" : "儲存",
-    "Please make sure you have copied and stored the secret " : "請確保您已複製並儲存祕密",
     "Copy to Clipboard" : "複製到剪貼簿",
+    "Download" : "下載",
     "Retrieving secret..." : "正在擷取祕密……",
     "Error loading secret. Is your link correct?" : "載入祕密時發生錯誤。您的連結正確嗎？",
     "Could not decrypt secret" : "無法解密祕密",
     "This share is password-protected" : "此分享受密碼保護",
     "The password is wrong or has expired. Please try again." : "密碼錯誤或過期。請重試。",
-    "Password" : "密碼"
+    "Password" : "密碼",
+    "Please make sure you have copied and stored the secret " : "請確保您已複製並儲存祕密"
 },
 "nplurals=1; plural=0;");

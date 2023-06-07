@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Share Link" : "Del lenke",
     "Save" : "Lagre",
+    "Download" : "Last ned",
     "This share is password-protected" : "Denne deling er beskyttet med passord",
     "Password" : "Passord"
 },

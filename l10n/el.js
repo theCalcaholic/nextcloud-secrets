@@ -16,13 +16,13 @@ OC.L10N.register(
     "This secret has already been retrieved and its content was consequently deleted from the server." : "Αυτό το μυστικό έχει ήδη ανακτηθεί και κατά συνέπεια το περιεχόμενό του διαγράφηκε από τον διακομιστή.",
     "Could not decrypt secret (key not available locally)." : "Αδυναμία αποκρυπτογράφησης του μυστικού (το κλειδί δεν είναι διαθέσιμο τοπικά).",
     "Save" : "Αποθήκευση",
-    "Please make sure you have copied and stored the secret " : "Βεβαιωθείτε ότι έχετε αντιγράψει και αποθηκεύσει το μυστικό",
     "Copy to Clipboard" : "Αντιγραφή στο πρόχειρο",
     "Retrieving secret..." : "Ανάκτηση μυστικού...",
     "Error loading secret. Is your link correct?" : "Σφάλμα κατά τη φόρτωση του μυστικού. Είναι σωστός ο σύνδεσμός σας;",
     "Could not decrypt secret" : "Αδυναμία αποκρυπτογράφησης μυστικού",
     "This share is password-protected" : "Το κοινόχρηστο έχει προστασία κωδικού",
     "The password is wrong or has expired. Please try again." : "Ο κωδικός είναι λάθος ή έχει λήξει. Παρακαλώ δοκιμάστε ξανά.",
-    "Password" : "Συνθηματικό"
+    "Password" : "Συνθηματικό",
+    "Please make sure you have copied and stored the secret " : "Βεβαιωθείτε ότι έχετε αντιγράψει και αποθηκεύσει το μυστικό"
 },
 "nplurals=2; plural=(n != 1);");

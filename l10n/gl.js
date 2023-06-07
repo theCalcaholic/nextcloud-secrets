@@ -20,13 +20,14 @@ OC.L10N.register(
     "Could not decrypt secret (key not available locally)." : "Non se puido descifrar o segredo (chave non dispoñible localmente).",
     "_Will be deleted in %n day_::_Will be deleted in %n days_" : ["Eliminarase en %n día","Eliminarase en %n días"],
     "Save" : "Gardar",
-    "Please make sure you have copied and stored the secret " : "Asegúrate de copiar e gardar o segredo",
     "Copy to Clipboard" : "Copiar ao Portapapeis",
+    "Download" : "Descargar",
     "Retrieving secret..." : "Recuperando o segredo...",
     "Error loading secret. Is your link correct?" : "Erro ao cargar o segredo. É correcta a túa ligazón?",
     "Could not decrypt secret" : "Non se puido descifrar o segredo",
     "This share is password-protected" : "Este recurso compartido está protexido con contrasinal",
     "The password is wrong or has expired. Please try again." : "O contrasinal é incorrecto ou caducou. Por favor intentao de novo.",
-    "Password" : "Contrasinal"
+    "Password" : "Contrasinal",
+    "Please make sure you have copied and stored the secret " : "Asegúrate de copiar e gardar o segredo"
 },
 "nplurals=2; plural=(n != 1);");

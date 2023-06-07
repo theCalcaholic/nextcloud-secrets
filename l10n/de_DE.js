@@ -21,13 +21,13 @@ OC.L10N.register(
     "Could not decrypt secret (key not available locally)." : "Passwort konnte nicht entschlüsselt werden (Schlüssel lokal nicht verfügbar).",
     "_Will be deleted in %n day_::_Will be deleted in %n days_" : ["Wird in %n Tag gelöscht","Wird in %n Tagen gelöscht"],
     "Save" : "Speichern",
-    "Please make sure you have copied and stored the secret " : "Bitte sicherstellen, dass Sie das Passwort kopiert und gespeichert haben",
     "Copy to Clipboard" : "In die Zwischenablage kopieren",
     "Retrieving secret..." : "Rufe Passwort ab...",
     "Error loading secret. Is your link correct?" : "Laden des Passworts fehlgeschlagen. Ist dein Link richtig?",
     "Could not decrypt secret" : "Passwort konnte nicht entschlüsselt werden",
     "This share is password-protected" : "Diese Freigabe ist passwortgeschützt",
     "The password is wrong or has expired. Please try again." : "Das Passwort ist falsch oder abgelaufen. Bitte erneut versuchen.",
-    "Password" : "Passwort"
+    "Password" : "Passwort",
+    "Please make sure you have copied and stored the secret " : "Bitte sicherstellen, dass Sie das Passwort kopiert und gespeichert haben"
 },
 "nplurals=2; plural=(n != 1);");

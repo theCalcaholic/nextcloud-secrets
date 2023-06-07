@@ -21,13 +21,14 @@ OC.L10N.register(
     "Could not decrypt secret (key not available locally)." : "Sırın şifresi çözülemedi (yerel anahtar bulunamadı)",
     "_Will be deleted in %n day_::_Will be deleted in %n days_" : ["%n gün sonra silinecek","%n gün sonra silinecek"],
     "Save" : "Kaydet",
-    "Please make sure you have copied and stored the secret " : "Lütfen sırrı kopyalayıp kaydettiğinizden emin olun",
     "Copy to Clipboard" : "Panoya kopyala",
+    "Download" : "İndir",
     "Retrieving secret..." : "Sır alınıyor...",
     "Error loading secret. Is your link correct?" : "Sır yüklenirken sorun çıktı. Bağlantı doğru mu?",
     "Could not decrypt secret" : "Sırın şifresi çözülemedi",
     "This share is password-protected" : "Bu paylaşım parola korumalı",
     "The password is wrong or has expired. Please try again." : "Parola hatalı ya da geçerlilik süresi dolmuş. Lütfen yeniden deneyin.",
-    "Password" : "Parola"
+    "Password" : "Parola",
+    "Please make sure you have copied and stored the secret " : "Lütfen sırrı kopyalayıp kaydettiğinizden emin olun"
 },
 "nplurals=2; plural=(n > 1);");

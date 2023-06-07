@@ -2,6 +2,7 @@ OC.L10N.register(
     "secrets",
     {
     "Save" : "Saglabāt",
+    "Download" : "Lejupielādēt",
     "This share is password-protected" : "Šī koplietotne ir aizsargāta ar paroli",
     "Password" : "Parole"
 },

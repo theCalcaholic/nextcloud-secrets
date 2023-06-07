@@ -4,6 +4,7 @@ OC.L10N.register(
     "Change Title" : "Spremeni naziv",
     "Share Link" : "Objavi povezavo",
     "Save" : "Shrani",
+    "Download" : "Prejmi",
     "This share is password-protected" : "To mesto souporabe je zaščiteno z geslom",
     "Password" : "Geslo"
 },

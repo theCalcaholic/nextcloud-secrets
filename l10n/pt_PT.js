@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Share Link" : "Partilhar hiperligação",
     "Save" : "Guardar",
+    "Download" : "Transferir",
     "This share is password-protected" : "Esta partilha está protegida por senha",
     "Password" : "Palavra-passe"
 },

@@ -21,13 +21,14 @@ OC.L10N.register(
     "Could not decrypt secret (key not available locally)." : "Det gick inte att dekryptera hemligheten (nyckeln är inte tillgänglig lokalt).",
     "_Will be deleted in %n day_::_Will be deleted in %n days_" : ["Kommer att raderas om %n dag","Kommer att raderas om %n dagar"],
     "Save" : "Spara",
-    "Please make sure you have copied and stored the secret " : "Se till att du har kopierat och lagrat hemligheten",
     "Copy to Clipboard" : "Kopiera till urklipp",
+    "Download" : "Ladda ner",
     "Retrieving secret..." : "Hämtar hemlighet...",
     "Error loading secret. Is your link correct?" : "Det gick inte att läsa in hemlighet. Är din länk korrekt?",
     "Could not decrypt secret" : "Kunde inte dekryptera hemlighet",
     "This share is password-protected" : "Denna delning är lösenordsskyddad",
     "The password is wrong or has expired. Please try again." : "Lösenordet är fel eller har gått ut. Var god försök igen.",
-    "Password" : "Lösenord"
+    "Password" : "Lösenord",
+    "Please make sure you have copied and stored the secret " : "Se till att du har kopierat och lagrat hemligheten"
 },
 "nplurals=2; plural=(n != 1);");

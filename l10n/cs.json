@@ -19,13 +19,13 @@
     "Could not decrypt secret (key not available locally)." : "Tajemství se nepodařilo rozšifrovat (klíč není na vašem zařízení k dispozici)",
     "_Will be deleted in %n day_::_Will be deleted in %n days_" : ["Bude smazáno za %n den","Bude smazáno za %n dny","Bude smazáno za %n dnů","Bude smazáno za %n dny"],
     "Save" : "Uložit",
-    "Please make sure you have copied and stored the secret " : "Ověřte že jste si tajemství zkopírovali a uložili",
     "Copy to Clipboard" : "Zkopírovat do schránky",
     "Retrieving secret..." : "Získávání tajemství…",
     "Error loading secret. Is your link correct?" : "Chyba při načítání tajemství. Je vámi poskytnutý odkaz správný?",
     "Could not decrypt secret" : "Tajemství se nepodařilo rozšifrovat",
     "This share is password-protected" : "Toto sdílení je chráněno heslem",
     "The password is wrong or has expired. Please try again." : "Nesprávné heslo nebo jeho platnost skončila. Zkuste to prosím znovu.",
-    "Password" : "Heslo"
+    "Password" : "Heslo",
+    "Please make sure you have copied and stored the secret " : "Ověřte že jste si tajemství zkopírovali a uložili"
 },"pluralForm" :"nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;"
 }

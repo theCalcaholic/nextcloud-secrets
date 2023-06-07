@@ -19,13 +19,14 @@
     "Could not decrypt secret (key not available locally)." : "Nem sikerült a titok visszafejtése (a kulcs nem érhető el helyben).",
     "_Will be deleted in %n day_::_Will be deleted in %n days_" : ["%n nap múlva törölve lesz.","%n nap múlva törölve lesz."],
     "Save" : "Mentés",
-    "Please make sure you have copied and stored the secret " : "Győződjön meg róla, hogy másolta és eltárolta a titkot",
     "Copy to Clipboard" : "Másolás a vágólapra",
+    "Download" : "Letöltés",
     "Retrieving secret..." : "Titok lekérése…",
     "Error loading secret. Is your link correct?" : "Hiba a titok betöltésekor. A hivatkozás helyes?",
     "Could not decrypt secret" : "Nem sikerült dekódolni a titkot",
     "This share is password-protected" : "Ez a megosztás jelszóval védett",
     "The password is wrong or has expired. Please try again." : "A jelszó hibás vagy lejárt. Próbálja újra.",
-    "Password" : "Jelszó"
+    "Password" : "Jelszó",
+    "Please make sure you have copied and stored the secret " : "Győződjön meg róla, hogy másolta és eltárolta a titkot"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

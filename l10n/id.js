@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Share Link" : "Bagikan Tautan",
     "Save" : "Simpan",
+    "Download" : "Unduh",
     "This share is password-protected" : "Berbagi ini dilindungi kata sandi",
     "Password" : "Kata sandi"
 },

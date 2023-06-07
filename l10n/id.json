@@ -1,6 +1,7 @@
 { "translations": {
     "Share Link" : "Bagikan Tautan",
     "Save" : "Simpan",
+    "Download" : "Unduh",
     "This share is password-protected" : "Berbagi ini dilindungi kata sandi",
     "Password" : "Kata sandi"
 },"pluralForm" :"nplurals=1; plural=0;"

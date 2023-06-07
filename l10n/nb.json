@@ -1,6 +1,7 @@
 { "translations": {
     "Share Link" : "Del lenke",
     "Save" : "Lagre",
+    "Download" : "Last ned",
     "This share is password-protected" : "Denne deling er beskyttet med passord",
     "Password" : "Passord"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

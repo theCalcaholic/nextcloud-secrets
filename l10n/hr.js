@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Share Link" : "Dijeli poveznicu",
     "Save" : "Spremi",
+    "Download" : "Preuzmi",
     "This share is password-protected" : "Ovaj zajednički resurs je zaštićen zaporkom",
     "Password" : "Zaporka"
 },

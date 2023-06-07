@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Share Link" : "Ndani Lidhjen",
     "Save" : "Ruaj",
+    "Download" : "Shkarko",
     "This share is password-protected" : "Kjo pjesë është e mbrojtur me fjalëkalim",
     "Password" : "Fjalëkalim"
 },

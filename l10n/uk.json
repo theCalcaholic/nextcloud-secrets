@@ -17,11 +17,12 @@
     "Could not decrypt secret (key not available locally)." : "Не вдалося розшифрувати пароль (ключ недоступний на пристрої).",
     "_Will be deleted in %n day_::_Will be deleted in %n days_" : ["Буде вилучено через %n день.","Буде вилучено через %n дні","Буде вилучено через %n днів","Буде вилучено через %n день"],
     "Save" : "Зберегти",
-    "Please make sure you have copied and stored the secret " : "Будь ласка, пересвічитеся, що ви скопіювали та зберегли пароль.",
     "Copy to Clipboard" : "Копіювати до буферу обміну",
+    "Download" : "Звантажити",
     "Retrieving secret..." : "Отримання паролю...",
     "Error loading secret. Is your link correct?" : "Помилка із завантаженням паролю. Чи посилання правильне?",
     "This share is password-protected" : "Цей спільний ресурс захищено паролем",
-    "Password" : "Пароль"
+    "Password" : "Пароль",
+    "Please make sure you have copied and stored the secret " : "Будь ласка, пересвічитеся, що ви скопіювали та зберегли пароль."
 },"pluralForm" :"nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);"
 }

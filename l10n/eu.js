@@ -15,6 +15,7 @@ OC.L10N.register(
     "Share Link" : "Partekatu esteka",
     "Save" : "Gorde",
     "Copy to Clipboard" : "Kopiatu arbelera",
+    "Download" : "Deskargatu",
     "Retrieving secret..." : "Sekretua berreskuratzen...",
     "This share is password-protected" : "Partekatze hau pasahitzez babestua dago.",
     "Password" : "Pasahitza"

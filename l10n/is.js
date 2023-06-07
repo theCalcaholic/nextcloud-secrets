@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Share Link" : "Deila tengli",
     "Save" : "Vista",
+    "Download" : "Sækja",
     "This share is password-protected" : "Þessi sameign er varin með lykilorði",
     "Password" : "Lykilorð"
 },

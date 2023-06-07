@@ -21,13 +21,13 @@ OC.L10N.register(
     "Could not decrypt secret (key not available locally)." : "No fue posible descifrar el secreto (la llave no está disponible localmente).",
     "_Will be deleted in %n day_::_Will be deleted in %n days_" : ["Se borrará en %n día","Se borrará en %n días","Se borrará en %n días"],
     "Save" : "Guardar",
-    "Please make sure you have copied and stored the secret " : "Por favor, asegúrese de que ha copiado y almacenado el secreto",
     "Copy to Clipboard" : "Copiar al portapapeles",
     "Retrieving secret..." : "Obteniendo secreto...",
     "Error loading secret. Is your link correct?" : "Error cargando el secreto. ¿Es su enlace correcto?",
     "Could not decrypt secret" : "No fue posible descifrar el secreto",
     "This share is password-protected" : "Este recurso compartido está protegido por contraseña",
     "The password is wrong or has expired. Please try again." : "La contraseña es errónea o ha caducado. Por favor, inténtelo de nuevo",
-    "Password" : "Contraseña"
+    "Password" : "Contraseña",
+    "Please make sure you have copied and stored the secret " : "Por favor, asegúrese de que ha copiado y almacenado el secreto"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

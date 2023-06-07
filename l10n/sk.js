@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Share Link" : "Sprístupniť odkaz",
     "Save" : "Uložiť",
+    "Download" : "Sťahovanie",
     "This share is password-protected" : "Toto sprístupnenie je chránené heslom",
     "Password" : "Heslo"
 },

@@ -1,6 +1,7 @@
 { "translations": {
     "Share Link" : "Cumpartzi Lingòngiu",
     "Save" : "Sarva",
+    "Download" : "Iscàrriga",
     "This share is password-protected" : "Custa cumpartzidura est amparada dae una crae",
     "Password" : "Crae"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
