@@ -2,6 +2,7 @@ OC.L10N.register(
     "secrets",
     {
     "Save" : "Enrollañ",
+    "Download" : "Pellgargañ",
     "This share is password-protected" : "Al liamm a zo gwarezet gant ur ger-tremen",
     "Password" : "Ger-tremen"
 },
