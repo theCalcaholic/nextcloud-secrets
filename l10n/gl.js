@@ -29,6 +29,6 @@ OC.L10N.register(
     "This share is password-protected" : "Este recurso compartido está protexido con contrasinal",
     "The password is wrong or has expired. Please try again." : "O contrasinal é incorrecto ou caducou. Por favor intentao de novo.",
     "Password" : "Contrasinal",
-    "Please make sure you have copied and stored the secret " : "Asegúrate de copiar e gardar o segredo"
+    "Please make sure you have copied and stored the secret " : "Asegúrese de copiar e gardar o segredo"
 },
 "nplurals=2; plural=(n != 1);");
