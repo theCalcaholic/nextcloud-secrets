@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Share Link" : "شارك الرابط",
     "Save" : "حفظ",
+    "Download" : "تنزيل",
     "This share is password-protected" : "هذه المشاركة محمية بكلمة مرور",
     "Password" : "كلمة السر"
 },

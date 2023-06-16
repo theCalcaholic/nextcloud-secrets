@@ -22,6 +22,7 @@ OC.L10N.register(
     "_Will be deleted in %n day_::_Will be deleted in %n days_" : ["Ще бъде изтрита след %n дни","Ще бъде изтрита след %n дни"],
     "Save" : "Запиши",
     "Copy to Clipboard" : "Копиране в Клипборда",
+    "Download" : "Изтегляне",
     "Retrieving secret..." : "Извличане на тайна...",
     "Error loading secret. Is your link correct?" : "Грешка при зареждането на тайната. Правилна ли е връзката ви?",
     "Could not decrypt secret" : "Тайната не можа да се дешифрира",
