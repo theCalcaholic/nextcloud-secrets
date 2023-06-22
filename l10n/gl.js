@@ -28,7 +28,7 @@ OC.L10N.register(
     "Error loading secret. Is your link correct?" : "Erro ao cargar o segredo. É correcta a túa ligazón?",
     "Could not decrypt secret" : "Non foi posíbel descifrar o segredo",
     "This share is password-protected" : "Este recurso compartido está protexido con contrasinal",
-    "The password is wrong or has expired. Please try again." : "O contrasinal é incorrecto ou caducou. Por favor intentao de novo.",
+    "The password is wrong or has expired. Please try again." : "O contrasinal é erróneo ou caducou. Por favor tenteo de novo.",
     "Password" : "Contrasinal",
     "Please make sure you have copied and stored the secret " : "Asegúrese de copiar e gardar o segredo"
 },
