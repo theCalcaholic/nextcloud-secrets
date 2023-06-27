@@ -17,6 +17,7 @@ OC.L10N.register(
     "Could not decrypt secret (key not available locally)." : "Αδυναμία αποκρυπτογράφησης του μυστικού (το κλειδί δεν είναι διαθέσιμο τοπικά).",
     "Save" : "Αποθήκευση",
     "Copy to Clipboard" : "Αντιγραφή στο πρόχειρο",
+    "Download" : "Λήψη",
     "Retrieving secret..." : "Ανάκτηση μυστικού...",
     "Error loading secret. Is your link correct?" : "Σφάλμα κατά τη φόρτωση του μυστικού. Είναι σωστός ο σύνδεσμός σας;",
     "Could not decrypt secret" : "Αδυναμία αποκρυπτογράφησης μυστικού",

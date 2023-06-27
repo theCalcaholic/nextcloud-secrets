@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Share Link" : "Del Link",
     "Save" : "Gem",
+    "Download" : "Download",
     "This share is password-protected" : "Delingen er beskyttet af kodeord",
     "Password" : "Adgangskode"
 },
