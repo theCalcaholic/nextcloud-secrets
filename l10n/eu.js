@@ -13,6 +13,7 @@ OC.L10N.register(
     "Secret deleted" : "Sekretua ezabatuta",
     "Could not delete the secret" : "Ezin izan da sekretua ezabatu",
     "Share Link" : "Partekatu esteka",
+    "Expires on:" : "Iraungitze-data:",
     "Save" : "Gorde",
     "Copy to Clipboard" : "Kopiatu arbelera",
     "Download" : "Deskargatu",
