@@ -25,7 +25,7 @@ OC.L10N.register(
     "Could not decrypt secret (key not available locally)." : "تعذر فك تشفير السر (المفتاح غير متوفر محليًا).",
     "_Will be deleted in %n day_::_Will be deleted in %n days_" : ["سوف يتم الحذف خلال %n أيام","سوف يتم الحذف خلال %n يوم","سوف يتم الحذف خلال %n أيام","سوف يتم الحذف خلال %n أيام","سوف يتم الحذف خلال %nأيام","سوف يتم الحذف خلال %nأيام"],
     "Expiration Date" : "تاريخ انتهاء الصلاحية",
-    "share password (optional)" : "مشاركة كلمة السر/المرور (اختياري)",
+    "share password (optional)" : "مشاركة كلمة المرور (اختياري)",
     "Save" : "حفظ",
     "The following secret has been shared with you securely:" : "تمت مشاركة السر التالي معك بشكل آمن:",
     "Please make sure you have copied and stored the secret before closing this page! It is now deleted on the server." : "يرجى التأكد من نسخ السر وتخزينه قبل إغلاق هذه الصفحة! يتم الآن حذفه من على الخادم.",
