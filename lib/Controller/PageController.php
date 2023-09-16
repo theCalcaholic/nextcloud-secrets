@@ -23,7 +23,7 @@ class PageController extends Controller {
 	public function __construct(IRequest $request, IManager $notificationManager, IUserSession $userSession, IConfig $config) {
 		parent::__construct(Application::APP_ID, $request);
 		$this->notificationManager = $notificationManager;
-		$this->userId = $userSession->getUser()->getUID();
+		$this->userId = $userSession->getUser()?->getUID();
 		$this->debug = $config->getSystemValueBool("debug");
 	}
 
