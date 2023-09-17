@@ -41,7 +41,6 @@ OC.L10N.register(
     "Could not decrypt secret" : "Non foi posíbel descifrar o segredo",
     "This share is password-protected" : "Esta compartición está protexida con contrasinal ",
     "The password is wrong or has expired. Please try again." : "O contrasinal é erróneo ou caducou. Por favor tenteo de novo.",
-    "Password" : "Contrasinal",
-    "Please make sure you have copied and stored the secret " : "Asegúrese de copiar e gardar o segredo"
+    "Password" : "Contrasinal"
 },
 "nplurals=2; plural=(n != 1);");

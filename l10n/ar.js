@@ -41,7 +41,6 @@ OC.L10N.register(
     "Could not decrypt secret" : "لا يمكن فك تشفير السر",
     "This share is password-protected" : "هذه المشاركة محمية بكلمة مرور",
     "The password is wrong or has expired. Please try again." : "كلمة المرور خاطئة أو منتهية الصلاحية. حاول مرة اخرى.",
-    "Password" : "كلمة السر",
-    "Please make sure you have copied and stored the secret " : "يرجى التأكد من نسخ السر وتخزينه"
+    "Password" : "كلمة السر"
 },
 "nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;");

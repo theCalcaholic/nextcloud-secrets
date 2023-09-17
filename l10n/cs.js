@@ -41,7 +41,6 @@ OC.L10N.register(
     "Could not decrypt secret" : "Tajemství se nepodařilo rozšifrovat",
     "This share is password-protected" : "Toto sdílení je chráněno heslem",
     "The password is wrong or has expired. Please try again." : "Nesprávné heslo nebo jeho platnost skončila. Zkuste to prosím znovu.",
-    "Password" : "Heslo",
-    "Please make sure you have copied and stored the secret " : "Ověřte že jste si tajemství zkopírovali a uložili"
+    "Password" : "Heslo"
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;");

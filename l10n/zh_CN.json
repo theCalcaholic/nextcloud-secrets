@@ -39,7 +39,6 @@
     "Could not decrypt secret" : "无法解密密信",
     "This share is password-protected" : "该分享受密码保护",
     "The password is wrong or has expired. Please try again." : "密码错误或已过期。请重试。",
-    "Password" : "密码",
-    "Please make sure you have copied and stored the secret " : "请确保您已复制并存储密信"
+    "Password" : "密码"
 },"pluralForm" :"nplurals=1; plural=0;"
 }
