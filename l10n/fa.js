@@ -41,7 +41,6 @@ OC.L10N.register(
     "Could not decrypt secret" : "Could not decrypt secret",
     "This share is password-protected" : "این اشتراک توسط رمز عبور محافظت می شود",
     "The password is wrong or has expired. Please try again." : "The password is wrong or has expired. Please try again.",
-    "Password" : "کلمه عبور",
-    "Please make sure you have copied and stored the secret " : "Please make sure you have copied and stored the secret "
+    "Password" : "کلمه عبور"
 },
 "nplurals=2; plural=(n > 1);");

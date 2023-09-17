@@ -41,7 +41,6 @@ OC.L10N.register(
     "Could not decrypt secret" : "無法解密祕密",
     "This share is password-protected" : "此分享受密碼保護",
     "The password is wrong or has expired. Please try again." : "密碼錯誤或過期。請重試。",
-    "Password" : "密碼",
-    "Please make sure you have copied and stored the secret " : "請確保您已複製並儲存祕密"
+    "Password" : "密碼"
 },
 "nplurals=1; plural=0;");

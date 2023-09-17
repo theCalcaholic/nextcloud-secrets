@@ -39,7 +39,6 @@
     "Could not decrypt secret" : "No se pudo descifrar el secreto",
     "This share is password-protected" : "Este elemento compartido está protegido con una contraseña",
     "The password is wrong or has expired. Please try again." : "La contraseña es incorrecta o ha expirado. Por favor, inténtalo de nuevo.",
-    "Password" : "Contraseña",
-    "Please make sure you have copied and stored the secret " : "Asegúrate de haber copiado y almacenado el secreto "
+    "Password" : "Contraseña"
 },"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

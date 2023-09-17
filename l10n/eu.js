@@ -41,7 +41,6 @@ OC.L10N.register(
     "Could not decrypt secret" : "Ezin izan da sekretua deszifratu",
     "This share is password-protected" : "Partekatze hau pasahitzez babestua dago.",
     "The password is wrong or has expired. Please try again." : "Pasahitza okerra da edo iraungi egin da. Saia zaitez berriro.",
-    "Password" : "Pasahitza",
-    "Please make sure you have copied and stored the secret " : "Ziurta ezazu ondo kopiatu eta gorde duzula sekretua"
+    "Password" : "Pasahitza"
 },
 "nplurals=2; plural=(n != 1);");

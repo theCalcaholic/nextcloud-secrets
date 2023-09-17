@@ -32,7 +32,6 @@ OC.L10N.register(
     "Could not decrypt secret" : "Geheimnis konnte nicht entschlüsselt werden",
     "This share is password-protected" : "Diese Freigabe ist passwortgeschützt",
     "The password is wrong or has expired. Please try again." : "Das Passwort ist falsch oder abgelaufen. Bitte noch einmal versuchen.",
-    "Password" : "Passwort",
-    "Please make sure you have copied and stored the secret " : "Bitte stelle sicher, dass du das Geheimnis kopiert und gespeichert hast"
+    "Password" : "Passwort"
 },
 "nplurals=2; plural=(n != 1);");
