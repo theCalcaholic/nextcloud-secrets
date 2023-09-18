@@ -39,7 +39,6 @@
     "Could not decrypt secret" : "Kunde inte dekryptera hemlighet",
     "This share is password-protected" : "Denna delning är lösenordsskyddad",
     "The password is wrong or has expired. Please try again." : "Lösenordet är fel eller har gått ut. Var god försök igen.",
-    "Password" : "Lösenord",
-    "Please make sure you have copied and stored the secret " : "Se till att du har kopierat och lagrat hemligheten"
+    "Password" : "Lösenord"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

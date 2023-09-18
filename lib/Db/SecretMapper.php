@@ -96,7 +96,7 @@ class SecretMapper extends QBMapper {
 			->where(
 				$qb->expr()->lt('expires', $param)
 			);
-		$this->logger->warning("Deleting expired secrets: '" . $qb->getSQL() . "', param = '" . $date . "'");
+		$this->logger->debug("Deleting expired secrets: '" . $qb->getSQL() . "', param = '" . $date . "'");
 		$qb->executeStatement();
 	}
 

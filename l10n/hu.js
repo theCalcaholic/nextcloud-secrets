@@ -41,7 +41,6 @@ OC.L10N.register(
     "Could not decrypt secret" : "Nem sikerült dekódolni a titkot",
     "This share is password-protected" : "Ez a megosztás jelszóval védett",
     "The password is wrong or has expired. Please try again." : "A jelszó hibás vagy lejárt. Próbálja újra.",
-    "Password" : "Jelszó",
-    "Please make sure you have copied and stored the secret " : "Győződjön meg róla, hogy másolta és eltárolta a titkot"
+    "Password" : "Jelszó"
 },
 "nplurals=2; plural=(n != 1);");

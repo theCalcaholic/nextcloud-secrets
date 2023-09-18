@@ -41,7 +41,6 @@ OC.L10N.register(
     "Could not decrypt secret" : "Sırın şifresi çözülemedi",
     "This share is password-protected" : "Bu paylaşım parola korumalı",
     "The password is wrong or has expired. Please try again." : "Parola hatalı ya da geçerlilik süresi dolmuş. Lütfen yeniden deneyin.",
-    "Password" : "Parola",
-    "Please make sure you have copied and stored the secret " : "Lütfen sırrı kopyalayıp kaydettiğinizden emin olun"
+    "Password" : "Parola"
 },
 "nplurals=2; plural=(n > 1);");

@@ -28,7 +28,6 @@ OC.L10N.register(
     "Could not decrypt secret" : "Тайната не можа да се дешифрира",
     "This share is password-protected" : "Тази зона е защитена с парола.",
     "The password is wrong or has expired. Please try again." : "Паролата е грешна или е изтекла. Моля, опитайте отново.",
-    "Password" : "Парола",
-    "Please make sure you have copied and stored the secret " : "Моля, уверете се, че сте копирали и запазили тайната "
+    "Password" : "Парола"
 },
 "nplurals=2; plural=(n != 1);");
