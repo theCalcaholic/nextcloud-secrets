@@ -20,10 +20,28 @@ const mockCrypto = {
 				extractable: extractable,
 				algorithm: {
 					name: algorithm.name,
-					lenght: algorithm.lenght
+					length: algorithm.length
 				},
 				type: 'secret'
 			}
+		},
+		async encrypt(algorithm, key, data) {
+			return new TextEncoder().encode(
+				JSON.stringify({
+					plaintext: Array.from(data),
+					algorithm: algorithm,
+					key: key,
+					type: 'encryptedData'
+				})
+			)
+		},
+		async decrypt(algorithm, key, data) {
+			const encryptedObj = JSON.parse(new TextDecoder().decode(data))
+			if (key !== encryptedObj.key || algorithm.name !== encryptedObj.algorithm.name || algorithm.iv !== algorithm.iv) {
+				throw new Error("Decryption failed: Key, algorithm and iv must match")
+			}
+
+			return Uint8Array.from(encryptedObj.plaintext)
 		}
 	}
 }
@@ -47,5 +65,47 @@ describe('Cryptolib Test Suite', () => {
 		// await cryptoLib.importDecryptionKey(
 		// 	cryptoLib.arrayBufferToB64String(new Uint8Array(await crypto.subtle.exportKey('raw', cryptoKey))),
 		// 	cryptoLib.generateIv())
+	})
+
+	test('Data can be serialized and deserialized successfully', () => {
+		const asciiDataString = 'abcdefhijklmnopqrstuvwxyzABCDEFHIJKLMNOPQRSTUVWXYZ0123456789'
+		const asciiData = new TextEncoder().encode(asciiDataString)
+		const asciiDataB64 = cryptoLib.arrayBufferToB64String(asciiData)
+		expect(asciiDataB64).not.toBe(null);
+		const asciiDataDeserialized = cryptoLib.b64StringToArrayBuffer(asciiDataB64)
+		const asciiDataDeserializedString = new TextDecoder().decode(asciiDataDeserialized)
+        console.log("expected: ", asciiDataString, ", actual: ", asciiDataDeserializedString)
+		expect(asciiDataDeserializedString).toStrictEqual(asciiDataString)
+
+        const utf8DataString = 'adsj;aöä?!"§/()!IAS💌'
+        const utf8Data = new TextEncoder().encode(utf8DataString)
+        const utf8DataB64 = cryptoLib.arrayBufferToB64String(utf8Data)
+        expect(utf8DataB64).not.toBe(null);
+        const utf8DataDeserialized = cryptoLib.b64StringToArrayBuffer(utf8DataB64)
+        const utf8DataDeserializedString = new TextDecoder().decode(utf8DataDeserialized)
+        console.log("expected: ", utf8DataString, ", actual: ", utf8DataDeserializedString)
+        expect(utf8DataDeserializedString).toStrictEqual(utf8DataString)
+	})
+
+	test('Encryption uses the Crypto.subtle.encrypt interface correctly', async() => {
+		const textDecoder = new TextDecoder()
+
+		const payload = "my secret"
+		const encrypted = await cryptoLib.encrypt(payload, "TEST-CRYPTOKEY", "TEST-IV")
+		const encryptedInfo = JSON.parse(textDecoder.decode(cryptoLib.b64StringToArrayBuffer(encrypted)))
+		const encryptedPayload = textDecoder.decode(Uint8Array.from(encryptedInfo.plaintext))
+
+        expect(encryptedInfo.type).toBe('encryptedData')
+		expect(encryptedPayload).toBe(payload)
+		expect(encryptedInfo.key).toBe("TEST-CRYPTOKEY")
+		expect(encryptedInfo.algorithm).toStrictEqual({ name: cryptoLib.algorithm, iv: 'TEST-IV' })
+	})
+
+	test('Decryption uses the Crypto.subtle.decrypt interface correctly and supplies the right arguments', async() => {
+		const payload = "my secret"
+		const encrypted = await cryptoLib.encrypt(payload, "TEST_CRYPTOKEY", "TEST_IV")
+		const decrypted = await cryptoLib.decrypt(encrypted, "TEST_CRYPTOKEY", "TEST_IV")
+
+		expect(decrypted).toBe(payload)
 	})
 })
