@@ -14,6 +14,20 @@ on:
       - 'tsconfig.json'
       - '**.js'
       - '**.ts'
+  push:
+    branches:
+      - main
+      - stable*
+      - dev
+    paths:
+      - '.github/workflows/**'
+      - 'src/**'
+      - 'appinfo/info.xml'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'tsconfig.json'
+      - '**.js'
+      - '**.ts'
 
 permissions:
   contents: read
