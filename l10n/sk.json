@@ -1,6 +1,8 @@
 { "translations": {
+    "New secret" : "Nové tajomstvo",
     "Cancel secret creation" : "Zrušiť vytváranie tajného kľúča",
     "Could not fetch secrets" : "Nepodarilo sa získať tajné kľúče",
+    "New Secret" : "Nové tajomstvo",
     "Could not create the secret" : "Tajný kľúč sa nepodarilo vytvoriť",
     "Could not delete the secret" : "Tajný kľúč sa nepodarilo odstrániť",
     "Share Link" : "Sprístupniť odkaz",
