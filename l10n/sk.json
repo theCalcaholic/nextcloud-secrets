@@ -8,6 +8,7 @@
     "Share Link" : "Sprístupniť odkaz",
     "Share Link:" : "Zdieľať odkaz:",
     "Copy Secret Link" : "Kopírovať tajný kľúč",
+    "_Will be deleted in %n day_::_Will be deleted in %n days_" : ["Bude odstránený o %n deň","Bude odstránený o %n dni","Bude odstránený o %n dní","Bude odstránený o %n dní"],
     "Save" : "Uložiť",
     "Download" : "Sťahovanie",
     "Could not decrypt secret" : "Nepodarilo sa dešifrovať tajný kľúč",
