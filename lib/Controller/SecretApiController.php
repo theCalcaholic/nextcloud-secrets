@@ -8,86 +8,178 @@ namespace OCA\Secrets\Controller;
 
 use DateTime;
 use OCA\Secrets\AppInfo\Application;
+use OCA\Secrets\Db\Secret;
+use OCA\Secrets\Service\NotificationService;
 use OCA\Secrets\Service\SecretNotFound;
 use OCA\Secrets\Service\SecretService;
-use OCP\AppFramework\ApiController;
+use OCA\Secrets\Service\UnauthorizedException;
+use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
+use OCP\AppFramework\OCS\OCSForbiddenException;
+use OCP\AppFramework\OCS\OCSNotFoundException;
+use OCP\AppFramework\OCSController;
 use OCP\ILogger;
 use OCP\IURLGenerator;
 use \OCP\Notification\IManager as INotificationManager;
 use OCP\IRequest;
 use OCP\ISession;
+use OCP\AppFramework\Http\Attribute\BruteForceProtection;
 
-class SecretApiController extends ApiController {
+/**
+ * @psalm-import-type SecretsData from ResponseDefinitions
+ */
+class SecretApiController extends OCSController
+{
 	private INotificationManager $notificationManager;
 	private IURLGenerator $urlGenerator;
 	private SecretService $service;
-	private ISession $session;
+	private NotificationService $notificationService;
 	private ?string $userId;
 	private ILogger $logger;
 
 	use Errors;
 
-	public function __construct(IRequest      $request,
-								ISession $session,
-								SecretService $service,
+	public function __construct(IRequest             $request,
+								SecretService        $service,
+								NotificationService  $notificationService,
 								INotificationManager $notificationManager,
-								IURLGenerator $urlGenerator,
-								ILogger $logger) {
+								IURLGenerator        $urlGenerator,
+								ILogger              $logger,
+								?string              $userId)
+	{
 		parent::__construct(Application::APP_ID, $request);
 		$this->service = $service;
-		$this->session = $session;
+		$this->notificationService = $notificationService;
+		$this->userId = $userId;
 		$this->notificationManager = $notificationManager;
 		$this->urlGenerator = $urlGenerator;
 		$this->logger = $logger;
 	}
 
 	/**
-	 * @PublicPage
-	 * @NoCSRFRequired
+	 * Get all secrets for authenticated user
+	 * @NoAdminRequired
 	 *
-	 * @param string $uuid
-	 * @return DataResponse
-	 * @throws SecretNotFound
+	 * @return DataResponse<Http::STATUS_OK, array<array{
+	 *        uuid: string,
+	 *        title: string,
+	 *        pwHash: null,
+	 *        encrypted: string,
+	 *        expires: string,
+	 *        iv: string
+	 *  }>, array{}>
+	 * 200: Return list of secrets
 	 */
-	public function getSecret(string $uuid): DataResponse {
-		// TODO: Does it make sense to reenable the password parameter? Make sure to consider brute force protection
-		$password = null;
-		error_log($uuid);
-		$secret = $this->service->findPublic($uuid);
-		if ($secret->getEncrypted() === null) {
-			return new DataResponse(array(), 404);
-		}
+	public function getAll(): DataResponse {
+		return new DataResponse($this->service->findAll($this->userId));
+	}
 
-		$pwHash = null;
-		if ($password) {
-			$pwHash = hash("sha256", $password . $secret->getUuid());
-		} elseif ($this->session->get('public_link_authenticated_token') === $uuid) {
-			$pwHash = $this->session->get('public_link_authenticated_password_hash');
-		}
-		if ($secret->getPwHash() !== null && $secret->getPwHash() !== $pwHash) {
-			return new DataResponse(array(), 401);
-		}
-		$uuid = $secret->getUuid();
-		$this->service->invalidate($uuid);
+	/**
+	 * Get secret with given uuid
+	 * @NoAdminRequired
+	 *
+	 * @param string $uuid The uuid of the secret
+	 *
+	 * @return DataResponse<Http::STATUS_OK, SecretsData, array{}>|DataResponse<Http::STATUS_NOT_FOUND, array{message: string}, array{}>
+	 * 200: Return secret with given uuid
+	 * 404: Secret not found
+	 */
+	public function get(string $uuid): DataResponse {
+		return $this->handleNotFound(function () use ($uuid) {
+			return $this->service->find($uuid, $this->userId);
+		});
+	}
 
-		$notification = $this->notificationManager->createNotification();
-		error_log("Creating new notification for " . $secret->getUserId() . ".");
+	/**
+	 * Return the shared secret for the given uuid
+	 *
+	 * @PublicPage
+	 *
+	 * @param string $uuid The uuid of the secret
+	 * @param string|null $password The password for the secret share
+	 *
+	 * @return DataResponse<Http::STATUS_NOT_FOUND, array{message: string}, array{}>|DataResponse<Http::STATUS_UNAUTHORIZED, array{message: string}, array{}>|DataResponse<Http::STATUS_OK, array{iv: string, encrypted: string}, array{}>
+	 * 200: Return requested secret
+	 * 404: Secret not found for uuid
+	 * 401: Unauthorized
+	 *
+	 * TODO: Brute force protection
+	 */
+	public function retrieveSharedSecret(string $uuid, ?string $password): DataResponse
+	{
 		try {
-			$notification->setApp(Application::APP_ID)
-				->setObject("secret_retrieved", $uuid)
-				->setUser($secret->getUserId())
-				->setDateTime(new DateTime())
-				->setSubject(Application::APP_ID, ['secret' => $secret->getUuid()]);
-			$this->notificationManager->notify($notification);
-		} catch (\Exception $e) {
-			$this->logger->logException($e, ['app' => Application::APP_ID]);
+			$secret = $this->service->retrieveAndInvalidateSecret($uuid, $password);
+		} catch (SecretNotFound $e) {
+			return new DataResponse(["message" => "No secret with the given uuid was found"], Http::STATUS_NOT_FOUND);
+		} catch (UnauthorizedException $e) {
+			return new DataResponse(["message" => "Forbidden"], Http::STATUS_UNAUTHORIZED);
 		}
 
-		$data = array(
+		$this->notificationService->notifyRetrieved($secret);
+
+		$data = [
 			'iv' => $secret->getIv(),
 			'encrypted' => $secret->getEncrypted()
-		);
-		return new DataResponse($data);
+		];
+		return new DataResponse($data, Http::STATUS_OK);
+	}
+
+	/**
+	 * Store an e2e encrypted secret and return a share URL (without key portion)
+	 *
+	 * @NoAdminRequired
+	 *
+	 * @param string $title The title of the secret (visible to the owner only)
+	 * @param string $encrypted The encrypted secret to store
+	 * @param string $iv The iv for the encrypted secret
+	 * @param ?string $expires (Optional) expiration date for the secret
+	 * @param ?string $password (Optional) password to protect the secret share
+	 *
+	 * @return DataResponse<Http::STATUS_CREATED, SecretsData, array{}>|DataResponse<Http::STATUS_UNAUTHORIZED, array{message: string}, array{}>
+	 * 201: Secret created
+	 * 401: Unauthorized
+	 */
+	public function createSecret(string $title, string $encrypted, string $iv, ?string $expires, ?string $password)
+	{
+		if (!$this->userId) {
+			return new DataResponse(['message' => 'Unauthorized'], Http::STATUS_UNAUTHORIZED);
+		}
+		return new DataResponse($this->service->create($title, $encrypted, $iv, $expires, $password, $this->userId)->jsonSerialize(), Http::STATUS_CREATED);
+	}
+
+	/**
+	 * Update the title of a secret
+	 * @NoAdminRequired
+	 *
+	 * @param string $uuid The uuid of the secret
+	 * @param string $title The new title of the secret
+	 *
+	 * @return DataResponse<Http::STATUS_OK, SecretsData, array{}>|DataResponse<Http::STATUS_NOT_FOUND, array{message: string}, array{}>
+	 * 200: Return updated secret
+	 * 404: Secret not found
+	 */
+	public function updateTitle(string $uuid, string $title): DataResponse {
+		return $this->handleNotFound(function () use ($uuid, $title) {
+			return $this->service->updateTitle($uuid, $this->userId, $title);
+		});
+	}
+
+	/**
+	 * Delete the secret with the given uuid
+	 *
+	 * @NoAdminRequired
+	 * @param string $uuid The uuid of the secret
+	 *
+	 * @return DataResponse<Http::STATUS_OK, array{message: string}, array{}>|DataResponse<Http::STATUS_NOT_FOUND, array{message: string}, array{}>
+	 * 200: Secret deleted
+	 * 404: Secret not found
+	 */
+	public function delete(string $uuid): DataResponse {
+		try {
+			$secret = $this->service->delete($uuid, $this->userId);
+			return new DataResponse(['message' => "Secret '$secret->getTitle()' has been deleted"]);
+		} catch (SecretNotFound $e) {
+			return new DataResponse(['message' => "No secret found with uuid '$uuid'"], Http::STATUS_NOT_FOUND);
+		}
 	}
 }

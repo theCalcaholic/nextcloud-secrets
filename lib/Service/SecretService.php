@@ -145,4 +145,32 @@ class SecretService {
 			$this->handleException($e);
 		}
 	}
+
+	/**
+	 * @param string $uuid
+	 * @param string|null $password
+	 *
+	 * @return Secret
+	 * @throws SecretNotFound
+	 * @throws UnauthorizedException
+	 */
+	public function retrieveAndInvalidateSecret(string $uuid, ?string $password): Secret {
+		$secret = $this->findPublic($uuid);
+		if ($secret->getEncrypted() === null) {
+			throw new SecretNotFound();
+		}
+
+		$pwHash = null;
+		if ($password) {
+			$pwHash = hash("sha256", $password . $secret->getUuid());
+		}
+
+		if ($secret->getPwHash() !== null && $secret->getPwHash() !== $pwHash) {
+			throw new UnauthorizedException();
+		}
+		$uuid = $secret->getUuid();
+		$this->invalidate($uuid);
+
+		return $secret;
+	}
 }

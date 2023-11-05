@@ -28,8 +28,12 @@ class PageController extends Controller {
 	}
 
 	/**
+	 * Return secrets page
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
+	 *
+	 * @return TemplateResponse<Http::STATUS_OK, string>
+	 * 200: Return secrets page
 	 */
 	public function index(): TemplateResponse {
 		Util::addScript(Application::APP_ID, 'secrets-main');
@@ -38,8 +42,13 @@ class PageController extends Controller {
 	}
 
 	/**
+	 * Return secrets page and show specific secret
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
+	 *
+	 * @param string $uuid The uuid of the secret
+	 * @return TemplateResponse<Http::STATUS_OK, string>
+	 * 200: Return secrets page and show specific secret
 	 */
 	public function show(string $uuid): TemplateResponse {
 		$notification = $this->notificationManager->createNotification();

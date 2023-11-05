@@ -9,10 +9,13 @@ export default class CryptoLib {
 	debug = false
 
 	/**
-	 * @param theCrypto {Crypto}
+	 * @param {Crypto} theCrypto Crypto library (e.g. window.crypto)
+	 * @param {{btoa: Function, atob: Function}} hashApi Hash api functions (e.g. window)
+	 * @param {boolean} debug Enables debug mode
 	 */
-	constructor(theCrypto, debug) {
-		this.crypto = theCrypto;
+	constructor(theCrypto, hashApi, debug) {
+		this.crypto = theCrypto
+		this.hashApi = hashApi
 		this.algorithm = ALGO
 		this.debug = !!debug
 	}
@@ -50,8 +53,7 @@ export default class CryptoLib {
 	b64StringToArrayBuffer(str) {
 		if(this.debug)
 			console.debug("b64StringToArrayBuffer(...)")
-		return new Uint8Array(Array.from(window.atob(str)).map(ch => ch.charCodeAt(0)))
-		//return new Uint8Array(Array.from(window.atob(str)).map(ch => ch.charCodeAt(0)))
+		return new Uint8Array(Array.from(this.hashApi.atob(str)).map(ch => ch.charCodeAt(0)))
 	}
 	/**
 	 *
@@ -61,8 +63,7 @@ export default class CryptoLib {
 	arrayBufferToB64String(buf) {
 		if(this.debug)
 			console.debug("arrayBufferToB64String(...)")
-		//return window.btoa(buf)
-		return window.btoa(Array.from(buf).map(byte => String.fromCharCode(byte)).join(''))
+		return this.hashApi.btoa(Array.from(buf).map(byte => String.fromCharCode(byte)).join(''))
 	}
 	/**
 	 *
@@ -86,7 +87,7 @@ export default class CryptoLib {
 	 * @return {Uint8Array}
 	 */
 	generateIv() {
-		return window.crypto.getRandomValues(new Uint8Array(12))
+		return this.crypto.getRandomValues(new Uint8Array(12))
 	}
 
 	/**
