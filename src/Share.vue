@@ -80,7 +80,7 @@ import IconCopy from 'vue-material-design-icons/ContentCopy.vue'
 import '@nextcloud/dialogs/styles/toast.scss'
 import { showError } from '@nextcloud/dialogs'
 import axios from '@nextcloud/axios'
-import { generateUrl } from '@nextcloud/router'
+import { generateOcsUrl } from '@nextcloud/router'
 
 export default {
 	name: 'Share',
@@ -157,8 +157,8 @@ export default {
 			try {
 				let uuid = window.location.pathname
 				uuid = uuid.substring(uuid.lastIndexOf('/') + 1)
-				const response = await axios.post(generateUrl('/apps/secrets/api/get'), { uuid })
-				const secret = response.data
+				const response = await axios.post(generateOcsUrl('/apps/secrets/api/v1/share'), { uuid, password: null })
+				const secret = response.data.ocs.data
 				const iv = this.$cryptolib.b64StringToArrayBuffer(secret.iv)
 				if (this.$debugsecrets)
 					console.debug("to decrypt:", secret.encrypted, secret.iv, window.location.hash.substring(1));

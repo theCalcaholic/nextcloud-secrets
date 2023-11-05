@@ -42,6 +42,7 @@
     "@nextcloud/stylelint-config": "^2.1.2",
     "@nextcloud/webpack-vue-config": "^5.2.1",
     "@peeky/server": "^0.14.0",
-    "@peeky/test": "^0.14.1"
+    "@peeky/test": "^0.14.1",
+    "bun-types": "latest"
   }
 }

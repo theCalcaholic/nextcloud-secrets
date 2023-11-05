@@ -52,7 +52,7 @@ export default {
 			default: () => ({
 				expires: new Date(),
 				password: '',
-				_decrypted: ''
+				_decrypted: '',
 			}),
 		},
 	},

@@ -73,8 +73,10 @@ ifeq (, $(composer))
 	curl -sS https://getcomposer.org/installer | php
 	mv composer.phar $(build_tools_directory)
 	php $(build_tools_directory)/composer.phar install --prefer-dist
+	php $(build_tools_directory)/composer.phar exec generate-spec
 else
 	composer install --prefer-dist
+	composer exec generate-spec
 endif
 
 # Installs npm dependencies

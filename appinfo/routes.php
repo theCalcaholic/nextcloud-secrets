@@ -16,13 +16,6 @@ return [
 	'routes' => [
 		['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
 		['name' => 'page#show', 'url' => '/s/{uuid}', 'verb' => 'GET'],
-		['name' => 'secret#index', 'url' => '/secrets', 'verb' => 'GET'],
-		['name' => 'secret#show', 'url' => '/secrets/{uuid}', 'verb' => 'GET'],
-		['name' => 'secret#create', 'url' => '/secrets', 'verb' => 'POST'],
-		['name' => 'secret#delete', 'url' => '/secrets/{uuid}', 'verb' => 'DELETE'],
-		['name' => 'secret#updateTitle', 'url' => '/secrets/{uuid}/title', 'verb' => 'PUT'],
-
-		['name' => 'SecretApi#getSecret', 'url' => '/api/get', 'verb' => 'POST'],
 
 		['name' => 'SecretShare#showShare', 'root' => '/secret',
 			'url' => '/show/{token}', 'verb' => 'GET'],
@@ -30,5 +23,13 @@ return [
 			'url' => '/show/{token}/authenticate/{redirect}', 'verb' => 'GET'],
 		['name' => 'SecretShare#authenticate', 'root' => '/secret',
 			'url' => '/show/{token}/authenticate/{redirect}', 'verb' => 'POST'],
+	],
+	'ocs' => [
+		['name' => 'secretApi#getAll', 'url' => '/api/v1/secrets', 'verb' => 'GET'],
+		['name' => 'secretApi#createSecret', 'url' => '/api/v1/secrets', 'verb' => 'POST'],
+		['name' => 'secretApi#get', 'url' => '/api/v1/secrets/{uuid}', 'verb' => 'GET'],
+		['name' => 'secretApi#delete', 'url' => '/api/v1/secrets/{uuid}', 'verb' => 'DELETE'],
+		['name' => 'secretApi#updateTitle', 'url' => '/api/v1/secrets/{uuid}/title', 'verb' => 'PUT'],
+		['name' => 'secretApi#retrieveSharedSecret', 'url' => '/api/v1/share', 'verb' => 'POST'],
 	]
 ];
