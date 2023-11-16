@@ -25,7 +25,7 @@ OC.L10N.register(
     "Could not decrypt secret (key not available locally)." : "Impossible de déchiffrer le secret (clé indisponible localement)",
     "_Will be deleted in %n day_::_Will be deleted in %n days_" : ["Sera supprimé dans %n jour","Sera supprimé dans %n jours","Sera supprimé dans %n jours"],
     "Expiration Date" : "Date d'expiration",
-    "share password (optional)" : "Mot de passe du partage (optionnel)",
+    "share password (optional)" : "Mot de passe du partage (facultatif)",
     "Save" : "Enregistrer",
     "The following secret has been shared with you securely:" : "Le secret suivant a été partagé avec vous en toute sécurité :",
     "Please make sure you have copied and stored the secret before closing this page! It is now deleted on the server." : "Assurez-vous d'avoir copié et enregistré le secret avant de fermer cette page ! Il est maintenant supprimé du serveur.",
