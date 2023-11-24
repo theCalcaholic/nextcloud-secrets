@@ -22,7 +22,7 @@
     "This secret has already been retrieved and its content was consequently deleted from the server." : "Bu sır karşı tarafa ulaşmış olduğundan içeriği sunucudan silinmiş.",
     "Could not decrypt secret (key not available locally)." : "Sırın şifresi çözülemedi (yerel anahtar bulunamadı)",
     "_Will be deleted in %n day_::_Will be deleted in %n days_" : ["%n gün sonra silinecek","%n gün sonra silinecek"],
-    "Expiration Date" : "Son kullanma tarihi",
+    "Expiration Date" : "Geçerlilik sonu tarihi",
     "share password (optional)" : "paylaşım parolası (isteğe bağlı)",
     "Save" : "Kaydet",
     "The following secret has been shared with you securely:" : "Şu parola sizinle gizliliği korunarak paylaşıldı:",
