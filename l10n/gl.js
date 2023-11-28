@@ -33,7 +33,7 @@ OC.L10N.register(
     "Copy to Clipboard" : "Copiar no portapapeis.",
     "Download the secret's content as a file" : "Descargar o contido do segredo como ficheiro",
     "Download" : "Descargar",
-    "Retrieving secret..." : "Recuperando o segredo…",
+    "Retrieving secret..." : "Recuperando o segredo...",
     "Error loading secret. Is your link correct?" : "Produciuse un erro ao cargar o segredo. É correcta a súa ligazón?",
     "Reveal the secret and delete it on the server" : "Revelar o segredo e elimínalo no servidor",
     "Reveal Secret" : "Revelar o segredo",
