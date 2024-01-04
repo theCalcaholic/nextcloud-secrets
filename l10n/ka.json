@@ -1,0 +1,7 @@
+{ "translations": {
+    "Save" : "Save",
+    "Download" : "Download",
+    "This share is password-protected" : "This share is password-protected",
+    "Password" : "პაროლი"
+},"pluralForm" :"nplurals=2; plural=(n!=1);"
+}
