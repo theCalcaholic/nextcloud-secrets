@@ -15,7 +15,7 @@
     "watch": "webpack --node-env development --progress --watch",
     "serve": "webpack --node-env development serve --progress",
     "peeky:open": "peeky open",
-	"peeky:test": "peeky run",
+    "peeky:test": "peeky run",
     "lint": "eslint --ext .js,.vue src",
     "lint:fix": "eslint --ext .js,.vue src --fix",
     "stylelint": "stylelint css/*.css css/*.scss src/**/*.scss src/**/*.vue",
