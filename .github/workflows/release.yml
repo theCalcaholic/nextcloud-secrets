@@ -45,7 +45,9 @@ jobs:
         tar -caf secrets.tar.gz secrets
         sha256sum secrets.tar.gz > secrets.sha256
         tag_name="${GITHUB_REF##*/}"
-        hub release create -a secrets.tar.gz -a secrets.sha256 -m "$tag_name" "$tag_name"
+        gh release create -n "${tag_name}" "${tag_name}"
+        gh release upload "${tag_name}" secrets.tar.gz
+        gh release upload "${tag_name}" secrets.sha256
       working-directory: ./secrets
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
