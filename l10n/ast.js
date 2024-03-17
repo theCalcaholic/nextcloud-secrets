@@ -1,6 +1,7 @@
 OC.L10N.register(
     "secrets",
     {
+    "Share Link" : "Compartir l'enllaz",
     "Save" : "Guardar",
     "Download" : "Baxar",
     "Password" : "Contraseña"
