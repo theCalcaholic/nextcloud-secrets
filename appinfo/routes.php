@@ -39,6 +39,11 @@ return [
 			'name' => 'SecretShare#authenticate',
 			'url' => '/share/{token}/authenticate/{redirect}',
 			'verb' => 'POST'
+		],
+		[
+			'name' => 'Redirect#share',
+			'url' => '/show/{token}',
+			'verb' => 'GET'
 		]
 	],
 	'ocs' => [
