@@ -235,9 +235,9 @@ export default {
 					expires: expiresStr,
 					encrypted: await encryptedPromise,
 					iv: this.$cryptolib.arrayBufferToB64String(secret.iv),
-				};
+				}
 				const response = await axios.post(generateOcsUrl('/apps/secrets/api/v1/secrets'), encryptedSecret)
-				const data = response.data.ocs.data;
+				const data = response.data.ocs.data
 				const decrypted = await this.$cryptolib.decrypt(
 					data.encrypted,
 					secret.key,
