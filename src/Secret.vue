@@ -117,7 +117,7 @@ export default {
 			if (this.$debugsecrets)
 				console.debug("serialized key: ", keyStr)
 			return window.location.protocol + '//' + window.location.host + generateUrl(
-				`/apps/secrets/show/${this.value.uuid}`
+				`/apps/secrets/share/${this.value.uuid}`
 				+ `#${keyStr}`
 			)
 		},

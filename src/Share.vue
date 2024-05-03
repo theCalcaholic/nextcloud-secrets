@@ -157,17 +157,20 @@ export default {
 			try {
 				let uuid = window.location.pathname
 				uuid = uuid.substring(uuid.lastIndexOf('/') + 1)
-				const response = await axios.post(generateOcsUrl('/apps/secrets/api/v1/share'), { uuid, password: null })
+				const response = await axios.post(generateOcsUrl('/apps/secrets/api/v1/share'), { uuid })
 				const secret = response.data.ocs.data
 				const iv = this.$cryptolib.b64StringToArrayBuffer(secret.iv)
-				if (this.$debugsecrets)
-					console.debug("to decrypt:", secret.encrypted, secret.iv, window.location.hash.substring(1));
+				if (this.$debugsecrets) {
+					console.debug('to decrypt:', secret.encrypted, secret.iv, window.location.hash.substring(1))
+				}
 				const key = await this.$cryptolib.importDecryptionKey(window.location.hash.substring(1), iv)
-				if (this.$debugsecrets)
-					console.debug("key: ", key);
+				if (this.$debugsecrets) {
+					console.debug('key: ', key)
+				}
 				this.decrypted = await this.$cryptolib.decrypt(secret.encrypted, key, iv)
-				if (this.$debugsecrets)
-					console.debug("decrypted", this.decrypted)
+				if (this.$debugsecrets) {
+					console.debug('decrypted', this.decrypted)
+				}
 			} catch (e) {
 				console.error(e)
 				showError(t('secrets', 'Could not decrypt secret'))

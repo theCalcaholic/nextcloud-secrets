@@ -14,15 +14,32 @@ declare(strict_types=1);
  */
 return [
 	'routes' => [
-		['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
-		['name' => 'page#show', 'url' => '/s/{uuid}', 'verb' => 'GET'],
+		[
+			'name' => 'page#index',
+			'url' => '/',
+			'verb' => 'GET'
+		],
+		[
+			'name' => 'page#show',
+			'url' => '/s/{uuid}',
+			'verb' => 'GET'
+		],
 
-		['name' => 'SecretShare#showShare', 'root' => '/secret',
-			'url' => '/show/{token}', 'verb' => 'GET'],
-		['name' => 'SecretShare#showAuthenticate', 'root' => '/secret',
-			'url' => '/show/{token}/authenticate/{redirect}', 'verb' => 'GET'],
-		['name' => 'SecretShare#authenticate', 'root' => '/secret',
-			'url' => '/show/{token}/authenticate/{redirect}', 'verb' => 'POST'],
+		[
+			'name' => 'SecretShare#showShare',
+			'url' => '/share/{token}',
+			'verb' => 'GET'
+		],
+		[
+			'name' => 'SecretShare#showAuthenticate',
+			'url' => '/share/{token}/authenticate/{redirect}',
+			'verb' => 'GET'
+		],
+		[
+			'name' => 'SecretShare#authenticate',
+			'url' => '/share/{token}/authenticate/{redirect}',
+			'verb' => 'POST'
+		]
 	],
 	'ocs' => [
 		['name' => 'secretApi#getAll', 'url' => '/api/v1/secrets', 'verb' => 'GET'],
@@ -30,6 +47,11 @@ return [
 		['name' => 'secretApi#get', 'url' => '/api/v1/secrets/{uuid}', 'verb' => 'GET'],
 		['name' => 'secretApi#delete', 'url' => '/api/v1/secrets/{uuid}', 'verb' => 'DELETE'],
 		['name' => 'secretApi#updateTitle', 'url' => '/api/v1/secrets/{uuid}/title', 'verb' => 'PUT'],
-		['name' => 'secretApi#retrieveSharedSecret', 'url' => '/api/v1/share', 'verb' => 'POST'],
+		[
+			'name' => 'secretApi#retrieveSharedSecret',
+			'url' => '/api/v1/share',
+			'verb' => 'POST',
+			'defaults' => ['password' => null]
+		],
 	]
 ];

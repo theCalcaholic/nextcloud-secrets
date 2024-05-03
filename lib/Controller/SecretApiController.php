@@ -6,17 +6,13 @@ declare(strict_types=1);
 
 namespace OCA\Secrets\Controller;
 
-use DateTime;
 use OCA\Secrets\AppInfo\Application;
-use OCA\Secrets\Db\Secret;
 use OCA\Secrets\Service\NotificationService;
 use OCA\Secrets\Service\SecretNotFound;
 use OCA\Secrets\Service\SecretService;
 use OCA\Secrets\Service\UnauthorizedException;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
-use OCP\AppFramework\OCS\OCSForbiddenException;
-use OCP\AppFramework\OCS\OCSNotFoundException;
 use OCP\AppFramework\OCSController;
 use OCP\ILogger;
 use OCP\IURLGenerator;
@@ -36,11 +32,13 @@ class SecretApiController extends OCSController
 	private NotificationService $notificationService;
 	private ?string $userId;
 	private ILogger $logger;
+	private ISession $session;
 
 	use Errors;
 
 	public function __construct(IRequest             $request,
 								SecretService        $service,
+								ISession $session,
 								NotificationService  $notificationService,
 								INotificationManager $notificationManager,
 								IURLGenerator        $urlGenerator,
@@ -54,6 +52,7 @@ class SecretApiController extends OCSController
 		$this->notificationManager = $notificationManager;
 		$this->urlGenerator = $urlGenerator;
 		$this->logger = $logger;
+		$this->session = $session;
 	}
 
 	/**
@@ -94,6 +93,7 @@ class SecretApiController extends OCSController
 	 * Return the shared secret for the given uuid
 	 *
 	 * @PublicPage
+	 * @NoCSRFRequired
 	 *
 	 * @param string $uuid The uuid of the secret
 	 * @param string|null $password The password for the secret share
@@ -105,14 +105,29 @@ class SecretApiController extends OCSController
 	 *
 	 * TODO: Brute force protection
 	 */
+	 #[UserRateLimit(limit: 500, period: 60)]
+	 #[AnonRateLimit(limit: 120, period: 60)]
+	 #[BruteForceProtection(action: 'retrieval')]
+	 #[BruteForceProtection(action: 'password')]
 	public function retrieveSharedSecret(string $uuid, ?string $password): DataResponse
 	{
+
+		$pwHash = null;
+		if ($password) {
+			$pwHash = hash("sha256", $password . $uuid());
+		} elseif ($this->session->get('public_link_authenticated_token') === $uuid) {
+			$pwHash = $this->session->get('public_link_authenticated_password_hash');
+		}
 		try {
-			$secret = $this->service->retrieveAndInvalidateSecret($uuid, $password);
+			$secret = $this->service->retrieveAndInvalidateSecret($uuid, $pwHash);
 		} catch (SecretNotFound $e) {
-			return new DataResponse(["message" => "No secret with the given uuid was found"], Http::STATUS_NOT_FOUND);
+			$resp = new DataResponse(["message" => "No secret with the given uuid was found"], Http::STATUS_NOT_FOUND);
+			$resp->throttle(['action' => 'retrieval']);
+			return $resp;
 		} catch (UnauthorizedException $e) {
-			return new DataResponse(["message" => "Forbidden"], Http::STATUS_UNAUTHORIZED);
+			$resp = new DataResponse(["message" => "Forbidden"], Http::STATUS_UNAUTHORIZED);
+			$resp->throttle(['action' => 'password']);
+			return $resp;
 		}
 
 		$this->notificationService->notifyRetrieved($secret);
