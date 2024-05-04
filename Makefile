@@ -76,7 +76,7 @@ ifeq (, $(composer))
 	php $(build_tools_directory)/composer.phar exec generate-spec
 else
 	composer install --prefer-dist
-	composer exec generate-spec
+	#composer exec generate-spec
 endif
 
 # Installs npm dependencies
@@ -137,6 +137,7 @@ appstore:
 	--exclude="../$(app_name)/*.log" \
 	--exclude="../$(app_name)/phpunit*xml" \
 	--exclude="../$(app_name)/composer.*" \
+	--exclude="../$(app_name)/vendor-bin" \
 	--exclude="../$(app_name)/js/node_modules" \
 	--exclude="../$(app_name)/js/tests" \
 	--exclude="../$(app_name)/js/test" \
@@ -151,6 +152,7 @@ appstore:
 	--exclude="../$(app_name)/protractor\.*" \
 	--exclude="../$(app_name)/.*" \
 	--exclude="../$(app_name)/js/.*" \
+	--exclude="../$(app_name)/cli" \
 	-cvzf $(appstore_package_name).tar.gz \
 	../$(app_name)
 

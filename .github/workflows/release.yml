@@ -17,6 +17,14 @@ jobs:
       with:
         path: secrets
 
+    - name: Set up php 8.2
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: 8.2
+        tools: phpunit
+        extensions: mbstring, iconv, fileinfo, intl, mysql, pdo_mysql
+        coverage: none
+
     - name: Read package.json node and npm engines version
       uses: skjnldsv/read-package-engines-version-actions@v1.2
       id: versions
@@ -29,13 +37,19 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ steps.versions.outputs.nodeVersion }}
-
+    - uses: oven-sh/setup-bun@v1
     - name: Build app
+      working-directory: ./secrets
       run: |
         npm install --dev
         make build
-      working-directory: ./secrets
-
+    - name: Build cli
+      working-directory: ./secrets/cli
+      run: |
+        cp ../src/crypto.js ./crypto.import.js
+        bun install --dev
+        bun build --compile ./cli.ts --outfile nc-secrets
+        tar -caf nc-secrets-cli.tar.gz nc-secrets
     - name: "Create release"
       run: |
         set -x
@@ -45,7 +59,16 @@ jobs:
         tar -caf secrets.tar.gz secrets
         sha256sum secrets.tar.gz > secrets.sha256
         tag_name="${GITHUB_REF##*/}"
-        hub release create -a secrets.tar.gz -a secrets.sha256 -m "$tag_name" "$tag_name"
+        description="$(git tag -n10 --format="%(contents)" test-release-with-cli-1)"
+        gh release create --draft -F - "${tag_name?}" <<EOF
+        ${description}
+        EOF
+        mv cli/nc-secrets-cli.tar.gz ./
+        for asset in secrets.tar.gz secrets.sha256 nc-secrets-cli.tar.gz
+        do
+          gh release upload "${tag_name?}" "${asset?}"
+        done
+
       working-directory: ./secrets
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

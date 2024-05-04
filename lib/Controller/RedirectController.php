@@ -18,8 +18,7 @@ class RedirectController extends Controller {
 	 * @return TemplateResponse<Http::STATUS_OK, string>
 	 * 200: Show secret share page
 	 */
-	public function share()
-	{
+	public function share(): TemplateResponse {
 		Util::addScript(Application::APP_ID, 'redirect');
 
 		return new TemplateResponse(Application::APP_ID, 'redirect', [], TemplateResponse::RENDER_AS_BASE);

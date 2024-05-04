@@ -17,7 +17,6 @@
 	"require-dev": {
 		"bamarni/composer-bin-plugin": "^1.8",
 		"nextcloud/ocp": "dev-master",
-		"vimeo/psalm": "^5.15",
 		"nextcloud/openapi-extractor": "dev-main"
 	},
 	"scripts": {
@@ -49,7 +48,7 @@
 			"bamarni/composer-bin-plugin": true
 		},
 		"platform": {
-			"php": "8.1"
+			"php": "8.2"
 		}
 	},
 	"extra": {
@@ -66,5 +65,6 @@
   "require": {
     "ext-openssl": "*",
 	  "ext-json": "*"
-  }
+  },
+	"minimum-stability": "stable"
 }
