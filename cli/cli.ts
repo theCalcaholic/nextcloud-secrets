@@ -1,9 +1,4 @@
 import console from 'node:console'
-import readline from 'node:readline'
-import CryptoLib from './crypto.import.js'
-import { Buffer } from 'node:buffer'
-import * as http from 'http'
-import * as fs from 'fs'
 import { InvalidArgumentError, program } from 'commander'
 import { createSecret, retrieveSecret } from './secrets.ts'
 import { CommandExecutionError } from './CommandExecutionError.ts'
@@ -26,15 +21,24 @@ program.command('create')
 	.option('-p, --protect <password>',
 		'Protect the secret share with the given password',
 		undefined)
+	.option('-t, --title <title>', 'Title of the secret')
 	.action(createSecret)
+program.command('retrieve')
+	.description('Retrieve a secret and print it to stdout')
+	.argument('<secret-url>', 'URL of the secret to be retrieved (either the secret share or ocs URL)')
+	.option('-d, --key <decryption-key>', 'Secret decryption key (only required if not part of <secret-url>)')
+	.option('-p, --password <password>', 'password in case the secret is password protected')
+	.action(retrieveSecret)
 
 try {
 	await program.parseAsync()
 } catch (e: unknown) {
 	if (e instanceof CommandExecutionError) {
 		console.error((e as CommandExecutionError).message)
+		process.exit(1)
 	} else if (e instanceof InvalidArgumentError) {
 		console.error(`${e}\n\n${program.usage()}`)
+		process.exit(2)
 	} else {
 		throw e
 	}

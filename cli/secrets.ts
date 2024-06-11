@@ -1,21 +1,18 @@
 import console from 'node:console'
-import readline from 'node:readline'
 import fs from 'fs'
 import { Buffer } from 'node:buffer'
 import { webcrypto } from 'node:crypto'
 import http, { RequestOptions } from 'http'
-import { generateOcsUrl, generateUrl } from '@nextcloud/router'
-import { sha } from 'bun'
 import CryptoLib from './crypto.import.js'
-import { InvalidArgumentError } from 'commander'
 import { CommandExecutionError } from './CommandExecutionError.ts'
 import { prompt } from './lib.ts'
 import process from "process";
+import * as url from "node:url";
 
 const btoa = (str: string) => Buffer.from(str, 'binary').toString('base64')
 const atob = (str: string) => Buffer.from(str, 'base64').toString('binary')
 
-const cryptolib = new CryptoLib(webcrypto, { atob, btoa }, true)
+const cryptolib = new CryptoLib(webcrypto, { atob, btoa }, false)
 
 /**
  * Parse global options
@@ -47,8 +44,6 @@ export async function createSecret(ncUrl: string, ncUser: string, secretFile: st
 	title: string | undefined,
 	insecure: boolean | undefined
 }) {
-	console.log([ncUrl, ncUser, secretFile].join(', '))
-	console.log(options)
 	handleGlobalOptions(options)
 
 	let ncPassword: string
@@ -133,9 +128,6 @@ export async function createSecret(ncUrl: string, ncUser: string, secretFile: st
 	const secret = resultData.ocs.data
 	const keyBuf = await webcrypto.subtle.exportKey('raw', privKey)
 	const keyBufB64 = cryptolib.arrayBufferToB64String(new Uint8Array(keyBuf))
-	// console.log(cryptolib.b64StringToArrayBuffer(keyBufB64))
-	//
-	// console.log(await cryptolib.importDecryptionKey(keyBufB64, iv))
 	console.log({
 		title: secret.title,
 		decryptionKey: keyBufB64,
@@ -149,40 +141,48 @@ export async function createSecret(ncUrl: string, ncUser: string, secretFile: st
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 /**
  *
- * @param fargs
+ * @param shareUrlStr
+ * @param options
+ * @param options.decryptionKey
+ * @param options.password
+ * @param options.insecure
  */
-export async function retrieveSecret(fargs: string[]) {
+export async function retrieveSecret(shareUrlStr: string, options: {
+	key: string | undefined,
+	password: string | undefined,
+	insecure: boolean | undefined
+}) {
+	handleGlobalOptions(options)
 
-	let sharePw: string
+	let ocs_pattern = new RegExp(`^/ocs/v\\d+\\.php/apps/secrets/api/v\\d+/share/(?<sId>.*)$`)
+	let sharePattern = new RegExp(`^/index\\.php/apps/secrets/(share|show)/(?<sId>.*)$`)
 
-	let shareUrl: URL
+	let shareUrl = new URL(shareUrlStr)
 
-	const posArgs = []
-	for (let i = 0; i < fargs.length; i++) {
-		if (fargs[i] === '-p' || fargs[i] === '--password') {
-			sharePw = fargs[++i]
-		} else if (fargs[i].startsWith('--password=')) {
-			sharePw = fargs[i].substring('--password='.length)
-		} else {
-			posArgs.push(fargs[i])
+	let secretId: string
+	const {sId} = ocs_pattern.exec(shareUrl.pathname)?.groups ?? {}
+	if (sId === undefined) {
+		const {sId} = sharePattern.exec(shareUrl.pathname)?.groups ?? {}
+		if (sId === undefined) {
+			throw new CommandExecutionError(`Failed to parse secretId from url`)
 		}
+		secretId = sId
+	} else {
+		secretId = sId
 	}
 
-	if (posArgs.length > 0) {
-		shareUrl = new URL(posArgs[0])
-	} else {
-		throw new InvalidArgumentError('ERROR: Missing parameter "nextcloud-url"')
+	const secretKey = options.key ?? shareUrl.hash.substring(1)
+	if (!secretKey || secretKey.length == 0) {
+		throw new CommandExecutionError(`Missing secret decryption key: (got '${secretKey}')`)
 	}
 
 	const baseUrl = `${shareUrl.protocol}//${shareUrl.host}${shareUrl.port ? `:${shareUrl.port}` : ''}`
-	let uuid = shareUrl.pathname
-	uuid = uuid.substring(uuid.lastIndexOf('/') + 1)
 
 	const postData = JSON.stringify({
-		uuid,
-		password: null,
+		uuid: secretId,
+		password: options.password || null,
 	})
-	const options: RequestOptions = {
+	const reqOptions: RequestOptions = {
 		method: 'POST',
 		headers: {
 			'OCS-APIRequest': 'true',
@@ -192,11 +192,9 @@ export async function retrieveSecret(fargs: string[]) {
 	}
 
 	const result = await new Promise<string>((resolve, reject) => {
-		console.log('request url: ' + `${baseUrl}/ocs/v2.php/apps/secrets/api/v1/share/${uuid}?format=json`,)
-
 		const req = http.request(
 			`${baseUrl}/ocs/v2.php/apps/secrets/api/v1/share?format=json`,
-			options,
+			reqOptions,
 			(response) => {
 				response.setEncoding('utf8')
 				const chunks: string[] = []
@@ -225,7 +223,7 @@ export async function retrieveSecret(fargs: string[]) {
 
 	const secret = resultData.ocs.data
 	const iv = cryptolib.b64StringToArrayBuffer(secret.iv)
-	const key = await cryptolib.importDecryptionKey(shareUrl.hash.substring(1), iv)
+	const key = await cryptolib.importDecryptionKey(secretKey, iv)
 
 	console.log(await cryptolib.decrypt(secret.encrypted, key, iv))
 

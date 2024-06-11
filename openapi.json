@@ -187,6 +187,54 @@
                 }
             }
         },
+        "/index.php/apps/secrets/share/{token}/authenticate/{redirect}": {
+            "get": {
+                "operationId": "secret_share-show-authenticate",
+                "summary": "Show the authentication page The form has to submit to the authenticate method route",
+                "tags": [
+                    "secret_share"
+                ],
+                "security": [
+                    {},
+                    {
+                        "bearer_auth": []
+                    },
+                    {
+                        "basic_auth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "redirect",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Show authentication page",
+                        "content": {
+                            "text/html": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/index.php/apps/secrets/show/{token}": {
             "get": {
                 "operationId": "redirect-share",
@@ -332,52 +380,46 @@
                         "basic_auth": []
                     }
                 ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "title",
+                                    "encrypted",
+                                    "iv"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "description": "The title of the secret (visible to the owner only)"
+                                    },
+                                    "encrypted": {
+                                        "type": "string",
+                                        "description": "The encrypted secret to store"
+                                    },
+                                    "iv": {
+                                        "type": "string",
+                                        "description": "The iv for the encrypted secret"
+                                    },
+                                    "expires": {
+                                        "type": "string",
+                                        "nullable": true,
+                                        "description": "(Optional) expiration date for the secret"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "nullable": true,
+                                        "description": "(Optional) password to protect the secret share"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
                 "parameters": [
-                    {
-                        "name": "title",
-                        "in": "query",
-                        "description": "The title of the secret (visible to the owner only)",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "encrypted",
-                        "in": "query",
-                        "description": "The encrypted secret to store",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "iv",
-                        "in": "query",
-                        "description": "The iv for the encrypted secret",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "expires",
-                        "in": "query",
-                        "description": "(Optional) expiration date for the secret",
-                        "schema": {
-                            "type": "string",
-                            "nullable": true
-                        }
-                    },
-                    {
-                        "name": "password",
-                        "in": "query",
-                        "description": "(Optional) password to protect the secret share",
-                        "schema": {
-                            "type": "string",
-                            "nullable": true
-                        }
-                    },
                     {
                         "name": "OCS-APIRequest",
                         "in": "header",
@@ -698,16 +740,26 @@
                         "basic_auth": []
                     }
                 ],
-                "parameters": [
-                    {
-                        "name": "title",
-                        "in": "query",
-                        "description": "The new title of the secret",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "title"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "description": "The new title of the secret"
+                                    }
+                                }
+                            }
                         }
-                    },
+                    }
+                },
+                "parameters": [
                     {
                         "name": "uuid",
                         "in": "path",
@@ -817,25 +869,31 @@
                         "basic_auth": []
                     }
                 ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "uuid"
+                                ],
+                                "properties": {
+                                    "uuid": {
+                                        "type": "string",
+                                        "description": "The uuid of the secret"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "nullable": true,
+                                        "description": "The password for the secret share"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
                 "parameters": [
-                    {
-                        "name": "uuid",
-                        "in": "query",
-                        "description": "The uuid of the secret",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "password",
-                        "in": "query",
-                        "description": "The password for the secret share",
-                        "schema": {
-                            "type": "string",
-                            "nullable": true
-                        }
-                    },
                     {
                         "name": "OCS-APIRequest",
                         "in": "header",

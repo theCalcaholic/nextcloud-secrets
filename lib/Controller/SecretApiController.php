@@ -103,7 +103,6 @@ class SecretApiController extends OCSController
 	 * 404: Secret not found for uuid
 	 * 401: Unauthorized
 	 *
-	 * TODO: Brute force protection
 	 */
 	 #[UserRateLimit(limit: 500, period: 60)]
 	 #[AnonRateLimit(limit: 120, period: 60)]
@@ -114,7 +113,7 @@ class SecretApiController extends OCSController
 
 		$pwHash = null;
 		if ($password) {
-			$pwHash = hash("sha256", $password . $uuid());
+			$pwHash = hash("sha256", $password . $uuid);
 		} elseif ($this->session->get('public_link_authenticated_token') === $uuid) {
 			$pwHash = $this->session->get('public_link_authenticated_password_hash');
 		}
