@@ -6,9 +6,14 @@
 set -e
 tmp_dir="$(mktemp -d)"
 trap 'rm -r "$tmp_dir"' EXIT
-
-wget -q -O "$tmp_dir/secrets.tar.gz" https://github.com/theCalcaholic/nextcloud-secrets/releases/latest/download/secrets.tar.gz
-wget -q -O "$tmp_dir/secrets.sha256" https://github.com/theCalcaholic/nextcloud-secrets/releases/latest/download/secrets.sha256
+if [[ -z "$1" ]]
+then
+  RELEASE_DOWNLOAD_URL="https://github.com/theCalcaholic/nextcloud-secrets/releases/latest/download"
+else
+  RELEASE_DOWNLOAD_URL="https://github.com/theCalcaholic/nextcloud-secrets/releases/download/${1}"
+fi
+wget -q -O "$tmp_dir/secrets.tar.gz" "${RELEASE_DOWNLOAD_URL}"/secrets.tar.gz
+wget -q -O "$tmp_dir/secrets.sha256" "${RELEASE_DOWNLOAD_URL}"/secrets.sha256
 echo "Release SHA256 sum:"
 cat "$tmp_dir/secrets.sha256"
 
