@@ -60,7 +60,7 @@ jobs:
         sha256sum secrets.tar.gz > secrets.sha256
         tag_name="${GITHUB_REF##*/}"
         description="$(git tag -n10 --format="%(contents)" test-release-with-cli-1)"
-        gh release create --draft -F - "${tag_name?}" <<EOF
+        gh release create --draft -t "${tag_name?}" -F - "${tag_name?}" <<EOF
         ${description}
         EOF
         mv cli/nc-secrets-cli.tar.gz ./
