@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
+SPDX-License-Identifier: CC0-1.0
+-->
+
 # nc-secrets
 
 To install dependencies:

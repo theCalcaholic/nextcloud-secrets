@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import console from 'node:console'
 import { InvalidArgumentError, program } from 'commander'
 import { createSecret, retrieveSecret } from './secrets.ts'

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import console from 'node:console'
 import fs from 'fs'
 import { Buffer } from 'node:buffer'

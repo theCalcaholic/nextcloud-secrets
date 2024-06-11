@@ -12,12 +12,12 @@ use PHPUnit\Framework\TestCase;
 
 use OCA\Secrets\Db\Secret;
 use OCA\Secrets\Db\SecretMapper;
-use OCA\Secrets\Controller\SecretController;
+use OCA\Secrets\Controller\SecretApiController;
 use OCA\Secrets\Service\SecretService;
 use OCP\AppFramework\Db\QBMapper;
 
 class SecretIntegrationTest extends TestCase {
-	private SecretController $controller;
+	private SecretApiController $controller;
 	private QBMapper $mapper;
 	private string $userId = 'john';
 
@@ -35,7 +35,7 @@ class SecretIntegrationTest extends TestCase {
 			return $this->createMock(IRequest::class);
 		});
 
-		$this->controller = $container->get(SecretController::class);
+		$this->controller = $container->get(SecretApiController::class);
 		$this->mapper = $container->get(SecretMapper::class);
 	}
 
