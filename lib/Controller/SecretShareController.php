@@ -13,10 +13,6 @@ use OCA\Secrets\Service\SecretNotFound;
 use OCA\Secrets\Service\SecretService;
 use OCP\AppFramework\AuthPublicShareController;
 use OCP\AppFramework\Http;
-use OCP\AppFramework\Http\Attribute\BruteForceProtection;
-use OCP\AppFramework\Http\Attribute\PublicPage;
-use OCP\AppFramework\Http\Attribute\UseSession;
-use OCP\AppFramework\Http\RedirectResponse;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IConfig;
 use OCP\IRequest;
@@ -34,7 +30,8 @@ class SecretShareController extends AuthPublicShareController {
 								ISession      $session,
 								SecretService $service,
 								IURLGenerator $urlGenerator,
-								IConfig $config) {
+								IConfig $config,
+                                ILogger              $logger) {
 		parent::__construct(Application::APP_ID, $request, $session, $urlGenerator);
 		$this->service = $service;
 		$this->debug = $config->getSystemValueBool("debug");
@@ -65,10 +62,12 @@ class SecretShareController extends AuthPublicShareController {
 	public function isValidToken(): bool {
 		try {
 			return $this->getSecret() !== null;
-		} catch (SecretNotFound|InvalidArgumentException $e) {
-			error_log($e->getMessage());
+		} catch (SecretNotFound) {
 			return false;
-		}
+		} catch (InvalidArgumentException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
 	}
 
 	/**
