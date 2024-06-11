@@ -91,6 +91,7 @@ class SecretShareController extends AuthPublicShareController {
 	 * The form has to submit to the authenticate method route
 	 *
 	 * @PublicPage
+     * @NoCSRFRequired
 	 *
 	 * @return TemplateResponse<Http::STATUS_OK, string>
 	 * 200: Show authentication page
