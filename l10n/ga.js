@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Share Link" : "Comhroinn Nasc",
     "Save" : "Sábháil",
+    "Copy to Clipboard" : "Cóipeáil chuig an nGearrthaisce",
     "Download" : "Íoslódáil",
     "This share is password-protected" : "Tá an sciar seo cosanta ag pasfhocal",
     "Password" : "Pasfhocal"
