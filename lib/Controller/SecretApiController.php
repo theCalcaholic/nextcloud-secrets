@@ -11,6 +11,7 @@ use OCA\Secrets\Service\NotificationService;
 use OCA\Secrets\Service\SecretNotFound;
 use OCA\Secrets\Service\SecretService;
 use OCA\Secrets\Service\UnauthorizedException;
+use OCP\App\IAppManager;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCSController;
@@ -33,6 +34,7 @@ class SecretApiController extends OCSController
 	private ?string $userId;
 	private ILogger $logger;
 	private ISession $session;
+	private string $appVersion;
 
 	use Errors;
 
@@ -42,6 +44,7 @@ class SecretApiController extends OCSController
 								NotificationService  $notificationService,
 								INotificationManager $notificationManager,
 								IURLGenerator        $urlGenerator,
+								IAppManager $appManager,
 								ILogger              $logger,
 								?string              $userId)
 	{
@@ -53,6 +56,7 @@ class SecretApiController extends OCSController
 		$this->urlGenerator = $urlGenerator;
 		$this->logger = $logger;
 		$this->session = $session;
+		$this->appVersion = $appManager->getAppInfo(Application::APP_ID)["version"];
 	}
 
 	/**
@@ -87,6 +91,22 @@ class SecretApiController extends OCSController
 		return $this->handleNotFound(function () use ($uuid) {
 			return $this->service->find($uuid, $this->userId);
 		});
+	}
+
+	/**
+	 * Return the secrets app/api version
+	 *
+	 * @PublicPage
+	 * @NoCSRFRequired
+	 *
+	 * @return DataResponse<Http::STATUS_OK, array{version: string}, array{}>
+	 * 200: Return application/api version
+	 *
+	 */
+	#[AnonRateLimit(limit: 120, period: 60)]
+	public function getVersion(): DataResponse
+	{
+		return new DataResponse(['version' => $this->appVersion], Http::STATUS_OK);
 	}
 
 	/**

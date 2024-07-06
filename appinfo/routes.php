@@ -58,5 +58,6 @@ return [
 			'verb' => 'POST',
 			'defaults' => ['password' => null]
 		],
+		['name' => 'secretApi#getVersion', 'url' => '/version', 'verb' => 'GET']
 	]
 ];

@@ -3,7 +3,7 @@
 
 import console from 'node:console'
 import { InvalidArgumentError, program } from 'commander'
-import { createSecret, retrieveSecret } from './secrets.ts'
+import {createSecret, retrieveSecret, showApiInfo} from './secrets.ts'
 import { CommandExecutionError } from './CommandExecutionError.ts'
 
 program
@@ -32,6 +32,10 @@ program.command('retrieve')
 	.option('-d, --key <decryption-key>', 'Secret decryption key (only required if not part of <secret-url>)')
 	.option('-p, --password <password>', 'password in case the secret is password protected')
 	.action(retrieveSecret)
+program.command('info')
+	.description('Get information about a Nextcloud Secrets API')
+	.argument('<secrets-url>', 'Address of the secrets API')
+	.action(showApiInfo)
 
 try {
 	await program.parseAsync()

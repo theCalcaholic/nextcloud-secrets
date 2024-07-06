@@ -48,6 +48,7 @@ export async function createSecret(ncUrl: string, ncUser: string, secretFile: st
 	insecure: boolean | undefined
 }) {
 	handleGlobalOptions(options)
+	await getApiInfo(ncUrl)
 
 	let ncPassword: string
 	let plaintext: string
@@ -181,6 +182,8 @@ export async function retrieveSecret(shareUrlStr: string, options: {
 
 	const baseUrl = `${shareUrl.protocol}//${shareUrl.host}${shareUrl.port ? `:${shareUrl.port}` : ''}`
 
+	await getApiInfo(baseUrl)
+
 	const postData = JSON.stringify({
 		uuid: secretId,
 		password: options.password || null,
@@ -230,4 +233,63 @@ export async function retrieveSecret(shareUrlStr: string, options: {
 
 	console.log(await cryptolib.decrypt(secret.encrypted, key, iv))
 
+}
+
+/**
+ * @param ncUrl
+ */
+async function getApiInfo(ncUrl: string): Promise<string> {
+
+	const result = await new Promise<string>((resolve, reject) => {
+		const req = http.request(`${ncUrl}/ocs/v2.php/apps/secrets/version?format=json`,
+			{
+				method: 'GET',
+				headers: {
+					'OCS-APIRequest': 'true',
+					'Content-Type': 'application/json',
+					'Content-Length': 0,
+				},
+			},
+			(response) => {
+				response.setEncoding('utf8')
+				const chunks: string[] = []
+				response.on('data', (chunk) => {
+					chunks.push(chunk)
+				})
+				response.on('end', () => {
+					resolve(chunks.join(''))
+				})
+			})
+		req.on('error', (e) => {
+			console.error(e.message)
+			reject(e)
+		})
+		req.end()
+	})
+
+	let resultData: string
+	try {
+		resultData = JSON.parse(result)
+	} catch (e) {
+		throw new CommandExecutionError(`Failed to retrieve secrets API information. Is Nextcloud Secrets installed and has version >= 2? (error was: ${e})`)
+	}
+	if (resultData.ocs.meta.status !== 'ok') {
+		throw new CommandExecutionError(resultData?.ocs?.meta?.message + '\n' + resultData?.ocs?.data?.message)
+	}
+
+	return resultData.ocs.data.version
+}
+
+/**
+ *
+ * @param ncUrl
+ * @param options
+ * @param options.insecure
+ */
+export async function showApiInfo(ncUrl: string, options: {silent: boolean | undefined, insecure: boolean | undefined}) {
+	handleGlobalOptions(options)
+	const version = await getApiInfo(ncUrl)
+	if (!options.silent) {
+		console.log(`Secrets API version ${version}`)
+	}
 }
