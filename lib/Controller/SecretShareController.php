@@ -16,6 +16,7 @@ use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IConfig;
 use OCP\IRequest;
+use OCP\ILogger;
 
 use OCP\ISession;
 use OCP\IURLGenerator;

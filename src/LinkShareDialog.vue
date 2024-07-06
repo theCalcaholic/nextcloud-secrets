@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
+import {NcActionButton} from '@nextcloud/vue'
 import { showError } from '@nextcloud/dialogs'
 export default {
 	name: 'LinkShareDialog',

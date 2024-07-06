@@ -5,15 +5,15 @@
 	-->
 	<div class="secret-container">
 		<div>
-			<NoteCard v-if="success" type="success">
+			<NcNoteCard v-if="success" type="success">
 				<p>{{ success }}</p>
-			</NoteCard>
-			<NoteCard v-if="warning" type="warning">
+			</NcNoteCard>
+			<NcNoteCard v-if="warning" type="warning">
 				<p>{{ warning }}</p>
-			</NoteCard>
-			<NoteCard v-if="daysToDeletion <= 7" type="warning">
+			</NcNoteCard>
+			<NcNoteCard v-if="daysToDeletion <= 7" type="warning">
 				<p>{{ n('secrets', 'Will be deleted in %n day', 'Will be deleted in %n days', daysToDeletion) }}</p>
-			</NoteCard>
+			</NcNoteCard>
 			<p v-if="value.encrypted" class="expires-container">
 				<label for="expires">{{ t('secrets', 'Expires on:') }}</label>
 				<input v-if="value.expires"
@@ -27,9 +27,9 @@
 					disabled="disabled"
 					value="never">
 			</p>
-			<CheckboxRadioSwitch :checked="value.pwHash !== null" :disabled="true">
+			<NcCheckboxRadioSwitch :checked="value.pwHash !== null" :disabled="true">
 				{{ t('secrets', 'password protected') }}
-			</CheckboxRadioSwitch>
+			</NcCheckboxRadioSwitch>
 			<p v-if="url" class="url-container">
 				<label for="url">{{ t('secrets', 'Share Link:') }}</label>
 				<input type="text"
@@ -38,11 +38,11 @@
 					:value="url"
 					:size="url.length"
 					class="url-field">
-				<Actions class="secret-actions">
-					<ActionButton :icon="copyButtonIcon"
+				<NcActions class="secret-actions">
+					<NcActionButton :icon="copyButtonIcon"
 						:aria-label="t('secrets', 'Copy Secret Link')"
 						@click="copyToClipboard(url)" />
-				</Actions>
+				</NcActions>
 			</p>
 		</div>
 		<textarea v-if="value._decrypted"
@@ -61,10 +61,7 @@
 </template>
 
 <script>
-import ActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
-import Actions from '@nextcloud/vue/dist/Components/NcActions.js'
-import NoteCard from '@nextcloud/vue/dist/Components/NcNoteCard.js'
-import CheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
+import { NcActionButton, NcActions, NcNoteCard, NcCheckboxRadioSwitch } from '@nextcloud/vue'
 
 import '@nextcloud/dialogs/styles/toast.scss'
 import { generateUrl } from '@nextcloud/router'
@@ -73,10 +70,10 @@ import { showError } from '@nextcloud/dialogs'
 export default {
 	name: 'Secret',
 	components: {
-		ActionButton,
-		Actions,
-		CheckboxRadioSwitch,
-		NoteCard,
+		NcActionButton,
+		NcActions,
+		NcCheckboxRadioSwitch,
+		NcNoteCard,
 	},
 	props: {
 		value: {
