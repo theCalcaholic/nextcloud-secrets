@@ -34,6 +34,8 @@
     "Retrieving secret..." : "Rún á aisghabháil...",
     "Error loading secret. Is your link correct?" : "Earráid agus an rún á lódáil. An bhfuil do nasc ceart?",
     "Reveal the secret and delete it on the server" : "Nocht an rún agus scrios ar an bhfreastalaí",
+    "Reveal Secret" : "Nocht Rún",
+    "Revealing will delete the secret from the server" : "Má nochtfar, scriosfar an rún ón bhfreastalaí",
     "Could not decrypt secret" : "Níorbh fhéidir an rún a dhíchriptiú",
     "This share is password-protected" : "Tá an sciar seo cosanta ag pasfhocal",
     "The password is wrong or has expired. Please try again." : "Tá an pasfhocal mícheart nó imithe in éag. Arís, le do thoil.",
