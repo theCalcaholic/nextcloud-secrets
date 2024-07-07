@@ -36,8 +36,6 @@ OC.L10N.register(
     "Retrieving secret..." : "Titok lekérése…",
     "Error loading secret. Is your link correct?" : "Hiba a titok betöltésekor. A hivatkozás helyes?",
     "Reveal the secret and delete it on the server" : "A titok felfedése, és törlése a kiszolgálóról",
-    "Reveal Secret" : "Titok felfedése",
-    "Revealing will delete the secret from the server" : "A felfedése törli a titkot a kiszolgálóról",
     "Could not decrypt secret" : "Nem sikerült dekódolni a titkot",
     "This share is password-protected" : "Ez a megosztás jelszóval védett",
     "The password is wrong or has expired. Please try again." : "A jelszó hibás vagy lejárt. Próbálja újra.",

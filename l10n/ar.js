@@ -36,8 +36,6 @@ OC.L10N.register(
     "Retrieving secret..." : "جاري استرداد السر ...",
     "Error loading secret. Is your link correct?" : "خطأ في تحميل السر. هل الرابط الخاص بك صحيح؟",
     "Reveal the secret and delete it on the server" : "كشف السر وحذفه من على الخادم",
-    "Reveal Secret" : "كشف السر",
-    "Revealing will delete the secret from the server" : "الكشف سوف يؤدي إلي حذف السر من الخادوم",
     "Could not decrypt secret" : "لا يمكن فك تشفير السر",
     "This share is password-protected" : "هذه المشاركة محمية بكلمة مرور",
     "The password is wrong or has expired. Please try again." : "كلمة المرور خاطئة أو منتهية الصلاحية. حاول مرة اخرى.",

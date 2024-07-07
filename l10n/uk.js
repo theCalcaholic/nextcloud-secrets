@@ -36,8 +36,6 @@ OC.L10N.register(
     "Retrieving secret..." : "Отримання секретного повідомлення...",
     "Error loading secret. Is your link correct?" : "Помилка із завантаженням секретного повідомлення. Чи посилання правильне?",
     "Reveal the secret and delete it on the server" : "Розкрити секретне повідомлення та вилучити його із сервера хмари",
-    "Reveal Secret" : "Розкрити секретне повідомлення",
-    "Revealing will delete the secret from the server" : "Розкриття секретного повідомлення призведе до його вилучення із сервера хмари",
     "Could not decrypt secret" : "Не вдалося розшифрувати секретне повідомлення",
     "This share is password-protected" : "Цей спільний ресурс захищено паролем",
     "The password is wrong or has expired. Please try again." : "Пароль неправильний або термін його дії сплив. Спробуйте ще раз.",

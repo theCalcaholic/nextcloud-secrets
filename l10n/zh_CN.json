@@ -34,8 +34,6 @@
     "Retrieving secret..." : "正在读取密信……",
     "Error loading secret. Is your link correct?" : "加载密信时发生错误。您的链接是正确的吗？",
     "Reveal the secret and delete it on the server" : "显示密信并在服务器上删除它",
-    "Reveal Secret" : "显示密信",
-    "Revealing will delete the secret from the server" : "显示密信将会从服务器删除它",
     "Could not decrypt secret" : "无法解密密信",
     "This share is password-protected" : "该分享受密码保护",
     "The password is wrong or has expired. Please try again." : "密码错误或已过期。请重试。",

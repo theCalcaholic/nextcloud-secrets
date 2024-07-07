@@ -36,8 +36,6 @@ OC.L10N.register(
     "Retrieving secret..." : "Преузимање тајне...",
     "Error loading secret. Is your link correct?" : "Грешка приликом учитавања тајне. Да ли је ваш линк исправан?",
     "Reveal the secret and delete it on the server" : "Откриј тајну и обриши је са сервера",
-    "Reveal Secret" : "Откриј тајну",
-    "Revealing will delete the secret from the server" : "Откривање тајне ће је обрисати са сервера",
     "Could not decrypt secret" : "Тајна не може да се дешифрује",
     "This share is password-protected" : "Ово дељење је заштићено лозинком",
     "The password is wrong or has expired. Please try again." : "Лозинка није тачна или је истекла. Молимо вас да покушате поново.",

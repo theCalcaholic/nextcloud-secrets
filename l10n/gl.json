@@ -34,8 +34,6 @@
     "Retrieving secret..." : "Recuperando o segredo...",
     "Error loading secret. Is your link correct?" : "Produciuse un erro ao cargar o segredo. É correcta a súa ligazón?",
     "Reveal the secret and delete it on the server" : "Revelar o segredo e elimínalo no servidor",
-    "Reveal Secret" : "Revelar o segredo",
-    "Revealing will delete the secret from the server" : "Ao revelar, eliminarase o segredo do servidor",
     "Could not decrypt secret" : "Non foi posíbel descifrar o segredo",
     "This share is password-protected" : "Esta compartición está protexida con contrasinal ",
     "The password is wrong or has expired. Please try again." : "O contrasinal é erróneo ou caducou. Por favor tenteo de novo.",

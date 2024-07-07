@@ -36,8 +36,6 @@ OC.L10N.register(
     "Retrieving secret..." : "正在擷取祕密……",
     "Error loading secret. Is your link correct?" : "載入祕密時發生錯誤。您的連結正確嗎？",
     "Reveal the secret and delete it on the server" : "顯示祕密並在伺服器上刪除",
-    "Reveal Secret" : "顯示祕密",
-    "Revealing will delete the secret from the server" : "顯示祕密將會從伺服器刪除它",
     "Could not decrypt secret" : "無法解密祕密",
     "This share is password-protected" : "此分享受密碼保護",
     "The password is wrong or has expired. Please try again." : "密碼錯誤或過期。請重試。",

@@ -34,8 +34,6 @@
     "Retrieving secret..." : "正在擷取密鑰 ...",
     "Error loading secret. Is your link correct?" : "加載密鑰時出錯。你的連結正確嗎？",
     "Reveal the secret and delete it on the server" : "揭示密鑰並在伺服器上將其刪除",
-    "Reveal Secret" : "揭示密鑰",
-    "Revealing will delete the secret from the server" : "揭示將從伺服器中刪除秘密",
     "Could not decrypt secret" : "無法解密密鑰",
     "This share is password-protected" : "此分享受密碼保護",
     "The password is wrong or has expired. Please try again." : "密碼錯誤或過期。請重試。",

@@ -36,8 +36,6 @@ OC.L10N.register(
     "Retrieving secret..." : "Rufe Geheimnis ab...",
     "Error loading secret. Is your link correct?" : "Laden des Geheimnisses fehlgeschlagen. Ist dein Link richtig?",
     "Reveal the secret and delete it on the server" : "Das Geheimnis aufdecken und auf dem Server löschen",
-    "Reveal Secret" : "Geheimnis aufdecken",
-    "Revealing will delete the secret from the server" : "Durch das Aufdecken wird das Geheimnis vom Server gelöscht.",
     "Could not decrypt secret" : "Geheimnis konnte nicht entschlüsselt werden",
     "This share is password-protected" : "Diese Freigabe ist passwortgeschützt",
     "The password is wrong or has expired. Please try again." : "Das Passwort ist falsch oder abgelaufen. Bitte noch einmal versuchen.",
