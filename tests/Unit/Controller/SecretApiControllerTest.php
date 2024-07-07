@@ -7,6 +7,7 @@ declare(strict_types=1);
 namespace OCA\Secrets\Tests\Unit\Controller;
 
 use OCA\Secrets\Service\NotificationService;
+use OCP\App\IAppManager;
 use OCP\ILogger;
 use OCP\ISession;
 use OCP\IURLGenerator;
@@ -38,6 +39,8 @@ class SecretApiControllerTest extends TestCase {
     protected $urlGenerator;
     /** @var ILogger|MockObject */
 	protected $logger;
+    /** @var IAppManager|MockObject */
+    protected $appManager;
 
 	public function setUp(): void {
 		$this->request = $this->getMockBuilder(IRequest::class)->getMock();
@@ -51,10 +54,12 @@ class SecretApiControllerTest extends TestCase {
         $this->urlGenerator = $this->getMockBuilder(IURLGenerator::class)->getMock();
         $this->notificationManager = $this->getMockBuilder(INotificationManager::class)->getMock();
         $this->logger = $this->getMockBuilder(ILogger::class)->getMock();
+        $this->appManager = $this->getMockBuilder(IAppManager::class)
+            ->getMock();
 
 
 		$this->controller = new SecretApiController($this->request, $this->service, $this->session,
-            $this->notificationService, $this->notificationManager, $this->urlGenerator, $this->logger, $this->userId);
+            $this->notificationService, $this->notificationManager, $this->urlGenerator, $this->appManager, $this->logger, $this->userId);
 	}
 
 	public function testUpdateWithSuccess(): void {
