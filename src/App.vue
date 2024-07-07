@@ -4,17 +4,17 @@
     SPDX-License-Identifier: AGPL-3.0-or-later
     -->
 	<div id="content-wrapper">
-		<AppNavigation>
+		<NcAppNavigation>
 			<template #list>
-				<AppNavigationNew v-if="!loading"
+				<NcAppNavigationNew v-if="!loading"
 					:text="t('secrets', 'New secret')"
 					:disabled="false"
 					button-id="new-secrets-button"
 					button-class="icon-add"
 					@click="newSecret" />
-				<AppNavigationItem v-for="secret in secrets"
+				<NcAppNavigationItem v-for="secret in secrets"
 					:key="secret.uuid"
-					:title="secret.title"
+					:name="secret.title"
 					:class="{
 						active: currentSecretUUId === secret.uuid,
 						invalidated: secret.encrypted === null
@@ -22,26 +22,26 @@
 					:editable="true"
 					:edit-label="t('secrets', 'Change Title')"
 					:icon="secret.uuid === '' ? 'icon-template-add' : (secret.encrypted === null ? 'icon-toggle' : 'icon-password')"
-					@update:title="(title) => updateSecretTitle(secret, title)"
+					@update:name="(name) => updateSecretTitle(secret, name)"
 					@click="openSecret(secret)">
 					<template slot="actions">
-						<ActionButton v-if="secret.uuid === ''"
+						<NcActionButton v-if="secret.uuid === ''"
 							icon="icon-close"
 							@click="cancelNewSecret(secret)">
 							{{
 								t('secrets', 'Cancel secret creation') }}
-						</ActionButton>
-						<ActionButton v-else
+						</NcActionButton>
+						<NcActionButton v-else
 							icon="icon-delete"
 							@click="deleteSecret(secret)">
 							{{
 								t('secrets', 'Delete secret') }}
-						</ActionButton>
+						</NcActionButton>
 					</template>
-				</AppNavigationItem>
+				</NcAppNavigationItem>
 			</template>
-		</AppNavigation>
-		<AppContent>
+		</NcAppNavigation>
+		<NcAppContent>
 			<SecretEditor v-if="currentSecret && currentSecretUUId === ''"
 				v-model="currentSecret"
 				:locked="locked"
@@ -56,16 +56,12 @@
 				<div class="icon-file" />
 				<h2>{{ t('secrets', 'Create a secret to get started') }}</h2>
 			</div>
-		</AppContent>
+		</NcAppContent>
 	</div>
 </template>
 
 <script>
-import ActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
-import AppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
-import AppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation.js'
-import AppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js'
-import AppNavigationNew from '@nextcloud/vue/dist/Components/NcAppNavigationNew.js'
+import { NcActionButton, NcAppContent, NcAppNavigation, NcAppNavigationItem, NcAppNavigationNew } from '@nextcloud/vue'
 import Secret from './Secret.vue'
 import SecretEditor from './SecretEditor.vue'
 
@@ -77,11 +73,11 @@ import axios from '@nextcloud/axios'
 export default {
 	name: 'App',
 	components: {
-		ActionButton,
-		AppContent,
-		AppNavigation,
-		AppNavigationItem,
-		AppNavigationNew,
+		NcActionButton,
+		NcAppContent,
+		NcAppNavigation,
+		NcAppNavigationItem,
+		NcAppNavigationNew,
 		Secret,
 		SecretEditor,
 	},
