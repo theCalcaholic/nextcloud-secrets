@@ -5,15 +5,44 @@ SPDX-License-Identifier: CC0-1.0
 
 # Secrets
 
+*Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully*
+
 ![screenshot](./screenshots/share_link.png)
 
-Place this app in **nextcloud/apps/**
+Get it from the [Nextcloud app store](https://apps.nextcloud.com/apps/secrets)
 
-## Building the app
+## Cli
+
+Secrets offers a command line tool that allows the creation and retrieval (not implemented yet) of secrets without a web browser.
+It's available from the [github releases](https://github.com/thecalcaholic/nextcloud-secrets/releases).
+
+### Usage
+
+```sh
+Usage: nc-secrets [options] [command]
+
+cli for https://apps.nextcloud.com/apps/secrets
+
+Options:
+  -k, --insecure                                         Disable SSL certificate validation (FOR TESTING ONLY)
+  -h, --help                                             display help for command
+
+Commands:
+  create [options] <nextcloud-url> <user> <secret-file>  Create a new secret
+  help [command]                                         display help for command
+```
+
+More details [here](./cli/README.md).
+
+## Development
+
+### Building the app
 
 The app can be built by using the provided Makefile by running:
 
-    make
+```sh
+make
+```
 
 This requires the following things to be present:
 * make
@@ -22,17 +51,7 @@ This requires the following things to be present:
 * curl: used if phpunit and composer are not installed to fetch them from the web
 * npm: for building and testing everything JS, only required if a package.json is placed inside the **js/** folder
 
-The make command will install or update Composer dependencies if a composer.json is present and also **npm run build** if a package.json is present in the **js/** folder. The npm **build** script should use local paths for build systems and package managers, so people that simply want to build the app won't need to install npm libraries globally, e.g.:
-
-**package.json**:
-```json
-"scripts": {
-    "test": "node node_modules/gulp-cli/bin/gulp.js karma",
-    "prebuild": "npm install && node_modules/bower/bin/bower install && node_modules/bower/bin/bower update",
-    "build": "node node_modules/gulp-cli/bin/gulp.js"
-}
-```
-
+The make command will install or update Composer dependencies and also **npm run build**.
 
 ## Publish to App Store
 
@@ -58,3 +77,14 @@ or:
     phpunit -c phpunit.integration.xml
 
 for integration tests
+
+## Generating OpenAPI specification
+
+This command will generate a file namd openapi.json which contains the documentation for the app's API endpoints. 
+
+```sh
+compose exec generate-spec
+```
+
+This command is not included in make, due to [this bug with Nextcloud's openapi-extractor](https://github.com/nextcloud/openapi-extractor/issues/28)
+and therefore needs to be run manually before release.

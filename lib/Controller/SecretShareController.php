@@ -12,9 +12,11 @@ use OCA\Secrets\Db\Secret;
 use OCA\Secrets\Service\SecretNotFound;
 use OCA\Secrets\Service\SecretService;
 use OCP\AppFramework\AuthPublicShareController;
+use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IConfig;
 use OCP\IRequest;
+use OCP\ILogger;
 
 use OCP\ISession;
 use OCP\IURLGenerator;
@@ -29,7 +31,8 @@ class SecretShareController extends AuthPublicShareController {
 								ISession      $session,
 								SecretService $service,
 								IURLGenerator $urlGenerator,
-								IConfig $config) {
+								IConfig $config,
+                                ILogger              $logger) {
 		parent::__construct(Application::APP_ID, $request, $session, $urlGenerator);
 		$this->service = $service;
 		$this->debug = $config->getSystemValueBool("debug");
@@ -60,10 +63,12 @@ class SecretShareController extends AuthPublicShareController {
 	public function isValidToken(): bool {
 		try {
 			return $this->getSecret() !== null;
-		} catch (SecretNotFound|InvalidArgumentException $e) {
-			error_log($e->getMessage());
+		} catch (SecretNotFound) {
 			return false;
-		}
+		} catch (InvalidArgumentException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
 	}
 
 	/**
@@ -82,11 +87,14 @@ class SecretShareController extends AuthPublicShareController {
 	}
 
 	/**
-	 * @PublicPage
-	 * @NoCSRFRequired
-	 *
 	 * Show the authentication page
 	 * The form has to submit to the authenticate method route
+	 *
+	 * @PublicPage
+     * @NoCSRFRequired
+	 *
+	 * @return TemplateResponse<Http::STATUS_OK, string>
+	 * 200: Show authentication page
 	 *
 	 * @since 14.0.0
 	 */
@@ -99,37 +107,42 @@ class SecretShareController extends AuthPublicShareController {
 	/**
 	 * The template to show when authentication failed
 	 *
+	 * @return TemplateResponse<Http::STATUS_OK, string>
+	 * 200: Show authentication failure page
+	 *
 	 * @since 14.0.0
+	 *
 	 */
 	protected function showAuthFailed(): TemplateResponse {
-		error_log("showAuthFailed");
 		return new TemplateResponse('secrets', 'publicshareauth', ['wrongpw' => true, 'debug' => $this->debug], 'guest');
 	}
 
 	/**
 	 * The template to show after user identification
 	 *
+	 * @return TemplateResponse<Http::STATUS_OK, string>
+	 * 200: Show user identification success page
+	 *
 	 * @since 24.0.0
 	 */
 	protected function showIdentificationResult(bool $success): TemplateResponse {
-		error_log("showIdentificationResult");
 		return new TemplateResponse('secrets', 'publicshareauth', ['identityOk' => $success, 'debug' => $this->debug], 'guest');
 	}
 
 	/**
+	 * Show shared secret page
+	 *
 	 * @PublicPage
 	 * @NoCSRFRequired
 	 *
-	 * @throws SecretNotFound
+	 * @return TemplateResponse<Http::STATUS_OK, string>
+	 * 200: Show secret share page
 	 */
 	public function showShare(): TemplateResponse {
 		Util::addScript(Application::APP_ID, 'secrets-public');
 
 		$resp = new TemplateResponse(Application::APP_ID, 'public', ['debug' => $this->debug], TemplateResponse::RENDER_AS_BASE);
-		//array("encrypted" => $this->getSecret()->getEncrypted(), "iv" => $this->getSecret()->getIv()));
-
-		error_log("pw hash: " . $this->getSecret()->getPwHash());
-		//$this->service->invalidate($this->getSecret()->getUuid());
 		return $resp;
 	}
+
 }

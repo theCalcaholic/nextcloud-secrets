@@ -8,9 +8,16 @@
 			"name": "Tobias Knöppler"
 		}
 	],
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/nextcloud/openapi-extractor"
+		}
+	],
 	"require-dev": {
 		"bamarni/composer-bin-plugin": "^1.8",
-		"nextcloud/ocp": "dev-master"
+		"nextcloud/ocp": "dev-master",
+		"nextcloud/openapi-extractor": "dev-main"
 	},
 	"scripts": {
 		"bin": "echo 'bin not installed'",
@@ -41,7 +48,7 @@
 			"bamarni/composer-bin-plugin": true
 		},
 		"platform": {
-			"php": "8.0"
+			"php": "8.2"
 		}
 	},
 	"extra": {
@@ -58,5 +65,6 @@
   "require": {
     "ext-openssl": "*",
 	  "ext-json": "*"
-  }
+  },
+	"minimum-stability": "stable"
 }

@@ -3,7 +3,7 @@ Upstream-Name: Secrets
 Upstream-Contact: Tobias Knöppler <thecalcaholic@web.de>
 Source: https://github.com/nextcloud/profiler
 
-Files: package-lock.json package.json composer.json composer.lock
+Files: package-lock.json package.json composer.json composer.lock cli/package.json cli/package-lock.json cli/tsconfig.json cli/bunfig.toml
 Copyright: Tobias Knöppler <thecalcaholic@web.de>
 License: GPL-3.0-or-later
 
@@ -11,6 +11,6 @@ Files: vendor-bin/*/composer.json vendor-bin/*/composer.lock
 Copyright: Vitor Mattos <vitor@php.rio>
 License: GPL-3.0-or-later
 
-Files: l10n/*.js l10n/*.json
+Files: l10n/*.js l10n/*.json openapi.json
 Copyright: Nextcloud translators <https://www.transifex.com/nextcloud/>
 License: AGPL-3.0-or-later

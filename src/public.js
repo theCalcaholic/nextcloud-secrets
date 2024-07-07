@@ -4,15 +4,18 @@
  */
 
 import { generateFilePath } from '@nextcloud/router'
+import {Crypto} from '@peculiar/webcrypto'
 
 import CryptoLib from './crypto.js'
 import Vue from 'vue'
 import Share from './Share.vue'
+
+const crypto = new Crypto()
 const debug = document.getElementById("secret-root").getAttribute("data-debugsecrets") === "true"
 Object.defineProperty(Vue.prototype, '$debugsecrets', {
 	value: debug
 })
-Object.defineProperty(Vue.prototype, '$cryptolib', { value: new CryptoLib(window.crypto, debug) })
+Object.defineProperty(Vue.prototype, '$cryptolib', { value: new CryptoLib(crypto, window, debug) })
 
 // eslint-disable-next-line
 __webpack_public_path__ = generateFilePath(appName, '', 'js/')

@@ -1,0 +1,22 @@
+{
+  "name": "nc-secrets",
+  "author": "Tobias Knöppler <thecalcaholic@web.de>",
+  "module": "cli.ts",
+  "type": "module",
+  "license": "agpl",
+  "dependencies": {
+    "@nextcloud/axios": "^1.11.0",
+    "@nextcloud/router": "^2.2.1",
+    "commander": "^11.1.0"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.2.2"
+  },
+  "engines": {
+    "node": "^16.0.0",
+    "npm": "^7.0.0 || ^8.0.0"
+  }
+}

@@ -12,12 +12,12 @@ use PHPUnit\Framework\TestCase;
 
 use OCA\Secrets\Db\Secret;
 use OCA\Secrets\Db\SecretMapper;
-use OCA\Secrets\Controller\SecretController;
+use OCA\Secrets\Controller\SecretApiController;
 use OCA\Secrets\Service\SecretService;
 use OCP\AppFramework\Db\QBMapper;
 
-class NoteIntegrationTest extends TestCase {
-	private SecretController $controller;
+class SecretIntegrationTest extends TestCase {
+	private SecretApiController $controller;
 	private QBMapper $mapper;
 	private string $userId = 'john';
 
@@ -35,26 +35,26 @@ class NoteIntegrationTest extends TestCase {
 			return $this->createMock(IRequest::class);
 		});
 
-		$this->controller = $container->get(SecretController::class);
+		$this->controller = $container->get(SecretApiController::class);
 		$this->mapper = $container->get(SecretMapper::class);
 	}
 
 	public function testUpdate(): void {
 		$uuid = SecretService::getRandomUuid();
 		// create a new note that should be updated
-		$note = new Secret();
-		$note->setTitle('old_title');
-		$note->setUuid($uuid);
-		$note->setUserId($this->userId);
+		$secret = new Secret();
+		$secret->setTitle('old_title');
+		$secret->setUuid($uuid);
+		$secret->setUserId($this->userId);
 
-		$newNote = $this->mapper->insert($note);
+		$newSecret = $this->mapper->insert($secret);
 
 		// fromRow does not set the fields as updated
-		$updatedNote = Secret::fromRow([
+		$updatedSecret = Secret::fromRow([
 			'uuid' => $uuid,
 			'user_id' => $this->userId
 		]);
-		$updatedNote->setTitle('title');
+		$updatedSecret->setTitle('title');
 
 		$result = $this->controller->updateTitle($uuid, 'title');
 

@@ -6,13 +6,13 @@
 	<div class="secret-container">
 		<p>
 			<label for="expires">{{ t('secrets', 'Expires on:') }}</label>
-			<DatetimePicker v-model="value.expires"
+			<NcDateTimePicker v-model="value.expires"
 				name="expires"
 				:clearable="false"
 				type="date"
 				:placeholder="t('secrets', 'Expiration Date')" />
 		</p>
-		<PasswordField :label="t('secrets', 'share password (optional)')"
+		<NcPasswordField :label="t('secrets', 'share password (optional)')"
 		    :value="value.password"
 			:value.sync="value.password"
 			:minlength="4"
@@ -27,16 +27,15 @@
 </template>
 
 <script>
-import DatetimePicker from '@nextcloud/vue/dist/Components/NcDatetimePicker.js'
-import PasswordField from '@nextcloud/vue/dist/Components/NcPasswordField.js'
+import {NcDateTimePicker, NcPasswordField} from '@nextcloud/vue'
 
 import '@nextcloud/dialogs/styles/toast.scss'
 
 export default {
 	name: 'SecretEditor',
 	components: {
-		DatetimePicker,
-		PasswordField,
+		NcDateTimePicker,
+		NcPasswordField,
 	},
 	props: {
 		locked: {
@@ -52,7 +51,7 @@ export default {
 			default: () => ({
 				expires: new Date(),
 				password: '',
-				_decrypted: ''
+				_decrypted: '',
 			}),
 		},
 	},

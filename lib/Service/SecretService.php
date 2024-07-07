@@ -47,11 +47,6 @@ class SecretService {
 	public function find(string $uuid, string $userId): Secret {
 		try {
 			return $this->mapper->find($uuid, $userId);
-
-			// in order to be able to plug in different storage backends like files
-			// for instance it is a good idea to turn storage related exceptions
-			// into service related exceptions so controllers and service users
-			// have to deal with only one type of exception
 		} catch (Exception $e) {
 			$this->handleException($e);
 		}
@@ -144,5 +139,28 @@ class SecretService {
 		} catch (Exception $e) {
 			$this->handleException($e);
 		}
+	}
+
+	/**
+	 * @param string $uuid
+	 * @param string|null $password
+	 *
+	 * @return Secret
+	 * @throws SecretNotFound
+	 * @throws UnauthorizedException
+	 */
+	public function retrieveAndInvalidateSecret(string $uuid, ?string $pwHash): Secret {
+		$secret = $this->findPublic($uuid);
+		if ($secret->getEncrypted() === null) {
+			throw new SecretNotFound();
+		}
+
+		if ($secret->getPwHash() !== null && $secret->getPwHash() !== $pwHash) {
+			throw new UnauthorizedException();
+		}
+		$uuid = $secret->getUuid();
+		$this->invalidate($uuid);
+
+		return $secret;
 	}
 }

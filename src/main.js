@@ -12,7 +12,7 @@ const debug = document.getElementById("secret-root").getAttribute("data-debugsec
 Object.defineProperty(Vue.prototype, '$debugsecrets', {
 	value: debug
 })
-Object.defineProperty(Vue.prototype, '$cryptolib', { value: new CryptoLib(window.crypto, debug) })
+Object.defineProperty(Vue.prototype, '$cryptolib', { value: new CryptoLib(window.crypto, window, debug) })
 
 // eslint-disable-next-line
 __webpack_public_path__ = generateFilePath(appName, '', 'js/')

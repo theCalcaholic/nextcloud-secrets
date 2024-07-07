@@ -70,7 +70,7 @@ import Secret from './Secret.vue'
 import SecretEditor from './SecretEditor.vue'
 
 import '@nextcloud/dialogs/styles/toast.scss'
-import { generateUrl } from '@nextcloud/router'
+import { generateOcsUrl } from '@nextcloud/router'
 import { showError, showSuccess } from '@nextcloud/dialogs'
 import axios from '@nextcloud/axios'
 
@@ -135,8 +135,8 @@ export default {
 	 */
 	async mounted() {
 		try {
-			const response = await axios.get(generateUrl('/apps/secrets/secrets'))
-			this.secrets = response.data.map(secret => {
+			const response = await axios.get(generateOcsUrl('/apps/secrets/api/v1/secrets'))
+			this.secrets = response.data.ocs.data.map(secret => {
 				return {
 					...secret,
 					expires: new Date(secret.expires),
@@ -235,21 +235,22 @@ export default {
 					expires: expiresStr,
 					encrypted: await encryptedPromise,
 					iv: this.$cryptolib.arrayBufferToB64String(secret.iv),
-				};
-				const response = await axios.post(generateUrl('/apps/secrets/secrets'), encryptedSecret)
+				}
+				const response = await axios.post(generateOcsUrl('/apps/secrets/api/v1/secrets'), encryptedSecret)
+				const data = response.data.ocs.data
 				const decrypted = await this.$cryptolib.decrypt(
-					response.data.encrypted,
+					data.encrypted,
 					secret.key,
-					this.$cryptolib.b64StringToArrayBuffer(response.data.iv))
+					this.$cryptolib.b64StringToArrayBuffer(data.iv))
 				const index = this.secrets.findIndex((match) => match.uuid === this.currentSecretUUId)
 				this.$set(this.secrets, index, {
-					...response.data,
-					expires: new Date(response.data.expires),
+					...data,
+					expires: new Date(data.expires),
 					_decrypted: decrypted,
 					key: secret.key,
-					iv: this.$cryptolib.b64StringToArrayBuffer(response.data.iv),
+					iv: this.$cryptolib.b64StringToArrayBuffer(data.iv),
 				})
-				this.currentSecretUUId = response.data.uuid
+				this.currentSecretUUId = data.uuid
 				this.currentSecretKeyBuf = await window.crypto.subtle.exportKey('raw', this.currentSecret.key)
 			} catch (e) {
 				console.error(e)
@@ -265,7 +266,7 @@ export default {
 		async deleteSecret(secret) {
 			try {
 				if (!secret.uuid) { throw new Error('Secret has no UUID!') }
-				await axios.delete(generateUrl(`/apps/secrets/secrets/${secret.uuid}`))
+				await axios.delete(generateOcsUrl(`/apps/secrets/api/v1/secrets/${secret.uuid}`))
 				this.secrets.splice(this.secrets.indexOf(secret), 1)
 				if (this.currentSecretUUId === secret.uuid) {
 					this.currentSecretUUId = null
@@ -279,7 +280,7 @@ export default {
 		},
 		async updateSecretTitle(secret, title) {
 			if (secret.uuid) {
-				await axios.put(generateUrl(`/apps/secrets/secrets/${secret.uuid}/title`), { title })
+				await axios.put(generateOcsUrl(`/apps/secrets/api/v1/secrets/${secret.uuid}/title`), { title })
 			}
 			secret.title = title
 		},

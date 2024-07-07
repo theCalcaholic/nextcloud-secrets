@@ -1,6 +1,8 @@
 # SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
 # SPDX-License-Identifier: AGPL-3.0-or-later
 .idea
+.ruby
+.bundle
 *.iml
 /vendor/
 /vendor-bin/**/vendor/
