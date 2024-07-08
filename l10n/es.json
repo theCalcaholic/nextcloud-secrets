@@ -34,8 +34,6 @@
     "Retrieving secret..." : "Obteniendo secreto...",
     "Error loading secret. Is your link correct?" : "Error cargando el secreto. ¿Es su enlace correcto?",
     "Reveal the secret and delete it on the server" : "Revelar el secreto y eliminarlo del servidor",
-    "Reveal Secret" : "Revelar Secreto",
-    "Revealing will delete the secret from the server" : "Revelar el secreto lo eliminará del servidor",
     "Could not decrypt secret" : "No fue posible descifrar el secreto",
     "This share is password-protected" : "Este recurso compartido está protegido por contraseña",
     "The password is wrong or has expired. Please try again." : "La contraseña es errónea o ha caducado. Por favor, inténtelo de nuevo",

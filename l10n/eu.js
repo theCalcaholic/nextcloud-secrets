@@ -36,8 +36,6 @@ OC.L10N.register(
     "Retrieving secret..." : "Sekretua berreskuratzen...",
     "Error loading secret. Is your link correct?" : "Errorea sekretua kargatzean. Daukazun esteka zuzena da?",
     "Reveal the secret and delete it on the server" : "Ezagutarazi sekretua eta ezabatu zerbitzarian",
-    "Reveal Secret" : "Ezagutarazi sekretua",
-    "Revealing will delete the secret from the server" : "Ezagutarazteak eragingo du sekretua zerbitzaritik ezabatzea",
     "Could not decrypt secret" : "Ezin izan da sekretua deszifratu",
     "This share is password-protected" : "Partekatze hau pasahitzez babestua dago.",
     "The password is wrong or has expired. Please try again." : "Pasahitza okerra da edo iraungi egin da. Saia zaitez berriro.",

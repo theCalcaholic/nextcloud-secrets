@@ -36,8 +36,6 @@ OC.L10N.register(
     "Retrieving secret..." : "Recuperando el secreto...",
     "Error loading secret. Is your link correct?" : "Error al cargar el secreto. ¿Es correcto tu enlace?",
     "Reveal the secret and delete it on the server" : "Revelar el secreto y eliminarlo del servidor",
-    "Reveal Secret" : "Revelar secreto",
-    "Revealing will delete the secret from the server" : "Revelar eliminará el secreto del servidor",
     "Could not decrypt secret" : "No se pudo descifrar el secreto",
     "This share is password-protected" : "Este elemento compartido está protegido con una contraseña",
     "The password is wrong or has expired. Please try again." : "La contraseña es incorrecta o ha expirado. Por favor, inténtalo de nuevo.",

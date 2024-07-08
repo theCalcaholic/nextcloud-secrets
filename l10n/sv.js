@@ -36,8 +36,6 @@ OC.L10N.register(
     "Retrieving secret..." : "Hämtar hemlighet...",
     "Error loading secret. Is your link correct?" : "Det gick inte att läsa in hemlighet. Är din länk korrekt?",
     "Reveal the secret and delete it on the server" : "Avslöja hemligheten och ta bort den på servern",
-    "Reveal Secret" : "Avslöja hemligheten",
-    "Revealing will delete the secret from the server" : "Avslöjande kommer att radera hemligheten från servern",
     "Could not decrypt secret" : "Kunde inte dekryptera hemlighet",
     "This share is password-protected" : "Denna delning är lösenordsskyddad",
     "The password is wrong or has expired. Please try again." : "Lösenordet är fel eller har gått ut. Var god försök igen.",

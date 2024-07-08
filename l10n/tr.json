@@ -34,8 +34,6 @@
     "Retrieving secret..." : "Sır alınıyor...",
     "Error loading secret. Is your link correct?" : "Sır yüklenirken sorun çıktı. Bağlantı doğru mu?",
     "Reveal the secret and delete it on the server" : "Parolayı görüntüle ve sunucudan sil",
-    "Reveal Secret" : "Parolayı görüntüle",
-    "Revealing will delete the secret from the server" : "Görüntülemek parolanın sunucudan silinmesine yol açar",
     "Could not decrypt secret" : "Sırın şifresi çözülemedi",
     "This share is password-protected" : "Bu paylaşım parola korumalı",
     "The password is wrong or has expired. Please try again." : "Parola hatalı ya da geçerlilik süresi dolmuş. Lütfen yeniden deneyin.",

@@ -35,12 +35,14 @@ OC.L10N.register(
     "Download" : "Íoslódáil",
     "Retrieving secret..." : "Rún á aisghabháil...",
     "Error loading secret. Is your link correct?" : "Earráid agus an rún á lódáil. An bhfuil do nasc ceart?",
+    "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "Má nochtfar, scriosfar an rún ón bhfreastalaí. Ní bheidh tú in ann é a aisghabháil arís.",
     "Reveal the secret and delete it on the server" : "Nocht an rún agus scrios ar an bhfreastalaí",
-    "Reveal Secret" : "Nocht Rún",
-    "Revealing will delete the secret from the server" : "Má nochtfar, scriosfar an rún ón bhfreastalaí",
+    "I understand. Reveal and destroy Secret." : "Tuigim. Nocht agus scrios Rún.",
     "Could not decrypt secret" : "Níorbh fhéidir an rún a dhíchriptiú",
     "This share is password-protected" : "Tá an sciar seo cosanta ag pasfhocal",
     "The password is wrong or has expired. Please try again." : "Tá an pasfhocal mícheart nó imithe in éag. Arís, le do thoil.",
-    "Password" : "Pasfhocal"
+    "Password" : "Pasfhocal",
+    "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Tá an cosán seo athraithe. Tú a atreorú chuig an suíomh nua. Mura n-oibríonn sé seo, cliceáil ar an nasc seo a leanas:",
+    "Go to secret" : "Téigh go dtí an rún"
 },
 "nplurals=5; plural=(n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n<11 ? 3 : 4);");

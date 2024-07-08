@@ -35,12 +35,14 @@ OC.L10N.register(
     "Download" : "تنزيل",
     "Retrieving secret..." : "جاري استرداد السر ...",
     "Error loading secret. Is your link correct?" : "خطأ في تحميل السر. هل الرابط الخاص بك صحيح؟",
+    "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "سيؤدي الكشف إلى حذف السر من الخادوم، و لن تتمكن من استعادته مرة أخرى.",
     "Reveal the secret and delete it on the server" : "كشف السر وحذفه من على الخادم",
-    "Reveal Secret" : "كشف السر",
-    "Revealing will delete the secret from the server" : "الكشف سوف يؤدي إلي حذف السر من الخادوم",
+    "I understand. Reveal and destroy Secret." : "أنا أفهم. إكشِف و دمِّر السّر.",
     "Could not decrypt secret" : "لا يمكن فك تشفير السر",
     "This share is password-protected" : "هذه المشاركة محمية بكلمة مرور",
     "The password is wrong or has expired. Please try again." : "كلمة المرور خاطئة أو منتهية الصلاحية. حاول مرة اخرى.",
-    "Password" : "كلمة السر"
+    "Password" : "كلمة السر",
+    "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "لقد تغير هذا المسار. ستتم إعادة توجيهك إلى الموقع الجديد. إذا لم ينجح ذلك، انقُر على الرابط التالي:",
+    "Go to secret" : "إذهب إلى السّر"
 },
 "nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;");

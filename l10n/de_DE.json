@@ -33,12 +33,14 @@
     "Download" : "Herunterladen",
     "Retrieving secret..." : "Rufe Passwort ab...",
     "Error loading secret. Is your link correct?" : "Laden des Passworts fehlgeschlagen. Ist dein Link richtig?",
+    "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "Durch die Offenlegung wird das Geheimnis vom Server gelöscht. Sie können es nicht wieder abrufen.",
     "Reveal the secret and delete it on the server" : "Das Geheimnis aufdecken und auf dem Server löschen",
-    "Reveal Secret" : "Geheimnis aufdecken",
-    "Revealing will delete the secret from the server" : "Durch das Aufdecken wird das Geheimnis vom Server gelöscht.",
+    "I understand. Reveal and destroy Secret." : "Ich verstehe. Enthülle und zerstöre das Geheimnis.",
     "Could not decrypt secret" : "Passwort konnte nicht entschlüsselt werden",
     "This share is password-protected" : "Diese Freigabe ist passwortgeschützt",
     "The password is wrong or has expired. Please try again." : "Das Passwort ist falsch oder abgelaufen. Bitte erneut versuchen.",
-    "Password" : "Passwort"
+    "Password" : "Passwort",
+    "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Dieser Pfad hat sich geändert. Sie werden zum neuen Standort weitergeleitet. Wenn dies nicht funktioniert, klicken Sie auf den folgenden Link:",
+    "Go to secret" : "Zum Geheimnis wechseln"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
