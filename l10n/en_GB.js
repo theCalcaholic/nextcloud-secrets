@@ -35,10 +35,14 @@ OC.L10N.register(
     "Download" : "Download",
     "Retrieving secret..." : "Retrieving secret...",
     "Error loading secret. Is your link correct?" : "Error loading secret. Is your link correct?",
+    "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "Revealing will delete the secret from the server. You will not be able to retrieve it again.",
     "Reveal the secret and delete it on the server" : "Reveal the secret and delete it on the server",
+    "I understand. Reveal and destroy Secret." : "I understand. Reveal and destroy Secret.",
     "Could not decrypt secret" : "Could not decrypt secret",
     "This share is password-protected" : "This share is password-protected",
     "The password is wrong or has expired. Please try again." : "The password is wrong or has expired. Please try again.",
-    "Password" : "Password"
+    "Password" : "Password",
+    "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:",
+    "Go to secret" : "Go to secret"
 },
 "nplurals=2; plural=(n != 1);");
