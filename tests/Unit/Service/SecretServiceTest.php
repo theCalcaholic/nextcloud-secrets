@@ -6,14 +6,14 @@ declare(strict_types=1);
 
 namespace OCA\Secrets\Tests\Unit\Service;
 
-use OCA\Secrets\Service\SecretNotFound;
-use PHPUnit\Framework\TestCase;
-
-use OCP\AppFramework\Db\DoesNotExistException;
-
 use OCA\Secrets\Db\Secret;
-use OCA\Secrets\Service\SecretService;
 use OCA\Secrets\Db\SecretMapper;
+
+use OCA\Secrets\Service\SecretNotFound;
+
+use OCA\Secrets\Service\SecretService;
+use OCP\AppFramework\Db\DoesNotExistException;
+use PHPUnit\Framework\TestCase;
 use Psr\Log\NullLogger;
 
 class SecretServiceTest extends TestCase {

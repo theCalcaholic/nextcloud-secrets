@@ -6,15 +6,15 @@ declare(strict_types=1);
 
 namespace OCA\Secrets\Tests\Integration\Controller;
 
-use OCP\AppFramework\App;
-use OCP\IRequest;
-use PHPUnit\Framework\TestCase;
-
+use OCA\Secrets\Controller\SecretApiController;
 use OCA\Secrets\Db\Secret;
 use OCA\Secrets\Db\SecretMapper;
-use OCA\Secrets\Controller\SecretApiController;
+
 use OCA\Secrets\Service\SecretService;
+use OCP\AppFramework\App;
 use OCP\AppFramework\Db\QBMapper;
+use OCP\IRequest;
+use PHPUnit\Framework\TestCase;
 
 class SecretIntegrationTest extends TestCase {
 	private SecretApiController $controller;

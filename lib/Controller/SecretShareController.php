@@ -15,8 +15,8 @@ use OCP\AppFramework\AuthPublicShareController;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IConfig;
-use OCP\IRequest;
 use OCP\ILogger;
+use OCP\IRequest;
 
 use OCP\ISession;
 use OCP\IURLGenerator;
@@ -28,11 +28,11 @@ class SecretShareController extends AuthPublicShareController {
 	private bool $debug;
 
 	public function __construct(IRequest      $request,
-								ISession      $session,
-								SecretService $service,
-								IURLGenerator $urlGenerator,
-								IConfig $config,
-                                ILogger              $logger) {
+		ISession      $session,
+		SecretService $service,
+		IURLGenerator $urlGenerator,
+		IConfig $config,
+		ILogger              $logger) {
 		parent::__construct(Application::APP_ID, $request, $session, $urlGenerator);
 		$this->service = $service;
 		$this->debug = $config->getSystemValueBool("debug");
@@ -66,9 +66,9 @@ class SecretShareController extends AuthPublicShareController {
 		} catch (SecretNotFound) {
 			return false;
 		} catch (InvalidArgumentException $e) {
-            error_log($e->getMessage());
-            return false;
-        }
+			error_log($e->getMessage());
+			return false;
+		}
 	}
 
 	/**
@@ -91,7 +91,7 @@ class SecretShareController extends AuthPublicShareController {
 	 * The form has to submit to the authenticate method route
 	 *
 	 * @PublicPage
-     * @NoCSRFRequired
+	 * @NoCSRFRequired
 	 *
 	 * @return TemplateResponse<Http::STATUS_OK, string>
 	 * 200: Show authentication page

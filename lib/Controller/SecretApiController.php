@@ -13,20 +13,19 @@ use OCA\Secrets\Service\SecretService;
 use OCA\Secrets\Service\UnauthorizedException;
 use OCP\App\IAppManager;
 use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\Attribute\BruteForceProtection;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCSController;
 use OCP\ILogger;
-use OCP\IURLGenerator;
-use \OCP\Notification\IManager as INotificationManager;
 use OCP\IRequest;
 use OCP\ISession;
-use OCP\AppFramework\Http\Attribute\BruteForceProtection;
+use OCP\IURLGenerator;
+use OCP\Notification\IManager as INotificationManager;
 
 /**
  * @psalm-import-type SecretsData from ResponseDefinitions
  */
-class SecretApiController extends OCSController
-{
+class SecretApiController extends OCSController {
 	private INotificationManager $notificationManager;
 	private IURLGenerator $urlGenerator;
 	private SecretService $service;
@@ -39,15 +38,14 @@ class SecretApiController extends OCSController
 	use Errors;
 
 	public function __construct(IRequest             $request,
-								SecretService        $service,
-								ISession $session,
-								NotificationService  $notificationService,
-								INotificationManager $notificationManager,
-								IURLGenerator        $urlGenerator,
-								IAppManager $appManager,
-								ILogger              $logger,
-								?string              $userId)
-	{
+		SecretService        $service,
+		ISession $session,
+		NotificationService  $notificationService,
+		INotificationManager $notificationManager,
+		IURLGenerator        $urlGenerator,
+		IAppManager $appManager,
+		ILogger              $logger,
+		?string              $userId) {
 		parent::__construct(Application::APP_ID, $request);
 		$this->service = $service;
 		$this->notificationService = $notificationService;
@@ -104,8 +102,7 @@ class SecretApiController extends OCSController
 	 *
 	 */
 	#[AnonRateLimit(limit: 120, period: 60)]
-	public function getVersion(): DataResponse
-	{
+	public function getVersion(): DataResponse {
 		return new DataResponse(['version' => $this->appVersion], Http::STATUS_OK);
 	}
 
@@ -124,12 +121,11 @@ class SecretApiController extends OCSController
 	 * 401: Unauthorized
 	 *
 	 */
-	 #[UserRateLimit(limit: 500, period: 60)]
-	 #[AnonRateLimit(limit: 120, period: 60)]
-	 #[BruteForceProtection(action: 'retrieval')]
-	 #[BruteForceProtection(action: 'password')]
-	public function retrieveSharedSecret(string $uuid, ?string $password): DataResponse
-	{
+	#[UserRateLimit(limit: 500, period: 60)]
+	#[AnonRateLimit(limit: 120, period: 60)]
+	#[BruteForceProtection(action: 'retrieval')]
+	#[BruteForceProtection(action: 'password')]
+	public function retrieveSharedSecret(string $uuid, ?string $password): DataResponse {
 
 		$pwHash = null;
 		if ($password) {
@@ -173,8 +169,7 @@ class SecretApiController extends OCSController
 	 * 201: Secret created
 	 * 401: Unauthorized
 	 */
-	public function createSecret(string $title, string $encrypted, string $iv, ?string $expires, ?string $password)
-	{
+	public function createSecret(string $title, string $encrypted, string $iv, ?string $expires, ?string $password) {
 		if (!$this->userId) {
 			return new DataResponse(['message' => 'Unauthorized'], Http::STATUS_UNAUTHORIZED);
 		}

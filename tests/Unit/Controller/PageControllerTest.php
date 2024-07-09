@@ -7,13 +7,13 @@ declare(strict_types=1);
 namespace OCA\Secrets\Tests\Unit\Controller;
 
 use OCA\Secrets\Controller\PageController;
+use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IConfig;
 use OCP\IUser;
 use OCP\IUserSession;
 use OCP\Notification\IManager;
-use PHPUnit\Framework\TestCase;
 
-use OCP\AppFramework\Http\TemplateResponse;
+use PHPUnit\Framework\TestCase;
 
 class PageControllerTest extends TestCase {
 	private PageController $controller;

@@ -14,7 +14,7 @@ const mockCrypto = {
 			const text = new TextDecoder().decode(buf)
 			return Promise.resolve(new TextEncoder().encode(`hashed(${text})`))
 		},
-		async generateKey( algorithm, extractable= false, keyUsages = []) {
+		async generateKey(algorithm, extractable = false, keyUsages = []) {
 			return {
 				usages: keyUsages,
 				extractable: extractable,
@@ -46,7 +46,12 @@ const mockCrypto = {
 	}
 }
 
-const cryptoLib = new CryptoLib(mockCrypto)
+const mockHash = {
+	btoa,
+	atob,
+}
+
+const cryptoLib = new CryptoLib(mockCrypto, mockHash, true)
 
 describe('Cryptolib Test Suite', () => {
 	test('md5Digest creates valid md5 sum', async () => {

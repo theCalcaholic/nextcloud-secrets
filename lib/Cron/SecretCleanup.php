@@ -9,8 +9,8 @@ namespace OCA\Secrets\Cron;
 use DateInterval;
 use DateTime;
 use OCA\Secrets\Service\SecretService;
-use OCP\BackgroundJob\TimedJob;
 use OCP\AppFramework\Utility\ITimeFactory;
+use OCP\BackgroundJob\TimedJob;
 use OCP\DB\Exception;
 use Psr\Log\LoggerInterface;
 

@@ -8,12 +8,11 @@ namespace OCA\Secrets\Controller;
 
 use Closure;
 
+use OCA\Secrets\Service\SecretNotFound;
 use OCA\Secrets\Service\UnauthorizedException;
 use OCP\AppFramework\Http;
-use OCP\AppFramework\Http\DataResponse;
 
-use OCA\Secrets\Service\SecretNotFound;
-use const http\Client\Curl\Features\HTTP2;
+use OCP\AppFramework\Http\DataResponse;
 
 trait Errors {
 	protected function handleNotFound(Closure $callback): DataResponse {

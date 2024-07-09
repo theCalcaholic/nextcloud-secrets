@@ -6,21 +6,21 @@ declare(strict_types=1);
 
 namespace OCA\Secrets\Tests\Unit\Controller;
 
+use OCA\Secrets\Controller\SecretApiController;
 use OCA\Secrets\Service\NotificationService;
+use OCA\Secrets\Service\SecretNotFound;
+use OCA\Secrets\Service\SecretService;
 use OCP\App\IAppManager;
+use OCP\AppFramework\Http;
 use OCP\ILogger;
+use OCP\IRequest;
+
 use OCP\ISession;
 use OCP\IURLGenerator;
+
 use OCP\Notification\IManager as INotificationManager;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-
-use OCP\AppFramework\Http;
-use OCP\IRequest;
-
-use OCA\Secrets\Service\SecretNotFound;
-use OCA\Secrets\Service\SecretService;
-use OCA\Secrets\Controller\SecretApiController;
 
 class SecretApiControllerTest extends TestCase {
 	protected SecretApiController $controller;
@@ -29,37 +29,42 @@ class SecretApiControllerTest extends TestCase {
 	protected $service;
 	/** @var IRequest|MockObject */
 	protected $request;
-    /** @var ISession|MockObject */
-    protected $session;
-    /** @var NotificationService|MockObject */
-    protected $notificationService;
-    /** @var INotificationManager|MockObject */
-    protected $notificationManager;
-    /** @var IURLGenerator|MockObject */
-    protected $urlGenerator;
-    /** @var ILogger|MockObject */
+	/** @var ISession|MockObject */
+	protected $session;
+	/** @var NotificationService|MockObject */
+	protected $notificationService;
+	/** @var INotificationManager|MockObject */
+	protected $notificationManager;
+	/** @var IURLGenerator|MockObject */
+	protected $urlGenerator;
+	/** @var ILogger|MockObject */
 	protected $logger;
-    /** @var IAppManager|MockObject */
-    protected $appManager;
+	/** @var IAppManager|MockObject */
+	protected $appManager;
 
 	public function setUp(): void {
 		$this->request = $this->getMockBuilder(IRequest::class)->getMock();
 		$this->service = $this->getMockBuilder(SecretService::class)
 			->disableOriginalConstructor()
 			->getMock();
-        $this->session = $this->getMockBuilder(ISession::class)->getMock();
-        $this->notificationService = $this->getMockBuilder(NotificationService::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $this->urlGenerator = $this->getMockBuilder(IURLGenerator::class)->getMock();
-        $this->notificationManager = $this->getMockBuilder(INotificationManager::class)->getMock();
-        $this->logger = $this->getMockBuilder(ILogger::class)->getMock();
-        $this->appManager = $this->getMockBuilder(IAppManager::class)
-            ->getMock();
-
+		$this->session = $this->getMockBuilder(ISession::class)->getMock();
+		$this->notificationService = $this->getMockBuilder(NotificationService::class)
+			->disableOriginalConstructor()
+			->getMock();
+		$this->urlGenerator = $this->getMockBuilder(IURLGenerator::class)->getMock();
+		$this->notificationManager = $this->getMockBuilder(INotificationManager::class)->getMock();
+		$this->logger = $this->getMockBuilder(ILogger::class)->getMock();
+		$class = new \ReflectionClass(IAppManager::class);
+		$this->appManager = $this->getMockBuilder(IAppManager::class)
+			->setMethods(array_map(function ($m) {return $m->name;}, $class->getMethods()))
+			->getMock();
+		$this->appManager->expects($this->any())
+			->method('getAppInfo')
+			->with($this->equalTo('secrets'))
+			->willReturn(['version' => '2.0.0']);
 
 		$this->controller = new SecretApiController($this->request, $this->service, $this->session,
-            $this->notificationService, $this->notificationManager, $this->urlGenerator, $this->appManager, $this->logger, $this->userId);
+			$this->notificationService, $this->notificationManager, $this->urlGenerator, $this->appManager, $this->logger, $this->userId);
 	}
 
 	public function testUpdateWithSuccess(): void {

@@ -7,21 +7,15 @@ declare(strict_types=1);
 namespace OCA\Secrets\Service;
 
 use DateTime;
-use Exception;
 
 use OCA\Secrets\AppInfo\Application;
-use OCP\AppFramework\Db\DoesNotExistException;
-use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
 use OCA\Secrets\Db\Secret;
-use OCA\Secrets\Db\SecretMapper;
 use OCP\ILogger;
 use OCP\IURLGenerator;
 use OCP\Notification\IManager as INotificationManager;
-use Psr\Log\LoggerInterface;
 
-class NotificationService
-{
+class NotificationService {
 	private INotificationManager $notificationManager;
 	private IURLGenerator $urlGenerator;
 	private ILogger $logger;
@@ -29,8 +23,7 @@ class NotificationService
 	public function __construct(
 		INotificationManager $notificationManager,
 		IURLGenerator        $urlGenerator,
-		ILogger              $logger)
-	{
+		ILogger              $logger) {
 		$this->notificationManager = $notificationManager;
 		$this->urlGenerator = $urlGenerator;
 		$this->logger = $logger;
@@ -40,8 +33,7 @@ class NotificationService
 	 * @param Secret $secret
 	 * @return void
 	 */
-	public function notifyRetrieved(Secret $secret)
-	{
+	public function notifyRetrieved(Secret $secret) {
 		$notification = $this->notificationManager->createNotification();
 		error_log("Creating new notification for " . $secret->getUserId() . ".");
 		try {
