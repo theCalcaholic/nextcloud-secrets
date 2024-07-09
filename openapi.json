@@ -856,7 +856,6 @@
             "post": {
                 "operationId": "secret_api-retrieve-shared-secret",
                 "summary": "Return the shared secret for the given uuid",
-                "description": "TODO: Brute force protection",
                 "tags": [
                     "secret_api"
                 ],
@@ -1013,6 +1012,76 @@
                                                             "type": "string"
                                                         },
                                                         "encrypted": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ocs/v2.php/apps/secrets/version": {
+            "get": {
+                "operationId": "secret_api-get-version",
+                "summary": "Return the secrets app/api version",
+                "tags": [
+                    "secret_api"
+                ],
+                "security": [
+                    {},
+                    {
+                        "bearer_auth": []
+                    },
+                    {
+                        "basic_auth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "OCS-APIRequest",
+                        "in": "header",
+                        "description": "Required to be true for the API request to pass",
+                        "required": true,
+                        "schema": {
+                            "type": "boolean",
+                            "default": true
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return application/api version",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "required": [
+                                        "ocs"
+                                    ],
+                                    "properties": {
+                                        "ocs": {
+                                            "type": "object",
+                                            "required": [
+                                                "meta",
+                                                "data"
+                                            ],
+                                            "properties": {
+                                                "meta": {
+                                                    "$ref": "#/components/schemas/OCSMeta"
+                                                },
+                                                "data": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "version"
+                                                    ],
+                                                    "properties": {
+                                                        "version": {
                                                             "type": "string"
                                                         }
                                                     }

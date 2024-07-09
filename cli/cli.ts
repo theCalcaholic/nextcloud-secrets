@@ -34,7 +34,7 @@ program.command('retrieve')
 	.action(retrieveSecret)
 program.command('info')
 	.description('Get information about a Nextcloud Secrets API')
-	.argument('<secrets-url>', 'Address of the secrets API')
+	.argument('<nextcloud-url>', 'Address of the secrets API')
 	.action(showApiInfo)
 
 try {

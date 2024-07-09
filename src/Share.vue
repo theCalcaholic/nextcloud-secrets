@@ -266,6 +266,9 @@ export default {
 			margin-bottom: 1rem;
 			width: 100%;
 		}
+    div.secret-container {
+      padding: 0;
+    }
 	}
 
 </style>
@@ -273,4 +276,9 @@ export default {
 	.app-content {
 		padding: 44px 20px 20px;
 	}
+  @media screen and (max-width: 800px) {
+    .app-content {
+      padding: 44px 10px 10px;
+    }
+  }
 </style>

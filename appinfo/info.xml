@@ -8,7 +8,7 @@
     <id>secrets</id>
     <name>Secrets</name>
     <summary>Securely share data via link</summary>
-    <description><![CDATA[Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully]]></description>
+    <description><![CDATA[Secrets allows users to generate share links for text based data (e.g. passwords, CSV lists, bank accounts...) that can be sent to anyone (including receivers without a Nextcloud account) for retrieval. The data itself will be end-to-end encrypted (so not even Nextcloud can access it) and the encryption key will be part of the share link (the anchor part) - but never be actually sent to the server. Once retrieved, the secret will be deleted from the server, ensuring, that if it arrived at the correct receiver it has been seen by nobody else.]]></description>
     <version>2.0.0</version>
     <licence>agpl</licence>
     <author mail="thecalcaholic@web.de" homepage="https://github.com/theCalcaholic">Tobias Knöppler</author>
@@ -17,11 +17,21 @@
     <category>social</category>
     <category>tools</category>
     <bugs>https://github.com/theCalcaholic/nextcloud-secrets</bugs>
-	<screenshot small-thumbnail="https://raw.githubusercontent.com/theCalcaholic/nextcloud-secrets/main/screenshots/share_link.png">
+    <screenshot small-thumbnail="https://raw.githubusercontent.com/theCalcaholic/nextcloud-secrets/main/screenshots/public_share_1_phone_small.png">
+        https://raw.githubusercontent.com/theCalcaholic/nextcloud-secrets/main/screenshots/public_share_1_phone.png
+    </screenshot>
+    <screenshot small-thumbnail="https://raw.githubusercontent.com/theCalcaholic/nextcloud-secrets/main/screenshots/public_share_2_phone_small.png">
+        https://raw.githubusercontent.com/theCalcaholic/nextcloud-secrets/main/screenshots/public_share_2_phone.png
+    </screenshot>
+	<screenshot small-thumbnail="https://raw.githubusercontent.com/theCalcaholic/nextcloud-secrets/main/screenshots/share_link_small.png">
 		https://raw.githubusercontent.com/theCalcaholic/nextcloud-secrets/main/screenshots/share_link.png
 	</screenshot>
-	<screenshot>https://raw.githubusercontent.com/theCalcaholic/nextcloud-secrets/main/screenshots/public_share.png</screenshot>
-	<screenshot>https://raw.githubusercontent.com/theCalcaholic/nextcloud-secrets/main/screenshots/new_secret.png</screenshot>
+    <screenshot>https://raw.githubusercontent.com/theCalcaholic/nextcloud-secrets/main/screenshots/new_secret_phone.png</screenshot>
+    <screenshot>https://raw.githubusercontent.com/theCalcaholic/nextcloud-secrets/main/screenshots/share_link_phone.png</screenshot>
+    <screenshot>https://raw.githubusercontent.com/theCalcaholic/nextcloud-secrets/main/screenshots/public_share_2.png</screenshot>
+    <screenshot>https://raw.githubusercontent.com/theCalcaholic/nextcloud-secrets/main/screenshots/new_secret.png</screenshot>
+    <screenshot>https://raw.githubusercontent.com/theCalcaholic/nextcloud-secrets/main/screenshots/public_share_1.png</screenshot>
+    <screenshot>https://raw.githubusercontent.com/theCalcaholic/nextcloud-secrets/main/screenshots/public_share_2.png</screenshot>
     <dependencies>
         <nextcloud min-version="26" max-version="29"/>
     </dependencies>

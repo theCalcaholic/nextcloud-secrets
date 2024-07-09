@@ -19,6 +19,7 @@ Options:
 Commands:
   create [options] <nextcloud-url> <user> <secret-file>  Create a new secret
   retrieve [options] <secret-url>                        Retrieve a secret and print it to stdout
+  info <nextcloud-url>                                   Get information about a Nextcloud Secrets API
   help [command]                                         display help for command
 ```
 
@@ -42,6 +43,16 @@ Options:
   -h, --help                   display help for command
 ```
 
+#### Example:
+
+Assuming you want to create a secret share of the content of a file ./my-secret and the environment variable NC_PASS
+contains a Nextcloud password (or app token) for user 'sharer' at a Nextcloud instance with the URL https://nextcloud.foss, 
+you could use the following command:
+
+```sh
+./nc-secrets create -t 'My Secret' https://nextcloud.foss sharer "$NC_PASS" ./my-secret <<<"$NC_PASS"
+```
+
 ### Retrieve
 
 ```sh
@@ -56,6 +67,20 @@ Options:
   -d, --key <decryption-key>  Secret decryption key (only required if not part of <secret-url>)
   -p, --password <password>   password in case the secret is password protected
   -h, --help                  display help for command
+```
+
+### Info
+
+```sh
+Usage: nc-secrets info [options] <nextcloud-url>
+
+Get information about a Nextcloud Secrets API
+
+Arguments:
+  nextcloud-url  Address of the secrets API
+
+Options:
+  -h, --help     display help for command
 ```
 
 ## Development
