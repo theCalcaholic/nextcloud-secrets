@@ -35,14 +35,14 @@ OC.L10N.register(
     "Download" : "Herunterladen",
     "Retrieving secret..." : "Rufe Passwort ab...",
     "Error loading secret. Is your link correct?" : "Laden des Passworts fehlgeschlagen. Ist dein Link richtig?",
-    "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "Durch die Offenlegung wird das Geheimnis vom Server gelöscht. Sie können es nicht wieder abrufen.",
+    "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "Durch die Anzeige wird das Geheimnis vom Server gelöscht. Sie können es nicht wieder abrufen.",
     "Reveal the secret and delete it on the server" : "Das Geheimnis aufdecken und auf dem Server löschen",
-    "I understand. Reveal and destroy Secret." : "Ich verstehe. Enthülle und zerstöre das Geheimnis.",
+    "I understand. Reveal and destroy Secret." : "Ich verstehe. Geheimnis anzeigen und löschen.",
     "Could not decrypt secret" : "Passwort konnte nicht entschlüsselt werden",
     "This share is password-protected" : "Diese Freigabe ist passwortgeschützt",
     "The password is wrong or has expired. Please try again." : "Das Passwort ist falsch oder abgelaufen. Bitte erneut versuchen.",
     "Password" : "Passwort",
-    "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Dieser Pfad hat sich geändert. Sie werden zum neuen Standort weitergeleitet. Wenn dies nicht funktioniert, klicken Sie auf den folgenden Link:",
+    "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Dieser Pfad hat sich geändert. Sie werden zum neuen Speicherort weitergeleitet. Wenn dies nicht funktioniert, auf folgenden Link klicken:",
     "Go to secret" : "Zum Geheimnis wechseln"
 },
 "nplurals=2; plural=(n != 1);");

@@ -33,10 +33,14 @@
     "Download" : "Baixar",
     "Retrieving secret..." : "Recuperando segredo...",
     "Error loading secret. Is your link correct?" : "Erro ao carregar segredo. Seu link está correto?",
+    "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "A revelação excluirá o segredo do servidor. Você não poderá recuperá-lo novamente.",
     "Reveal the secret and delete it on the server" : "Revele o segredo e exclua-o no servidor",
+    "I understand. Reveal and destroy Secret." : "Eu entendo. Revele e destrua o segredo.",
     "Could not decrypt secret" : "Não foi possível descriptografar o segredo",
     "This share is password-protected" : "Compartilhamento protegido por senha",
     "The password is wrong or has expired. Please try again." : "A senha está errada ou expirou. Por favor, tente novamente.",
-    "Password" : "Senha"
+    "Password" : "Senha",
+    "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Esse caminho mudou. Redirecionando você para o novo local. Se isso não funcionar, clique no link a seguir:",
+    "Go to secret" : "Ir para o segredo"
 },"pluralForm" :"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }
