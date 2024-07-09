@@ -64,6 +64,10 @@ More details [here](./cli/README.md).
 Starting with version 2.0.0, Secrets provides an OCS-API (that's also used by the [Secrets CLI](#cli)).
 It's specification can be found [here](./openapi.json);
 
+**However, all of the encryption is not part of the API, but is solved in the client (since Secrets uses solely 
+end-to-end encryption). So take care when using the OCS-API directly.
+You can find the implementation of Secrets' client cryptography [here](./src/crypto.js)**
+
 ## Development
 
 ### Building the app
