@@ -39,6 +39,8 @@
     "Could not decrypt secret" : "無法解密密鑰",
     "This share is password-protected" : "此分享受密碼保護",
     "The password is wrong or has expired. Please try again." : "密碼錯誤或過期。請重試。",
-    "Password" : "密碼"
+    "Password" : "密碼",
+    "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "此路徑已更改。正在重定向到新位置。如果此操作無效，請點擊以下連結：",
+    "Go to secret" : "前往密鑰"
 },"pluralForm" :"nplurals=1; plural=0;"
 }
