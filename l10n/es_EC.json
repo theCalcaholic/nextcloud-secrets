@@ -2,7 +2,6 @@
     "Secrets" : "Secretos",
     "Secret '{secret}' has been retrieved" : "Se ha recuperado el secreto '{secret}'",
     "Securely share data via link" : "Compartir datos de forma segura a través de un enlace",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Comparte datos de forma segura con cualquier persona. Todos los datos están cifrados de extremo a extremo por el usuario y se eliminarán una vez que se recuperen con éxito",
     "New secret" : "Nuevo secreto",
     "Change Title" : "Cambiar título",
     "Cancel secret creation" : "Cancelar la creación del secreto",
@@ -37,6 +36,7 @@
     "Could not decrypt secret" : "No se pudo descifrar el secreto",
     "This share is password-protected" : "Este elemento compartido está protegido con una contraseña",
     "The password is wrong or has expired. Please try again." : "La contraseña es incorrecta o ha expirado. Por favor, inténtalo de nuevo.",
-    "Password" : "Contraseña"
+    "Password" : "Contraseña",
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Comparte datos de forma segura con cualquier persona. Todos los datos están cifrados de extremo a extremo por el usuario y se eliminarán una vez que se recuperen con éxito"
 },"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

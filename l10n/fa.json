@@ -2,7 +2,6 @@
     "Secrets" : "Secrets",
     "Secret '{secret}' has been retrieved" : "Secret '{secret}' has been retrieved",
     "Securely share data via link" : "Securely share data via link",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully",
     "New secret" : "New secret",
     "Change Title" : "Change Title",
     "Cancel secret creation" : "Cancel secret creation",
@@ -37,6 +36,7 @@
     "Could not decrypt secret" : "Could not decrypt secret",
     "This share is password-protected" : "این اشتراک توسط رمز عبور محافظت می شود",
     "The password is wrong or has expired. Please try again." : "The password is wrong or has expired. Please try again.",
-    "Password" : "کلمه عبور"
+    "Password" : "کلمه عبور",
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

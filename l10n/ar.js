@@ -4,7 +4,6 @@ OC.L10N.register(
     "Secrets" : "الأسرار",
     "Secret '{secret}' has been retrieved" : "تم استرداد السر \"{secret}\"",
     "Securely share data via link" : "مشاركة البيانات بأمان عبر الرابط",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "شارك البيانات مع أي شخص بصورة آمنة. كل البيانات مشفرة من الحَدِّ للحَدِّ و سيقع حذفها بمجرد إتمام استلامها بنجاحٍ",
     "New secret" : "سر جديد",
     "Change Title" : "غير العنوان",
     "Cancel secret creation" : "إلغاء إنشاء السر",
@@ -43,6 +42,7 @@ OC.L10N.register(
     "The password is wrong or has expired. Please try again." : "كلمة المرور خاطئة أو منتهية الصلاحية. حاول مرة اخرى.",
     "Password" : "كلمة السر",
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "لقد تغير هذا المسار. ستتم إعادة توجيهك إلى الموقع الجديد. إذا لم ينجح ذلك، انقُر على الرابط التالي:",
-    "Go to secret" : "إذهب إلى السّر"
+    "Go to secret" : "إذهب إلى السّر",
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "شارك البيانات مع أي شخص بصورة آمنة. كل البيانات مشفرة من الحَدِّ للحَدِّ و سيقع حذفها بمجرد إتمام استلامها بنجاحٍ"
 },
 "nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;");

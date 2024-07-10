@@ -4,7 +4,6 @@ OC.L10N.register(
     "Secrets" : "密鑰",
     "Secret '{secret}' has been retrieved" : "已檢索到密鑰 “{secret}”",
     "Securely share data via link" : "通過連結安全地分享數據",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "與任何人安全地分享數據。所有數據均由用戶端到端加密，一旦成功檢索將被刪除",
     "New secret" : "新密鑰",
     "Change Title" : "更改標題",
     "Cancel secret creation" : "取消創建密鑰",
@@ -43,6 +42,7 @@ OC.L10N.register(
     "The password is wrong or has expired. Please try again." : "密碼錯誤或過期。請重試。",
     "Password" : "密碼",
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "此路徑已更改。正在重定向到新位置。如果此操作無效，請點擊以下連結：",
-    "Go to secret" : "前往密鑰"
+    "Go to secret" : "前往密鑰",
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "與任何人安全地分享數據。所有數據均由用戶端到端加密，一旦成功檢索將被刪除"
 },
 "nplurals=1; plural=0;");

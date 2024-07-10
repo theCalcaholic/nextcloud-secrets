@@ -4,7 +4,6 @@ OC.L10N.register(
     "Secrets" : "Geheimnisse",
     "Secret '{secret}' has been retrieved" : "Das Geheimnis „{secret}“ wurde abgerufen",
     "Securely share data via link" : "Daten sicher via Link freigeben",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Teilen Sie Daten sicher mit jedem. Alle Daten werden vom Benutzer Ende-zu-Ende verschlüsselt und nach erfolgreichem Abruf gelöscht",
     "New secret" : "Neues Geheimnis",
     "Change Title" : "Titel ändern",
     "Cancel secret creation" : "Geheimniserstellung abbrechen",
@@ -39,6 +38,7 @@ OC.L10N.register(
     "Could not decrypt secret" : "Geheimnis konnte nicht entschlüsselt werden",
     "This share is password-protected" : "Diese Freigabe ist passwortgeschützt",
     "The password is wrong or has expired. Please try again." : "Das Passwort ist falsch oder abgelaufen. Bitte noch einmal versuchen.",
-    "Password" : "Passwort"
+    "Password" : "Passwort",
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Teilen Sie Daten sicher mit jedem. Alle Daten werden vom Benutzer Ende-zu-Ende verschlüsselt und nach erfolgreichem Abruf gelöscht"
 },
 "nplurals=2; plural=(n != 1);");

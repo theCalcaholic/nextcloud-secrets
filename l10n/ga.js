@@ -4,7 +4,6 @@ OC.L10N.register(
     "Secrets" : "Rúin",
     "Secret '{secret}' has been retrieved" : "Aisghabhadh an rún '{secret}'",
     "Securely share data via link" : "Comhroinn sonraí go sábháilte trí nasc",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Roinn sonraí go sábháilte le duine ar bith. Déanann an t-úsáideoir na sonraí go léir a chriptiú ó cheann ceann go ceann agus scriosfar iad nuair a bheidh siad faighte ar ais go rathúil",
     "New secret" : "Rún nua",
     "Change Title" : "Athraigh Teideal",
     "Cancel secret creation" : "Cealaigh cruthú rúnda",
@@ -43,6 +42,7 @@ OC.L10N.register(
     "The password is wrong or has expired. Please try again." : "Tá an pasfhocal mícheart nó imithe in éag. Arís, le do thoil.",
     "Password" : "Pasfhocal",
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Tá an cosán seo athraithe. Tú a atreorú chuig an suíomh nua. Mura n-oibríonn sé seo, cliceáil ar an nasc seo a leanas:",
-    "Go to secret" : "Téigh go dtí an rún"
+    "Go to secret" : "Téigh go dtí an rún",
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Roinn sonraí go sábháilte le duine ar bith. Déanann an t-úsáideoir na sonraí go léir a chriptiú ó cheann ceann go ceann agus scriosfar iad nuair a bheidh siad faighte ar ais go rathúil"
 },
 "nplurals=5; plural=(n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n<11 ? 3 : 4);");

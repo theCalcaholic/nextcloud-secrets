@@ -4,7 +4,6 @@ OC.L10N.register(
     "Secrets" : "Segredos",
     "Secret '{secret}' has been retrieved" : "O segredo «{secret}» foi recuperado",
     "Securely share data via link" : "Comparta datos de xeito seguro mediante unha ligazón",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Comparta datos de xeito seguro con calquera persoa. Todos os datos son cifrados de extremo a extremo polo usuario e eliminaranse unha vez recuperados correctamente",
     "New secret" : "Novo segredo",
     "Change Title" : "Cambiar o título",
     "Cancel secret creation" : "Cancelar a creación do segredo",
@@ -43,6 +42,7 @@ OC.L10N.register(
     "The password is wrong or has expired. Please try again." : "O contrasinal é erróneo ou caducou. Por favor tenteo de novo.",
     "Password" : "Contrasinal",
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Esta ruta cambiou. Redirixíndo á nova localización. Se isto non funciona, prema na seguinte ligazón:",
-    "Go to secret" : "Ir ao segredo"
+    "Go to secret" : "Ir ao segredo",
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Comparta datos de xeito seguro con calquera persoa. Todos os datos son cifrados de extremo a extremo polo usuario e eliminaranse unha vez recuperados correctamente"
 },
 "nplurals=2; plural=(n != 1);");

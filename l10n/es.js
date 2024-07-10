@@ -4,7 +4,6 @@ OC.L10N.register(
     "Secrets" : "Secretos",
     "Secret '{secret}' has been retrieved" : "El secreto '{secret}' ha sido recuperado",
     "Securely share data via link" : "Compartir datos de forma segura mediante un enlace",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Compartir datos de forma segura con cualquiera. Todos los datos están cifrados de extremo a extremo por el usuario y serán eliminados una vez que se extraigan exitosamente",
     "New secret" : "Nuevo secreto",
     "Change Title" : "Cambiar título",
     "Cancel secret creation" : "Cancelar la creación del secreto",
@@ -39,6 +38,7 @@ OC.L10N.register(
     "Could not decrypt secret" : "No fue posible descifrar el secreto",
     "This share is password-protected" : "Este recurso compartido está protegido por contraseña",
     "The password is wrong or has expired. Please try again." : "La contraseña es errónea o ha caducado. Por favor, inténtelo de nuevo",
-    "Password" : "Contraseña"
+    "Password" : "Contraseña",
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Compartir datos de forma segura con cualquiera. Todos los datos están cifrados de extremo a extremo por el usuario y serán eliminados una vez que se extraigan exitosamente"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

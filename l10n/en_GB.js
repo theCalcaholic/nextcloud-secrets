@@ -4,7 +4,6 @@ OC.L10N.register(
     "Secrets" : "Secrets",
     "Secret '{secret}' has been retrieved" : "Secret '{secret}' has been retrieved",
     "Securely share data via link" : "Securely share data via link",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully",
     "New secret" : "New secret",
     "Change Title" : "Change Title",
     "Cancel secret creation" : "Cancel secret creation",
@@ -43,6 +42,7 @@ OC.L10N.register(
     "The password is wrong or has expired. Please try again." : "The password is wrong or has expired. Please try again.",
     "Password" : "Password",
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:",
-    "Go to secret" : "Go to secret"
+    "Go to secret" : "Go to secret",
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully"
 },
 "nplurals=2; plural=(n != 1);");

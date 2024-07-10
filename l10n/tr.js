@@ -4,7 +4,6 @@ OC.L10N.register(
     "Secrets" : "Sırlar",
     "Secret '{secret}' has been retrieved" : "'{secret}' parolası alındı",
     "Securely share data via link" : "Bağlantı ile verileri güvenle paylaşın",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Verileri herhangi bir kişi ile güvenli bir şekilde paylaşın. Tüm veriler kullanıcı tarafından uçtan uca şifrelenir ve karşı taraf aldığında silinir",
     "New secret" : "Yeni sır",
     "Change Title" : "Başlığı değiştir",
     "Cancel secret creation" : "Sır oluşturmaktan vazgeç",
@@ -39,6 +38,7 @@ OC.L10N.register(
     "Could not decrypt secret" : "Sırın şifresi çözülemedi",
     "This share is password-protected" : "Bu paylaşım parola korumalı",
     "The password is wrong or has expired. Please try again." : "Parola hatalı ya da geçerlilik süresi dolmuş. Lütfen yeniden deneyin.",
-    "Password" : "Parola"
+    "Password" : "Parola",
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Verileri herhangi bir kişi ile güvenli bir şekilde paylaşın. Tüm veriler kullanıcı tarafından uçtan uca şifrelenir ve karşı taraf aldığında silinir"
 },
 "nplurals=2; plural=(n > 1);");

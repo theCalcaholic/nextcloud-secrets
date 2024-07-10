@@ -4,7 +4,6 @@ OC.L10N.register(
     "Secrets" : "Sekretuak",
     "Secret '{secret}' has been retrieved" : "'{secret}' sekretua berreskuratu da",
     "Securely share data via link" : "Partekatze segurua esteka bidez",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Partekatu datuak modu seguruan edonorekin. Datu guztiak muturretik muturrera enkriptatzen ditu erabiltzaileak eta ezabatu egiten dira berreskuratu ondoren.",
     "New secret" : "Sekretu berria",
     "Change Title" : "Aldatu izenburua",
     "Cancel secret creation" : "Utzi sekretuaren sorrera",
@@ -39,6 +38,7 @@ OC.L10N.register(
     "Could not decrypt secret" : "Ezin izan da sekretua deszifratu",
     "This share is password-protected" : "Partekatze hau pasahitzez babestua dago.",
     "The password is wrong or has expired. Please try again." : "Pasahitza okerra da edo iraungi egin da. Saia zaitez berriro.",
-    "Password" : "Pasahitza"
+    "Password" : "Pasahitza",
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Partekatu datuak modu seguruan edonorekin. Datu guztiak muturretik muturrera enkriptatzen ditu erabiltzaileak eta ezabatu egiten dira berreskuratu ondoren."
 },
 "nplurals=2; plural=(n != 1);");

@@ -4,7 +4,6 @@ OC.L10N.register(
     "Secrets" : "Titkok",
     "Secret '{secret}' has been retrieved" : "A(z) „{secret}” titok le lett kérve",
     "Securely share data via link" : "Adatok biztonságos megosztása hivatkozással",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Osszon meg biztonságosan adatok bárkivel. Az összes adat végpontok közti titkosítással rendelkezik, és a sikeres letöltés után törlődik.",
     "New secret" : "Új titok",
     "Change Title" : "Cím módosítása",
     "Cancel secret creation" : "Titok létrehozásának megszakítása",
@@ -39,6 +38,7 @@ OC.L10N.register(
     "Could not decrypt secret" : "Nem sikerült dekódolni a titkot",
     "This share is password-protected" : "Ez a megosztás jelszóval védett",
     "The password is wrong or has expired. Please try again." : "A jelszó hibás vagy lejárt. Próbálja újra.",
-    "Password" : "Jelszó"
+    "Password" : "Jelszó",
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Osszon meg biztonságosan adatok bárkivel. Az összes adat végpontok közti titkosítással rendelkezik, és a sikeres letöltés után törlődik."
 },
 "nplurals=2; plural=(n != 1);");

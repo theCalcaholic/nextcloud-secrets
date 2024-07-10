@@ -2,7 +2,6 @@
     "Secrets" : "Hemmeligheter",
     "Secret '{secret}' has been retrieved" : "Hemmeligheten '{secret}' er hentet",
     "Securely share data via link" : "Del data sikkert via kobling",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Del data med hvem som helst på en sikker måte. Alle data er ende-til-ende kryptert av brukeren og vil bli slettet når de er hentet",
     "New secret" : "Ny hemmelighet",
     "Change Title" : "Endre tittel",
     "Cancel secret creation" : "Avbryt oppretting av hemmelighet",
@@ -33,10 +32,15 @@
     "Download" : "Last ned",
     "Retrieving secret..." : "Henter hemmelighet...",
     "Error loading secret. Is your link correct?" : "Feil ved lasting av hemmelighet. Er koblingen korrekt?",
+    "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "Avsløring vil slette hemmeligheten fra serveren. Du vil ikke kunne hente den igjen.",
     "Reveal the secret and delete it on the server" : "Avslør hemmeligheten og slett den på serveren",
+    "I understand. Reveal and destroy Secret." : "Jeg forstår. Avslør og ødelegg hemmeligheten.",
     "Could not decrypt secret" : "Kunne ikke dekryptere hemmeligheten",
     "This share is password-protected" : "Denne deling er beskyttet med passord",
     "The password is wrong or has expired. Please try again." : "Passordet er feil eller er utløpt. Vennligst forsøk igjen.",
-    "Password" : "Passord"
+    "Password" : "Passord",
+    "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Denne banen har endret seg. Omdirigerer deg til den nye plasseringen. Hvis dette ikke fungerer, klikker du følgende kobling:",
+    "Go to secret" : "Gå til hemmelighet",
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Del data med hvem som helst på en sikker måte. Alle data er ende-til-ende kryptert av brukeren og vil bli slettet når de er hentet"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

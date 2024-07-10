@@ -2,7 +2,6 @@
     "Secrets" : "密信",
     "Secret '{secret}' has been retrieved" : "密信“{secret}”已被读取",
     "Securely share data via link" : "通过链接安全地分享数据",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "和任何人安全地分享数据。所有的数据都是由用户端到端加密，一旦成功读取就会被删除。",
     "New secret" : "新密信",
     "Change Title" : "更改标题",
     "Cancel secret creation" : "取消创建密信",
@@ -37,6 +36,7 @@
     "Could not decrypt secret" : "无法解密密信",
     "This share is password-protected" : "该分享受密码保护",
     "The password is wrong or has expired. Please try again." : "密码错误或已过期。请重试。",
-    "Password" : "密码"
+    "Password" : "密码",
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "和任何人安全地分享数据。所有的数据都是由用户端到端加密，一旦成功读取就会被删除。"
 },"pluralForm" :"nplurals=1; plural=0;"
 }
