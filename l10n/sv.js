@@ -4,7 +4,6 @@ OC.L10N.register(
     "Secrets" : "Hemligheter",
     "Secret '{secret}' has been retrieved" : "Hemligheten '{secret}' har hämtats",
     "Securely share data via link" : "Dela data säkert via länk",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Dela data säkert med vem som helst. All data är end-to-end-krypterad av användaren och kommer att raderas när den väl har hämtats",
     "New secret" : "Ny hemlighet",
     "Change Title" : "Ändra titel",
     "Cancel secret creation" : "Avbryt skapande av hemlighet",
@@ -39,6 +38,7 @@ OC.L10N.register(
     "Could not decrypt secret" : "Kunde inte dekryptera hemlighet",
     "This share is password-protected" : "Denna delning är lösenordsskyddad",
     "The password is wrong or has expired. Please try again." : "Lösenordet är fel eller har gått ut. Var god försök igen.",
-    "Password" : "Lösenord"
+    "Password" : "Lösenord",
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Dela data säkert med vem som helst. All data är end-to-end-krypterad av användaren och kommer att raderas när den väl har hämtats"
 },
 "nplurals=2; plural=(n != 1);");

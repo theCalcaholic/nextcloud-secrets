@@ -2,7 +2,6 @@
     "Secrets" : "Секретні повідомлення",
     "Secret '{secret}' has been retrieved" : "Отримано секретне повідомлення '{secret}'",
     "Securely share data via link" : "Безпечно надати доступ через посилання",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Безпечно обмінюйтеся даними з іншими користувачами хмари. Усі дані, якими ви обмінюватиметеся, будуть мають наскрізне шифрування та знищуватимуться після успішного отримання іншим користувачем.",
     "New secret" : "Нове секретне повідомлення",
     "Change Title" : "Змінити назву",
     "Cancel secret creation" : "Скасувати створення секретного повідомлення",
@@ -37,6 +36,7 @@
     "Could not decrypt secret" : "Не вдалося розшифрувати секретне повідомлення",
     "This share is password-protected" : "Цей спільний ресурс захищено паролем",
     "The password is wrong or has expired. Please try again." : "Пароль неправильний або термін його дії сплив. Спробуйте ще раз.",
-    "Password" : "Пароль"
+    "Password" : "Пароль",
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Безпечно обмінюйтеся даними з іншими користувачами хмари. Усі дані, якими ви обмінюватиметеся, будуть мають наскрізне шифрування та знищуватимуться після успішного отримання іншим користувачем."
 },"pluralForm" :"nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);"
 }

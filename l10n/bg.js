@@ -4,7 +4,6 @@ OC.L10N.register(
     "Secrets" : "Тайни",
     "Secret '{secret}' has been retrieved" : "Тайната '{secret}' е извлечена",
     "Securely share data via link" : "Сигурно споделяне на данни чрез връзка",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Сигурно споделяне на данни с всеки. Всички данни се криптират цялостно от потребителя и ще бъдат изтривани след успешното им извличане",
     "New secret" : "Нова тайна",
     "Change Title" : "Промяна на заглавието",
     "Cancel secret creation" : "Отказ от създаването на тайна",
@@ -28,6 +27,7 @@ OC.L10N.register(
     "Could not decrypt secret" : "Тайната не можа да се дешифрира",
     "This share is password-protected" : "Тази зона е защитена с парола.",
     "The password is wrong or has expired. Please try again." : "Паролата е грешна или е изтекла. Моля, опитайте отново.",
-    "Password" : "Парола"
+    "Password" : "Парола",
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Сигурно споделяне на данни с всеки. Всички данни се криптират цялостно от потребителя и ще бъдат изтривани след успешното им извличане"
 },
 "nplurals=2; plural=(n != 1);");

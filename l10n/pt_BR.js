@@ -4,7 +4,6 @@ OC.L10N.register(
     "Secrets" : "Segredos",
     "Secret '{secret}' has been retrieved" : "Segredo '{secret}' foi recuperado",
     "Securely share data via link" : "Compartilhe dados com segurança via link",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Compartilhe dados com segurança com qualquer pessoa. Todos os dados são criptografados de ponta a ponta pelo usuário e serão excluídos assim que forem recuperados com sucesso",
     "New secret" : "Novo segredo",
     "Change Title" : "Alterar Título",
     "Cancel secret creation" : "Cancelar criação secreta",
@@ -43,6 +42,7 @@ OC.L10N.register(
     "The password is wrong or has expired. Please try again." : "A senha está errada ou expirou. Por favor, tente novamente.",
     "Password" : "Senha",
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Esse caminho mudou. Redirecionando você para o novo local. Se isso não funcionar, clique no link a seguir:",
-    "Go to secret" : "Ir para o segredo"
+    "Go to secret" : "Ir para o segredo",
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Compartilhe dados com segurança com qualquer pessoa. Todos os dados são criptografados de ponta a ponta pelo usuário e serão excluídos assim que forem recuperados com sucesso"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

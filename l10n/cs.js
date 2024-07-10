@@ -4,7 +4,6 @@ OC.L10N.register(
     "Secrets" : "Tajemství",
     "Secret '{secret}' has been retrieved" : "Tajemství „{secret}“ bylo obdrženo",
     "Securely share data via link" : "Sdílet data bezpečně prostřednictvím odkazu",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Bezpečně sdílejte data s kýmkoli. Veškerá data jsou mezi koncovými body šifrována uživatelem a po úspěšném přijetí budou vymazána ze serveru",
     "New secret" : "Nové tajemství",
     "Change Title" : "Změnit nadpis",
     "Cancel secret creation" : "Zrušit vytváření tajemství",
@@ -39,6 +38,7 @@ OC.L10N.register(
     "Could not decrypt secret" : "Tajemství se nepodařilo rozšifrovat",
     "This share is password-protected" : "Toto sdílení je chráněno heslem",
     "The password is wrong or has expired. Please try again." : "Nesprávné heslo nebo jeho platnost skončila. Zkuste to prosím znovu.",
-    "Password" : "Heslo"
+    "Password" : "Heslo",
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Bezpečně sdílejte data s kýmkoli. Veškerá data jsou mezi koncovými body šifrována uživatelem a po úspěšném přijetí budou vymazána ze serveru"
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;");
