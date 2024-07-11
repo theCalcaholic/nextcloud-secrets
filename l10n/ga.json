@@ -2,6 +2,7 @@
     "Secrets" : "Rúin",
     "Secret '{secret}' has been retrieved" : "Aisghabhadh an rún '{secret}'",
     "Securely share data via link" : "Comhroinn sonraí go sábháilte trí nasc",
+    "Secrets allows users to generate share links for text based data (e.g. passwords, CSV lists, bank accounts...) that can be sent to anyone (including receivers without a Nextcloud account) for retrieval. The data itself will be end-to-end encrypted (so not even Nextcloud can access it) and the encryption key will be part of the share link (the anchor part) - but never be actually sent to the server. Once retrieved, the secret will be deleted from the server, ensuring, that if it arrived at the correct receiver it has been seen by nobody else." : "Ligeann Rúin d’úsáideoirí naisc scaireanna a ghiniúint le haghaidh sonraí téacsbhunaithe (m.sh. pasfhocail, liostaí CSV, cuntais bhainc...) ar féidir iad a sheoladh chuig aon duine (lena n-áirítear faighteoirí gan cuntas Nextcloud) lena n-aisghabháil. Beidh na sonraí féin criptithe ó cheann go ceann (mar sin ní féidir le Nextcloud fiú rochtain a fháil orthu) agus beidh an eochair criptithe mar chuid den nasc scaire (an chuid ancaire) - ach ní dhéanfar í a sheoladh chuig an bhfreastalaí riamh. Nuair a bheidh sé faighte ar ais, scriosfar an rún ón bhfreastalaí, ag cinntiú, má shroicheann sé an faighteoir ceart, nach bhfaca aon duine eile é.",
     "New secret" : "Rún nua",
     "Change Title" : "Athraigh Teideal",
     "Cancel secret creation" : "Cealaigh cruthú rúnda",
