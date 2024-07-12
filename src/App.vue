@@ -194,7 +194,7 @@ export default {
 				this.secrets.push({
 					uuid: '',
 					title: t('secrets', 'New Secret'),
-					password: null,
+					password: '',
 					pwHash: null,
 					key,
 					iv,
@@ -227,7 +227,7 @@ export default {
 				let expiresStr = secret.expires.toISOString()
 				const encryptedSecret = {
 					title: secret.title,
-					password: secret.password,
+					password: secret.password === '' ? null : secret.password,
 					expires: expiresStr,
 					encrypted: await encryptedPromise,
 					iv: this.$cryptolib.arrayBufferToB64String(secret.iv),
