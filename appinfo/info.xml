@@ -8,8 +8,10 @@
     <id>secrets</id>
     <name>Secrets</name>
     <summary>Securely share data via link</summary>
-    <description><![CDATA[Secrets allows users to generate share links for text based data (e.g. passwords, CSV lists, bank accounts...) that can be sent to anyone (including receivers without a Nextcloud account) for retrieval. The data itself will be end-to-end encrypted (so not even Nextcloud can access it) and the encryption key will be part of the share link (the anchor part) - but never be actually sent to the server. Once retrieved, the secret will be deleted from the server, ensuring, that if it arrived at the correct receiver it has been seen by nobody else.]]></description>
-    <version>2.0.2</version>
+    <description><![CDATA[Secrets allows users to generate share links for text based data (e.g. passwords, CSV lists, bank accounts...) that can be sent to anyone (including receivers without a Nextcloud account) for retrieval. The data itself will be end-to-end encrypted (so not even Nextcloud can access it) and the encryption key will be part of the share link (the anchor part) - but never be actually sent to the server. Once retrieved, the secret will be deleted from the server, ensuring, that if it arrived at the correct receiver it has been seen by nobody else.
+
+Secrets now comes with a cli that can be used to automate the provisioning of secret shares: https://github.com/theCalcaholic/nextcloud-secrets/releases]]></description>
+    <version>2.0.3</version>
     <licence>agpl</licence>
     <author mail="thecalcaholic@web.de" homepage="https://github.com/theCalcaholic">Tobias Knöppler</author>
     <namespace>Secrets</namespace>
