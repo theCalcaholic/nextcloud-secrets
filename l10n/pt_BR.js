@@ -4,7 +4,6 @@ OC.L10N.register(
     "Secrets" : "Segredos",
     "Secret '{secret}' has been retrieved" : "Segredo '{secret}' foi recuperado",
     "Securely share data via link" : "Compartilhe dados com segurança via link",
-    "Secrets allows users to generate share links for text based data (e.g. passwords, CSV lists, bank accounts...) that can be sent to anyone (including receivers without a Nextcloud account) for retrieval. The data itself will be end-to-end encrypted (so not even Nextcloud can access it) and the encryption key will be part of the share link (the anchor part) - but never be actually sent to the server. Once retrieved, the secret will be deleted from the server, ensuring, that if it arrived at the correct receiver it has been seen by nobody else." : "Secrets permite que os usuários gerem links de compartilhamento para dados baseados em texto (por exemplo, senhas, listas CSV, contas bancárias...) que podem ser enviados a qualquer pessoa (incluindo destinatários sem uma conta Nextcloud) para recuperação. Os dados em si serão criptografados de ponta a ponta (portanto, nem mesmo o Nextcloud poderá acessá-los) e a chave de criptografia fará parte do link de compartilhamento (a parte âncora) - mas nunca será realmente enviada ao servidor. Uma vez recuperado, o segredo será deletado do servidor, garantindo que se chegar ao destinatário correto não será visto por mais ninguém.",
     "New secret" : "Novo segredo",
     "Change Title" : "Alterar Título",
     "Cancel secret creation" : "Cancelar criação secreta",

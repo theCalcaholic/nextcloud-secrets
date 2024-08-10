@@ -2,7 +2,6 @@
     "Secrets" : "密鑰",
     "Secret '{secret}' has been retrieved" : "已檢索到密鑰 “{secret}”",
     "Securely share data via link" : "通過連結安全地分享數據",
-    "Secrets allows users to generate share links for text based data (e.g. passwords, CSV lists, bank accounts...) that can be sent to anyone (including receivers without a Nextcloud account) for retrieval. The data itself will be end-to-end encrypted (so not even Nextcloud can access it) and the encryption key will be part of the share link (the anchor part) - but never be actually sent to the server. Once retrieved, the secret will be deleted from the server, ensuring, that if it arrived at the correct receiver it has been seen by nobody else." : "Secrets 允許用戶生成文本數據（如密碼、CSV 列表、銀行賬戶等）的共享鏈接，這些鏈接可以發送給任何人（包括沒有 Nextcloud 賬戶的接收者）以進行檢索。數據本身將進行端到端加密（即使是 Nextcloud 也無法訪問），加密密鑰將成為共享鏈接的一部分（錨部分），但永遠不會實際發送到伺服器。一旦檢索，秘密將從伺服器中刪除，確保它到達正確接收者後不會被其他人看到。",
     "New secret" : "新密鑰",
     "Change Title" : "更改標題",
     "Cancel secret creation" : "取消創建密鑰",
