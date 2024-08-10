@@ -4,7 +4,6 @@ OC.L10N.register(
     "Secrets" : "Geheimnisse",
     "Secret '{secret}' has been retrieved" : "Das Geheimnis „{secret}“ wurde abgerufen",
     "Securely share data via link" : "Daten sicher mittels Link freigeben",
-    "Secrets allows users to generate share links for text based data (e.g. passwords, CSV lists, bank accounts...) that can be sent to anyone (including receivers without a Nextcloud account) for retrieval. The data itself will be end-to-end encrypted (so not even Nextcloud can access it) and the encryption key will be part of the share link (the anchor part) - but never be actually sent to the server. Once retrieved, the secret will be deleted from the server, ensuring, that if it arrived at the correct receiver it has been seen by nobody else." : "Mit der Geheimnisse-App können Benutzer Freigabelinks für textbasierte Daten (z. B. Passwörter, CSV-Listen, Bankkonten usw.) erstellen, die zum Abrufen an jeden gesendet werden können (auch an Empfänger ohne Nextcloud-Konto). Die Daten selbst werden Ende-zu-Ende verschlüsselt (so dass nicht einmal Nextcloud darauf zugreifen kann) und der Verschlüsselungsschlüssel ist Teil des Freigabelinks (der Ankerteil), wird aber nie tatsächlich an den Server gesendet. Nach dem Abrufen wird das Geheimnis vom Server gelöscht, sodass sichergestellt ist, dass es, sobald es beim richtigen Empfänger angekommen ist, von niemand anderem gesehen wurde.",
     "New secret" : "Neues Geheimnis",
     "Change Title" : "Titel ändern",
     "Cancel secret creation" : "Geheimniserstellung abbrechen",
