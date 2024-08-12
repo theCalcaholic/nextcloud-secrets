@@ -2,6 +2,7 @@
     "Secrets" : "密鑰",
     "Secret '{secret}' has been retrieved" : "已檢索到密鑰 “{secret}”",
     "Securely share data via link" : "通過連結安全地分享數據",
+    "Secrets allows users to generate share links for text based data (e.g. passwords, CSV lists, bank accounts...) that can be sent to anyone (including receivers without a Nextcloud account) for retrieval. The data itself will be end-to-end encrypted (so not even Nextcloud can access it) and the encryption key will be part of the share link (the anchor part) - but never be actually sent to the server. Once retrieved, the secret will be deleted from the server, ensuring, that if it arrived at the correct receiver it has been seen by nobody else.\n\nSecrets now comes with a cli that can be used to automate the provisioning of secret shares: https://github.com/theCalcaholic/nextcloud-secrets/releases" : "Nextcloud Secrets 支援用戶生成可供任何人(包括沒有 Nextcloud 帳號的收件者)獲取的文字數據(例如密碼、CSV 清單、銀行帳號等)的共享連結。數據本身將經過端到端加密(因此即使是 Nextcloud 也無法存取它),而加密金鑰將是共享連結的一部分(錨點部分) - 但永遠不會被實際發送到伺服器。一旦被獲取,密碼就會從伺服器上刪除,確保它只被正確的收件人看到。\n\nSecrets 現在附帶了一個 CLI,可用於自動化密碼共享的建立: https://github.com/theCalcaholic/nextcloud-secrets/releases",
     "New secret" : "新密鑰",
     "Change Title" : "更改標題",
     "Cancel secret creation" : "取消創建密鑰",
