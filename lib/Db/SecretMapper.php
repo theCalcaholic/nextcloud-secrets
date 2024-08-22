@@ -18,6 +18,7 @@ use Psr\Log\LoggerInterface;
  * @template-extends QBMapper<Note>
  */
 class SecretMapper extends QBMapper {
+	private LoggerInterface $logger;
 	public function __construct(IDBConnection $db, LoggerInterface $logger) {
 		$this->logger = $logger;
 		parent::__construct($db, 'secrets', Secret::class);
