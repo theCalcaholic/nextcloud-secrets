@@ -9,7 +9,6 @@ OC.L10N.register(
     "Change Title" : "Endre tittel",
     "Cancel secret creation" : "Avbryt oppretting av hemmelighet",
     "Delete secret" : "Slett hemmelighet",
-    "Your secret is stored end-to-end encrypted on the server. " : "Hemmeligheten din lagres ende-til-ende-kryptert på serveren. ",
     "Create a secret to get started" : "For å komme i gang, opprett en hemmelighet",
     "Could not fetch secrets" : "Kunne ikke hente hemmeligheter",
     "New Secret" : "Ny hemmelighet",

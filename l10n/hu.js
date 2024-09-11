@@ -8,7 +8,6 @@ OC.L10N.register(
     "Change Title" : "Cím módosítása",
     "Cancel secret creation" : "Titok létrehozásának megszakítása",
     "Delete secret" : "Titok törlése",
-    "Your secret is stored end-to-end encrypted on the server. " : "A titok végpontok közti titkosítással van tárolva a kiszolgálón.",
     "Create a secret to get started" : "A kezdéshez hozzon létre egy titkot",
     "Could not fetch secrets" : "Nem sikerült lekérni a titkokat",
     "New Secret" : "Új titok",

@@ -8,7 +8,6 @@ OC.L10N.register(
     "Change Title" : "Změnit nadpis",
     "Cancel secret creation" : "Zrušit vytváření tajemství",
     "Delete secret" : "Smazat tajemství",
-    "Your secret is stored end-to-end encrypted on the server. " : "Vaše tajemství je uloženo na serveru s použitím šifrování mezi koncovými body",
     "Create a secret to get started" : "Začněte vytvořením tajemství",
     "Could not fetch secrets" : "Nepodařilo se získat tajemství",
     "New Secret" : "Nové tajemství",

@@ -7,7 +7,6 @@
     "Change Title" : "Alterar Título",
     "Cancel secret creation" : "Cancelar criação secreta",
     "Delete secret" : "Excluir segredo",
-    "Your secret is stored end-to-end encrypted on the server. " : "Seu segredo é armazenado criptografado de ponta a ponta no servidor.",
     "Create a secret to get started" : "Crie um segredo para começar",
     "Could not fetch secrets" : "Não foi possível buscar segredos",
     "New Secret" : "Novo Segredo",

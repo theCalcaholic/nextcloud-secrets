@@ -9,7 +9,6 @@ OC.L10N.register(
     "Change Title" : "Başlığı değiştir",
     "Cancel secret creation" : "Sır oluşturmaktan vazgeç",
     "Delete secret" : "Sırrı sil",
-    "Your secret is stored end-to-end encrypted on the server. " : "Sırrınız sunucuda uçtan uca şifrelenmiş olarak tutulur.",
     "Create a secret to get started" : "Başlamak için bir sır oluşturun",
     "Could not fetch secrets" : "Sırlar alınamadı",
     "New Secret" : "Sır ekle",

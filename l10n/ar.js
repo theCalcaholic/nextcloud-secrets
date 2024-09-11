@@ -9,7 +9,6 @@ OC.L10N.register(
     "Change Title" : "غير العنوان",
     "Cancel secret creation" : "إلغاء إنشاء السر",
     "Delete secret" : "حذف السر",
-    "Your secret is stored end-to-end encrypted on the server. " : "يتم تخزين سرك بشكل مشفر من طرف إلى طرف على الخادم.",
     "Create a secret to get started" : "قم بإنشاء سر لتبدأ",
     "Could not fetch secrets" : "تعذر استدعاء الأسرار",
     "New Secret" : "سر جديد",

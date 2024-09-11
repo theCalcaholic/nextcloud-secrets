@@ -9,7 +9,6 @@ OC.L10N.register(
     "Change Title" : "Промените наслов",
     "Cancel secret creation" : "Откажи креирање тајне",
     "Delete secret" : "Обриши тајну",
-    "Your secret is stored end-to-end encrypted on the server. " : "Ваша тајна је на сервер смештена шифрована од-краја-до-краја.",
     "Create a secret to get started" : "Креирајте тајну да бисте почели",
     "Could not fetch secrets" : "Не могу да се добаве тајне",
     "New Secret" : "Нова тајна",

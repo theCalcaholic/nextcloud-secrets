@@ -8,7 +8,6 @@ OC.L10N.register(
     "Change Title" : "Aldatu izenburua",
     "Cancel secret creation" : "Utzi sekretuaren sorrera",
     "Delete secret" : "Ezabatu sekretua",
-    "Your secret is stored end-to-end encrypted on the server. " : "Zure sekretua zerbitzarian gordeta dago muturretik muturrerako enkriptatzearekin.",
     "Create a secret to get started" : "Sortu sekretu bat hasteko",
     "Could not fetch secrets" : "Ezin izan dira sekretuak eskuratu",
     "New Secret" : "Sekretu berria",

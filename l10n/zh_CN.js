@@ -8,7 +8,6 @@ OC.L10N.register(
     "Change Title" : "更改标题",
     "Cancel secret creation" : "取消创建密信",
     "Delete secret" : "删除密信",
-    "Your secret is stored end-to-end encrypted on the server. " : "您的密信以端到端加密存储在服务器上。",
     "Create a secret to get started" : "创建一个密信以开始使用",
     "Could not fetch secrets" : "无法获取密信",
     "New Secret" : "新密信",

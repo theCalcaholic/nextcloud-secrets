@@ -8,7 +8,6 @@ OC.L10N.register(
     "Change Title" : "Змінити назву",
     "Cancel secret creation" : "Скасувати створення секретного повідомлення",
     "Delete secret" : "Вилучити секретне повідомлення",
-    "Your secret is stored end-to-end encrypted on the server. " : "Ваше секретне повідомлення зашифровано наскрізним шифруванням та збережено на сервері",
     "Create a secret to get started" : "Спочатку потрібно створити секретне повідомлення.",
     "Could not fetch secrets" : "Не вдалося отримати секретні повідомлення",
     "New Secret" : "Нове секретне повідомлення",
