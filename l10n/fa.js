@@ -8,7 +8,6 @@ OC.L10N.register(
     "Change Title" : "Change Title",
     "Cancel secret creation" : "Cancel secret creation",
     "Delete secret" : "Delete secret",
-    "Your secret is stored end-to-end encrypted on the server. " : "Your secret is stored end-to-end encrypted on the server. ",
     "Create a secret to get started" : "Create a secret to get started",
     "Could not fetch secrets" : "Could not fetch secrets",
     "New Secret" : "New Secret",

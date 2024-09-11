@@ -6,7 +6,6 @@
     "Change Title" : "Промяна на заглавието",
     "Cancel secret creation" : "Отказ от създаването на тайна",
     "Delete secret" : "Изтриване на тайна",
-    "Your secret is stored end-to-end encrypted on the server. " : "Вашата тайна е цялостно криптирана и се съхранява на сървъра. ",
     "Create a secret to get started" : "Създайте тайна, за да започнете.",
     "Could not fetch secrets" : "Тайните не можаха да бъдат извлечени",
     "New Secret" : "Нова тайна",

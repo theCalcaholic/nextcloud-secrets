@@ -9,7 +9,6 @@ OC.L10N.register(
     "Change Title" : "Cambiar o título",
     "Cancel secret creation" : "Cancelar a creación do segredo",
     "Delete secret" : "Eliminar o segredo",
-    "Your secret is stored end-to-end encrypted on the server. " : "O seu segredo almacénase cifrado de extremo a extremo no servidor.",
     "Create a secret to get started" : "Cree un segredo para comezar",
     "Could not fetch secrets" : "Non foi posíbel recuperar os segredos",
     "New Secret" : "Novo segredo",

@@ -7,7 +7,6 @@ OC.L10N.register(
     "Change Title" : "Изменить заголовок",
     "Cancel secret creation" : "Отменить создание секрета",
     "Delete secret" : "Удалить секрет",
-    "Your secret is stored end-to-end encrypted on the server. " : "Ваш секрет сохраняется на сервер зашифрованный при помощи метода сквозного шифрования",
     "Create a secret to get started" : "Создать секрет чтобы начать",
     "Could not fetch secrets" : "Не удалось получить секреты",
     "New Secret" : "Новый секрет",

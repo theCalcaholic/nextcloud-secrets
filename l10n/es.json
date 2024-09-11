@@ -6,7 +6,6 @@
     "Change Title" : "Cambiar título",
     "Cancel secret creation" : "Cancelar la creación del secreto",
     "Delete secret" : "Eliminar secreto",
-    "Your secret is stored end-to-end encrypted on the server. " : "Su secreto ha sido almacenado y cifrado de extremo a extremo en el servidor.",
     "Create a secret to get started" : "Cree un secreto para comenzar",
     "Could not fetch secrets" : "No se pudieron obtener los secretos",
     "New Secret" : "Nuevo secreto",

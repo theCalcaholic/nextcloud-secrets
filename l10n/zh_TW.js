@@ -9,7 +9,6 @@ OC.L10N.register(
     "Change Title" : "變更標題",
     "Cancel secret creation" : "取消建立祕密",
     "Delete secret" : "刪除祕密",
-    "Your secret is stored end-to-end encrypted on the server. " : "您的祕密以端到端加密儲存於伺服器上。",
     "Create a secret to get started" : "建立祕密以開始使用",
     "Could not fetch secrets" : "無法擷取祕密",
     "New Secret" : "新祕密",

@@ -9,7 +9,6 @@ OC.L10N.register(
     "Change Title" : "Athraigh Teideal",
     "Cancel secret creation" : "Cealaigh cruthú rúnda",
     "Delete secret" : "Scrios an rún",
-    "Your secret is stored end-to-end encrypted on the server. " : "Stóráiltear do rún criptithe ceann go ceann ar an bhfreastalaí.",
     "Create a secret to get started" : "Cruthaigh rún chun tús a chur leis",
     "Could not fetch secrets" : "Níorbh fhéidir rúin a fháil",
     "New Secret" : "Rún Nua",
