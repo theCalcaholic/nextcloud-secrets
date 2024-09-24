@@ -11,19 +11,19 @@ use DateTime;
 use OCA\Secrets\AppInfo\Application;
 
 use OCA\Secrets\Db\Secret;
-use OCP\ILogger;
 use OCP\IURLGenerator;
 use OCP\Notification\IManager as INotificationManager;
+use Psr\Log\LoggerInterface;
 
 class NotificationService {
 	private INotificationManager $notificationManager;
 	private IURLGenerator $urlGenerator;
-	private ILogger $logger;
+	private LoggerInterface $logger;
 
 	public function __construct(
 		INotificationManager $notificationManager,
 		IURLGenerator        $urlGenerator,
-		ILogger              $logger) {
+		LoggerInterface      $logger) {
 		$this->notificationManager = $notificationManager;
 		$this->urlGenerator = $urlGenerator;
 		$this->logger = $logger;

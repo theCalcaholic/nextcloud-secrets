@@ -17,6 +17,7 @@ use Psr\Log\LoggerInterface;
 
 class SecretService {
 	private SecretMapper $mapper;
+	private LoggerInterface $logger;
 
 	public function __construct(SecretMapper $mapper, LoggerInterface $logger) {
 		$this->mapper = $mapper;

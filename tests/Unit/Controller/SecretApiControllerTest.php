@@ -12,7 +12,6 @@ use OCA\Secrets\Service\SecretNotFound;
 use OCA\Secrets\Service\SecretService;
 use OCP\App\IAppManager;
 use OCP\AppFramework\Http;
-use OCP\ILogger;
 use OCP\IRequest;
 
 use OCP\ISession;
@@ -21,6 +20,7 @@ use OCP\IURLGenerator;
 use OCP\Notification\IManager as INotificationManager;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
 
 class SecretApiControllerTest extends TestCase {
 	protected SecretApiController $controller;
@@ -37,7 +37,7 @@ class SecretApiControllerTest extends TestCase {
 	protected $notificationManager;
 	/** @var IURLGenerator|MockObject */
 	protected $urlGenerator;
-	/** @var ILogger|MockObject */
+	/** @var LoggerInterface|MockObject */
 	protected $logger;
 	/** @var IAppManager|MockObject */
 	protected $appManager;
@@ -53,7 +53,7 @@ class SecretApiControllerTest extends TestCase {
 			->getMock();
 		$this->urlGenerator = $this->getMockBuilder(IURLGenerator::class)->getMock();
 		$this->notificationManager = $this->getMockBuilder(INotificationManager::class)->getMock();
-		$this->logger = $this->getMockBuilder(ILogger::class)->getMock();
+		$this->logger = $this->getMockBuilder(LoggerInterface::class)->getMock();
 		$class = new \ReflectionClass(IAppManager::class);
 		$this->appManager = $this->getMockBuilder(IAppManager::class)
 			->setMethods(array_map(function ($m) {return $m->name;}, $class->getMethods()))

@@ -10,20 +10,20 @@ use Exception;
 use InvalidArgumentException;
 use OCA\Secrets\AppInfo\Application;
 use OCA\Secrets\Service\SecretService;
-use OCP\ILogger;
 use OCP\IURLGenerator;
 use OCP\L10N\IFactory;
 use OCP\Notification\AlreadyProcessedException;
 use OCP\Notification\INotification;
 use OCP\Notification\INotifier;
+use Psr\Log\LoggerInterface;
 
 class Notifier implements INotifier {
 	protected IFactory $factory;
 	protected IURLGenerator $url;
 	protected SecretService $secretService;
-	protected ILogger $logger;
+	protected LoggerInterface $logger;
 
-	public function __construct(IFactory $factory, IURLGenerator $urlGenerator, SecretService $secretService, ILogger $logger) {
+	public function __construct(IFactory $factory, IURLGenerator $urlGenerator, SecretService $secretService, LoggerInterface $logger) {
 		$this->factory = $factory;
 		$this->url = $urlGenerator;
 		$this->secretService = $secretService;

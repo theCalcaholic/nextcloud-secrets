@@ -16,11 +16,11 @@ use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\BruteForceProtection;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCSController;
-use OCP\ILogger;
 use OCP\IRequest;
 use OCP\ISession;
 use OCP\IURLGenerator;
 use OCP\Notification\IManager as INotificationManager;
+use Psr\Log\LoggerInterface;
 
 /**
  * @psalm-import-type SecretsData from ResponseDefinitions
@@ -31,7 +31,7 @@ class SecretApiController extends OCSController {
 	private SecretService $service;
 	private NotificationService $notificationService;
 	private ?string $userId;
-	private ILogger $logger;
+	private LoggerInterface $logger;
 	private ISession $session;
 	private string $appVersion;
 
@@ -43,8 +43,8 @@ class SecretApiController extends OCSController {
 		NotificationService  $notificationService,
 		INotificationManager $notificationManager,
 		IURLGenerator        $urlGenerator,
-		IAppManager $appManager,
-		ILogger              $logger,
+		IAppManager          $appManager,
+		LoggerInterface      $logger,
 		?string              $userId) {
 		parent::__construct(Application::APP_ID, $request);
 		$this->service = $service;

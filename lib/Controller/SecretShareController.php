@@ -15,12 +15,12 @@ use OCP\AppFramework\AuthPublicShareController;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IConfig;
-use OCP\ILogger;
 use OCP\IRequest;
 
 use OCP\ISession;
 use OCP\IURLGenerator;
 use OCP\Util;
+use Psr\Log\LoggerInterface;
 
 class SecretShareController extends AuthPublicShareController {
 	private SecretService $service;
@@ -28,11 +28,11 @@ class SecretShareController extends AuthPublicShareController {
 	private bool $debug;
 
 	public function __construct(IRequest      $request,
-		ISession      $session,
-		SecretService $service,
-		IURLGenerator $urlGenerator,
-		IConfig $config,
-		ILogger              $logger) {
+		ISession        $session,
+		SecretService   $service,
+		IURLGenerator   $urlGenerator,
+		IConfig         $config,
+		LoggerInterface $logger) {
 		parent::__construct(Application::APP_ID, $request, $session, $urlGenerator);
 		$this->service = $service;
 		$this->debug = $config->getSystemValueBool("debug");
