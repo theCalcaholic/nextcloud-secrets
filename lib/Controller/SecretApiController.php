@@ -206,7 +206,7 @@ class SecretApiController extends OCSController {
 	public function delete(string $uuid): DataResponse {
 		try {
 			$secret = $this->service->delete($uuid, $this->userId);
-			return new DataResponse(['message' => "Secret '$secret->getTitle()' has been deleted"]);
+			return new DataResponse(['message' => "Secret '{$secret->getTitle()}' has been deleted"]);
 		} catch (SecretNotFound $e) {
 			return new DataResponse(['message' => "No secret found with uuid '$uuid'"], Http::STATUS_NOT_FOUND);
 		}
