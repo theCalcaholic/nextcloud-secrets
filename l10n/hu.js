@@ -38,10 +38,6 @@ OC.L10N.register(
     "This share is password-protected" : "Ez a megosztás jelszóval védett",
     "The password is wrong or has expired. Please try again." : "A jelszó hibás vagy lejárt. Próbálja újra.",
     "Password" : "Jelszó",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Osszon meg biztonságosan adatok bárkivel. Az összes adat végpontok közti titkosítással rendelkezik, és a sikeres letöltés után törlődik.",
-    "Revealing will delete the secret from the server. You will not be able to retrieve it again.": "A titok felfedése törölni fogja azt a szerverről. Ezt követően nem tudja visszaállítani.",
-    "I understand. Reveal and destroy Secret." : "Értem. Titok felfedése és megsemmisítése.",
-    "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Ez az útvonal megváltozott. Átirányítjuk az új helyre. Ha ez nem működik, kattintson az alábbi hivatkozásra:",
-    "Go to secret" : "Menj a titokhoz"
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Osszon meg biztonságosan adatok bárkivel. Az összes adat végpontok közti titkosítással rendelkezik, és a sikeres letöltés után törlődik."
 },
 "nplurals=2; plural=(n != 1);");
