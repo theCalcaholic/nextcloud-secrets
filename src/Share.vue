@@ -46,7 +46,7 @@
 					disabled="disabled" />
 				<div v-else-if="loading" id="emptycontent">
 					<div class="icon-loading" />
-					<h2>{{ t('secrets', 'Retrieving secret...') }}</h2>
+					<h2>{{ t('secrets', 'Retrieving secret…') }}</h2>
 				</div>
 				<div v-else-if="error" id="emptycontent">
 					<div class="icon-password" />
