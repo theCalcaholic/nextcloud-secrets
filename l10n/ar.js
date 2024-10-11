@@ -40,7 +40,7 @@ OC.L10N.register(
     "Could not decrypt secret" : "لا يمكن فك تشفير السر",
     "This share is password-protected" : "هذه المشاركة محمية بكلمة مرور",
     "The password is wrong or has expired. Please try again." : "كلمة المرور خاطئة أو منتهية الصلاحية. حاول مرة اخرى.",
-    "Password" : "كلمة السر",
+    "Password" : "كلمة المرور",
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "لقد تغير هذا المسار. ستتم إعادة توجيهك إلى الموقع الجديد. إذا لم ينجح ذلك، انقُر على الرابط التالي:",
     "Go to secret" : "إذهب إلى السّر",
     "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "شارك البيانات مع أي شخص بصورة آمنة. كل البيانات مشفرة من الحَدِّ للحَدِّ و سيقع حذفها بمجرد إتمام استلامها بنجاحٍ"
