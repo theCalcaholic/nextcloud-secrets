@@ -38,6 +38,7 @@ OC.L10N.register(
     "This share is password-protected" : "Toto sdílení je chráněno heslem",
     "The password is wrong or has expired. Please try again." : "Nesprávné heslo nebo jeho platnost skončila. Zkuste to prosím znovu.",
     "Password" : "Heslo",
+    "Go to secret" : "Přejít k tajemství",
     "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Bezpečně sdílejte data s kýmkoli. Veškerá data jsou mezi koncovými body šifrována uživatelem a po úspěšném přijetí budou vymazána ze serveru"
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;");
