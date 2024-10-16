@@ -40,6 +40,7 @@ OC.L10N.register(
     "This share is password-protected" : "Toto sdílení je chráněno heslem",
     "The password is wrong or has expired. Please try again." : "Nesprávné heslo nebo jeho platnost skončila. Zkuste to prosím znovu.",
     "Password" : "Heslo",
+    "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Tento popis umístění byl změněn. Probíhá přesměrování do nového umístění. Pokud to nezafunguje, klikněte na následující odkaz:",
     "Go to secret" : "Přejít k tajemství",
     "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Bezpečně sdílejte data s kýmkoli. Veškerá data jsou mezi koncovými body šifrována uživatelem a po úspěšném přijetí budou vymazána ze serveru"
 },
