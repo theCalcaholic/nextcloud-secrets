@@ -12,7 +12,7 @@
     "Save" : "Uložiť",
     "Download" : "Sťahovanie",
     "Could not decrypt secret" : "Nepodarilo sa dešifrovať tajný kľúč",
-    "This share is password-protected" : "Toto sprístupnenie je chránené heslom",
+    "This share is password-protected" : "Toto zdieľanie je chránené heslom",
     "Password" : "Heslo"
 },"pluralForm" :"nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);"
 }
