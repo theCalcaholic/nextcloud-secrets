@@ -32,7 +32,7 @@
     "Download" : "تنزيل",
     "Retrieving secret..." : "جاري استرداد السر ...",
     "Error loading secret. Is your link correct?" : "خطأ في تحميل السر. هل الرابط الخاص بك صحيح؟",
-    "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "سيؤدي الكشف إلى حذف السر من الخادوم، و لن تتمكن من استعادته مرة أخرى.",
+    "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "سيؤدي الكشف إلى حذف السر من الخادم، و لن تتمكن من استعادته مرة أخرى.",
     "Reveal the secret and delete it on the server" : "كشف السر وحذفه من على الخادم",
     "I understand. Reveal and destroy Secret." : "أنا أفهم. إكشِف و دمِّر السّر.",
     "Could not decrypt secret" : "لا يمكن فك تشفير السر",
