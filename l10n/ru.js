@@ -15,6 +15,7 @@ OC.L10N.register(
     "Secret deleted" : "Секрет удален",
     "Could not delete the secret" : "Не удалось удалить секрет",
     "Share Link" : "Поделиться ссылкой",
+    "password protected" : "защищено паролем",
     "Could not decrypt secret (key not available locally)." : "Не удалось расшифровать секрет (ключ недоступен локально).",
     "Save" : "Сохранить",
     "Copy to Clipboard" : "Скопировано в буфер обмена",
