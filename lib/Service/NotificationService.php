@@ -44,7 +44,7 @@ class NotificationService {
 				->setSubject(Application::APP_ID, ['secret' => $secret->getUuid()]);
 			$this->notificationManager->notify($notification);
 		} catch (\Exception $e) {
-			$this->logger->logException($e, ['app' => Application::APP_ID]);
+			$this->logger->error('Failed to create notification for secret retrieval: ' . $e->getMessage(), ['exception' => $e]);
 		}
 
 	}

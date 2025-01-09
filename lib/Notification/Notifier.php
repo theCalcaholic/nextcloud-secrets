@@ -54,7 +54,7 @@ class Notifier implements INotifier {
 	 * @param INotification $notification
 	 * @param string $languageCode The code of the language that should be used to prepare the notification
 	 * @return INotification
-	 * @throws \InvalidArgumentException When the notification was not prepared by a notifier
+	 * @throws InvalidArgumentException When the notification was not prepared by a notifier
 	 * @throws AlreadyProcessedException When the notification is not needed anymore and should be deleted
 	 * @since 9.0.0
 	 */
@@ -65,7 +65,7 @@ class Notifier implements INotifier {
 		try {
 			$secret = $this->secretService->find($notification->getObjectId(), $notification->getUser());
 		} catch (Exception $e) {
-			$this->logger->logException($e);
+			$this->logger->error('Could not find secret for creating retrieval notification: ' . $e->getMessage(), ['exception' => $e]);
 			throw new AlreadyProcessedException();
 		}
 
