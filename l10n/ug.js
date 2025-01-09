@@ -31,7 +31,7 @@ OC.L10N.register(
     "Copy to Clipboard" : "چاپلاش تاختىسىغا كۆچۈرۈڭ",
     "Download the secret's content as a file" : "مەخپىيەتلىكنىڭ مەزمۇنىنى ھۆججەت سۈپىتىدە چۈشۈرۈڭ",
     "Download" : "چۈشۈر",
-    "Retrieving secret..." : "ئەسلىگە كەلتۈرۈش ...",
+    "Retrieving secret…" : "ئەسلىگە كەلتۈرۈش ...",
     "Error loading secret. Is your link correct?" : "مەخپىيەتلىكنى يۈكلەشتە خاتالىق. ئۇلىنىشىڭىز توغرىمۇ؟",
     "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "ئاشكارىلاش مۇلازىمېتىردىكى مەخپىيەتلىكنى ئۆچۈرۈۋېتىدۇ. ئۇنى قايتا ئەسلىگە كەلتۈرەلمەيسىز.",
     "Reveal the secret and delete it on the server" : "مەخپىيەتلىكنى ئاشكارىلاپ مۇلازىمېتىردا ئۆچۈرۈڭ",

@@ -30,7 +30,7 @@
     "Copy to Clipboard" : "Copy to Clipboard",
     "Download the secret's content as a file" : "Download the secret's content as a file",
     "Download" : "Download",
-    "Retrieving secret..." : "Retrieving secret...",
+    "Retrieving secret…" : "Retrieving secret…",
     "Error loading secret. Is your link correct?" : "Error loading secret. Is your link correct?",
     "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "Revealing will delete the secret from the server. You will not be able to retrieve it again.",
     "Reveal the secret and delete it on the server" : "Reveal the secret and delete it on the server",

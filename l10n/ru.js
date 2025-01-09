@@ -20,7 +20,7 @@ OC.L10N.register(
     "Save" : "Сохранить",
     "Copy to Clipboard" : "Скопировано в буфер обмена",
     "Download" : "Скачать",
-    "Retrieving secret..." : "Получение секрета...",
+    "Retrieving secret…" : "Получение секрета…",
     "Error loading secret. Is your link correct?" : "Ошибка загрузки секрета. Ваша ссылка корректна?",
     "Could not decrypt secret" : "Не удалось расшифровать секрет",
     "This share is password-protected" : "Доступ к этому ресурсу защищён паролем",

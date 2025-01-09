@@ -30,7 +30,7 @@
     "Copy to Clipboard" : "Копирај у клипборд",
     "Download the secret's content as a file" : "Преузми садржај тајне као фајл",
     "Download" : "Преузми",
-    "Retrieving secret..." : "Преузимање тајне...",
+    "Retrieving secret…" : "Преузимање тајне…",
     "Error loading secret. Is your link correct?" : "Грешка приликом учитавања тајне. Да ли је ваш линк исправан?",
     "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "Откривање ће да обрише тајну са сервера. Више нећете поново моћи да је добијете.",
     "Reveal the secret and delete it on the server" : "Откриј тајну и обриши је са сервера",

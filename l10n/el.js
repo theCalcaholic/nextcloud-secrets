@@ -17,7 +17,7 @@ OC.L10N.register(
     "Save" : "Αποθήκευση",
     "Copy to Clipboard" : "Αντιγραφή στο πρόχειρο",
     "Download" : "Λήψη",
-    "Retrieving secret..." : "Ανάκτηση μυστικού...",
+    "Retrieving secret…" : "Ανάκτηση μυστικού...",
     "Error loading secret. Is your link correct?" : "Σφάλμα κατά τη φόρτωση του μυστικού. Είναι σωστός ο σύνδεσμός σας;",
     "Could not decrypt secret" : "Αδυναμία αποκρυπτογράφησης μυστικού",
     "This share is password-protected" : "Το κοινόχρηστο έχει προστασία κωδικού",

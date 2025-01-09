@@ -32,7 +32,7 @@ OC.L10N.register(
     "Copy to Clipboard" : "Panoya kopyala",
     "Download the secret's content as a file" : "Parolanın içeriğini bir dosya olarak indir",
     "Download" : "İndir",
-    "Retrieving secret..." : "Sır alınıyor...",
+    "Retrieving secret…" : "Sır alınıyor…",
     "Error loading secret. Is your link correct?" : "Sır yüklenirken sorun çıktı. Bağlantı doğru mu?",
     "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "Görüntülenmesi sırrı sunucudan siler. Yeniden alamayacaksınız.",
     "Reveal the secret and delete it on the server" : "Parolayı görüntüle ve sunucudan sil",

@@ -29,7 +29,7 @@
     "Copy to Clipboard" : "Copiar al portapapeles",
     "Download the secret's content as a file" : "Descargue el contenido del secreto como archivo",
     "Download" : "Descargar",
-    "Retrieving secret..." : "Obteniendo secreto...",
+    "Retrieving secret…" : "Obteniendo secreto…",
     "Error loading secret. Is your link correct?" : "Error cargando el secreto. ¿Es su enlace correcto?",
     "Reveal the secret and delete it on the server" : "Revelar el secreto y eliminarlo del servidor",
     "Could not decrypt secret" : "No fue posible descifrar el secreto",

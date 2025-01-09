@@ -29,7 +29,7 @@
     "Copy to Clipboard" : "Zkopírovat do schránky",
     "Download the secret's content as a file" : "Stáhnout si obsah tajemství jako soubor",
     "Download" : "Stáhnout",
-    "Retrieving secret..." : "Získávání tajemství…",
+    "Retrieving secret…" : "Získávání tajemství…",
     "Error loading secret. Is your link correct?" : "Chyba při načítání tajemství. Je vámi poskytnutý odkaz správný?",
     "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "Odhalení vymaže tajemství ze serveru. Už ho nebude možné znovu získat.",
     "Reveal the secret and delete it on the server" : "Odkrýt tajemství a smazat ho na serveru",

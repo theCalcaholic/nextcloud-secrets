@@ -31,7 +31,7 @@ OC.L10N.register(
     "Copy to Clipboard" : "Copy to Clipboard",
     "Download the secret's content as a file" : "Download the secret's content as a file",
     "Download" : "بارگیری",
-    "Retrieving secret..." : "Retrieving secret...",
+    "Retrieving secret…" : "Retrieving secret…",
     "Error loading secret. Is your link correct?" : "Error loading secret. Is your link correct?",
     "Reveal the secret and delete it on the server" : "Reveal the secret and delete it on the server",
     "Could not decrypt secret" : "Could not decrypt secret",

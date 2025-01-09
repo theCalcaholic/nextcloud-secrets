@@ -30,7 +30,7 @@
     "Copy to Clipboard" : "نسخ إلى الحافظة",
     "Download the secret's content as a file" : "تنزيل محتوي السر فى صورة ملف",
     "Download" : "تنزيل",
-    "Retrieving secret..." : "جاري استرداد السر ...",
+    "Retrieving secret…" : "جاري استرداد السر ...",
     "Error loading secret. Is your link correct?" : "خطأ في تحميل السر. هل الرابط الخاص بك صحيح؟",
     "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "سيؤدي الكشف إلى حذف السر من الخادم، و لن تتمكن من استعادته مرة أخرى.",
     "Reveal the secret and delete it on the server" : "كشف السر وحذفه من على الخادم",

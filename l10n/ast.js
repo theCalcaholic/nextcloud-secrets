@@ -18,7 +18,7 @@ OC.L10N.register(
     "Save" : "Guardar",
     "Copy to Clipboard" : "Copiar nel cartafueyu",
     "Download" : "Baxar",
-    "Retrieving secret..." : "Recuperando'l secretu…",
+    "Retrieving secret…" : "Recuperando'l secretu…",
     "Error loading secret. Is your link correct?" : "Hebo un error al cargar el secretu. ¿L'enllaz ye correutu?",
     "Could not decrypt secret" : "Nun se pudo descifrar el secretu",
     "This share is password-protected" : "Esti secrete ta protexíu con una contraseña",

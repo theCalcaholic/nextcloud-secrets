@@ -29,7 +29,7 @@
     "Copy to Clipboard" : "Копіювати до буферу обміну",
     "Download the secret's content as a file" : "Зберегти вміст секретного повідомлення до файлу",
     "Download" : "Звантажити",
-    "Retrieving secret..." : "Отримання секретного повідомлення...",
+    "Retrieving secret…" : "Отримання секретного повідомлення…",
     "Error loading secret. Is your link correct?" : "Помилка із завантаженням секретного повідомлення. Чи посилання правильне?",
     "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "Розкриття призведен до вилучення секретного повідомлення із сервера. Ви не зможете отримати його повторно.",
     "Reveal the secret and delete it on the server" : "Розкрити секретне повідомлення та вилучити його із сервера хмари",

@@ -32,7 +32,7 @@ OC.L10N.register(
     "Copy to Clipboard" : "Copier dans le presse-papier",
     "Download the secret's content as a file" : "Télécharger le contenu du secret en tant que fichier",
     "Download" : "Télécharger",
-    "Retrieving secret..." : "Récupération du secret...",
+    "Retrieving secret…" : "Récupération du secret…",
     "Error loading secret. Is your link correct?" : "Erreur lors du chargement du secret. Le lien est-il correct ?",
     "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "La révélation supprimera le secret du serveur. Vous ne pourrez plus le récupérer.",
     "Reveal the secret and delete it on the server" : "Révéler le secret et l'effacer du serveur",

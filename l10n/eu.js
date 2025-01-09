@@ -31,7 +31,7 @@ OC.L10N.register(
     "Copy to Clipboard" : "Kopiatu arbelera",
     "Download the secret's content as a file" : "Deskargatu sekretuaren edukia fitxategi gisa",
     "Download" : "Deskargatu",
-    "Retrieving secret..." : "Sekretua berreskuratzen...",
+    "Retrieving secret…" : "Sekretua berreskuratzen…",
     "Error loading secret. Is your link correct?" : "Errorea sekretua kargatzean. Daukazun esteka zuzena da?",
     "Reveal the secret and delete it on the server" : "Ezagutarazi sekretua eta ezabatu zerbitzarian",
     "Could not decrypt secret" : "Ezin izan da sekretua deszifratu",

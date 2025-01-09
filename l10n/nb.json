@@ -30,7 +30,7 @@
     "Copy to Clipboard" : "Koper til utklippstavlen",
     "Download the secret's content as a file" : "Last ned innholdet i hemmeligheten som en fil",
     "Download" : "Last ned",
-    "Retrieving secret..." : "Henter hemmelighet...",
+    "Retrieving secret…" : "Henter hemmelighet…",
     "Error loading secret. Is your link correct?" : "Feil ved lasting av hemmelighet. Er koblingen korrekt?",
     "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "Avsløring vil slette hemmeligheten fra serveren. Du vil ikke kunne hente den igjen.",
     "Reveal the secret and delete it on the server" : "Avslør hemmeligheten og slett den på serveren",

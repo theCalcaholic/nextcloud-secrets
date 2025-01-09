@@ -19,7 +19,7 @@
     "Save" : "Запиши",
     "Copy to Clipboard" : "Копиране в Клипборда",
     "Download" : "Изтегляне",
-    "Retrieving secret..." : "Извличане на тайна...",
+    "Retrieving secret…" : "Извличане на тайна...",
     "Error loading secret. Is your link correct?" : "Грешка при зареждането на тайната. Правилна ли е връзката ви?",
     "Could not decrypt secret" : "Тайната не можа да се дешифрира",
     "This share is password-protected" : "Тази зона е защитена с парола.",

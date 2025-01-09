@@ -31,7 +31,7 @@ OC.L10N.register(
     "Copy to Clipboard" : "Másolás a vágólapra",
     "Download the secret's content as a file" : "A titok tartalmának letöltése fájlként",
     "Download" : "Letöltés",
-    "Retrieving secret..." : "Titok lekérése…",
+    "Retrieving secret…" : "Titok lekérése…",
     "Error loading secret. Is your link correct?" : "Hiba a titok betöltésekor. A hivatkozás helyes?",
     "Reveal the secret and delete it on the server" : "A titok felfedése, és törlése a kiszolgálóról",
     "Could not decrypt secret" : "Nem sikerült dekódolni a titkot",
