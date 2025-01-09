@@ -50,7 +50,7 @@ contains a Nextcloud password (or app token) for user 'sharer' at a Nextcloud in
 you could use the following command:
 
 ```sh
-./nc-secrets create -t 'My Secret' https://nextcloud.foss sharer "$NC_PASS" ./my-secret <<<"$NC_PASS"
+./nc-secrets create -t 'My Secret' https://nextcloud.foss sharer ./my-secret <<<"$NC_PASS"
 ```
 
 ### Retrieve

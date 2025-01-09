@@ -132,13 +132,16 @@ export async function createSecret(ncUrl: string, ncUser: string, secretFile: st
 	const secret = resultData.ocs.data
 	const keyBuf = await webcrypto.subtle.exportKey('raw', privKey)
 	const keyBufB64 = cryptolib.arrayBufferToB64String(new Uint8Array(keyBuf))
-	console.log({
-		title: secret.title,
-		decryptionKey: keyBufB64,
-		expires: secret.expires,
-		shareUrl: `${ncUrl}/index.php/apps/secrets/share/${secret.uuid}#${keyBufB64}`,
-		ocsUrl: `${ncUrl}/ocs/v2.php/apps/secrets/api/v1/share/${secret.uuid}`,
-	})
+	console.log(JSON.stringify(
+		{
+			title: secret.title,
+			decryptionKey: keyBufB64,
+			expires: secret.expires,
+			shareUrl: `${ncUrl}/index.php/apps/secrets/share/${secret.uuid}#${keyBufB64}`,
+			ocsUrl: `${ncUrl}/ocs/v2.php/apps/secrets/api/v1/share/${secret.uuid}`,
+		},
+		null,
+		2))
 
 }
 
@@ -180,7 +183,7 @@ export async function retrieveSecret(shareUrlStr: string, options: {
 		throw new CommandExecutionError(`Missing secret decryption key: (got '${secretKey}')`)
 	}
 
-	const baseUrl = `${shareUrl.protocol}//${shareUrl.host}${shareUrl.port ? `:${shareUrl.port}` : ''}`
+	const baseUrl = `${shareUrl.protocol}//${shareUrl.host}`
 
 	await getApiInfo(baseUrl)
 
