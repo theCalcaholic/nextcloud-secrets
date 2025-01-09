@@ -11,6 +11,7 @@ import { CommandExecutionError } from './CommandExecutionError.ts'
 import { prompt } from './lib.ts'
 import process from "process";
 import * as url from "node:url";
+import * as https from "node:https";
 
 const btoa = (str: string) => Buffer.from(str, 'binary').toString('base64')
 const atob = (str: string) => Buffer.from(str, 'base64').toString('binary')
@@ -91,7 +92,7 @@ export async function createSecret(ncUrl: string, ncUser: string, secretFile: st
 
 	const result = await new Promise<string>((resolve, reject) => {
 
-		const req = http.request(
+		const req = http_client(ncUrl).request(
 			`${ncUrl}/ocs/v2.php/apps/secrets/api/v1/secrets?format=json`,
 			rOptions,
 			(response) => {
@@ -201,7 +202,7 @@ export async function retrieveSecret(shareUrlStr: string, options: {
 	}
 
 	const result = await new Promise<string>((resolve, reject) => {
-		const req = http.request(
+		const req = http_client(shareUrlStr).request(
 			`${baseUrl}/ocs/v2.php/apps/secrets/api/v1/share?format=json`,
 			reqOptions,
 			(response) => {
@@ -238,13 +239,23 @@ export async function retrieveSecret(shareUrlStr: string, options: {
 
 }
 
+function http_client(url: string): any {
+
+	let http_client = http
+	if (url.startsWith("https:")) {
+		http_client = https
+	}
+
+	return http_client
+}
+
 /**
  * @param ncUrl
  */
 async function getApiInfo(ncUrl: string): Promise<string> {
 
 	const result = await new Promise<string>((resolve, reject) => {
-		const req = http.request(`${ncUrl}/ocs/v2.php/apps/secrets/version?format=json`,
+		const req = http_client(ncUrl).request(`${ncUrl}/ocs/v2.php/apps/secrets/version?format=json`,
 			{
 				method: 'GET',
 				headers: {
