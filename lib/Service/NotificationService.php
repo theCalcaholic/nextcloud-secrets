@@ -35,7 +35,6 @@ class NotificationService {
 	 */
 	public function notifyRetrieved(Secret $secret) {
 		$notification = $this->notificationManager->createNotification();
-		error_log("Creating new notification for " . $secret->getUserId() . ".");
 		try {
 			$notification->setApp(Application::APP_ID)
 				->setObject("secret_retrieved", $secret->getUuid())
