@@ -17,11 +17,11 @@ OC.L10N.register(
     "Save" : "Αποθήκευση",
     "Copy to Clipboard" : "Αντιγραφή στο πρόχειρο",
     "Download" : "Λήψη",
-    "Retrieving secret…" : "Ανάκτηση μυστικού...",
     "Error loading secret. Is your link correct?" : "Σφάλμα κατά τη φόρτωση του μυστικού. Είναι σωστός ο σύνδεσμός σας;",
     "Could not decrypt secret" : "Αδυναμία αποκρυπτογράφησης μυστικού",
     "This share is password-protected" : "Το κοινόχρηστο έχει προστασία κωδικού",
     "The password is wrong or has expired. Please try again." : "Ο κωδικός είναι λάθος ή έχει λήξει. Παρακαλώ δοκιμάστε ξανά.",
-    "Password" : "Συνθηματικό"
+    "Password" : "Συνθηματικό",
+    "Retrieving secret..." : "Ανάκτηση μυστικού..."
 },
 "nplurals=2; plural=(n != 1);");

@@ -29,13 +29,13 @@
     "Copy to Clipboard" : "Kopiatu arbelera",
     "Download the secret's content as a file" : "Deskargatu sekretuaren edukia fitxategi gisa",
     "Download" : "Deskargatu",
-    "Retrieving secret…" : "Sekretua berreskuratzen…",
     "Error loading secret. Is your link correct?" : "Errorea sekretua kargatzean. Daukazun esteka zuzena da?",
     "Reveal the secret and delete it on the server" : "Ezagutarazi sekretua eta ezabatu zerbitzarian",
     "Could not decrypt secret" : "Ezin izan da sekretua deszifratu",
     "This share is password-protected" : "Partekatze hau pasahitzez babestua dago.",
     "The password is wrong or has expired. Please try again." : "Pasahitza okerra da edo iraungi egin da. Saia zaitez berriro.",
     "Password" : "Pasahitza",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Partekatu datuak modu seguruan edonorekin. Datu guztiak muturretik muturrera enkriptatzen ditu erabiltzaileak eta ezabatu egiten dira berreskuratu ondoren."
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Partekatu datuak modu seguruan edonorekin. Datu guztiak muturretik muturrera enkriptatzen ditu erabiltzaileak eta ezabatu egiten dira berreskuratu ondoren.",
+    "Retrieving secret..." : "Sekretua berreskuratzen..."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
