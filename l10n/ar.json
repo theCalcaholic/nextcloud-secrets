@@ -30,7 +30,6 @@
     "Copy to Clipboard" : "نسخ إلى الحافظة",
     "Download the secret's content as a file" : "تنزيل محتوي السر فى صورة ملف",
     "Download" : "تنزيل",
-    "Retrieving secret..." : "جاري استرداد السر ...",
     "Error loading secret. Is your link correct?" : "خطأ في تحميل السر. هل الرابط الخاص بك صحيح؟",
     "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "سيؤدي الكشف إلى حذف السر من الخادم، و لن تتمكن من استعادته مرة أخرى.",
     "Reveal the secret and delete it on the server" : "كشف السر وحذفه من على الخادم",
@@ -41,6 +40,7 @@
     "Password" : "كلمة المرور",
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "لقد تغير هذا المسار. ستتم إعادة توجيهك إلى الموقع الجديد. إذا لم ينجح ذلك، انقُر على الرابط التالي:",
     "Go to secret" : "إذهب إلى السّر",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "شارك البيانات مع أي شخص بصورة آمنة. كل البيانات مشفرة من الحَدِّ للحَدِّ و سيقع حذفها بمجرد إتمام استلامها بنجاحٍ"
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "شارك البيانات مع أي شخص بصورة آمنة. كل البيانات مشفرة من الحَدِّ للحَدِّ و سيقع حذفها بمجرد إتمام استلامها بنجاحٍ",
+    "Retrieving secret..." : "جاري استرداد السر ..."
 },"pluralForm" :"nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;"
 }

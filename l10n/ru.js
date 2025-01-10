@@ -20,11 +20,11 @@ OC.L10N.register(
     "Save" : "Сохранить",
     "Copy to Clipboard" : "Скопировано в буфер обмена",
     "Download" : "Скачать",
-    "Retrieving secret..." : "Получение секрета...",
     "Error loading secret. Is your link correct?" : "Ошибка загрузки секрета. Ваша ссылка корректна?",
     "Could not decrypt secret" : "Не удалось расшифровать секрет",
     "This share is password-protected" : "Доступ к этому ресурсу защищён паролем",
     "Password" : "Пароль",
-    "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Этот путь изменился. Вы будете перенаправлены в новое место. Если это не сработает, перейдите по следующей ссылке:"
+    "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Этот путь изменился. Вы будете перенаправлены в новое место. Если это не сработает, перейдите по следующей ссылке:",
+    "Retrieving secret..." : "Получение секрета..."
 },
 "nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);");

@@ -32,7 +32,6 @@ OC.L10N.register(
     "Copy to Clipboard" : "複製到剪貼簿",
     "Download the secret's content as a file" : "將祕密的內容另存為檔案",
     "Download" : "下載",
-    "Retrieving secret..." : "正在擷取祕密……",
     "Error loading secret. Is your link correct?" : "載入祕密時發生錯誤。您的連結正確嗎？",
     "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "揭露將從伺服器刪除此祕密。您將無法再次擷取它。",
     "Reveal the secret and delete it on the server" : "顯示祕密並在伺服器上刪除",
@@ -43,6 +42,7 @@ OC.L10N.register(
     "Password" : "密碼",
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "此路徑已變更。將您重新導向到新位置。若這無法運作，請點擊以下連結：",
     "Go to secret" : "前往祕密",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "與任何人安全地分享資料。所有資料均由使用者端到端加密，一旦成功擷取就會被刪除"
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "與任何人安全地分享資料。所有資料均由使用者端到端加密，一旦成功擷取就會被刪除",
+    "Retrieving secret..." : "正在擷取祕密……"
 },
 "nplurals=1; plural=0;");

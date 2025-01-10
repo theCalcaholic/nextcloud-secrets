@@ -30,7 +30,6 @@
     "Copy to Clipboard" : "Копирај у клипборд",
     "Download the secret's content as a file" : "Преузми садржај тајне као фајл",
     "Download" : "Преузми",
-    "Retrieving secret..." : "Преузимање тајне...",
     "Error loading secret. Is your link correct?" : "Грешка приликом учитавања тајне. Да ли је ваш линк исправан?",
     "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "Откривање ће да обрише тајну са сервера. Више нећете поново моћи да је добијете.",
     "Reveal the secret and delete it on the server" : "Откриј тајну и обриши је са сервера",
@@ -41,6 +40,7 @@
     "Password" : "Лозинка",
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Промењена је путања. Преусмеравате се на нову локацију. Ако ово не ради, кликните на следећи линк:",
     "Go to secret" : "Иди на тајну",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Безбедно делите податке са свима. Корисник све податке шифрује од-краја-до-краја и они се бришу чим се успешно преузму"
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Безбедно делите податке са свима. Корисник све податке шифрује од-краја-до-краја и они се бришу чим се успешно преузму",
+    "Retrieving secret..." : "Преузимање тајне..."
 },"pluralForm" :"nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);"
 }

@@ -31,13 +31,13 @@ OC.L10N.register(
     "Copy to Clipboard" : "复制到剪贴板",
     "Download the secret's content as a file" : "将密信地内容下载为文件",
     "Download" : "下载",
-    "Retrieving secret..." : "正在读取密信……",
     "Error loading secret. Is your link correct?" : "加载密信时发生错误。您的链接是正确的吗？",
     "Reveal the secret and delete it on the server" : "显示密信并在服务器上删除它",
     "Could not decrypt secret" : "无法解密密信",
     "This share is password-protected" : "该分享受密码保护",
     "The password is wrong or has expired. Please try again." : "密码错误或已过期。请重试。",
     "Password" : "密码",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "和任何人安全地分享数据。所有的数据都是由用户端到端加密，一旦成功读取就会被删除。"
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "和任何人安全地分享数据。所有的数据都是由用户端到端加密，一旦成功读取就会被删除。",
+    "Retrieving secret..." : "正在读取密信……"
 },
 "nplurals=1; plural=0;");
