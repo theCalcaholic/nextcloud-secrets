@@ -1,7 +1,7 @@
 {
   "name": "secrets",
   "description": "Securely share data with anyone",
-  "version": "2.0.2",
+  "version": "2.1.2",
   "author": "Tobias Knöppler <thecalcaholic@web.de>",
   "contributors": [],
   "bugs": {
