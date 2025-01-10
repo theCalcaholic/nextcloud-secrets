@@ -30,7 +30,6 @@
     "Copy to Clipboard" : "Copiar no portapapeis.",
     "Download the secret's content as a file" : "Descargar o contido do segredo como ficheiro",
     "Download" : "Descargar",
-    "Retrieving secret…" : "Recuperando o segredo…",
     "Error loading secret. Is your link correct?" : "Produciuse un erro ao cargar o segredo. É correcta a súa ligazón?",
     "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "Ao revelalo, eliminarase o segredo do servidor. Non  poderá recuperalo de novo.",
     "Reveal the secret and delete it on the server" : "Revelar o segredo e elimínalo no servidor",
@@ -41,6 +40,7 @@
     "Password" : "Contrasinal",
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Esta ruta cambiou. Redirixíndo á nova localización. Se isto non funciona, prema na seguinte ligazón:",
     "Go to secret" : "Ir ao segredo",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Comparta datos de xeito seguro con calquera persoa. Todos os datos son cifrados de extremo a extremo polo usuario e eliminaranse unha vez recuperados correctamente"
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Comparta datos de xeito seguro con calquera persoa. Todos os datos son cifrados de extremo a extremo polo usuario e eliminaranse unha vez recuperados correctamente",
+    "Retrieving secret..." : "Recuperando o segredo…"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

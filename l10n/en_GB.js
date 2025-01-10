@@ -32,7 +32,6 @@ OC.L10N.register(
     "Copy to Clipboard" : "Copy to Clipboard",
     "Download the secret's content as a file" : "Download the secret's content as a file",
     "Download" : "Download",
-    "Retrieving secret…" : "Retrieving secret…",
     "Error loading secret. Is your link correct?" : "Error loading secret. Is your link correct?",
     "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "Revealing will delete the secret from the server. You will not be able to retrieve it again.",
     "Reveal the secret and delete it on the server" : "Reveal the secret and delete it on the server",
@@ -43,6 +42,7 @@ OC.L10N.register(
     "Password" : "Password",
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:",
     "Go to secret" : "Go to secret",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully"
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully",
+    "Retrieving secret..." : "Retrieving secret..."
 },
 "nplurals=2; plural=(n != 1);");

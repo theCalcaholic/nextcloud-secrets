@@ -32,7 +32,6 @@ OC.L10N.register(
     "Copy to Clipboard" : "Koper til utklippstavlen",
     "Download the secret's content as a file" : "Last ned innholdet i hemmeligheten som en fil",
     "Download" : "Last ned",
-    "Retrieving secret…" : "Henter hemmelighet…",
     "Error loading secret. Is your link correct?" : "Feil ved lasting av hemmelighet. Er koblingen korrekt?",
     "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "Avsløring vil slette hemmeligheten fra serveren. Du vil ikke kunne hente den igjen.",
     "Reveal the secret and delete it on the server" : "Avslør hemmeligheten og slett den på serveren",
@@ -43,6 +42,7 @@ OC.L10N.register(
     "Password" : "Passord",
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Denne banen har endret seg. Omdirigerer deg til den nye plasseringen. Hvis dette ikke fungerer, klikker du følgende kobling:",
     "Go to secret" : "Gå til hemmelighet",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Del data med hvem som helst på en sikker måte. Alle data er ende-til-ende kryptert av brukeren og vil bli slettet når de er hentet"
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Del data med hvem som helst på en sikker måte. Alle data er ende-til-ende kryptert av brukeren og vil bli slettet når de er hentet",
+    "Retrieving secret..." : "Henter hemmelighet..."
 },
 "nplurals=2; plural=(n != 1);");

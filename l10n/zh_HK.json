@@ -30,7 +30,6 @@
     "Copy to Clipboard" : "複製到剪貼板",
     "Download the secret's content as a file" : "將密鑰的內容下載為文件",
     "Download" : "下載",
-    "Retrieving secret…" : "正在擷取密鑰 …",
     "Error loading secret. Is your link correct?" : "加載密鑰時出錯。你的連結正確嗎？",
     "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "顯示將從伺服器中刪除此密鑰。您將無法再次檢索它。",
     "Reveal the secret and delete it on the server" : "揭示密鑰並在伺服器上將其刪除",
@@ -41,6 +40,7 @@
     "Password" : "密碼",
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "此路徑已更改。正在重定向到新位置。如果此操作無效，請點擊以下連結：",
     "Go to secret" : "前往密鑰",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "與任何人安全地分享數據。所有數據均由用戶端到端加密，一旦成功檢索將被刪除"
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "與任何人安全地分享數據。所有數據均由用戶端到端加密，一旦成功檢索將被刪除",
+    "Retrieving secret..." : "正在擷取密鑰 ..."
 },"pluralForm" :"nplurals=1; plural=0;"
 }

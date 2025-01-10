@@ -31,13 +31,13 @@ OC.L10N.register(
     "Copy to Clipboard" : "Copiar al portapapeles",
     "Download the secret's content as a file" : "Descargar el contenido del secreto como un archivo",
     "Download" : "Descargar",
-    "Retrieving secret…" : "Recuperando el secreto…",
     "Error loading secret. Is your link correct?" : "Error al cargar el secreto. ¿Es correcto tu enlace?",
     "Reveal the secret and delete it on the server" : "Revelar el secreto y eliminarlo del servidor",
     "Could not decrypt secret" : "No se pudo descifrar el secreto",
     "This share is password-protected" : "Este elemento compartido está protegido con una contraseña",
     "The password is wrong or has expired. Please try again." : "La contraseña es incorrecta o ha expirado. Por favor, inténtalo de nuevo.",
     "Password" : "Contraseña",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Comparte datos de forma segura con cualquier persona. Todos los datos están cifrados de extremo a extremo por el usuario y se eliminarán una vez que se recuperen con éxito"
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Comparte datos de forma segura con cualquier persona. Todos los datos están cifrados de extremo a extremo por el usuario y se eliminarán una vez que se recuperen con éxito",
+    "Retrieving secret..." : "Recuperando el secreto..."
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

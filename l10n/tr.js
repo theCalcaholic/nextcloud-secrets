@@ -32,7 +32,6 @@ OC.L10N.register(
     "Copy to Clipboard" : "Panoya kopyala",
     "Download the secret's content as a file" : "Parolanın içeriğini bir dosya olarak indir",
     "Download" : "İndir",
-    "Retrieving secret…" : "Sır alınıyor…",
     "Error loading secret. Is your link correct?" : "Sır yüklenirken sorun çıktı. Bağlantı doğru mu?",
     "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "Görüntülenmesi sırrı sunucudan siler. Yeniden alamayacaksınız.",
     "Reveal the secret and delete it on the server" : "Parolayı görüntüle ve sunucudan sil",
@@ -43,6 +42,7 @@ OC.L10N.register(
     "Password" : "Parola",
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Bu yol değişmiş. Sizi yeni konuma yönlendiriyoruz. Yönlendirme yapılamazsa şu bağlantıya tıklayın:",
     "Go to secret" : "Sıra git",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Verileri herhangi bir kişi ile güvenli bir şekilde paylaşın. Tüm veriler kullanıcı tarafından uçtan uca şifrelenir ve karşı taraf aldığında silinir"
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Verileri herhangi bir kişi ile güvenli bir şekilde paylaşın. Tüm veriler kullanıcı tarafından uçtan uca şifrelenir ve karşı taraf aldığında silinir",
+    "Retrieving secret..." : "Sır alınıyor..."
 },
 "nplurals=2; plural=(n > 1);");

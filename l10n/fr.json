@@ -30,7 +30,6 @@
     "Copy to Clipboard" : "Copier dans le presse-papier",
     "Download the secret's content as a file" : "Télécharger le contenu du secret en tant que fichier",
     "Download" : "Télécharger",
-    "Retrieving secret…" : "Récupération du secret…",
     "Error loading secret. Is your link correct?" : "Erreur lors du chargement du secret. Le lien est-il correct ?",
     "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "La révélation supprimera le secret du serveur. Vous ne pourrez plus le récupérer.",
     "Reveal the secret and delete it on the server" : "Révéler le secret et l'effacer du serveur",
@@ -41,6 +40,7 @@
     "Password" : "Mot de passe",
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Ce chemin a changé. Vous allez être rediriger vers le nouvel emplacement. Si cela ne fonctionne pas, cliquez sur le lien suivant:",
     "Go to secret" : "Allez au secret",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Partager des données en toute sécurité avec n'importe qui. Toutes les données sont chiffrées de bout en bout par l'utilisateur et seront supprimées une fois récupérées avec succès."
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Partager des données en toute sécurité avec n'importe qui. Toutes les données sont chiffrées de bout en bout par l'utilisateur et seront supprimées une fois récupérées avec succès.",
+    "Retrieving secret..." : "Récupération du secret..."
 },"pluralForm" :"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }
