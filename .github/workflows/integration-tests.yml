@@ -12,6 +12,7 @@ on:
     tags:
       - "v*"
       - "test*"
+  workflow_call:
 
 env:
   APP_NAME: secrets
