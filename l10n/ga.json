@@ -30,6 +30,7 @@
     "Copy to Clipboard" : "Cóipeáil chuig an nGearrthaisce",
     "Download the secret's content as a file" : "Íoslódáil an t-ábhar rúnda mar comhad amháin",
     "Download" : "Íoslódáil",
+    "Retrieving secret…" : "Rún á aisghabháil…",
     "Error loading secret. Is your link correct?" : "Earráid agus an rún á lódáil. An bhfuil do nasc ceart?",
     "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "Má nochtfar, scriosfar an rún ón bhfreastalaí. Ní bheidh tú in ann é a aisghabháil arís.",
     "Reveal the secret and delete it on the server" : "Nocht an rún agus scrios ar an bhfreastalaí",
