@@ -29,6 +29,7 @@
     "Copy to Clipboard" : "Kopiera till urklipp",
     "Download the secret's content as a file" : "Ladda ner hemlighetens innehåll som en fil",
     "Download" : "Ladda ner",
+    "Retrieving secret…" : "Hämtar hemlighet...",
     "Error loading secret. Is your link correct?" : "Det gick inte att läsa in hemlighet. Är din länk korrekt?",
     "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "Avslöjande kommer att radera hemligheten från servern. Du kommer inte att kunna hämta den igen.",
     "Reveal the secret and delete it on the server" : "Avslöja hemligheten och ta bort den på servern",
