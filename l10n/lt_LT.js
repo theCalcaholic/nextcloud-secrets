@@ -1,7 +1,7 @@
 OC.L10N.register(
     "secrets",
     {
-    "Share Link" : "Bendrinimo nuoroda",
+    "Share Link" : "Viešinio nuoroda",
     "Save" : "Įrašyti",
     "Copy to Clipboard" : "Kopijuoti į iškarpinę",
     "Download" : "Atsisiųsti",
