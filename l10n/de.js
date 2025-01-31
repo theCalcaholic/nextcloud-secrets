@@ -43,7 +43,7 @@ OC.L10N.register(
     "Password" : "Passwort",
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Dieser Pfad hat sich geändert. Du wirst zum neuen Speicherort weitergeleitet. Wenn dies nicht funktioniert, auf folgenden Link klicken:",
     "Go to secret" : "Zum Geheimnis wechseln",
-    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Teilen Sie Daten sicher mit jedem. Alle Daten werden vom Benutzer Ende-zu-Ende verschlüsselt und nach erfolgreichem Abruf gelöscht",
+    "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Teile Daten sicher mit jedem. Alle Daten werden vom Benutzer Ende-zu-Ende verschlüsselt und nach erfolgreichem Abruf gelöscht",
     "Retrieving secret..." : "Rufe Geheimnis ab…"
 },
 "nplurals=2; plural=(n != 1);");
