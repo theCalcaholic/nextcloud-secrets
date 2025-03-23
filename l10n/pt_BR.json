@@ -31,6 +31,7 @@
     "Copy to Clipboard" : "Copiar para Área de Transferência",
     "Download the secret's content as a file" : "Baixe o conteúdo do segredo como um arquivo",
     "Download" : "Baixar",
+    "Retrieving secret…" : "Recuperando segredos…",
     "Error loading secret. Is your link correct?" : "Erro ao carregar segredo. Seu link está correto?",
     "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "A revelação excluirá o segredo do servidor. Você não poderá recuperá-lo novamente.",
     "Reveal the secret and delete it on the server" : "Revele o segredo e exclua-o no servidor",
