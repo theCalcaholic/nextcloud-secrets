@@ -37,7 +37,7 @@ OC.L10N.register(
     "Error loading secret. Is your link correct?" : "Erreur lors du chargement du secret. Le lien est-il correct ?",
     "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "La révélation supprimera le secret du serveur. Vous ne pourrez plus le récupérer.",
     "Reveal the secret and delete it on the server" : "Révéler le secret et l'effacer du serveur",
-    "I understand. Reveal and destroy Secret." : "Je comprends. Révélez et détruisez Secret.",
+    "I understand. Reveal and destroy Secret." : "Je comprends. Révélez et détruisez le secret.",
     "This share is password-protected" : "Ce partage est protégé par mot de passe",
     "The password is wrong or has expired. Please try again." : "Le mot de passe n'est pas le bon ou a expiré. Veuillez réessayer.",
     "Password" : "Mot de passe",
