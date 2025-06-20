@@ -3,10 +3,17 @@ OC.L10N.register(
     {
     "Share Link" : "Jaga linki",
     "Expires on:" : "Aegub:",
+    "password protected" : "kaitstud salasõnaga",
+    "Share Link:" : "Jagamislink:",
+    "Copy Secret Link" : "Kopeeri salajane link",
+    "_Will be deleted in %n day_::_Will be deleted in %n days_" : ["Kustutatakse %n päeva pärast","Kustutatakse %n päeva pärast"],
+    "Expiration Date" : "Aegumise kuupäev",
+    "share password (optional)" : "jagamise salasõna (valikuline)",
     "Save" : "Salvesta",
     "Copy to Clipboard" : "Kopeeri lõikelauale",
     "Download" : "Laadi alla",
     "This share is password-protected" : "See jagamine on parooliga kaitstud",
-    "Password" : "Parool"
+    "The password is wrong or has expired. Please try again." : "Salasõna on vale või aegunud. Palun proovi uuesti.",
+    "Password" : "Salasõna"
 },
 "nplurals=2; plural=(n != 1);");
