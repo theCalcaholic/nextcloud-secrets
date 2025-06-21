@@ -1,6 +1,7 @@
 { "translations": {
     "Save" : "Hifadhi",
     "Download" : "Pakua",
+    "This share is password-protected" : "Ushirikishaji huu unalindwa na nenosiri",
     "Password" : "Nenosiri"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
