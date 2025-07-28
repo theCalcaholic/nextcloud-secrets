@@ -4,6 +4,7 @@ OC.L10N.register(
     "Secrets" : "Секретні повідомлення",
     "Secret '{secret}' has been retrieved" : "Отримано секретне повідомлення '{secret}'",
     "Securely share data via link" : "Безпечно надати доступ через посилання",
+    "Secrets allows users to generate share links for text based data (e.g. passwords, CSV lists, bank accounts...) that can be sent to anyone (including receivers without a Nextcloud account) for retrieval. The data itself will be end-to-end encrypted (so not even Nextcloud can access it) and the encryption key will be part of the share link (the anchor part) - but never be actually sent to the server. Once retrieved, the secret will be deleted from the server, ensuring, that if it arrived at the correct receiver it has been seen by nobody else.\n\nSecrets now comes with a cli that can be used to automate the provisioning of secret shares: https://github.com/theCalcaholic/nextcloud-secrets/releases" : "Secrets дозволяє користувачам створювати посилання для спільного доступу до текстових даних (наприклад, паролів, списків CSV, банківських рахунків...), які можна надіслати будь-кому (включно з одержувачами, які не мають облікового запису Nextcloud) для отримання. Самі дані будуть зашифровані від кінця до кінця (тож навіть Nextcloud не матиме до них доступу), а ключ шифрування буде частиною посилання для спільного доступу (частина анкора), але ніколи не буде фактично надісланий на сервер. Після отримання секрет буде видалено з сервера, що гарантує, що якщо він надійшов до правильного одержувача, його ніхто інший не бачив.\n\nSecrets тепер постачається з cli, який можна використовувати для автоматизації надання секретних спільних посилань: https://github.com/theCalcaholic/nextcloud-secrets/releases",
     "Could not fetch secrets" : "Не вдалося отримати секретні повідомлення",
     "New Secret" : "Нове секретне повідомлення",
     "Could not create the secret" : "Не вдалося створити секретне повідомлення",
@@ -32,6 +33,7 @@ OC.L10N.register(
     "Copy to Clipboard" : "Копіювати до буферу обміну",
     "Download the secret's content as a file" : "Зберегти вміст секретного повідомлення до файлу",
     "Download" : "Звантажити",
+    "Retrieving secret…" : "Отримання секретного повідомлення...",
     "Error loading secret. Is your link correct?" : "Помилка із завантаженням секретного повідомлення. Чи посилання правильне?",
     "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "Розкриття призведен до вилучення секретного повідомлення із сервера. Ви не зможете отримати його повторно.",
     "Reveal the secret and delete it on the server" : "Розкрити секретне повідомлення та вилучити його із сервера хмари",
@@ -39,6 +41,7 @@ OC.L10N.register(
     "This share is password-protected" : "Цей спільний ресурс захищено паролем",
     "The password is wrong or has expired. Please try again." : "Пароль неправильний або термін його дії сплив. Спробуйте ще раз.",
     "Password" : "Пароль",
+    "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Цей шлях змінився. Ви перенаправляєтеся на нове місце. Якщо це не працює, натисніть на наступне посилання:",
     "Go to secret" : "Перейти до секретного повідомлення",
     "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Безпечно обмінюйтеся даними з іншими користувачами хмари. Усі дані, якими ви обмінюватиметеся, будуть мають наскрізне шифрування та знищуватимуться після успішного отримання іншим користувачем.",
     "Retrieving secret..." : "Отримання секретного повідомлення..."
