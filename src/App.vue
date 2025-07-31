@@ -193,7 +193,7 @@ export default {
 				expiryDate.setDate((new Date()).getDate() + 7)
 				this.secrets.push({
 					uuid: '',
-					title: t('secrets', 'New Secret'),
+					title: t('secrets', 'New Secret' ) + " " + (new Date()).getDate(),
 					password: '',
 					pwHash: null,
 					key,
