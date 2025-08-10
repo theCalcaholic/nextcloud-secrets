@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Share Link" : "Share Link",
     "Save" : "Hifadhi",
+    "Copy to Clipboard" : "Imenakiliwa kwenye ubao wa kunakili",
     "Download" : "Pakua",
     "This share is password-protected" : "Ushirikishaji huu unalindwa na nenosiri",
     "Password" : "Nenosiri"

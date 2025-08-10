@@ -4,13 +4,17 @@
     "password protected" : "kaitstud salasõnaga",
     "Share Link:" : "Jagamislink:",
     "Copy Secret Link" : "Kopeeri salajane link",
+    "Could not decrypt secret (key not available locally)." : "Saladuse dekrüptimine ei õnnestunud (võti pole kohalikus seadmes saadaval).",
     "_Will be deleted in %n day_::_Will be deleted in %n days_" : ["Kustutatakse %n päeva pärast","Kustutatakse %n päeva pärast"],
     "Expiration Date" : "Aegumise kuupäev",
     "share password (optional)" : "jagamise salasõna (valikuline)",
     "Save" : "Salvesta",
+    "Could not decrypt secret" : "Saladuse dekrüptimine ei õnnestunud",
     "Copy to Clipboard" : "Kopeeri lõikelauale",
     "Download" : "Laadi alla",
-    "This share is password-protected" : "See jagamine on parooliga kaitstud",
+    "Reveal the secret and delete it on the server" : "Näita saladust ja kustuta ta serverist",
+    "I understand. Reveal and destroy Secret." : "Ma saan aru. Näita saladust ja kustuta see.",
+    "This share is password-protected" : "See jagamine on kaitstud salasõnaga",
     "The password is wrong or has expired. Please try again." : "Salasõna on vale või aegunud. Palun proovi uuesti.",
     "Password" : "Salasõna"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
