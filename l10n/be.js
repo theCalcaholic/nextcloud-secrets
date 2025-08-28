@@ -2,6 +2,7 @@ OC.L10N.register(
     "secrets",
     {
     "Save" : "Захаваць",
+    "Copy to Clipboard" : "Капіяваць у буфер абмену",
     "Download" : "Спампаваць",
     "Password" : "Пароль"
 },
