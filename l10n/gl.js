@@ -39,7 +39,7 @@ OC.L10N.register(
     "Reveal the secret and delete it on the server" : "Revelar o segredo e elimínalo no servidor",
     "I understand. Reveal and destroy Secret." : "Entendo. Revelar e destruír o Segredo.",
     "This share is password-protected" : "Esta compartición está protexida con contrasinal ",
-    "The password is wrong or has expired. Please try again." : "O contrasinal é erróneo ou caducou. Por favor tenteo de novo.",
+    "The password is wrong or has expired. Please try again." : "O contrasinal é erróneo ou caducou. Tenteo de novo.",
     "Password" : "Contrasinal",
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Esta ruta cambiou. Redirixíndo á nova localización. Se isto non funciona, prema na seguinte ligazón:",
     "Go to secret" : "Ir ao segredo",
