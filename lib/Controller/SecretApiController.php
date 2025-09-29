@@ -16,11 +16,11 @@ use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\BruteForceProtection;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCSController;
-use OCP\ILogger;
 use OCP\IRequest;
 use OCP\ISession;
 use OCP\IURLGenerator;
 use OCP\Notification\IManager as INotificationManager;
+use Psr\Log\LoggerInterface;
 
 /**
  * @psalm-import-type SecretsData from ResponseDefinitions
@@ -31,7 +31,7 @@ class SecretApiController extends OCSController {
 	private SecretService $service;
 	private NotificationService $notificationService;
 	private ?string $userId;
-	private ILogger $logger;
+	private LoggerInterface $logger;
 	private ISession $session;
 	private string $appVersion;
 
@@ -43,8 +43,8 @@ class SecretApiController extends OCSController {
 		NotificationService  $notificationService,
 		INotificationManager $notificationManager,
 		IURLGenerator        $urlGenerator,
-		IAppManager $appManager,
-		ILogger              $logger,
+		IAppManager          $appManager,
+		LoggerInterface      $logger,
 		?string              $userId) {
 		parent::__construct(Application::APP_ID, $request);
 		$this->service = $service;
@@ -128,13 +128,16 @@ class SecretApiController extends OCSController {
 	public function retrieveSharedSecret(string $uuid, ?string $password): DataResponse {
 
 		$pwHash = null;
+		$pwHashLegacy = null;
 		if ($password) {
-			$pwHash = hash("sha256", $password . $uuid);
+			$pwHashLegacy = hash("sha256", $password . $uuid);
+			$pwHash = $this->service->verifyPassword($uuid, $password);
 		} elseif ($this->session->get('public_link_authenticated_token') === $uuid) {
 			$pwHash = $this->session->get('public_link_authenticated_password_hash');
+			$pwHashLegacy = $this->session->get('public_link_authenticated_password_hash_legacy');
 		}
 		try {
-			$secret = $this->service->retrieveAndInvalidateSecret($uuid, $pwHash);
+			$secret = $this->service->retrieveAndInvalidateSecret($uuid, $pwHash, $pwHashLegacy);
 		} catch (SecretNotFound $e) {
 			$resp = new DataResponse(["message" => "No secret with the given uuid was found"], Http::STATUS_NOT_FOUND);
 			$resp->throttle(['action' => 'retrieval']);
@@ -206,7 +209,7 @@ class SecretApiController extends OCSController {
 	public function delete(string $uuid): DataResponse {
 		try {
 			$secret = $this->service->delete($uuid, $this->userId);
-			return new DataResponse(['message' => "Secret '$secret->getTitle()' has been deleted"]);
+			return new DataResponse(['message' => "Secret '{$secret->getTitle()}' has been deleted"]);
 		} catch (SecretNotFound $e) {
 			return new DataResponse(['message' => "No secret found with uuid '$uuid'"], Http::STATUS_NOT_FOUND);
 		}

@@ -4,6 +4,7 @@ OC.L10N.register(
     "Save" : "Saglabāt",
     "Download" : "Lejupielādēt",
     "This share is password-protected" : "Šī koplietotne ir aizsargāta ar paroli",
-    "Password" : "Parole"
+    "Password" : "Parole",
+    "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Šis ceļš tika mainīts. Pārvirza uz jauno atrašanās vietu. Ja tas nedarbojas, jāklikšķina uz šīs saites:"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);");

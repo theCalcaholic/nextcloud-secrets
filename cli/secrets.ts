@@ -11,6 +11,7 @@ import { CommandExecutionError } from './CommandExecutionError.ts'
 import { prompt } from './lib.ts'
 import process from "process";
 import * as url from "node:url";
+import * as https from "node:https";
 
 const btoa = (str: string) => Buffer.from(str, 'binary').toString('base64')
 const atob = (str: string) => Buffer.from(str, 'base64').toString('binary')
@@ -91,7 +92,7 @@ export async function createSecret(ncUrl: string, ncUser: string, secretFile: st
 
 	const result = await new Promise<string>((resolve, reject) => {
 
-		const req = http.request(
+		const req = http_client(ncUrl).request(
 			`${ncUrl}/ocs/v2.php/apps/secrets/api/v1/secrets?format=json`,
 			rOptions,
 			(response) => {
@@ -132,13 +133,16 @@ export async function createSecret(ncUrl: string, ncUser: string, secretFile: st
 	const secret = resultData.ocs.data
 	const keyBuf = await webcrypto.subtle.exportKey('raw', privKey)
 	const keyBufB64 = cryptolib.arrayBufferToB64String(new Uint8Array(keyBuf))
-	console.log({
-		title: secret.title,
-		decryptionKey: keyBufB64,
-		expires: secret.expires,
-		shareUrl: `${ncUrl}/index.php/apps/secrets/share/${secret.uuid}#${keyBufB64}`,
-		ocsUrl: `${ncUrl}/ocs/v2.php/apps/secrets/api/v1/share/${secret.uuid}`,
-	})
+	console.log(JSON.stringify(
+		{
+			title: secret.title,
+			decryptionKey: keyBufB64,
+			expires: secret.expires,
+			shareUrl: `${ncUrl}/index.php/apps/secrets/share/${secret.uuid}#${keyBufB64}`,
+			ocsUrl: `${ncUrl}/ocs/v2.php/apps/secrets/api/v1/share/${secret.uuid}`,
+		},
+		null,
+		2))
 
 }
 
@@ -180,7 +184,7 @@ export async function retrieveSecret(shareUrlStr: string, options: {
 		throw new CommandExecutionError(`Missing secret decryption key: (got '${secretKey}')`)
 	}
 
-	const baseUrl = `${shareUrl.protocol}//${shareUrl.host}${shareUrl.port ? `:${shareUrl.port}` : ''}`
+	const baseUrl = `${shareUrl.protocol}//${shareUrl.host}`
 
 	await getApiInfo(baseUrl)
 
@@ -198,7 +202,7 @@ export async function retrieveSecret(shareUrlStr: string, options: {
 	}
 
 	const result = await new Promise<string>((resolve, reject) => {
-		const req = http.request(
+		const req = http_client(shareUrlStr).request(
 			`${baseUrl}/ocs/v2.php/apps/secrets/api/v1/share?format=json`,
 			reqOptions,
 			(response) => {
@@ -235,13 +239,23 @@ export async function retrieveSecret(shareUrlStr: string, options: {
 
 }
 
+function http_client(url: string): any {
+
+	let http_client = http
+	if (url.startsWith("https:")) {
+		http_client = https
+	}
+
+	return http_client
+}
+
 /**
  * @param ncUrl
  */
 async function getApiInfo(ncUrl: string): Promise<string> {
 
 	const result = await new Promise<string>((resolve, reject) => {
-		const req = http.request(`${ncUrl}/ocs/v2.php/apps/secrets/version?format=json`,
+		const req = http_client(ncUrl).request(`${ncUrl}/ocs/v2.php/apps/secrets/version?format=json`,
 			{
 				method: 'GET',
 				headers: {

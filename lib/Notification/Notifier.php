@@ -7,23 +7,23 @@ declare(strict_types=1);
 namespace OCA\Secrets\Notification;
 
 use Exception;
-use InvalidArgumentException;
 use OCA\Secrets\AppInfo\Application;
 use OCA\Secrets\Service\SecretService;
-use OCP\ILogger;
 use OCP\IURLGenerator;
 use OCP\L10N\IFactory;
 use OCP\Notification\AlreadyProcessedException;
 use OCP\Notification\INotification;
 use OCP\Notification\INotifier;
+use OCP\Notification\UnknownNotificationException;
+use Psr\Log\LoggerInterface;
 
 class Notifier implements INotifier {
 	protected IFactory $factory;
 	protected IURLGenerator $url;
 	protected SecretService $secretService;
-	protected ILogger $logger;
+	protected LoggerInterface $logger;
 
-	public function __construct(IFactory $factory, IURLGenerator $urlGenerator, SecretService $secretService, ILogger $logger) {
+	public function __construct(IFactory $factory, IURLGenerator $urlGenerator, SecretService $secretService, LoggerInterface $logger) {
 		$this->factory = $factory;
 		$this->url = $urlGenerator;
 		$this->secretService = $secretService;
@@ -54,18 +54,18 @@ class Notifier implements INotifier {
 	 * @param INotification $notification
 	 * @param string $languageCode The code of the language that should be used to prepare the notification
 	 * @return INotification
-	 * @throws \InvalidArgumentException When the notification was not prepared by a notifier
+	 * @throws UnknownNotificationException When the notification was not prepared by a notifier
 	 * @throws AlreadyProcessedException When the notification is not needed anymore and should be deleted
 	 * @since 9.0.0
 	 */
 	public function prepare(INotification $notification, string $languageCode): INotification {
 		if ($notification->getApp() != Application::APP_ID) {
-			throw new InvalidArgumentException("Unknown app: " . $notification->getApp());
+			throw new UnknownNotificationException("Unknown app: " . $notification->getApp());
 		}
 		try {
 			$secret = $this->secretService->find($notification->getObjectId(), $notification->getUser());
 		} catch (Exception $e) {
-			$this->logger->logException($e);
+			$this->logger->error('Could not find secret for creating retrieval notification: ' . $e->getMessage(), ['exception' => $e]);
 			throw new AlreadyProcessedException();
 		}
 

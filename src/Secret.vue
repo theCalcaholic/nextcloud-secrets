@@ -107,44 +107,41 @@ export default {
 			return !this.value.uuid
 		},
 		url() {
-			if (this.$debugsecrets)
-				console.debug(`decrypted? ${this.isDecrypted}, keyBuf: ${this.keyBuf}`)
+			if (this.$debugsecrets) { console.debug(`decrypted? ${this.isDecrypted}, keyBuf: ${this.keyBuf}`) }
 			if (!this.isDecrypted || !this.keyBuf) { return null }
 			const keyStr = this.$cryptolib.arrayBufferToB64String(new Uint8Array(this.keyBuf))
-			if (this.$debugsecrets)
-				console.debug("serialized key: ", keyStr)
+			if (this.$debugsecrets) { console.debug('serialized key: ', keyStr) }
 			return window.location.protocol + '//' + window.location.host + generateUrl(
 				`/apps/secrets/share/${this.value.uuid}`
-				+ `#${keyStr}`
+				+ `#${keyStr}`,
 			)
 		},
 		formattedUUID() {
-			if (this.value.uuid === "") { return null }
-			let uuid = this.value.uuid
+			if (this.value.uuid === '') { return null }
+			const uuid = this.value.uuid
 			return `${uuid.substring(0, 8)}-${uuid.substring(8, 4)}-${uuid.substring(12, 4)}`
 				+ `-${uuid.substring(16, 4)}-${uuid.substring(20, 12)}`
 		},
 		// expiryDate() {
-		// 	console.log('expires', this.value.expires);
-		// 	// let timeIndex = this.value.expires.indexOf('T');
-		// 	// if (timeIndex === -1)
-		// 	return Date.parse(this.value.expires);
-		// 	// return new Date(this.value.expires.substring(0, timeIndex));
+		// console.log('expires', this.value.expires);
+		// // let timeIndex = this.value.expires.indexOf('T');
+		// // if (timeIndex === -1)
+		// return Date.parse(this.value.expires);
+		// // return new Date(this.value.expires.substring(0, timeIndex));
 		// },
 		formattedDate() {
 			const formattedDate = this.value.expires.getFullYear() + '-'
-				+ `${this.value.expires.getMonth()+1}`.padStart(2, '0') + '-'
+				+ `${this.value.expires.getMonth() + 1}`.padStart(2, '0') + '-'
 				+ `${this.value.expires.getDate()}`.padStart(2, '0')
-			if (this.$debugsecrets)
-				console.debug("date: ", formattedDate, this.value.expires)
-			//return this.value.expires.toISOString().substring(0, 10);
-			return formattedDate;
+			if (this.$debugsecrets) { console.debug('date: ', formattedDate, this.value.expires) }
+			// return this.value.expires.toISOString().substring(0, 10);
+			return formattedDate
 		},
 		daysToDeletion() {
 			if (!this.value.expires) { return 999 }
-			let deletionDate = new Date(this.value.expires.toISOString())
+			const deletionDate = new Date(this.value.expires.toISOString())
 			deletionDate.setDate(deletionDate.getDate() + 7)
-			let today = new Date()
+			const today = new Date()
 			today.setHours(0)
 			today.setMinutes(0)
 			today.setSeconds(0)

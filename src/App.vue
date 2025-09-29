@@ -189,12 +189,12 @@ export default {
 			const iv = this.$cryptolib.generateIv()
 			if (this.currentSecretUUId !== '') {
 				this.currentSecretUUId = ''
-				let expiryDate = new Date()
+				const expiryDate = new Date()
 				expiryDate.setDate((new Date()).getDate() + 7)
 				this.secrets.push({
 					uuid: '',
-					title: t('secrets', 'New Secret'),
-					password: null,
+					title: t('secrets', 'New Secret') + ' ' + (new Date()).toLocaleDateString(),
+					password: '',
 					pwHash: null,
 					key,
 					iv,
@@ -224,10 +224,10 @@ export default {
 			this.updating = true
 			try {
 				const encryptedPromise = this.$cryptolib.encrypt(secret._decrypted, secret.key, secret.iv)
-				let expiresStr = secret.expires.toISOString()
+				const expiresStr = secret.expires.toISOString()
 				const encryptedSecret = {
 					title: secret.title,
-					password: secret.password,
+					password: secret.password === '' ? null : secret.password,
 					expires: expiresStr,
 					encrypted: await encryptedPromise,
 					iv: this.$cryptolib.arrayBufferToB64String(secret.iv),

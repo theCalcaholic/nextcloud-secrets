@@ -1,0 +1,128 @@
+
+# SPDX-FileCopyrightText: Nextcloud contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+name: Integration Test
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - stable*
+    tags:
+      - "v*"
+      - "test*"
+  workflow_call:
+
+env:
+  APP_NAME: secrets
+
+jobs:
+  integration-test-cli:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-versions: ['8.3']
+        server-versions: ['v30.0.4', 'v31.0.0beta2']
+
+    services:
+      mysql:
+        image: mariadb:10.5
+        ports:
+          - 4444:3306/tcp
+        env:
+          MYSQL_ROOT_PASSWORD: rootpassword
+        options: --health-cmd="mysqladmin ping" --health-interval 5s --health-timeout 2s --health-retries 5
+
+    steps:
+      - name: Set app env
+        run: |
+          # Split and keep last
+          echo "APP_NAME=secrets" >> $GITHUB_ENV
+
+      - name: Enable ONLY_FULL_GROUP_BY MySQL option
+        run: |
+          echo "SET GLOBAL sql_mode=(SELECT CONCAT(@@sql_mode,',ONLY_FULL_GROUP_BY'));" | mysql -h 127.0.0.1 -P 4444 -u root -prootpassword
+          echo "SELECT @@sql_mode;" | mysql -h 127.0.0.1 -P 4444 -u root -prootpassword
+
+      - name: Checkout server
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+          repository: nextcloud/server
+          ref: ${{ matrix.server-versions }}
+
+      - name: Checkout app
+        uses: actions/checkout@v3
+        with:
+          path: apps/${{ env.APP_NAME }}
+
+      - name: Set up php ${{ matrix.php-versions }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          tools: phpunit
+          extensions: mbstring, iconv, fileinfo, intl, mysql, pdo_mysql
+          coverage: none
+
+      - name: Read package.json node and npm engines version
+        uses: skjnldsv/read-package-engines-version-actions@v1.2
+        id: versions
+        with:
+          fallbackNode: '^12'
+          fallbackNpm: '^6'
+
+      - name: Set up node ${{ steps.versions.outputs.nodeVersion }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ steps.versions.outputs.nodeVersion }}
+
+      - name: Set up bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Build cli
+        working-directory: apps/${{ env.APP_NAME }}/cli
+        run: |
+          cp ../src/crypto.js ./crypto.import.js
+          bun install --dev
+          bun build --compile ./cli.ts --outfile nc-secrets
+
+      - name: Set up Nextcloud
+        env:
+          DB_PORT: 4444
+        run: |
+          mkdir data
+          ./occ maintenance:install --verbose --database=mysql --database-name=nextcloud --database-host=127.0.0.1 --database-port=$DB_PORT --database-user=root --database-pass=rootpassword --admin-user admin --admin-pass password
+          ./occ --version
+          ./occ app:enable ${{ env.APP_NAME }}
+
+      - name: Run Nextcloud
+        run: php -S localhost:8080 > ./php.log 2>&1 &
+
+      - name: '[TEST] create and retrieve secret'
+        working-directory: apps/${{ env.APP_NAME }}/cli
+        id: integration_test
+        shell: /usr/bin/bash -ie {0}
+        run: |
+          set -ex
+          echo 'INTEGRATION_TEST' > ./secret_data
+          result="$(./nc-secrets -k create -t 'integration-test' http://localhost:8080 admin ./secret_data <<<"password")" 
+          echo "${result}"
+          ./nc-secrets -k retrieve -d "$(jq -r .decryptionKey <<<"$result")" "$(jq -r .ocsUrl <<<"$result")"
+
+      - name: Report
+        if: always()
+        run: |
+          tail ./php.log
+          if ${{ steps.integration_test.outcome != 'success' }}; then exit 1; fi
+
+  summary:
+    runs-on: ubuntu-latest
+    needs: integration-test-cli
+    if: always()
+    name: integration-test-summary
+
+    steps:
+      - name: 'Report'
+        run: if ${{ needs.integration-test-cli.result != 'success' }}; then exit 1; fi

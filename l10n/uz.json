@@ -1,6 +1,7 @@
 { "translations": {
-    "Save" : "Save",
-    "Download" : "Download",
+    "Save" : "Saqlash",
+    "Download" : "Yuklab olish",
+    "This share is password-protected" : "Bu almashish parol bilan himoyalangan",
     "Password" : "Password"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

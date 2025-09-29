@@ -13,7 +13,7 @@
 				:placeholder="t('secrets', 'Expiration Date')" />
 		</p>
 		<NcPasswordField :label="t('secrets', 'share password (optional)')"
-		    :value="value.password"
+			:value="value.password"
 			:value.sync="value.password"
 			:minlength="4"
 			:required="false" />
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import {NcDateTimePicker, NcPasswordField} from '@nextcloud/vue'
+import { NcDateTimePicker, NcPasswordField } from '@nextcloud/vue'
 
 import '@nextcloud/dialogs/styles/toast.scss'
 

@@ -10,7 +10,10 @@ on:
       - "test*"
 
 jobs:
-  run:
+  integration-test:
+    uses: ./.github/workflows/integration-tests.yml
+  release:
+    needs: integration-test
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2

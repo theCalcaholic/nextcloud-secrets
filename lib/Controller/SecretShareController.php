@@ -15,12 +15,12 @@ use OCP\AppFramework\AuthPublicShareController;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IConfig;
-use OCP\ILogger;
 use OCP\IRequest;
 
 use OCP\ISession;
 use OCP\IURLGenerator;
 use OCP\Util;
+use Psr\Log\LoggerInterface;
 
 class SecretShareController extends AuthPublicShareController {
 	private SecretService $service;
@@ -28,11 +28,11 @@ class SecretShareController extends AuthPublicShareController {
 	private bool $debug;
 
 	public function __construct(IRequest      $request,
-		ISession      $session,
-		SecretService $service,
-		IURLGenerator $urlGenerator,
-		IConfig $config,
-		ILogger              $logger) {
+		ISession        $session,
+		SecretService   $service,
+		IURLGenerator   $urlGenerator,
+		IConfig         $config,
+		LoggerInterface $logger) {
 		parent::__construct(Application::APP_ID, $request, $session, $urlGenerator);
 		$this->service = $service;
 		$this->debug = $config->getSystemValueBool("debug");
@@ -80,7 +80,10 @@ class SecretShareController extends AuthPublicShareController {
 
 	protected function verifyPassword(string $password): bool {
 		try {
-			return hash("sha256", $password . $this->getSecret()->getUuid()) === $this->getPasswordHash();
+			$pwHash = $this->service->verifyPassword($this->secret->getUuid(), $password);
+			return $pwHash !== null ||
+				# for backwards compatibility. TODO: remove after some time
+				hash("sha256", $password . $this->getSecret()->getUuid()) === $this->getPasswordHash();
 		} catch (SecretNotFound $e) {
 			return false;
 		}
@@ -99,7 +102,6 @@ class SecretShareController extends AuthPublicShareController {
 	 * @since 14.0.0
 	 */
 	public function showAuthenticate(): TemplateResponse {
-		error_log("showAuthenticate");
 		return new TemplateResponse('secrets', 'publicshareauth',
 			["debug" => $this->debug], 'guest');
 	}
