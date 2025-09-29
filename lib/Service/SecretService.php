@@ -85,7 +85,7 @@ class SecretService {
 		$secret->setIv($iv);
 		$secret->setUserId($userId);
 		$secret->setExpiresFromISO8601String($expires);
-		$secret->setPwHash($password ? hash("sha256", $password . $secret->getUuid()) : null);
+		$secret->setPwHash($password ? password_hash($password . $secret->getUuid(), PASSWORD_ARGON2ID) : null);
 		return $this->mapper->insert($secret);
 	}
 
@@ -144,19 +144,33 @@ class SecretService {
 
 	/**
 	 * @param string $uuid
+	 * @param string $password
+	 *
+	 * @return string
+	 */
+	public function verifyPassword(string $uuid, ?string $password): ?string {
+		$secret = $this->findPublic($uuid);
+		if (!password_verify($password . $uuid, $secret->getPwHash())) {
+			return null;
+		}
+		return $secret->getPwHash();
+	}
+
+	/**
+	 * @param string $uuid
 	 * @param string|null $password
 	 *
 	 * @return Secret
 	 * @throws SecretNotFound
 	 * @throws UnauthorizedException
 	 */
-	public function retrieveAndInvalidateSecret(string $uuid, ?string $pwHash): Secret {
+	public function retrieveAndInvalidateSecret(string $uuid, ?string $pwHash, ?string $pwHashLegacy): Secret {
 		$secret = $this->findPublic($uuid);
 		if ($secret->getEncrypted() === null) {
 			throw new SecretNotFound();
 		}
 
-		if ($secret->getPwHash() !== null && $secret->getPwHash() !== $pwHash) {
+		if ($secret->getPwHash() !== null && $secret->getPwHash() !== $pwHash && $secret->getPwHash() !== $pwHashLegacy) {
 			throw new UnauthorizedException();
 		}
 		$uuid = $secret->getUuid();

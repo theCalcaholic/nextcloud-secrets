@@ -232,12 +232,14 @@ export default {
 		display: block;
 		margin: auto;
 	}
+
 	.secret-actions {
 		display: flex;
 		flex-direction: row;
 		justify-content: end;
 		margin: 1rem 0;
 	}
+
 	.secret-actions>* {
 		margin-left: 1rem;
 	}

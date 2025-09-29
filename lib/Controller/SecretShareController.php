@@ -80,7 +80,10 @@ class SecretShareController extends AuthPublicShareController {
 
 	protected function verifyPassword(string $password): bool {
 		try {
-			return hash("sha256", $password . $this->getSecret()->getUuid()) === $this->getPasswordHash();
+			$pwHash = $this->service->verifyPassword($this->secret->getUuid(), $password);
+			return $pwHash !== null ||
+				# for backwards compatibility. TODO: remove after some time
+				hash("sha256", $password . $this->getSecret()->getUuid()) === $this->getPasswordHash();
 		} catch (SecretNotFound $e) {
 			return false;
 		}
@@ -99,7 +102,6 @@ class SecretShareController extends AuthPublicShareController {
 	 * @since 14.0.0
 	 */
 	public function showAuthenticate(): TemplateResponse {
-		error_log("showAuthenticate");
 		return new TemplateResponse('secrets', 'publicshareauth',
 			["debug" => $this->debug], 'guest');
 	}
