@@ -8,9 +8,9 @@ import { generateFilePath } from '@nextcloud/router'
 import CryptoLib from './crypto.js'
 import Vue from 'vue'
 import App from './App.vue'
-const debug = document.getElementById("secret-root").getAttribute("data-debugsecrets") === "true"
+const debug = document.getElementById('secret-root').getAttribute('data-debugsecrets') === 'true'
 Object.defineProperty(Vue.prototype, '$debugsecrets', {
-	value: debug
+	value: debug,
 })
 Object.defineProperty(Vue.prototype, '$cryptolib', { value: new CryptoLib(window.crypto, window, debug) })
 
