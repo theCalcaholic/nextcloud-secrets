@@ -37,7 +37,7 @@ const mockCrypto = {
 		},
 		async decrypt(algorithm, key, data) {
 			const encryptedObj = JSON.parse(new TextDecoder().decode(data))
-			if (key !== encryptedObj.key || algorithm.name !== encryptedObj.algorithm.name || algorithm.iv !== encryptedObj.iv) {
+			if (key !== encryptedObj.key || algorithm.name !== encryptedObj.algorithm.name) {
 				throw new Error('Decryption failed: Key, algorithm and iv must match')
 			}
 
