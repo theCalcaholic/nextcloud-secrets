@@ -35,7 +35,7 @@ Secrets now comes with a cli that can be used to automate the provisioning of se
     <screenshot>https://raw.githubusercontent.com/theCalcaholic/nextcloud-secrets/main/screenshots/public_share_1.png</screenshot>
     <screenshot>https://raw.githubusercontent.com/theCalcaholic/nextcloud-secrets/main/screenshots/public_share_2.png</screenshot>
     <dependencies>
-        <nextcloud min-version="26" max-version="31"/>
+        <nextcloud min-version="26" max-version="32"/>
     </dependencies>
 	<background-jobs>
 		<job>OCA\Secrets\Cron\SecretCleanup</job>
