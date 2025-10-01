@@ -1,90 +1,90 @@
 <script setup>
 // SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
 // SPDX-License-Identifier: AGPL-3.0-or-later
-import {defineProps, defineModel, ref, computed, inject, watch, onMounted, toRef} from "vue";
+import { defineProps, ref, computed, inject, watch, toRef } from 'vue'
 import { NcActionButton, NcActions, NcNoteCard, NcCheckboxRadioSwitch } from '@nextcloud/vue'
 
 import '@nextcloud/dialogs/styles/toast.scss'
 import { generateUrl } from '@nextcloud/router'
 import { showError } from '@nextcloud/dialogs'
 
-const $cryptolib = inject('cryptolib');
+const $cryptolib = inject('cryptolib')
 const $debugsecrets = inject('debugsecrets')
 
 const props = defineProps({
-  locked: Boolean,
-  warning: String,
-  success: String,
-  secret: Object,
-});
+	locked: Boolean,
+	warning: String,
+	success: String,
+	secret: Object,
+})
 
-const secret = toRef(props, 'secret');
+const secret = toRef(props, 'secret')
 
-const keyBuf = ref(null);
+const keyBuf = ref(null)
 const copyState = ref('ready')
 
 const isDecrypted = computed(() => !!secret.value.key)
 
 const url = computed(() => {
-  if ($debugsecrets) { console.debug(`decrypted? ${isDecrypted.value}, keyBuf: ${keyBuf.value}`) }
-  if (!isDecrypted.value || !keyBuf.value) { return null }
-  const keyStr = $cryptolib.arrayBufferToB64String(new Uint8Array(keyBuf.value))
-  if ($debugsecrets) { console.debug('serialized key: ', keyStr) }
-  return window.location.protocol + '//' + window.location.host + generateUrl(
-      `/apps/secrets/share/${secret.value.uuid}`
+	if ($debugsecrets) { console.debug(`decrypted? ${isDecrypted.value}, keyBuf: ${keyBuf.value}`) }
+	if (!isDecrypted.value || !keyBuf.value) { return null }
+	const keyStr = $cryptolib.arrayBufferToB64String(new Uint8Array(keyBuf.value))
+	if ($debugsecrets) { console.debug('serialized key: ', keyStr) }
+	return window.location.protocol + '//' + window.location.host + generateUrl(
+		`/apps/secrets/share/${secret.value.uuid}`
       + `#${keyStr}`,
-  )
+	)
 })
 
 const formattedDate = computed(() => {
-  const formattedDate = secret.value.expires.getFullYear() + '-'
+	const formattedDate = secret.value.expires.getFullYear() + '-'
       + `${secret.value.expires.getMonth() + 1}`.padStart(2, '0') + '-'
       + `${secret.value.expires.getDate()}`.padStart(2, '0')
-  if ($debugsecrets) { console.debug('date: ', formattedDate, secret.value.expires) }
-  return formattedDate
+	if ($debugsecrets) { console.debug('date: ', formattedDate, secret.value.expires) }
+	return formattedDate
 })
 
 const daysToDeletion = computed(() => {
-  if (!secret.value.expires) { return 999 }
-  const deletionDate = new Date(secret.value.expires.toISOString())
-  deletionDate.setDate(deletionDate.getDate() + 7)
-  const today = new Date()
-  today.setHours(0)
-  today.setMinutes(0)
-  today.setSeconds(0)
-  today.setMilliseconds(0)
-  return Math.floor((deletionDate - today) / 86400000)
+	if (!secret.value.expires) { return 999 }
+	const deletionDate = new Date(secret.value.expires.toISOString())
+	deletionDate.setDate(deletionDate.getDate() + 7)
+	const today = new Date()
+	today.setHours(0)
+	today.setMinutes(0)
+	today.setSeconds(0)
+	today.setMilliseconds(0)
+	return Math.floor((deletionDate - today) / 86400000)
 })
 
 const copyButtonIcon = computed(() => {
-  if (copyState.value === 'success') { return 'icon-checkmark' }
-  if (copyState.value === 'error') { return 'icon-error' }
-  return 'icon-clippy'
+	if (copyState.value === 'success') { return 'icon-checkmark' }
+	if (copyState.value === 'error') { return 'icon-error' }
+	return 'icon-clippy'
 })
 
 async function copyToClipboard(url) {
-  try {
-    await navigator.clipboard.writeText(url)
-    copyState.value = 'success'
-    setTimeout(() => { copyState.value = 'ready' }, 3000)
-  } catch (e) {
-    showError(e.message)
-    console.error(e)
-    copyState.value = 'error'
-    setTimeout(() => { copyState.value = 'ready' }, 3000)
-  }
+	try {
+		await navigator.clipboard.writeText(url)
+		copyState.value = 'success'
+		setTimeout(() => { copyState.value = 'ready' }, 3000)
+	} catch (e) {
+		showError(e.message)
+		console.error(e)
+		copyState.value = 'error'
+		setTimeout(() => { copyState.value = 'ready' }, 3000)
+	}
 }
 
 watch(
-    () => secret.value ? secret.value.key : undefined,
-    async (val) => {
-      if (val) {
-        keyBuf.value = await window.crypto.subtle.exportKey('raw', val);
-      }
-    },
-    {
-      immediate: true
-    }
+	() => secret.value ? secret.value.key : undefined,
+	async (val) => {
+		if (val) {
+			keyBuf.value = await window.crypto.subtle.exportKey('raw', val)
+		}
+	},
+	{
+		immediate: true,
+	},
 )
 
 </script>
@@ -188,15 +188,7 @@ watch(
 		margin: 3px;
 	}
 
-	.url-container actions {
-		flex-grow: 0;
-	}
-
 	input.url-field {
 		width: 100%;
-	}
-
-	:global(actions.secret-actions li) {
-		list-style: none;
 	}
 </style>

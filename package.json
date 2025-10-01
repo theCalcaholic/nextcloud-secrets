@@ -49,6 +49,7 @@
     "@peeky/test": "^0.14.1",
     "@vue/tsconfig": "^0.8.1",
     "bun-types": "latest",
+    "stylelint-config-recommended-vue": "^1.6.1",
     "typescript": "^5.9.2",
     "vite": "^7.1.7",
     "vite-plugin-clean": "^1.0.0",
