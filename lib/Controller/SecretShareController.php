@@ -142,6 +142,7 @@ class SecretShareController extends AuthPublicShareController {
 	 */
 	public function showShare(): TemplateResponse {
 		Util::addScript(Application::APP_ID, 'secrets-public');
+        Util::addStyle(Application::APP_ID, 'secrets-public');
 
 		$resp = new TemplateResponse(Application::APP_ID, 'public', ['debug' => $this->debug], TemplateResponse::RENDER_AS_BASE);
 		return $resp;

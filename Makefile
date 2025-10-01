@@ -87,7 +87,6 @@ ifeq (,$(wildcard $(CURDIR)/package.json))
 else
 	npm run build
 endif
-	cp -R js-static/* js/
 
 # Removes the appstore build
 .PHONY: clean
@@ -100,8 +99,8 @@ clean:
 distclean: clean
 	rm -rf vendor
 	rm -rf node_modules
-	rm -rf js/vendor
-	rm -rf js/node_modules
+	rm -rf js
+	rm -rf css
 
 # Builds the source and appstore package
 .PHONY: dist

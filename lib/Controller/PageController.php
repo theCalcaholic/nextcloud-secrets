@@ -37,6 +37,7 @@ class PageController extends Controller {
 	 */
 	public function index(): TemplateResponse {
 		Util::addScript(Application::APP_ID, 'secrets-main');
+        Util::addStyle(Application::APP_ID, 'secrets-main');
 
 		return new TemplateResponse(Application::APP_ID, 'main', ["debug" => $this->debug]);
 	}

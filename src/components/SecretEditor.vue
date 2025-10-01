@@ -1,23 +1,34 @@
+<script setup>
+// SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
+// SPDX-License-Identifier: AGPL-3.0-or-later
+import {defineProps, defineModel} from "vue";
+import {NcDateTimePicker, NcPasswordField} from "@nextcloud/vue";
+
+const props = defineProps({
+  locked: Boolean,
+  title: String,
+});
+const expires = defineModel('expires');
+const password = defineModel('password');
+const content = defineModel('content');
+</script>
+
 <template>
-	<!--
-	SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
-	SPDX-License-Identifier: AGPL-3.0-or-later
-	-->
 	<div class="secret-container">
 		<p>
 			<label for="expires">{{ t('secrets', 'Expires on:') }}</label>
-			<NcDateTimePicker v-model="value.expires"
+			<NcDateTimePicker
+        v-model="expires"
 				name="expires"
 				:clearable="false"
 				type="date"
 				:placeholder="t('secrets', 'Expiration Date')" />
 		</p>
 		<NcPasswordField :label="t('secrets', 'share password (optional)')"
-			:value="value.password"
-			:value.sync="value.password"
+			v-model="password"
 			:minlength="4"
 			:required="false" />
-		<textarea v-model="value._decrypted" :disabled="locked" />
+		<textarea v-model="content" :disabled="locked" />
 		<input type="button"
 			class="primary"
 			:value="t('secrets', 'Save')"
@@ -25,42 +36,6 @@
 			@click="$emit('save-secret', value)">
 	</div>
 </template>
-
-<script>
-import { NcDateTimePicker, NcPasswordField } from '@nextcloud/vue'
-
-import '@nextcloud/dialogs/styles/toast.scss'
-
-export default {
-	name: 'SecretEditor',
-	components: {
-		NcDateTimePicker,
-		NcPasswordField,
-	},
-	props: {
-		locked: {
-			type: Boolean,
-			default: false,
-		},
-		title: {
-			type: String,
-			default: '',
-		},
-		value: {
-			type: Object,
-			default: () => ({
-				expires: new Date(),
-				password: '',
-				_decrypted: '',
-			}),
-		},
-	},
-	computed: {
-	},
-	methods: {
-	},
-}
-</script>
 
 <style scoped>
 
