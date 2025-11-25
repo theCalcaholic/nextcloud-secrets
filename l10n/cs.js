@@ -33,7 +33,7 @@ OC.L10N.register(
     "Copy to Clipboard" : "Zkopírovat do schránky",
     "Download the secret's content as a file" : "Stáhnout si obsah tajemství jako soubor",
     "Download" : "Stáhnout",
-    "Retrieving secret…" : "Získávání tajemství…",
+    "Retrieving secret…" : "Získávání tajemství …",
     "Error loading secret. Is your link correct?" : "Chyba při načítání tajemství. Je vámi poskytnutý odkaz správný?",
     "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "Odhalení vymaže tajemství ze serveru. Už ho nebude možné znovu získat.",
     "Reveal the secret and delete it on the server" : "Odkrýt tajemství a smazat ho na serveru",
@@ -44,6 +44,6 @@ OC.L10N.register(
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Tento popis umístění byl změněn. Probíhá přesměrování do nového umístění. Pokud to nezafunguje, klikněte na následující odkaz:",
     "Go to secret" : "Přejít k tajemství",
     "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Bezpečně sdílejte data s kýmkoli. Veškerá data jsou mezi koncovými body šifrována uživatelem a po úspěšném přijetí budou vymazána ze serveru",
-    "Retrieving secret..." : "Získávání tajemství…"
+    "Retrieving secret..." : "Získávání tajemství …"
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;");
