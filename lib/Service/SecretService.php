@@ -164,7 +164,7 @@ class SecretService {
 	 * @throws SecretNotFound
 	 * @throws UnauthorizedException
 	 */
-	public function retrieveAndInvalidateSecret(string $uuid, ?string $pwHash, ?string $pwHashLegacy): Secret {
+	public function retrieveAndInvalidateSecret(string $uuid, ?string $pwHash): Secret {
 		$secret = $this->findPublic($uuid);
 		if ($secret->getEncrypted() === null) {
 			throw new SecretNotFound();

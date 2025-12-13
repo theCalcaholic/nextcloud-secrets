@@ -128,16 +128,19 @@ class SecretApiController extends OCSController {
 	public function retrieveSharedSecret(string $uuid, ?string $password): DataResponse {
 
 		$pwHash = null;
-		$pwHashLegacy = null;
 		if ($password) {
-			$pwHashLegacy = hash("sha256", $password . $uuid);
 			$pwHash = $this->service->verifyPassword($uuid, $password);
+            if ($pwHash === null) {
+                $pwHash = hash("sha256", $password . $uuid);
+            }
 		} elseif ($this->session->get('public_link_authenticated_token') === $uuid) {
 			$pwHash = $this->session->get('public_link_authenticated_password_hash');
-			$pwHashLegacy = $this->session->get('public_link_authenticated_password_hash_legacy');
-		}
+		} elseif ($this->session->get('public_link_authenticated_frontend')) {
+            $authPayload = json_decode($this->session->get('public_link_authenticated_frontend'));
+            $pwHash = $authPayload->$uuid;
+        }
 		try {
-			$secret = $this->service->retrieveAndInvalidateSecret($uuid, $pwHash, $pwHashLegacy);
+			$secret = $this->service->retrieveAndInvalidateSecret($uuid, $pwHash);
 		} catch (SecretNotFound $e) {
 			$resp = new DataResponse(["message" => "No secret with the given uuid was found"], Http::STATUS_NOT_FOUND);
 			$resp->throttle(['action' => 'retrieval']);
