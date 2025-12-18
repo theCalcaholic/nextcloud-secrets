@@ -60,7 +60,7 @@ class Notifier implements INotifier {
 	 */
 	public function prepare(INotification $notification, string $languageCode): INotification {
 		if ($notification->getApp() != Application::APP_ID) {
-			throw new UnknownNotificationException("Unknown app: " . $notification->getApp());
+			throw new UnknownNotificationException('Unknown app: ' . $notification->getApp());
 		}
 		try {
 			$secret = $this->secretService->find($notification->getObjectId(), $notification->getUser());

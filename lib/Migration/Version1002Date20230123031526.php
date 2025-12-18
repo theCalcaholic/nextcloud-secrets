@@ -45,11 +45,11 @@ class Version1002Date20230123031526 extends SimpleMigrationStep {
 	 */
 	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options): ?ISchemaWrapper {
 		$schema = $schemaClosure();
-		$table = $schema->getTable("secrets");
-		if (! $table->hasColumn("expires_datetime")) {
+		$table = $schema->getTable('secrets');
+		if (! $table->hasColumn('expires_datetime')) {
 			return null;
 		}
-		$table->dropColumn("expires_datetime");
+		$table->dropColumn('expires_datetime');
 		return $schema;
 	}
 }

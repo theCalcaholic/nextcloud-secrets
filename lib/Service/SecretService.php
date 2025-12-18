@@ -37,8 +37,8 @@ class SecretService {
 	 * @throws SecretNotFound
 	 */
 	private function handleException(Exception $e) {
-		if ($e instanceof DoesNotExistException ||
-			$e instanceof MultipleObjectsReturnedException) {
+		if ($e instanceof DoesNotExistException
+			|| $e instanceof MultipleObjectsReturnedException) {
 			throw new SecretNotFound($e->getMessage());
 		} else {
 			throw $e;

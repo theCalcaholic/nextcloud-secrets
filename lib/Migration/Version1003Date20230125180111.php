@@ -56,12 +56,12 @@ class Version1003Date20230125180111 extends SimpleMigrationStep {
 	 */
 	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options): ?ISchemaWrapper {
 		$schema = $schemaClosure();
-		$table = $schema->getTable("secrets");
+		$table = $schema->getTable('secrets');
 		if (!$table->hasColumn('encrypted_str')) {
 			return null;
 		}
-		$table->dropColumn("encrypted");
-		$table->addColumn("encrypted", Types::TEXT, [ 'notnull' => false, 'default' => null ]);
+		$table->dropColumn('encrypted');
+		$table->addColumn('encrypted', Types::TEXT, [ 'notnull' => false, 'default' => null ]);
 		return $schema;
 	}
 

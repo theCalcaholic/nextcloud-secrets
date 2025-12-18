@@ -20,7 +20,7 @@ class RedirectController extends Controller {
 	 * @NoCSRFRequired
 	 *
 	 * @return TemplateResponse<Http::STATUS_OK, string>
-	 * 200: Show secret share page
+	 *                                                   200: Show secret share page
 	 */
 	public function share(): TemplateResponse {
 		Util::addScript(Application::APP_ID, 'redirect');

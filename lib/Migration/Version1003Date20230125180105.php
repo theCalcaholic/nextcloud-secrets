@@ -58,19 +58,19 @@ class Version1003Date20230125180105 extends SimpleMigrationStep {
 	 */
 	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options): ?ISchemaWrapper {
 		$schema = $schemaClosure();
-		$table = $schema->getTable("secrets");
-		$col = $table->getColumn("encrypted");
-		if ($col->getType()->getName() != Types::BLOB || $table->hasColumn("encrypted_str")) {
+		$table = $schema->getTable('secrets');
+		$col = $table->getColumn('encrypted');
+		if ($col->getType()->getName() != Types::BLOB || $table->hasColumn('encrypted_str')) {
 			return null;
 		}
-		$table->addColumn("encrypted_str", Types::TEXT, ['notnull' => false, 'length' => null, 'default' => '']);
+		$table->addColumn('encrypted_str', Types::TEXT, ['notnull' => false, 'length' => null, 'default' => '']);
 		return $schema;
 	}
 
 	/**
 	 * @param IOutput $output
 	 * @param Closure(): ISchemaWrapper $schemaClosure
-	 * g     * @param array $options
+	 *                                                 g     * @param array $options
 	 * @throws Exception
 	 */
 	public function postSchemaChange(IOutput $output, Closure $schemaClosure, array $options): void {
@@ -81,7 +81,7 @@ class Version1003Date20230125180105 extends SimpleMigrationStep {
 		$secret = $results->fetch();
 		while ($secret) {
 			$qb = $this->connection->getQueryBuilder();
-			$qb->update("secrets")
+			$qb->update('secrets')
 				->where($qb->expr()->eq('id', $qb->createNamedParameter($secret['id'])))
 				->set('encrypted_str', $qb->createNamedParameter(self::convertToString($secret['encrypted'])));
 			$qb->executeStatement();
@@ -98,7 +98,7 @@ class Version1003Date20230125180105 extends SimpleMigrationStep {
 			$utf8Str = stream_get_contents($blobData);
 			fclose($blobData);
 		} else {
-			$utf8Str = (string) $blobData;
+			$utf8Str = (string)$blobData;
 		}
 
 		return $utf8Str;

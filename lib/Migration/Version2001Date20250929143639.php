@@ -38,8 +38,8 @@ class Version2001Date20250929143639 extends SimpleMigrationStep {
 	#[Override]
 	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options): ?ISchemaWrapper {
 		$schema = $schemaClosure();
-		$table = $schema->getTable("secrets");
-		$pw_hash = $table->getColumn("pw_hash");
+		$table = $schema->getTable('secrets');
+		$pw_hash = $table->getColumn('pw_hash');
 		$pw_hash->setLength(128);
 		return $schema;
 	}
