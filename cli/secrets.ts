@@ -36,14 +36,14 @@ function handleGlobalOptions(options: {insecure: boolean} & any) {
  * @param secretFile
  * @param options
  * @param options.passFile
- * @param options.days
+ * @param options.expire
  * @param options.password
  * @param options.title
  * @param options.insecure
  */
 export async function createSecret(ncUrl: string, ncUser: string, secretFile: string | undefined, options: {
 	passFile: string | undefined,
-	days: number | undefined,
+	expire: number | undefined,
 	protect: string | undefined,
 	title: string | undefined,
 	insecure: boolean | undefined
@@ -71,7 +71,7 @@ export async function createSecret(ncUrl: string, ncUser: string, secretFile: st
 	const encrypted = await cryptolib.encrypt(plaintext, privKey, iv)
 
 	const expiryDate = new Date()
-	expiryDate.setDate((new Date()).getDate() + (options.days ?? 7))
+	expiryDate.setDate((new Date()).getDate() + (options.expire ?? 7))
 	const postData = JSON.stringify({
 		title: options.title ?? 'Generated with secrets-cli',
 		password: options.protect,
