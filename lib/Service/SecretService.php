@@ -170,7 +170,7 @@ class SecretService {
 			throw new SecretNotFound();
 		}
 
-		if ($secret->getPwHash() !== null && $secret->getPwHash() !== $pwHash && $secret->getPwHash() !== $pwHashLegacy) {
+		if ($secret->getPwHash() !== null && $secret->getPwHash() !== $pwHash) {
 			throw new UnauthorizedException();
 		}
 		$uuid = $secret->getUuid();
