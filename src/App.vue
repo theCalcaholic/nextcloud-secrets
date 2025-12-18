@@ -193,7 +193,7 @@ export default {
 				expiryDate.setDate((new Date()).getDate() + 7)
 				this.secrets.push({
 					uuid: '',
-					title: t('secrets', 'New Secret') + ' ' + (new Date()).toLocaleDateString(),
+					title: t('secrets', 'Secret from {date} {time}', { date: (new Date()).toLocaleDateString(), time: (new Date()).toLocaleTimeString() }),
 					password: '',
 					pwHash: null,
 					key,

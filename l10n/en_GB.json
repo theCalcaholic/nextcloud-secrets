@@ -9,6 +9,7 @@
     "Secret deleted" : "Secret deleted",
     "Could not delete the secret" : "Could not delete the secret",
     "New secret" : "New secret",
+    "Secret from {date} {time}": "Secret from {date} {time}",
     "Change Title" : "Change Title",
     "Cancel secret creation" : "Cancel secret creation",
     "Delete secret" : "Delete secret",
