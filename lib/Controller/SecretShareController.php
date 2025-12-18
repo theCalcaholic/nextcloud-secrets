@@ -27,15 +27,15 @@ class SecretShareController extends AuthPublicShareController {
 	private Secret $secret;
 	private bool $debug;
 
-	public function __construct(IRequest      $request,
-		ISession        $session,
-		SecretService   $service,
-		IURLGenerator   $urlGenerator,
-		IConfig         $config,
+	public function __construct(IRequest $request,
+		ISession $session,
+		SecretService $service,
+		IURLGenerator $urlGenerator,
+		IConfig $config,
 		LoggerInterface $logger) {
 		parent::__construct(Application::APP_ID, $request, $session, $urlGenerator);
 		$this->service = $service;
-		$this->debug = $config->getSystemValueBool("debug");
+		$this->debug = $config->getSystemValueBool('debug');
 	}
 
 	/**
@@ -53,7 +53,7 @@ class SecretShareController extends AuthPublicShareController {
 	private function getSecret(): ?Secret {
 		if (!isset($this->secret)) {
 			if (!$this->getToken()) {
-				throw new InvalidArgumentException("secret uuid is not defined");
+				throw new InvalidArgumentException('secret uuid is not defined');
 			}
 			$this->secret = $this->service->findPublic($this->getToken());
 		}
@@ -81,9 +81,9 @@ class SecretShareController extends AuthPublicShareController {
 	protected function verifyPassword(string $password): bool {
 		try {
 			$pwHash = $this->service->verifyPassword($this->secret->getUuid(), $password);
-			return $pwHash !== null ||
+			return $pwHash !== null
 				# for backwards compatibility. TODO: remove after some time
-				hash("sha256", $password . $this->getSecret()->getUuid()) === $this->getPasswordHash();
+				|| hash('sha256', $password . $this->getSecret()->getUuid()) === $this->getPasswordHash();
 		} catch (SecretNotFound $e) {
 			return false;
 		}
@@ -97,20 +97,20 @@ class SecretShareController extends AuthPublicShareController {
 	 * @NoCSRFRequired
 	 *
 	 * @return TemplateResponse<Http::STATUS_OK, string>
-	 * 200: Show authentication page
+	 *                                                   200: Show authentication page
 	 *
 	 * @since 14.0.0
 	 */
 	public function showAuthenticate(): TemplateResponse {
 		return new TemplateResponse('secrets', 'publicshareauth',
-			["debug" => $this->debug], 'guest');
+			['debug' => $this->debug], 'guest');
 	}
 
 	/**
 	 * The template to show when authentication failed
 	 *
 	 * @return TemplateResponse<Http::STATUS_OK, string>
-	 * 200: Show authentication failure page
+	 *                                                   200: Show authentication failure page
 	 *
 	 * @since 14.0.0
 	 *
@@ -123,7 +123,7 @@ class SecretShareController extends AuthPublicShareController {
 	 * The template to show after user identification
 	 *
 	 * @return TemplateResponse<Http::STATUS_OK, string>
-	 * 200: Show user identification success page
+	 *                                                   200: Show user identification success page
 	 *
 	 * @since 24.0.0
 	 */
@@ -138,7 +138,7 @@ class SecretShareController extends AuthPublicShareController {
 	 * @NoCSRFRequired
 	 *
 	 * @return TemplateResponse<Http::STATUS_OK, string>
-	 * 200: Show secret share page
+	 *                                                   200: Show secret share page
 	 */
 	public function showShare(): TemplateResponse {
 		Util::addScript(Application::APP_ID, 'secrets-public');

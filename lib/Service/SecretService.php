@@ -37,8 +37,8 @@ class SecretService {
 	 * @throws SecretNotFound
 	 */
 	private function handleException(Exception $e) {
-		if ($e instanceof DoesNotExistException ||
-			$e instanceof MultipleObjectsReturnedException) {
+		if ($e instanceof DoesNotExistException
+			|| $e instanceof MultipleObjectsReturnedException) {
 			throw new SecretNotFound($e->getMessage());
 		} else {
 			throw $e;
@@ -164,7 +164,7 @@ class SecretService {
 	 * @throws SecretNotFound
 	 * @throws UnauthorizedException
 	 */
-	public function retrieveAndInvalidateSecret(string $uuid, ?string $pwHash, ?string $pwHashLegacy): Secret {
+	public function retrieveAndInvalidateSecret(string $uuid, ?string $pwHash): Secret {
 		$secret = $this->findPublic($uuid);
 		if ($secret->getEncrypted() === null) {
 			throw new SecretNotFound();

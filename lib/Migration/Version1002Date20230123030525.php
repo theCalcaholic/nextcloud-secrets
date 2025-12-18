@@ -57,7 +57,7 @@ class Version1002Date20230123030525 extends SimpleMigrationStep {
 	 */
 	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options): ?ISchemaWrapper {
 		$schema = $schemaClosure();
-		$table = $schema->getTable("secrets");
+		$table = $schema->getTable('secrets');
 		if ($table->hasColumn('expires_datetime')) {
 			return null;
 		}
@@ -68,7 +68,7 @@ class Version1002Date20230123030525 extends SimpleMigrationStep {
 	/**
 	 * @param IOutput $output
 	 * @param Closure(): ISchemaWrapper $schemaClosure
-	 * g     * @param array $options
+	 *                                                 g     * @param array $options
 	 * @throws Exception
 	 */
 	public function postSchemaChange(IOutput $output, Closure $schemaClosure, array $options): void {

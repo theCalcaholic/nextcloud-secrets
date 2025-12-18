@@ -22,8 +22,8 @@ class NotificationService {
 
 	public function __construct(
 		INotificationManager $notificationManager,
-		IURLGenerator        $urlGenerator,
-		LoggerInterface      $logger) {
+		IURLGenerator $urlGenerator,
+		LoggerInterface $logger) {
 		$this->notificationManager = $notificationManager;
 		$this->urlGenerator = $urlGenerator;
 		$this->logger = $logger;
@@ -37,7 +37,7 @@ class NotificationService {
 		$notification = $this->notificationManager->createNotification();
 		try {
 			$notification->setApp(Application::APP_ID)
-				->setObject("secret_retrieved", $secret->getUuid())
+				->setObject('secret_retrieved', $secret->getUuid())
 				->setUser($secret->getUserId())
 				->setDateTime(new DateTime())
 				->setSubject(Application::APP_ID, ['secret' => $secret->getUuid()]);

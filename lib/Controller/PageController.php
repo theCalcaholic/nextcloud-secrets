@@ -24,7 +24,7 @@ class PageController extends Controller {
 		parent::__construct(Application::APP_ID, $request);
 		$this->notificationManager = $notificationManager;
 		$this->userId = $userSession->getUser()?->getUID();
-		$this->debug = $config->getSystemValueBool("debug");
+		$this->debug = $config->getSystemValueBool('debug');
 	}
 
 	/**
@@ -33,12 +33,12 @@ class PageController extends Controller {
 	 * @NoCSRFRequired
 	 *
 	 * @return TemplateResponse<Http::STATUS_OK, string>
-	 * 200: Return secrets page
+	 *                                                   200: Return secrets page
 	 */
 	public function index(): TemplateResponse {
 		Util::addScript(Application::APP_ID, 'secrets-main');
 
-		return new TemplateResponse(Application::APP_ID, 'main', ["debug" => $this->debug]);
+		return new TemplateResponse(Application::APP_ID, 'main', ['debug' => $this->debug]);
 	}
 
 	/**
@@ -48,7 +48,7 @@ class PageController extends Controller {
 	 *
 	 * @param string $uuid The uuid of the secret
 	 * @return TemplateResponse<Http::STATUS_OK, string>
-	 * 200: Return secrets page and show specific secret
+	 *                                                   200: Return secrets page and show specific secret
 	 */
 	public function show(string $uuid): TemplateResponse {
 		$notification = $this->notificationManager->createNotification();

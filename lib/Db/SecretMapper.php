@@ -63,7 +63,7 @@ class SecretMapper extends QBMapper {
 			->from('secrets')
 			->where($qb->expr()->eq('uuid', $qb->createNamedParameter($uuid)))
 			->andWhere($qb->expr()->isNotNull('encrypted'))
-			->andWhere($qb->expr()->gt('expires', $qb->createNamedParameter(date("Y-m-d"))));
+			->andWhere($qb->expr()->gt('expires', $qb->createNamedParameter(date('Y-m-d'))));
 		return $this->findEntity($qb);
 	}
 

@@ -37,15 +37,15 @@ class SecretApiController extends OCSController {
 
 	use Errors;
 
-	public function __construct(IRequest             $request,
-		SecretService        $service,
+	public function __construct(IRequest $request,
+		SecretService $service,
 		ISession $session,
-		NotificationService  $notificationService,
+		NotificationService $notificationService,
 		INotificationManager $notificationManager,
-		IURLGenerator        $urlGenerator,
-		IAppManager          $appManager,
-		LoggerInterface      $logger,
-		?string              $userId) {
+		IURLGenerator $urlGenerator,
+		IAppManager $appManager,
+		LoggerInterface $logger,
+		?string $userId) {
 		parent::__construct(Application::APP_ID, $request);
 		$this->service = $service;
 		$this->notificationService = $notificationService;
@@ -54,7 +54,7 @@ class SecretApiController extends OCSController {
 		$this->urlGenerator = $urlGenerator;
 		$this->logger = $logger;
 		$this->session = $session;
-		$this->appVersion = $appManager->getAppInfo(Application::APP_ID)["version"];
+		$this->appVersion = $appManager->getAppInfo(Application::APP_ID)['version'];
 	}
 
 	/**
@@ -82,8 +82,8 @@ class SecretApiController extends OCSController {
 	 * @param string $uuid The uuid of the secret
 	 *
 	 * @return DataResponse<Http::STATUS_OK, SecretsData, array{}>|DataResponse<Http::STATUS_NOT_FOUND, array{message: string}, array{}>
-	 * 200: Return secret with given uuid
-	 * 404: Secret not found
+	 *                                                                                                                                   200: Return secret with given uuid
+	 *                                                                                                                                   404: Secret not found
 	 */
 	public function get(string $uuid): DataResponse {
 		return $this->handleNotFound(function () use ($uuid) {
@@ -98,7 +98,7 @@ class SecretApiController extends OCSController {
 	 * @NoCSRFRequired
 	 *
 	 * @return DataResponse<Http::STATUS_OK, array{version: string}, array{}>
-	 * 200: Return application/api version
+	 *                                                                        200: Return application/api version
 	 *
 	 */
 	#[AnonRateLimit(limit: 120, period: 60)]
@@ -116,9 +116,9 @@ class SecretApiController extends OCSController {
 	 * @param string|null $password The password for the secret share
 	 *
 	 * @return DataResponse<Http::STATUS_NOT_FOUND, array{message: string}, array{}>|DataResponse<Http::STATUS_UNAUTHORIZED, array{message: string}, array{}>|DataResponse<Http::STATUS_OK, array{iv: string, encrypted: string}, array{}>
-	 * 200: Return requested secret
-	 * 404: Secret not found for uuid
-	 * 401: Unauthorized
+	 *                                                                                                                                                                                                                                     200: Return requested secret
+	 *                                                                                                                                                                                                                                     404: Secret not found for uuid
+	 *                                                                                                                                                                                                                                     401: Unauthorized
 	 *
 	 */
 	#[UserRateLimit(limit: 500, period: 60)]
@@ -128,22 +128,25 @@ class SecretApiController extends OCSController {
 	public function retrieveSharedSecret(string $uuid, ?string $password): DataResponse {
 
 		$pwHash = null;
-		$pwHashLegacy = null;
 		if ($password) {
-			$pwHashLegacy = hash("sha256", $password . $uuid);
 			$pwHash = $this->service->verifyPassword($uuid, $password);
+			if ($pwHash === null) {
+				$pwHash = hash('sha256', $password . $uuid);
+			}
 		} elseif ($this->session->get('public_link_authenticated_token') === $uuid) {
 			$pwHash = $this->session->get('public_link_authenticated_password_hash');
-			$pwHashLegacy = $this->session->get('public_link_authenticated_password_hash_legacy');
+		} elseif ($this->session->get('public_link_authenticated_frontend')) {
+			$authPayload = json_decode($this->session->get('public_link_authenticated_frontend'));
+			$pwHash = $authPayload->$uuid;
 		}
 		try {
-			$secret = $this->service->retrieveAndInvalidateSecret($uuid, $pwHash, $pwHashLegacy);
+			$secret = $this->service->retrieveAndInvalidateSecret($uuid, $pwHash);
 		} catch (SecretNotFound $e) {
-			$resp = new DataResponse(["message" => "No secret with the given uuid was found"], Http::STATUS_NOT_FOUND);
+			$resp = new DataResponse(['message' => 'No secret with the given uuid was found'], Http::STATUS_NOT_FOUND);
 			$resp->throttle(['action' => 'retrieval']);
 			return $resp;
 		} catch (UnauthorizedException $e) {
-			$resp = new DataResponse(["message" => "Forbidden"], Http::STATUS_UNAUTHORIZED);
+			$resp = new DataResponse(['message' => 'Forbidden'], Http::STATUS_UNAUTHORIZED);
 			$resp->throttle(['action' => 'password']);
 			return $resp;
 		}
@@ -169,8 +172,8 @@ class SecretApiController extends OCSController {
 	 * @param ?string $password (Optional) password to protect the secret share
 	 *
 	 * @return DataResponse<Http::STATUS_CREATED, SecretsData, array{}>|DataResponse<Http::STATUS_UNAUTHORIZED, array{message: string}, array{}>
-	 * 201: Secret created
-	 * 401: Unauthorized
+	 *                                                                                                                                           201: Secret created
+	 *                                                                                                                                           401: Unauthorized
 	 */
 	public function createSecret(string $title, string $encrypted, string $iv, ?string $expires, ?string $password) {
 		if (!$this->userId) {
@@ -187,8 +190,8 @@ class SecretApiController extends OCSController {
 	 * @param string $title The new title of the secret
 	 *
 	 * @return DataResponse<Http::STATUS_OK, SecretsData, array{}>|DataResponse<Http::STATUS_NOT_FOUND, array{message: string}, array{}>
-	 * 200: Return updated secret
-	 * 404: Secret not found
+	 *                                                                                                                                   200: Return updated secret
+	 *                                                                                                                                   404: Secret not found
 	 */
 	public function updateTitle(string $uuid, string $title): DataResponse {
 		return $this->handleNotFound(function () use ($uuid, $title) {
@@ -203,8 +206,8 @@ class SecretApiController extends OCSController {
 	 * @param string $uuid The uuid of the secret
 	 *
 	 * @return DataResponse<Http::STATUS_OK, array{message: string}, array{}>|DataResponse<Http::STATUS_NOT_FOUND, array{message: string}, array{}>
-	 * 200: Secret deleted
-	 * 404: Secret not found
+	 *                                                                                                                                              200: Secret deleted
+	 *                                                                                                                                              404: Secret not found
 	 */
 	public function delete(string $uuid): DataResponse {
 		try {

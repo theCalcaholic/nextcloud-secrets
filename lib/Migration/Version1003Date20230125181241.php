@@ -45,7 +45,7 @@ class Version1003Date20230125181241 extends SimpleMigrationStep {
 	 */
 	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options): ?ISchemaWrapper {
 		$schema = $schemaClosure();
-		$table = $schema->getTable("secrets");
+		$table = $schema->getTable('secrets');
 		if (!$table->hasColumn('encrypted_str')) {
 			return null;
 		}

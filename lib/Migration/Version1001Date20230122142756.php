@@ -57,11 +57,11 @@ class Version1001Date20230122142756 extends SimpleMigrationStep {
 	 */
 	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options): ?ISchemaWrapper {
 		$schema = $schemaClosure();
-		$table = $schema->getTable("secrets");
-		if ($table->hasColumn("iv_str")) {
+		$table = $schema->getTable('secrets');
+		if ($table->hasColumn('iv_str')) {
 			return null;
 		}
-		$table->addColumn("iv_str", Types::TEXT, ['notnull' => false, 'length' => null, 'default' => '']);
+		$table->addColumn('iv_str', Types::TEXT, ['notnull' => false, 'length' => null, 'default' => '']);
 		return $schema;
 	}
 
@@ -78,7 +78,7 @@ class Version1001Date20230122142756 extends SimpleMigrationStep {
 			->executeQuery();
 		while ($secret = $results->fetch()) {
 			$qb = $this->connection->getQueryBuilder();
-			$qb->update("secrets")
+			$qb->update('secrets')
 				->where($qb->expr()->eq('id', $qb->createNamedParameter($secret['id'])))
 				->set('iv_str', $qb->createNamedParameter(self::fixSerialization($secret['iv'])));
 			$qb->executeStatement();

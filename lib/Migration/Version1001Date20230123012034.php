@@ -45,11 +45,11 @@ class Version1001Date20230123012034 extends SimpleMigrationStep {
 	 */
 	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options): ?ISchemaWrapper {
 		$schema = $schemaClosure();
-		$table = $schema->getTable("secrets");
-		if (!$table->hasColumn("iv_str")) {
+		$table = $schema->getTable('secrets');
+		if (!$table->hasColumn('iv_str')) {
 			return null;
 		}
-		$table->dropColumn("iv_str");
+		$table->dropColumn('iv_str');
 		return $schema;
 	}
 }
