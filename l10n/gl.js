@@ -6,7 +6,6 @@ OC.L10N.register(
     "Securely share data via link" : "Comparta datos de xeito seguro mediante unha ligazón",
     "Secrets allows users to generate share links for text based data (e.g. passwords, CSV lists, bank accounts...) that can be sent to anyone (including receivers without a Nextcloud account) for retrieval. The data itself will be end-to-end encrypted (so not even Nextcloud can access it) and the encryption key will be part of the share link (the anchor part) - but never be actually sent to the server. Once retrieved, the secret will be deleted from the server, ensuring, that if it arrived at the correct receiver it has been seen by nobody else.\n\nSecrets now comes with a cli that can be used to automate the provisioning of secret shares: https://github.com/theCalcaholic/nextcloud-secrets/releases" : "Segredos permite aos usuarios xerar ligazóns para compartir datos baseados en texto (por exemplo, contrasinais, listas CSV, contas bancarias…) que se poden enviar a calquera persoa (incluídos receptores sen conta de Nextcloud) para a súa recuperación. Os datos en si serán cifrados de extremo a extremo (polo que nin Nextcloud pode acceder a eles) e a chave de cifraxe formará parte da ligazón de compartir (a parte de áncora), mais nunca se enviará ao servidor. Unha vez recuperado, o segredo borrarase do servidor, garantindo que se chegou ao receptor correcto non teña sido visto por ninguén máis.\n\nSegredos inclúe agora vén unha CLI que pode empregarse para automatizar o aprovisionamento de recursos compartidos segredos: https://github.com/theCalcaholic/nextcloud-secrets/releases",
     "Could not fetch secrets" : "Non foi posíbel recuperar os segredos",
-    "New Secret" : "Novo segredo",
     "Could not create the secret" : "Non foi posíbel crear o segredo",
     "Secret deleted" : "Segredo eliminado",
     "Could not delete the secret" : "Non foi posíbel eliminar o segredo",
@@ -44,6 +43,7 @@ OC.L10N.register(
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Esta ruta cambiou. Redirixíndo á nova localización. Se isto non funciona, prema na seguinte ligazón:",
     "Go to secret" : "Ir ao segredo",
     "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Comparta datos de xeito seguro con calquera persoa. Todos os datos son cifrados de extremo a extremo polo usuario e eliminaranse unha vez recuperados correctamente",
+    "New Secret" : "Novo segredo",
     "Retrieving secret..." : "Recuperando o segredo…"
 },
 "nplurals=2; plural=(n != 1);");

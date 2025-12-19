@@ -6,7 +6,6 @@ OC.L10N.register(
     "Securely share data via link" : "Partager des données en toute sécurité via un lien",
     "Secrets allows users to generate share links for text based data (e.g. passwords, CSV lists, bank accounts...) that can be sent to anyone (including receivers without a Nextcloud account) for retrieval. The data itself will be end-to-end encrypted (so not even Nextcloud can access it) and the encryption key will be part of the share link (the anchor part) - but never be actually sent to the server. Once retrieved, the secret will be deleted from the server, ensuring, that if it arrived at the correct receiver it has been seen by nobody else.\n\nSecrets now comes with a cli that can be used to automate the provisioning of secret shares: https://github.com/theCalcaholic/nextcloud-secrets/releases" : "Secrets permet aux utilisateurs de générer des liens de partage pour des données textuelles (par exemple, des mots de passe, des listes CSV, des comptes bancaires...) qui peuvent être envoyées à n'importe qui (y compris aux destinataires sans compte Nextcloud) pour être récupéré. Les données elles-mêmes seront chiffrées de bout en bout (de sorte que même Nextcloud ne pourra pas y accéder) et une clé de chiffrement fera partie du lien de partage (la partie d'ancrage) - mais ne sera jamais réellement envoyée au serveur. Une fois récupéré, le secret sera supprimé du serveur, garantissant que s'il arrive au bon destinataire, il n'a été vu par personne d'autre.\n\nSecrets est désormais livré avec une interface en ligne de commande qui peut être utilisé pour automatiser le provisionnement des partages secrets: https://github.com/theCalcaholic/nextcloud-secrets/releases",
     "Could not fetch secrets" : "Impossible de récupérer les secrets",
-    "New Secret" : "Nouveau secret",
     "Could not create the secret" : "Impossible de créer le secret",
     "Secret deleted" : "Secret supprimé",
     "Could not delete the secret" : "Impossible de supprimer le secret",
@@ -44,6 +43,7 @@ OC.L10N.register(
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Ce chemin a changé. Vous allez être redirigé vers le nouvel emplacement. Si cela ne fonctionne pas, cliquez sur le lien suivant :",
     "Go to secret" : "Aller au secret",
     "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Partager des données en toute sécurité avec n'importe qui. Toutes les données sont chiffrées de bout en bout par l'utilisateur et seront supprimées une fois récupérées avec succès.",
+    "New Secret" : "Nouveau secret",
     "Retrieving secret..." : "Récupération du secret..."
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

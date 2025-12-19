@@ -4,7 +4,6 @@ OC.L10N.register(
     "Secrets" : "Secretos",
     "Secret '{secret}' has been retrieved" : "Recuperóse'l secretu «{secret}»",
     "Could not fetch secrets" : "Nun se pudo dir en cata de los secretos",
-    "New Secret" : "Secretu nuevu",
     "Could not create the secret" : "Nun se pudo crear el secretu",
     "Secret deleted" : "Desanicióse'l secretu",
     "Could not delete the secret" : "Nun se pudo desaniciar el secretu",
@@ -23,6 +22,7 @@ OC.L10N.register(
     "This share is password-protected" : "Esti secrete ta protexíu con una contraseña",
     "The password is wrong or has expired. Please try again." : "La contraseña ye incorreuta o caducó. Volvi tentalo.",
     "Password" : "Contraseña",
+    "New Secret" : "Secretu nuevu",
     "Retrieving secret..." : "Recuperando'l secretu…"
 },
 "nplurals=2; plural=(n != 1);");

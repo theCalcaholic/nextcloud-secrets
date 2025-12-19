@@ -6,7 +6,6 @@ OC.L10N.register(
     "Securely share data via link" : "Безпечно надати доступ через посилання",
     "Secrets allows users to generate share links for text based data (e.g. passwords, CSV lists, bank accounts...) that can be sent to anyone (including receivers without a Nextcloud account) for retrieval. The data itself will be end-to-end encrypted (so not even Nextcloud can access it) and the encryption key will be part of the share link (the anchor part) - but never be actually sent to the server. Once retrieved, the secret will be deleted from the server, ensuring, that if it arrived at the correct receiver it has been seen by nobody else.\n\nSecrets now comes with a cli that can be used to automate the provisioning of secret shares: https://github.com/theCalcaholic/nextcloud-secrets/releases" : "Secrets дозволяє користувачам створювати посилання для спільного доступу до текстових даних (наприклад, паролів, списків CSV, банківських рахунків...), які можна надіслати будь-кому (включно з одержувачами, які не мають облікового запису Nextcloud) для отримання. Самі дані будуть зашифровані від кінця до кінця (тож навіть Nextcloud не матиме до них доступу), а ключ шифрування буде частиною посилання для спільного доступу (частина анкора), але ніколи не буде фактично надісланий на сервер. Після отримання секрет буде видалено з сервера, що гарантує, що якщо він надійшов до правильного одержувача, його ніхто інший не бачив.\n\nSecrets тепер постачається з cli, який можна використовувати для автоматизації надання секретних спільних посилань: https://github.com/theCalcaholic/nextcloud-secrets/releases",
     "Could not fetch secrets" : "Не вдалося отримати секретні повідомлення",
-    "New Secret" : "Нове секретне повідомлення",
     "Could not create the secret" : "Не вдалося створити секретне повідомлення",
     "Secret deleted" : "Секретне повідомлення вилучено",
     "Could not delete the secret" : "Не вдалося вилучити секретне повідомлення",
@@ -44,6 +43,7 @@ OC.L10N.register(
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Цей шлях змінився. Ви перенаправляєтеся на нове місце. Якщо це не працює, натисніть на наступне посилання:",
     "Go to secret" : "Перейти до секретного повідомлення",
     "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Безпечно обмінюйтеся даними з іншими користувачами хмари. Усі дані, якими ви обмінюватиметеся, будуть мають наскрізне шифрування та знищуватимуться після успішного отримання іншим користувачем.",
+    "New Secret" : "Нове секретне повідомлення",
     "Retrieving secret..." : "Отримання секретного повідомлення..."
 },
 "nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);");

@@ -5,7 +5,6 @@ OC.L10N.register(
     "Secret '{secret}' has been retrieved" : "Hemligheten '{secret}' har hämtats",
     "Securely share data via link" : "Dela data säkert via länk",
     "Could not fetch secrets" : "Kunde inte hämta hemligheter",
-    "New Secret" : "Ny hemlighet",
     "Could not create the secret" : "Kunde inte skapa hemlighet",
     "Secret deleted" : "Hemlighet raderad",
     "Could not delete the secret" : "Kunde inte ta bort hemlighet",
@@ -43,6 +42,7 @@ OC.L10N.register(
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Denna adress har förändrats. Omdirigerar dig till den nya platsen. Om detta inte fungerar, klicka på följande länk:",
     "Go to secret" : "Gå till hemlighet",
     "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Dela data säkert med vem som helst. All data är end-to-end-krypterad av användaren och kommer att raderas när den väl har hämtats",
+    "New Secret" : "Ny hemlighet",
     "Retrieving secret..." : "Hämtar hemlighet..."
 },
 "nplurals=2; plural=(n != 1);");

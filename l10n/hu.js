@@ -5,7 +5,6 @@ OC.L10N.register(
     "Secret '{secret}' has been retrieved" : "A(z) „{secret}” titok le lett kérve",
     "Securely share data via link" : "Adatok biztonságos megosztása hivatkozással",
     "Could not fetch secrets" : "Nem sikerült lekérni a titkokat",
-    "New Secret" : "Új titok",
     "Could not create the secret" : "Nem sikerült létrehozni a titkot",
     "Secret deleted" : "Titok törölve",
     "Could not delete the secret" : "Nem sikerült törölni a titkot",
@@ -38,6 +37,7 @@ OC.L10N.register(
     "The password is wrong or has expired. Please try again." : "A jelszó hibás vagy lejárt. Próbálja újra.",
     "Password" : "Jelszó",
     "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Osszon meg biztonságosan adatok bárkivel. Az összes adat végpontok közti titkosítással rendelkezik, és a sikeres letöltés után törlődik.",
+    "New Secret" : "Új titok",
     "Retrieving secret..." : "Titok lekérése…"
 },
 "nplurals=2; plural=(n != 1);");

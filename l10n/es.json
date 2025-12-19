@@ -4,7 +4,6 @@
     "Securely share data via link" : "Compartir datos de forma segura mediante un enlace",
     "Secrets allows users to generate share links for text based data (e.g. passwords, CSV lists, bank accounts...) that can be sent to anyone (including receivers without a Nextcloud account) for retrieval. The data itself will be end-to-end encrypted (so not even Nextcloud can access it) and the encryption key will be part of the share link (the anchor part) - but never be actually sent to the server. Once retrieved, the secret will be deleted from the server, ensuring, that if it arrived at the correct receiver it has been seen by nobody else.\n\nSecrets now comes with a cli that can be used to automate the provisioning of secret shares: https://github.com/theCalcaholic/nextcloud-secrets/releases" : "Secretos permite a los usuarios generar enlaces de recursos compartidos para datos basados en texto (p. ej. Contraseñas, listas en CSV, cuentas bancarias...) que pueden ser enviados a cualquiera (incluyendo receptores que no tienen una cuenta Nextcloud) para su recuperación. Los datos en sí mismos estarán cifrados de extremo a extremo (de manera que ni siquiera Nextcloud pueda acceder a ellos) y la llave de cifrado será parte del enlace del recurso compartido (la parte del ancla de la misma) - pero nunca será efectivamente enviada al servidor. Una vez que se recuperen los datos, el secreto se eliminará del servidor, asegurando así, que al llegar al receptor correcto solamente no ha sido visto por nadie mas.\n\nSecretos ahora viene con una interfaz de línea de comandos que puede utilizarse para automatizar el aprovisionamiento de recursos compartidos secretos: https://github.com/theCalcaholic/nextcloud-secrets/releases",
     "Could not fetch secrets" : "No se pudieron obtener los secretos",
-    "New Secret" : "Nuevo secreto",
     "Could not create the secret" : "No fue posible crear el secreto",
     "Secret deleted" : "Secreto eliminado",
     "Could not delete the secret" : "No fue posible eliminar el secreto",
@@ -42,6 +41,7 @@
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Esta ruta ha cambiado. Le estamos redirigiendo a la nueva ubicación. Si esto no funciona, haga clic en el siguiente enlace:",
     "Go to secret" : "Ir al secreto",
     "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Comparta datos de forma segura con cualquiera. Todos los datos están cifrados de extremo a extremo por el usuario y serán eliminados una vez que se extraigan exitosamente",
+    "New Secret" : "Nuevo secreto",
     "Retrieving secret..." : "Obteniendo secreto..."
 },"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

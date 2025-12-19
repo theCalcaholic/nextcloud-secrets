@@ -6,7 +6,6 @@ OC.L10N.register(
     "Securely share data via link" : "Jaga saladust turvaliselt lingu vahendusel",
     "Secrets allows users to generate share links for text based data (e.g. passwords, CSV lists, bank accounts...) that can be sent to anyone (including receivers without a Nextcloud account) for retrieval. The data itself will be end-to-end encrypted (so not even Nextcloud can access it) and the encryption key will be part of the share link (the anchor part) - but never be actually sent to the server. Once retrieved, the secret will be deleted from the server, ensuring, that if it arrived at the correct receiver it has been seen by nobody else.\n\nSecrets now comes with a cli that can be used to automate the provisioning of secret shares: https://github.com/theCalcaholic/nextcloud-secrets/releases" : "Rakendus „Saladused“ võimaldab jagada tekstilisi andmeid (salasõnad, pangakontod, csv-vormingus loendid) kellega iganes (sealhulgas nendega, kellel pole Nextcloudi kasutajakontot). Andmed on läbivalt krüptitud (seega ka Nextcloud ei näe neid) ning krüptovõti on jagamislingi osa (selle ankruna), kuid teda kunagi ei saadeta serverile. Peale allalaadimist saladus kustutatakse serverist ning see tagab, et määratud saajale lisaks mitte keegi ei saa seda kasutada.\n\nRakendusel „Saladused“ on olemas ka käsurea liidestus, mis võimaldus vastavaid andmeid automatiseeritud viisil ette valmistada: https://github.com/theCalcaholic/nextcloud-secrets/releases",
     "Could not fetch secrets" : "Saladuste laadimine ei õnnestunud",
-    "New Secret" : "Uus saladus",
     "Could not create the secret" : "Saladuse loomine ei õnnestunud",
     "Secret deleted" : "Saladus on kustutatud",
     "Could not delete the secret" : "Saladuse kustutamine ei õnnestunud",
@@ -44,6 +43,7 @@ OC.L10N.register(
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Asukoht on muutunud. Suunan sind ümber uuele aadressile. Kui see ei toimi, siis klõpsi järgnevat linki:",
     "Go to secret" : "Vaata saladust",
     "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Jaga saladusi kellega iganes. Kõik andmed on kasutaja poolt läbivalt krüptitud ja peale õnnestunud allalaadimist kustutatakse.",
+    "New Secret" : "Uus saladus",
     "Retrieving secret..." : "Laadin saladust..."
 },
 "nplurals=2; plural=(n != 1);");
