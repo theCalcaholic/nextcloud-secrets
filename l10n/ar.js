@@ -6,7 +6,6 @@ OC.L10N.register(
     "Securely share data via link" : "مشاركة البيانات بأمان عبر الرابط",
     "Secrets allows users to generate share links for text based data (e.g. passwords, CSV lists, bank accounts...) that can be sent to anyone (including receivers without a Nextcloud account) for retrieval. The data itself will be end-to-end encrypted (so not even Nextcloud can access it) and the encryption key will be part of the share link (the anchor part) - but never be actually sent to the server. Once retrieved, the secret will be deleted from the server, ensuring, that if it arrived at the correct receiver it has been seen by nobody else.\n\nSecrets now comes with a cli that can be used to automate the provisioning of secret shares: https://github.com/theCalcaholic/nextcloud-secrets/releases" : "تُمكِّن \"الأسرار\" المستخدِمين بإنشاء روابط مشاركة للبيانات النصية (مثل كلمات المرور وقوائم CSV والحسابات المصرفية...) التي يمكن إرسالها إلى أي شخص (بما في ذلك أجهزة الاستقبال التي ليس لديها حساب على نكست كلاود) لاسترجاعها. سيتم تشفير البيانات نفسها من طرف إلى طرف (بحيث لا يتمكن حتى نكست كلاود نفسه من الوصول إليها) وسيكون مفتاح التشفير جزءاً من رابط المشاركة (الجزء الأساسي) - ولكن لن يتم إرساله فعلياً إلى الخادوم. بمجرد استرداده، سيتم حذف \"السر\" من الخادوم، مما يضمن أنه إذا وصل إلى جهاز الاستقبال الصحيح فلن يراه أي شخص آخر. \n\nتأتي \"الأسرار\" الآن مع واجهة الأوامر السطرية cli التي يمكن استخدامها لأتمتة عملية توفير المشاركات السرية:\n https://github.com/theCalcaholic/nextcloud-secrets/releases.",
     "Could not fetch secrets" : "تعذر استدعاء الأسرار",
-    "New Secret" : "سر جديد",
     "Could not create the secret" : "تعذر إنشاء السر",
     "Secret deleted" : "تم حذف السر",
     "Could not delete the secret" : "تعذر حذف السر",
@@ -44,6 +43,7 @@ OC.L10N.register(
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "لقد تغير هذا المسار. ستتم إعادة توجيهك إلى الموقع الجديد. إذا لم ينجح ذلك، انقُر على الرابط التالي:",
     "Go to secret" : "إذهب إلى السّر",
     "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "شارك البيانات مع أي شخص بصورة آمنة. كل البيانات مشفرة من الحَدِّ للحَدِّ و سيقع حذفها بمجرد إتمام استلامها بنجاحٍ",
+    "New Secret" : "سر جديد",
     "Retrieving secret..." : "جاري استرداد السر ..."
 },
 "nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;");

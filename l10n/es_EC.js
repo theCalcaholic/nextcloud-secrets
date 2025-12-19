@@ -5,7 +5,6 @@ OC.L10N.register(
     "Secret '{secret}' has been retrieved" : "Se ha recuperado el secreto '{secret}'",
     "Securely share data via link" : "Compartir datos de forma segura a través de un enlace",
     "Could not fetch secrets" : "No se pudieron obtener los secretos",
-    "New Secret" : "Nuevo secreto",
     "Could not create the secret" : "No se pudo crear el secreto",
     "Secret deleted" : "Secreto borrado",
     "Could not delete the secret" : "No se pudo borrar el secreto",
@@ -38,6 +37,7 @@ OC.L10N.register(
     "The password is wrong or has expired. Please try again." : "La contraseña es incorrecta o ha expirado. Por favor, inténtalo de nuevo.",
     "Password" : "Contraseña",
     "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Comparte datos de forma segura con cualquier persona. Todos los datos están cifrados de extremo a extremo por el usuario y se eliminarán una vez que se recuperen con éxito",
+    "New Secret" : "Nuevo secreto",
     "Retrieving secret..." : "Recuperando el secreto..."
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

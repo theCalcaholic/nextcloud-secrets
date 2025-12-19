@@ -5,7 +5,6 @@ OC.L10N.register(
     "Secret '{secret}' has been retrieved" : "'{secret}' sekretua berreskuratu da",
     "Securely share data via link" : "Partekatze segurua esteka bidez",
     "Could not fetch secrets" : "Ezin izan dira sekretuak eskuratu",
-    "New Secret" : "Sekretu berria",
     "Could not create the secret" : "Ezin izan da sekretua sortu",
     "Secret deleted" : "Sekretua ezabatuta",
     "Could not delete the secret" : "Ezin izan da sekretua ezabatu",
@@ -38,6 +37,7 @@ OC.L10N.register(
     "The password is wrong or has expired. Please try again." : "Pasahitza okerra da edo iraungi egin da. Saia zaitez berriro.",
     "Password" : "Pasahitza",
     "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Partekatu datuak modu seguruan edonorekin. Datu guztiak muturretik muturrera enkriptatzen ditu erabiltzaileak eta ezabatu egiten dira berreskuratu ondoren.",
+    "New Secret" : "Sekretu berria",
     "Retrieving secret..." : "Sekretua berreskuratzen..."
 },
 "nplurals=2; plural=(n != 1);");

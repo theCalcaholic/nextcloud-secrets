@@ -2,7 +2,6 @@ OC.L10N.register(
     "secrets",
     {
     "Could not fetch secrets" : "Nepodarilo sa získať tajné kľúče",
-    "New Secret" : "Nové tajomstvo",
     "Could not create the secret" : "Tajný kľúč sa nepodarilo vytvoriť",
     "Could not delete the secret" : "Tajný kľúč sa nepodarilo odstrániť",
     "New secret" : "Nové tajomstvo",
@@ -15,6 +14,7 @@ OC.L10N.register(
     "Could not decrypt secret" : "Nepodarilo sa dešifrovať tajný kľúč",
     "Download" : "Sťahovanie",
     "This share is password-protected" : "Toto zdieľanie je chránené heslom",
-    "Password" : "Heslo"
+    "Password" : "Heslo",
+    "New Secret" : "Nové tajomstvo"
 },
 "nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);");

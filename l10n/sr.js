@@ -6,7 +6,6 @@ OC.L10N.register(
     "Securely share data via link" : "Безбедно делите податке линком",
     "Secrets allows users to generate share links for text based data (e.g. passwords, CSV lists, bank accounts...) that can be sent to anyone (including receivers without a Nextcloud account) for retrieval. The data itself will be end-to-end encrypted (so not even Nextcloud can access it) and the encryption key will be part of the share link (the anchor part) - but never be actually sent to the server. Once retrieved, the secret will be deleted from the server, ensuring, that if it arrived at the correct receiver it has been seen by nobody else.\n\nSecrets now comes with a cli that can be used to automate the provisioning of secret shares: https://github.com/theCalcaholic/nextcloud-secrets/releases" : "Тајне омогућавају корисницима да генеришу и линкове дељења података заснованих на тексту (нпр. лозинке, CSV листе, банковни рачуни...) који могу да се пошаљу било коме (укључујући и примаоце који немају Nextcloud налог) за преузимање. Сами подаци су шифровани са краја на крај (тако да им не може приступити чак ни Nextcloud) и кључ шифоровања ће бити део линка дељења (део сидришта) - али се никада неће послати серверу. Једном када се преузме, тајна ће се обрисати са сервера, па се тако обезбеђује да ако је стигла исправном примаоцу, нико други је није видео.\n\nТајне сада долазе са cli који може да се користи за аутоматизацију креирања тајних дељења: https://github.com/theCalcaholic/nextcloud-secrets/releases",
     "Could not fetch secrets" : "Не могу да се добаве тајне",
-    "New Secret" : "Нова тајна",
     "Could not create the secret" : "Тајна не може да се креира",
     "Secret deleted" : "Тајна је обрисана",
     "Could not delete the secret" : "Тајна није могла да се обрише",
@@ -44,6 +43,7 @@ OC.L10N.register(
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Промењена је путања. Преусмеравате се на нову локацију. Ако ово не ради, кликните на следећи линк:",
     "Go to secret" : "Иди на тајну",
     "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Безбедно делите податке са свима. Корисник све податке шифрује од-краја-до-краја и они се бришу чим се успешно преузму",
+    "New Secret" : "Нова тајна",
     "Retrieving secret..." : "Преузимање тајне..."
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");

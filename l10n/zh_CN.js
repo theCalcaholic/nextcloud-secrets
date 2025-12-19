@@ -5,7 +5,6 @@ OC.L10N.register(
     "Secret '{secret}' has been retrieved" : "密信“{secret}”已被读取",
     "Securely share data via link" : "通过链接安全地分享数据",
     "Could not fetch secrets" : "无法获取密信",
-    "New Secret" : "新密信",
     "Could not create the secret" : "无法创建密信",
     "Secret deleted" : "密信已删除",
     "Could not delete the secret" : "无法删除密信",
@@ -42,6 +41,7 @@ OC.L10N.register(
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "此路径已更改。正在重定向你到新地址。如果不成功，请点击下面链接：",
     "Go to secret" : "前往密钥",
     "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "和任何人安全地分享数据。所有的数据都是由用户端到端加密，一旦成功读取就会被删除。",
+    "New Secret" : "新密信",
     "Retrieving secret..." : "正在读取密信……"
 },
 "nplurals=1; plural=0;");

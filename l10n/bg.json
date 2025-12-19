@@ -3,7 +3,6 @@
     "Secret '{secret}' has been retrieved" : "Тайната '{secret}' е извлечена",
     "Securely share data via link" : "Сигурно споделяне на данни чрез връзка",
     "Could not fetch secrets" : "Тайните не можаха да бъдат извлечени",
-    "New Secret" : "Нова тайна",
     "Could not create the secret" : "Неуспешно създаване на тайна",
     "Secret deleted" : "Изтрита е тайна",
     "Could not delete the secret" : "Неуспешно изтриване на тайната",
@@ -25,6 +24,7 @@
     "The password is wrong or has expired. Please try again." : "Паролата е грешна или е изтекла. Моля, опитайте отново.",
     "Password" : "Парола",
     "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Сигурно споделяне на данни с всеки. Всички данни се криптират цялостно от потребителя и ще бъдат изтривани след успешното им извличане",
+    "New Secret" : "Нова тайна",
     "Retrieving secret..." : "Извличане на тайна..."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

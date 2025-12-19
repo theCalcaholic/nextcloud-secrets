@@ -6,7 +6,6 @@ OC.L10N.register(
     "Securely share data via link" : "Sdílet data bezpečně prostřednictvím odkazu",
     "Secrets allows users to generate share links for text based data (e.g. passwords, CSV lists, bank accounts...) that can be sent to anyone (including receivers without a Nextcloud account) for retrieval. The data itself will be end-to-end encrypted (so not even Nextcloud can access it) and the encryption key will be part of the share link (the anchor part) - but never be actually sent to the server. Once retrieved, the secret will be deleted from the server, ensuring, that if it arrived at the correct receiver it has been seen by nobody else.\n\nSecrets now comes with a cli that can be used to automate the provisioning of secret shares: https://github.com/theCalcaholic/nextcloud-secrets/releases" : "Tajemství uživatelům umožňují vytvářet odkazy na sdílení pro textová data (např. hesla, CSV seznamy, bankovní účty…), které je možné poslat komukoli (včetně příjemců bez účtu na Nexcloud), kteří je takto mohou získat. Data samotná budou šifrována mezi koncovými body (takže k nim nemá přístup ani Nextcloud server) a šifrovací klíč bude součástí odkazu na sdílení (část „kotva“) – ale nikdy nebude zaslána serveru, což zajistí, že pokud dorazilo správnému příjemci, nebude spatřeno nikým jiným.\n\nTajemství nyní přicházejí s nástrojem pro příkazový řádek, který je možný použít pro automatizování nastavování tajných sdílení: https://github.com/theCalcaholic/nextcloud-secrets/releases",
     "Could not fetch secrets" : "Nepodařilo se získat tajemství",
-    "New Secret" : "Nové tajemství",
     "Could not create the secret" : "Nepodařilo se vytvořit tajemství",
     "Secret deleted" : "Tajemství smazáno",
     "Could not delete the secret" : "Tajemství se nepodařilo smazat",
@@ -44,6 +43,7 @@ OC.L10N.register(
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Tento popis umístění byl změněn. Probíhá přesměrování do nového umístění. Pokud to nezafunguje, klikněte na následující odkaz:",
     "Go to secret" : "Přejít k tajemství",
     "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Bezpečně sdílejte data s kýmkoli. Veškerá data jsou mezi koncovými body šifrována uživatelem a po úspěšném přijetí budou vymazána ze serveru",
+    "New Secret" : "Nové tajemství",
     "Retrieving secret..." : "Získávání tajemství …"
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;");

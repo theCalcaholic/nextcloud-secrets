@@ -6,7 +6,6 @@ OC.L10N.register(
     "Securely share data via link" : "Безопасно поделиться данными по ссылке",
     "Secrets allows users to generate share links for text based data (e.g. passwords, CSV lists, bank accounts...) that can be sent to anyone (including receivers without a Nextcloud account) for retrieval. The data itself will be end-to-end encrypted (so not even Nextcloud can access it) and the encryption key will be part of the share link (the anchor part) - but never be actually sent to the server. Once retrieved, the secret will be deleted from the server, ensuring, that if it arrived at the correct receiver it has been seen by nobody else.\n\nSecrets now comes with a cli that can be used to automate the provisioning of secret shares: https://github.com/theCalcaholic/nextcloud-secrets/releases" : "Секреты позволяют пользователям создавать ссылки для текстовых данных (например, пароли, списки CSV, банковские счета...), которые можно отправлять кому угодно (включая получателей без учетной записи Nextcloud) для извлечения. Сами данные будут зашифрованы сквозным шифрованием (так, что даже Nextcloud не сможет получить к ним доступ), а ключ шифрования будет частью ссылки (якорной части) - но никогда не будет фактически отправлен на сервер. После извлечения секрет будет удален с сервера, что гарантирует, что если он поступит к правильному получателю, его больше никто не увидит.\n\nСекреты теперь поставляются с cli, который можно использовать для автоматизации предоставления секретных общих ресурсов: https://github.com/theCalcaholic/nextcloud-secrets/releases",
     "Could not fetch secrets" : "Не удалось получить секреты",
-    "New Secret" : "Новый секрет",
     "Could not create the secret" : "Не удалось создать секрет",
     "Secret deleted" : "Секрет удален",
     "Could not delete the secret" : "Не удалось удалить секрет",
@@ -38,6 +37,7 @@ OC.L10N.register(
     "The password is wrong or has expired. Please try again." : "Пароль неверный или срок его действия истёк. Пожалуйста, попробуйте ещё раз.",
     "Password" : "Пароль",
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Этот путь изменился. Вы будете перенаправлены в новое место. Если это не сработает, перейдите по следующей ссылке:",
+    "New Secret" : "Новый секрет",
     "Retrieving secret..." : "Получение секрета..."
 },
 "nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);");

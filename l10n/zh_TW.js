@@ -6,7 +6,6 @@ OC.L10N.register(
     "Securely share data via link" : "透過連結安全分享資料",
     "Secrets allows users to generate share links for text based data (e.g. passwords, CSV lists, bank accounts...) that can be sent to anyone (including receivers without a Nextcloud account) for retrieval. The data itself will be end-to-end encrypted (so not even Nextcloud can access it) and the encryption key will be part of the share link (the anchor part) - but never be actually sent to the server. Once retrieved, the secret will be deleted from the server, ensuring, that if it arrived at the correct receiver it has been seen by nobody else.\n\nSecrets now comes with a cli that can be used to automate the provisioning of secret shares: https://github.com/theCalcaholic/nextcloud-secrets/releases" : "Secrets 讓使用者可以為以文字為基礎的資料（例如密碼、CSV 清單、銀行帳戶……）產生分享連結，這些連結可以傳送給任何人（包含沒有 Nextcloud 帳號的收件者）以供檢索。資料本身將進行端對端加密（因此即使是 Nextcloud 也無法存取它），並且加密金鑰將成為分享連結的一部分（錨點部分），但永遠不會真正傳送到伺服器。一旦揭露，該秘密將從伺服器中刪除，確保它到達正確的收件者時不會被其他人看到。\n\nSecrets 現在包含了命令列介面，可用於自動設定秘密分享：https://github.com/theCalcaholic/nextcloud-secrets/releases",
     "Could not fetch secrets" : "無法擷取祕密",
-    "New Secret" : "新祕密",
     "Could not create the secret" : "無法建立祕密",
     "Secret deleted" : "祕密已刪除",
     "Could not delete the secret" : "無法刪除祕密",
@@ -44,6 +43,7 @@ OC.L10N.register(
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "此路徑已變更。將您重新導向到新位置。若這無法運作，請點擊以下連結：",
     "Go to secret" : "前往祕密",
     "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "與任何人安全地分享資料。所有資料均由使用者端到端加密，一旦成功擷取就會被刪除",
+    "New Secret" : "新祕密",
     "Retrieving secret..." : "正在擷取祕密……"
 },
 "nplurals=1; plural=0;");

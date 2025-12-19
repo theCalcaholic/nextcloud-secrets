@@ -2,7 +2,6 @@ OC.L10N.register(
     "secrets",
     {
     "Secrets" : "Μυστικά",
-    "New Secret" : "Νέο μυστικό",
     "Could not create the secret" : "Αδυναμία δημιουργίας του μυστικού",
     "Secret deleted" : "Το μυστικό διαγράφηκε",
     "Could not delete the secret" : "Αδυναμία διαγραφής του μυστικού",
@@ -22,6 +21,7 @@ OC.L10N.register(
     "This share is password-protected" : "Το κοινόχρηστο έχει προστασία κωδικού",
     "The password is wrong or has expired. Please try again." : "Ο κωδικός είναι λάθος ή έχει λήξει. Παρακαλώ δοκιμάστε ξανά.",
     "Password" : "Συνθηματικό",
+    "New Secret" : "Νέο μυστικό",
     "Retrieving secret..." : "Ανάκτηση μυστικού..."
 },
 "nplurals=2; plural=(n != 1);");

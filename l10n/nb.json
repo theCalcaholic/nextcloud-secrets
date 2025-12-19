@@ -4,7 +4,6 @@
     "Securely share data via link" : "Del data sikkert via kobling",
     "Secrets allows users to generate share links for text based data (e.g. passwords, CSV lists, bank accounts...) that can be sent to anyone (including receivers without a Nextcloud account) for retrieval. The data itself will be end-to-end encrypted (so not even Nextcloud can access it) and the encryption key will be part of the share link (the anchor part) - but never be actually sent to the server. Once retrieved, the secret will be deleted from the server, ensuring, that if it arrived at the correct receiver it has been seen by nobody else.\n\nSecrets now comes with a cli that can be used to automate the provisioning of secret shares: https://github.com/theCalcaholic/nextcloud-secrets/releases" : "Hemmeligheter tillater brukere å generere delelenker for tekstbaserte data (f.eks passord, CSV lister, bankkontoer ...) som kan sendes til hvem som helst (inkludert mottakere uten en Nextcloud konto) for gjenfinning. Selve dataene vil være ende-til-ende-kryptert (slik at ikke engang Nextcloud kan få tilgang til dem) og krypteringsnøkkelen vil være en del av delingslenken (ankerdelen) - men aldri bli sendt til serveren. Når den er hentet, vil hemmeligheten bli slettet fra serveren, slik at hvis den kom til riktig mottaker, har den ikke blitt sett av noen andre.\n\nHemmeligheter kommer nå med en cli som kan brukes til å automatisere klargjøringen av hemmelige delinger: https://github.com/theCalcaholic/nextcloud-secrets/releases",
     "Could not fetch secrets" : "Kunne ikke hente hemmeligheter",
-    "New Secret" : "Ny hemmelighet",
     "Could not create the secret" : "Kunne ikke opprette hemmeligheten",
     "Secret deleted" : "Hemmelighet slettet",
     "Could not delete the secret" : "Kunne ikke slette hemmeligheten",
@@ -41,6 +40,7 @@
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Denne banen har endret seg. Omdirigerer deg til den nye plasseringen. Hvis dette ikke fungerer, klikker du følgende kobling:",
     "Go to secret" : "Gå til hemmelighet",
     "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Del data med hvem som helst på en sikker måte. Alle data er ende-til-ende kryptert av brukeren og vil bli slettet når de er hentet",
+    "New Secret" : "Ny hemmelighet",
     "Retrieving secret..." : "Henter hemmelighet..."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
