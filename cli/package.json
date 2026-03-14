@@ -2,7 +2,7 @@
   "name": "nc-secrets",
   "author": "Tobias Knöppler <thecalcaholic@web.de>",
   "module": "cli.ts",
-  "version": "2.1.2",
+  "version": "2.1.7",
   "type": "module",
   "license": "agpl",
   "dependencies": {
