@@ -50,7 +50,7 @@
 				v-model="currentSecret"
 				:locked="locked"
 				:success="t('secrets', 'Your secret is stored end-to-end encrypted on the server. ' +
-					'It can only be decrypted by someone who has been given the link.\n' +
+					'It can only be decrypted by someone who has been given the link.' +
 					'Once retrieved successfully, the secret will be deleted on the server')" />
 			<div v-else id="emptycontent">
 				<div class="icon-file" />
