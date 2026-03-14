@@ -19,7 +19,25 @@ jobs:
     - uses: actions/checkout@v2
       with:
         path: secrets
-
+    - name: Verify correct versions
+      working-directory: ./secrets
+      run: |
+        set -eu
+        VERSION="${GITHUB_REF##*/}"
+        grep "<version>${VERSION?}</version>" appinfo/info.xml || {
+          echo "appinfo/info.xml: version does not match git tag ($VERSION)"
+          exit 1
+        }
+        jq '.version' < package.json | grep "^$VERSION\$" || {
+          echo "package.json: version does not match git tag ($VERSION)"
+          exit 1
+        }
+        jq '.version' < cli/package.json | grep "^$VERSION\$" || {
+          echo "cli/package.json: version does not match git tag ($VERSION)"
+          exit 1
+        }
+        
+        echo "Version check successful"
     - name: Set up php 8.2
       uses: shivammathur/setup-php@v2
       with:
