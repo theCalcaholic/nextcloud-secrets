@@ -33,7 +33,7 @@ OC.L10N.register(
     "Copy to Clipboard" : "In die Zwischenablage kopieren",
     "Download the secret's content as a file" : "Den Inhalt des Geheimnisses als Datei herunterladen",
     "Download" : "Herunterladen",
-    "Retrieving secret…" : "Geheimnis abrufen …",
+    "Retrieving secret…" : "Geheimnis abrufen …",
     "Error loading secret. Is your link correct?" : "Fehler beim Laden des Geheimnisses. Ist der Link richtig?",
     "Revealing will delete the secret from the server. You will not be able to retrieve it again." : "Durch die Offenlegung wird das Geheimnis vom Server gelöscht. Es kann dann nicht mehr abgerufen werden.",
     "Reveal the secret and delete it on the server" : "Das Geheimnis aufdecken und auf dem Server löschen",
@@ -45,6 +45,6 @@ OC.L10N.register(
     "Go to secret" : "Zum Geheimnis wechseln",
     "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Teilen Sie Daten sicher mit jedem. Alle Daten werden vom Benutzer Ende-zu-Ende verschlüsselt und nach erfolgreichem Abruf gelöscht.",
     "New Secret" : "Neues Geheimnis",
-    "Retrieving secret..." : "Rufe Geheimnis ab…"
+    "Retrieving secret..." : "Geheimnis abrufen …"
 },
 "nplurals=2; plural=(n != 1);");
