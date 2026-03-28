@@ -1,17 +1,19 @@
 // SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import console from 'node:console'
+import type { RequestOptions } from 'http'
+
 import fs from 'fs'
+import http from 'http'
 import { Buffer } from 'node:buffer'
+import console from 'node:console'
 import { webcrypto } from 'node:crypto'
-import http, { RequestOptions } from 'http'
-import CryptoLib from './crypto.import.js'
+import * as https from 'node:https'
+import * as url from 'node:url'
+import process from 'process'
 import { CommandExecutionError } from './CommandExecutionError.ts'
+import CryptoLib from './crypto.import.js'
 import { prompt } from './lib.ts'
-import process from "process";
-import * as url from "node:url";
-import * as https from "node:https";
 
 const btoa = (str: string) => Buffer.from(str, 'binary').toString('base64')
 const atob = (str: string) => Buffer.from(str, 'base64').toString('binary')
@@ -23,7 +25,7 @@ const cryptolib = new CryptoLib(webcrypto, { atob, btoa }, false)
  *
  * @param options An object containing the global options
  */
-function handleGlobalOptions(options: {insecure: boolean} & any) {
+function handleGlobalOptions(options: { insecure: boolean } & any) {
 	if (options.insecure) {
 		process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 	}
@@ -38,14 +40,15 @@ function handleGlobalOptions(options: {insecure: boolean} & any) {
  * @param options.passFile
  * @param options.expire
  * @param options.password
+ * @param options.protect
  * @param options.title
  * @param options.insecure
  */
 export async function createSecret(ncUrl: string, ncUser: string, secretFile: string | undefined, options: {
-	passFile: string | undefined,
-	expire: number | undefined,
-	protect: string | undefined,
-	title: string | undefined,
+	passFile: string | undefined
+	expire: number | undefined
+	protect: string | undefined
+	title: string | undefined
 	insecure: boolean | undefined
 }) {
 	handleGlobalOptions(options)
@@ -91,7 +94,6 @@ export async function createSecret(ncUrl: string, ncUser: string, secretFile: st
 	}
 
 	const result = await new Promise<string>((resolve, reject) => {
-
 		const req = http_client(ncUrl).request(
 			`${ncUrl}/ocs/v2.php/apps/secrets/api/v1/secrets?format=json`,
 			rOptions,
@@ -104,7 +106,8 @@ export async function createSecret(ncUrl: string, ncUser: string, secretFile: st
 				response.on('end', () => {
 					resolve(chunks.join(''))
 				})
-			})
+			},
+		)
 
 		req.on('error', (e) => {
 			console.error(e.message)
@@ -142,37 +145,37 @@ export async function createSecret(ncUrl: string, ncUser: string, secretFile: st
 			ocsUrl: `${ncUrl}/ocs/v2.php/apps/secrets/api/v1/share/${secret.uuid}`,
 		},
 		null,
-		2))
-
+		2,
+	))
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function
 /**
  *
  * @param shareUrlStr
  * @param options
  * @param options.decryptionKey
+ * @param options.key
  * @param options.password
  * @param options.insecure
  */
 export async function retrieveSecret(shareUrlStr: string, options: {
-	key: string | undefined,
-	password: string | undefined,
+	key: string | undefined
+	password: string | undefined
 	insecure: boolean | undefined
 }) {
 	handleGlobalOptions(options)
 
-	let ocs_pattern = new RegExp(`^/ocs/v\\d+\\.php/apps/secrets/api/v\\d+/share/(?<sId>.*)$`)
-	let sharePattern = new RegExp(`^/index\\.php/apps/secrets/(share|show)/(?<sId>.*)$`)
+	const ocs_pattern = new RegExp('^/ocs/v\\d+\\.php/apps/secrets/api/v\\d+/share/(?<sId>.*)$')
+	const sharePattern = new RegExp('^/index\\.php/apps/secrets/(share|show)/(?<sId>.*)$')
 
-	let shareUrl = new URL(shareUrlStr)
+	const shareUrl = new URL(shareUrlStr)
 
 	let secretId: string
-	const {sId} = ocs_pattern.exec(shareUrl.pathname)?.groups ?? {}
+	const { sId } = ocs_pattern.exec(shareUrl.pathname)?.groups ?? {}
 	if (sId === undefined) {
-		const {sId} = sharePattern.exec(shareUrl.pathname)?.groups ?? {}
+		const { sId } = sharePattern.exec(shareUrl.pathname)?.groups ?? {}
 		if (sId === undefined) {
-			throw new CommandExecutionError(`Failed to parse secretId from url`)
+			throw new CommandExecutionError('Failed to parse secretId from url')
 		}
 		secretId = sId
 	} else {
@@ -214,7 +217,8 @@ export async function retrieveSecret(shareUrlStr: string, options: {
 				response.on('end', () => {
 					resolve(chunks.join(''))
 				})
-			})
+			},
+		)
 
 		req.on('error', (e) => {
 			console.error(e.message)
@@ -236,13 +240,15 @@ export async function retrieveSecret(shareUrlStr: string, options: {
 	const key = await cryptolib.importDecryptionKey(secretKey, iv)
 
 	console.log(await cryptolib.decrypt(secret.encrypted, key, iv))
-
 }
 
+/**
+ *
+ * @param url
+ */
 function http_client(url: string): any {
-
 	let http_client = http
-	if (url.startsWith("https:")) {
+	if (url.startsWith('https:')) {
 		http_client = https
 	}
 
@@ -253,27 +259,24 @@ function http_client(url: string): any {
  * @param ncUrl
  */
 async function getApiInfo(ncUrl: string): Promise<string> {
-
 	const result = await new Promise<string>((resolve, reject) => {
-		const req = http_client(ncUrl).request(`${ncUrl}/ocs/v2.php/apps/secrets/version?format=json`,
-			{
-				method: 'GET',
-				headers: {
-					'OCS-APIRequest': 'true',
-					'Content-Type': 'application/json',
-					'Content-Length': 0,
-				},
+		const req = http_client(ncUrl).request(`${ncUrl}/ocs/v2.php/apps/secrets/version?format=json`, {
+			method: 'GET',
+			headers: {
+				'OCS-APIRequest': 'true',
+				'Content-Type': 'application/json',
+				'Content-Length': 0,
 			},
-			(response) => {
-				response.setEncoding('utf8')
-				const chunks: string[] = []
-				response.on('data', (chunk) => {
-					chunks.push(chunk)
-				})
-				response.on('end', () => {
-					resolve(chunks.join(''))
-				})
+		}, (response) => {
+			response.setEncoding('utf8')
+			const chunks: string[] = []
+			response.on('data', (chunk) => {
+				chunks.push(chunk)
 			})
+			response.on('end', () => {
+				resolve(chunks.join(''))
+			})
+		})
 		req.on('error', (e) => {
 			console.error(e.message)
 			reject(e)
@@ -298,9 +301,10 @@ async function getApiInfo(ncUrl: string): Promise<string> {
  *
  * @param ncUrl
  * @param options
+ * @param options.silent
  * @param options.insecure
  */
-export async function showApiInfo(ncUrl: string, options: {silent: boolean | undefined, insecure: boolean | undefined}) {
+export async function showApiInfo(ncUrl: string, options: { silent: boolean | undefined, insecure: boolean | undefined }) {
 	handleGlobalOptions(options)
 	const version = await getApiInfo(ncUrl)
 	if (!options.silent) {

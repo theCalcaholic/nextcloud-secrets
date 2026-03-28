@@ -12,4 +12,4 @@ document.addEventListener('DOMContentLoaded', function() {
 	passwordInput.addEventListener('keyup', eventListener)
 	passwordInput.addEventListener('change', eventListener)
 })
-console.log("publicshareauth")
+console.log('publicshareauth')

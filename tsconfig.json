@@ -1,0 +1,24 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.json",
+  "compilerOptions": {
+//    "allowJs": false,
+//    "checkJs": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["webworker", "DOM"],
+    "allowImportingTsExtensions": true,
+    "types": ["bun-types", "@peeky/test"],
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "moduleResolution": "bundler",
+    "esModuleInterop": true
+  },
+  "include": [
+    "*.ts",
+    "*.vue",
+    "src/**/*.ts",
+    "src/**/*.vue",
+//    "cli/**/*.ts"
+  ],
+}

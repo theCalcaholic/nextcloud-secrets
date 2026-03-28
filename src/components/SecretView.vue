@@ -1,63 +1,53 @@
-<script setup>
+<script setup lang="ts">
 // SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { NcActionButton, NcActions, NcNoteCard, NcCheckboxRadioSwitch } from '@nextcloud/vue'
+import type CryptoLib from '@/crypto.ts'
+import type { Secret } from '@/model'
 
-import '@nextcloud/dialogs/styles/toast.scss'
-import { generateUrl } from '@nextcloud/router'
 import { showError } from '@nextcloud/dialogs'
-import { t, n } from '@nextcloud/l10n'
+import { n, t } from '@nextcloud/l10n'
+import { generateUrl } from '@nextcloud/router'
+import { NcActionButton, NcActions, NcCheckboxRadioSwitch, NcNoteCard } from '@nextcloud/vue'
 import { computed, inject, ref, watch } from 'vue'
 
-const cryptolib = inject('cryptolib')
-const debug = inject('debugsecrets')
+import '@nextcloud/dialogs/styles/toast.scss'
 
-defineProps({
-	// TODO: Currently ignored
-	locked: {
-		type: Boolean,
-		default: false,
-	},
-	warning: {
-		type: String,
-		default: '',
-	},
-	success: {
-		type: String,
-		default: '',
-	},
-})
+const model = defineModel<Secret | undefined>(undefined)
+defineProps<Props>()
+const cryptolib: CryptoLib = inject('cryptolib')!
+const debug: boolean = inject('debugsecrets') ?? false
 
-const model = defineModel({
-	type: Object, default: () => ({}),
-})
-
-const keyBuf = ref(null)
+interface Props {
+	warning?: string
+	success?: string
+}
+const keyBuf = ref<ArrayBuffer | null>(null)
 const copyState = ref('ready')
 
-const isDecrypted = computed(() => !!model.value.key)
+const isDecrypted = computed(() => !!model.value?.key)
 
 const url = computed(() => {
 	if (debug) {
 		console.debug(`decrypted? ${isDecrypted.value}, keyBuf: ${keyBuf.value}`)
 	}
-	if (!isDecrypted.value || !keyBuf.value) {
+	if (!isDecrypted.value || !keyBuf.value || !model.value) {
 		return null
 	}
 	const keyStr = cryptolib.arrayBufferToB64String(new Uint8Array(keyBuf.value))
 	if (debug) {
 		console.debug('serialized key: ', keyStr)
 	}
-	return window.location.protocol + '//' + window.location.host + generateUrl(
-		`/apps/secrets/share/${model.value.uuid}#${keyStr}`,
-	)
+	return window.location.protocol + '//' + window.location.host + generateUrl(`/apps/secrets/share/${model.value.uuid}#${keyStr}`)
 })
 
 const formattedDate = computed(() => {
+	if (!model.value) {
+		return ''
+	}
 	const fDate = model.value.expires.getFullYear() + '-'
-      + `${model.value.expires.getMonth() + 1}`
-      + `${model.value.expires.getDate()}`.padStart(2, '0')
+		+ `${model.value.expires.getMonth() + 1}`
+		+ `${model.value.expires.getDate()}`.padStart(2, '0')
 	if (debug) {
 		console.debug('date: ', fDate, model.value.expires)
 	}
@@ -65,7 +55,7 @@ const formattedDate = computed(() => {
 })
 
 const daysToDeletion = computed(() => {
-	if (!model.value.expires) {
+	if (!model.value?.expires) {
 		return 999
 	}
 	const deletionDate = new Date(model.value.expires.toISOString())
@@ -86,12 +76,10 @@ const copyButtonIcon = computed(() => {
 	}[copyState.value]
 })
 
-const isPasswordProtected = computed(() => {
-	return model.value.pwHash !== null && model.value.pwHash !== undefined
-})
+const isPasswordProtected = computed(() => model.value?.pwHash !== undefined)
 
 watch(model, async (val) => {
-	if (val.key) {
+	if (val?.key) {
 		keyBuf.value = await window.crypto.subtle.exportKey('raw', val.key)
 	}
 }, {
@@ -101,16 +89,17 @@ watch(model, async (val) => {
 // TODO: Keep only one implementation of 'copyToClipboard'
 /**
  * Copy the given string to the clipboard
+ *
  * @param url The string to copy to the clipboard
- * @return {Promise<void>}
+ * @return
  */
-async function copyToClipboard(url) {
+async function copyToClipboard(url: string) {
 	try {
 		await navigator.clipboard.writeText(url)
 		copyState.value = 'success'
 		setTimeout(() => { copyState.value = 'ready' }, 3000)
-	} catch (e) {
-		showError(e.message)
+	} catch (e: any) {
+		showError(e?.message ?? t('secrets', 'Failed to copy the URL to the clipboard'))
 		console.error(e)
 		copyState.value = 'error'
 		setTimeout(() => { copyState.value = 'ready' }, 3000)
@@ -130,14 +119,16 @@ async function copyToClipboard(url) {
 			<NcNoteCard v-if="daysToDeletion <= 7" type="warning">
 				<p>{{ n('secrets', 'Will be deleted in %n day', 'Will be deleted in %n days', daysToDeletion) }}</p>
 			</NcNoteCard>
-			<p v-if="model.encrypted" class="expires-container">
+			<p v-if="model?.encrypted" class="expires-container">
 				<label for="expires">{{ t('secrets', 'Expires on:') }}</label>
-				<input v-if="model.expires"
+				<input
+					v-if="model.expires"
 					v-model="formattedDate"
 					type="date"
 					name="expires"
 					disabled>
-				<input v-else
+				<input
+					v-else
 					type="text"
 					name="expires"
 					disabled
@@ -148,24 +139,27 @@ async function copyToClipboard(url) {
 			</NcCheckboxRadioSwitch>
 			<p v-if="url" class="url-container">
 				<label for="url">{{ t('secrets', 'Share Link:') }}</label>
-				<input type="text"
+				<input
+					type="text"
 					name="url"
 					disabled
 					:value="url"
 					:size="url.length"
 					class="url-field">
 				<NcActions class="secret-actions">
-					<NcActionButton :icon="copyButtonIcon"
+					<NcActionButton
+						:icon="copyButtonIcon"
 						:aria-label="t('secrets', 'Copy Secret Link')"
 						@click="copyToClipboard(url)" />
 				</NcActions>
 			</p>
 		</div>
-		<textarea v-if="model._decrypted"
+		<textarea
+			v-if="model?._decrypted"
 			v-model="model._decrypted"
 			disabled />
 
-		<div v-else-if="!model.encrypted" id="emptycontent">
+		<div v-else-if="!model?.encrypted" id="emptycontent">
 			<div class="icon-toggle" />
 			<h5>{{ t('secrets', 'This secret has already been retrieved and its content was consequently deleted from the server.') }}</h5>
 		</div>

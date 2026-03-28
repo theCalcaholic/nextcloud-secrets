@@ -1,10 +1,10 @@
 // SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import console from 'node:console'
 import { InvalidArgumentError, program } from 'commander'
-import {createSecret, retrieveSecret, showApiInfo} from './secrets.ts'
+import console from 'node:console'
 import { CommandExecutionError } from './CommandExecutionError.ts'
+import { createSecret, retrieveSecret, showApiInfo } from './secrets.ts'
 
 program
 	.name('nc-secrets')
@@ -15,15 +15,9 @@ program.command('create')
 	.argument('<nextcloud-url>', 'URL of your Nextcloud server')
 	.argument('<user>', 'Your nextcloud user')
 	.argument('<secret-file>', 'path to a file containing your secret', undefined)
-	.option('-P, --pass-file <pass-file>',
-		'Read nextcloud password from file at given path (default: stdin)',
-		undefined)
-	.option('-E, --expire <days>',
-		'Expire secret in given number of days',
-		(days) => (days === undefined) ? 7 : parseInt(days))
-	.option('-p, --protect <password>',
-		'Protect the secret share with the given password',
-		undefined)
+	.option('-P, --pass-file <pass-file>', 'Read nextcloud password from file at given path (default: stdin)', undefined)
+	.option('-E, --expire <days>', 'Expire secret in given number of days', (days) => (days === undefined) ? 7 : parseInt(days))
+	.option('-p, --protect <password>', 'Protect the secret share with the given password', undefined)
 	.option('-t, --title <title>', 'Title of the secret')
 	.action(createSecret)
 program.command('retrieve')

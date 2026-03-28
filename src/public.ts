@@ -4,10 +4,10 @@
  */
 
 import { createApp } from 'vue'
+import PublicApp from '@/views/Public.vue'
 import CryptoLib from './crypto.js'
-import PublicApp from './Public.vue'
 
-const debug = document.getElementById('secrets-root').getAttribute('data-debugsecrets') === 'true'
+const debug = document.getElementById('secrets-root')?.getAttribute('data-debugsecrets') === 'true'
 
 const app = createApp(PublicApp)
 app.provide('cryptolib', new CryptoLib(window.crypto, window, debug))

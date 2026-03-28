@@ -1,62 +1,68 @@
 {
   "name": "secrets",
-  "description": "Securely share data with anyone",
   "version": "2.1.7",
-  "author": "Tobias Knöppler <thecalcaholic@web.de>",
-  "contributors": [],
+  "private": true,
+  "description": "Securely share data with anyone",
   "bugs": {
     "url": "https://github.com/theCalcaholic/nextcloud-secrets"
   },
-  "type": "module",
   "license": "agpl",
-  "private": true,
+  "author": "Tobias Knöppler <thecalcaholic@web.de>",
+  "contributors": [],
+  "type": "module",
   "scripts": {
     "build": "vite build --mode production",
     "dev": "vite build --mode development",
-    "watch": "vite build --mode development --watch",
-    "serve": "vite --mode development",
+    "generate-api-types": "openapi-ts",
+    "lint": "vue-tsc && eslint",
+    "lint:fix": "eslint --fix",
     "peeky:open": "peeky open",
     "peeky:test": "peeky run",
-    "lint": "eslint --ext .js,.vue src",
-    "lint:fix": "eslint --ext .js,.vue src --fix",
+    "serve": "vite --mode development",
     "stylelint": "stylelint css/*.css css/*.scss src/**/*.scss src/**/*.vue",
-    "stylelint:fix": "stylelint css/*.css css/*.scss src/**/*.scss src/**/*.vue --fix"
+    "stylelint:fix": "stylelint css/*.css css/*.scss src/**/*.scss src/**/*.vue --fix",
+    "text": "npm run peeky:test",
+    "watch": "vite build --mode development --watch"
   },
+  "browserslist": [
+    "extends @nextcloud/browserslist-config"
+  ],
   "dependencies": {
     "@nextcloud/axios": "^2.5.2",
     "@nextcloud/dialogs": "^3.2.0",
     "@nextcloud/l10n": "^3.4.1",
     "@nextcloud/router": "^3.1.0",
     "@nextcloud/vue": "^9.6.0",
-    "@peculiar/webcrypto": "^1.5.0",
     "vue": "^3.5.31",
     "vue-material-design-icons": "^5.3.1"
   },
-  "browserslist": [
-    "extends @nextcloud/browserslist-config"
-  ],
-  "engines": {
-    "node": "^24.0.0",
-    "npm": "^11.3.0"
-  },
   "devDependencies": {
+    "@eslint/compat": "^2.0.3",
+    "@hey-api/openapi-ts": "^0.94.5",
+    "@nextcloud/auth": "^2.5.3",
     "@nextcloud/babel-config": "^1.3.0",
     "@nextcloud/browserslist-config": "^3.1.2",
-    "@nextcloud/eslint-config": "^8.4.2",
+    "@nextcloud/eslint-config": "^9.0.0-rc.8",
+    "@nextcloud/initial-state": "^3.0.0",
+    "@nextcloud/sharing": "^0.4.0",
     "@nextcloud/stylelint-config": "^3.2.1",
     "@nextcloud/vite-config": "^2.5.2",
-    "@nextcloud/auth": "^2.5.3",
-    "@nextcloud/sharing": "^0.4.0",
-    "@nextcloud/initial-state": "^3.0.0",
+    "@peculiar/webcrypto": "^1.5.0",
+    "@peeky/eslint-plugin": "^0.14.0",
     "@peeky/server": "^0.14.0",
     "@peeky/test": "^0.14.1",
     "@vue/tsconfig": "^0.9.1",
     "bun-types": "latest",
+    "eslint": "^9.39.4",
     "stylelint-config-recommended-vue": "^1.6.1",
     "typescript": "^5.0.2",
     "vite": "^7.1.10",
     "vite-plugin-clean": "^2.0.1",
     "vite-plugin-static-copy": "^4.0.0",
     "vue-tsc": "^3.2.6"
+  },
+  "engines": {
+    "node": "^24.0.0",
+    "npm": "^11.3.0"
   }
 }

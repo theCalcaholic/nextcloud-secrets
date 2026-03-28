@@ -1,12 +1,16 @@
-<script setup>
+<script setup lang="ts">
 // SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { NcDateTimePicker, NcPasswordField } from '@nextcloud/vue'
-import '@nextcloud/dialogs/styles/toast.scss'
-import { t } from '@nextcloud/l10n'
+import type { Secret } from '@/model'
 
-import { defineProps, defineModel, ref, watch } from 'vue'
+import { t } from '@nextcloud/l10n'
+import { NcDateTimePicker, NcPasswordField } from '@nextcloud/vue'
+import { ref, watch } from 'vue'
+
+import '@nextcloud/dialogs/styles/toast.scss'
+
+const model = defineModel<Secret | undefined>(undefined)
 
 defineProps({
 	locked: {
@@ -18,45 +22,45 @@ defineProps({
 		default: '',
 	},
 })
-const model = defineModel({
-	type: Object,
-	default: () => ({
-		expires: new Date(),
-		password: '',
-		_decrypted: '',
-	}),
-})
-
-const password = ref(model.value.password)
-
-watch(password, (pw) => {
-	model.value = { ...model.value, password: pw }
-})
 
 defineEmits(['saveSecret'])
+
+const password = ref(model.value?.password)
+
+watch(password, (pw) => {
+	if (model.value) {
+		model.value = { ...model.value, password: pw }
+	}
+})
 
 </script>
 
 <template>
-	<div class="secret-container">
+	<div v-if="model" class="secret-container">
 		<p>
 			<label for="expires">{{ t('secrets', 'Expires on:') }}</label>
-			<NcDateTimePicker v-model="model.expires"
+			<NcDateTimePicker
+				v-model="model.expires"
 				name="expires"
 				:clearable="false"
 				type="date"
 				:placeholder="t('secrets', 'Expiration Date')" />
 		</p>
-		<NcPasswordField v-model="password"
+		<NcPasswordField
+			v-model="password"
 			:label="t('secrets', 'share password (optional)')"
 			:minlength="4"
 			:required="false" />
 		<textarea v-model="model._decrypted" :disabled="locked" />
-		<input type="button"
+		<input
+			type="button"
 			class="primary"
 			:value="t('secrets', 'Save')"
 			:disabled="locked"
 			@click="$emit('saveSecret', model)">
+	</div>
+	<div v-else class="secret-container">
+		{{ t('secrets', 'No secret selected') }}
 	</div>
 </template>
 
