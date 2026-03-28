@@ -3,26 +3,13 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { generateFilePath } from '@nextcloud/router'
-import { Crypto } from '@peculiar/webcrypto'
-
+import { createApp } from 'vue'
 import CryptoLib from './crypto.js'
-import Vue from 'vue'
-import Share from './Share.vue'
+import PublicApp from './Public.vue'
 
-const crypto = new Crypto()
-const debug = document.getElementById('secret-root').getAttribute('data-debugsecrets') === 'true'
-Object.defineProperty(Vue.prototype, '$debugsecrets', {
-	value: debug,
-})
-Object.defineProperty(Vue.prototype, '$cryptolib', { value: new CryptoLib(crypto, window, debug) })
+const debug = document.getElementById('secrets-root').getAttribute('data-debugsecrets') === 'true'
 
-// eslint-disable-next-line
-__webpack_public_path__ = generateFilePath(appName, '', 'js/')
-
-Vue.mixin({ methods: { t, n } })
-
-export default new Vue({
-	el: '#secret-root',
-	render: h => h(Share),
-})
+const app = createApp(PublicApp)
+app.provide('cryptolib', new CryptoLib(window.crypto, window, debug))
+app.provide('debugsecrets', debug)
+app.mount('#secrets-root')

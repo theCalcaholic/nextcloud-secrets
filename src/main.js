@@ -3,23 +3,24 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { generateFilePath } from '@nextcloud/router'
-
 import CryptoLib from './crypto.js'
-import Vue from 'vue'
+import { createApp } from 'vue'
+import { t, n } from '@nextcloud/l10n'
 import App from './App.vue'
-const debug = document.getElementById('secret-root').getAttribute('data-debugsecrets') === 'true'
-Object.defineProperty(Vue.prototype, '$debugsecrets', {
-	value: debug,
-})
-Object.defineProperty(Vue.prototype, '$cryptolib', { value: new CryptoLib(window.crypto, window, debug) })
 
-// eslint-disable-next-line
-__webpack_public_path__ = generateFilePath(appName, '', 'js/')
+const debug = document.getElementById('secrets-root')
+	.getAttribute('data-debugsecrets') === 'true'
 
-Vue.mixin({ methods: { t, n } })
+const app = createApp(App)
 
-export default new Vue({
-	el: '#secret-root',
-	render: h => h(App),
-})
+app.provide('t', t)
+app.provide('n', n)
+app.provide('cryptolib', new CryptoLib(window.crypto, window, debug))
+app.provide('debugsecrets', debug)
+
+const rootEl = document.getElementById('secrets-root')
+// rootEl.style.display = 'flex'
+// rootEl.style.flexGrow = '1'
+// rootEl.style.flexDirection = 'column'
+// rootEl.style.alignContent = 'space-between'
+app.mount(rootEl)

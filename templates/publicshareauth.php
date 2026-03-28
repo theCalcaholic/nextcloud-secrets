@@ -4,7 +4,7 @@
 /** @var array $_ */
 /** @var \OCP\IL10N $l */
 \OCP\Util::addStyle('core', 'guest');
-\OCP\Util::addStyle('core', 'publicshareauth');
+//\OCP\Util::addStyle('core', 'publicshareauth');
 \OCP\Util::addScript('secrets', 'publicshareauth');
 ?>
 

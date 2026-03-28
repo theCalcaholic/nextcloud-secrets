@@ -1,22 +1,236 @@
+<script setup>
+// SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
+import { NcContent, NcAppContent, NcActionButton, NcAppNavigationCaption, NcAppNavigation, NcAppNavigationItem } from '@nextcloud/vue'
+import Secret from '@/views/Secret.vue'
+import SecretEditor from '@/components/SecretEditor.vue'
+import IconPlus from 'vue-material-design-icons/Plus.vue'
+
+import '@nextcloud/dialogs/styles/toast.scss'
+import { generateOcsUrl } from '@nextcloud/router'
+import { showError, showSuccess } from '@nextcloud/dialogs'
+import axios from '@nextcloud/axios'
+import { computed, inject, onMounted, ref, watch } from 'vue'
+import { t } from '@nextcloud/l10n'
+
+const cryptolib = inject('cryptolib')
+
+const secrets = ref([])
+const currentSecretUuid = ref(null)
+const currentSecretKeyBuf = ref(null)
+const updating = ref(false)
+const loading = ref(true)
+
+const currentSecret = computed({
+	get() {
+		if (currentSecretUuid.value === null) {
+			return null
+		}
+		return secrets.value.find((secret) => secret.uuid === currentSecretUuid.value)
+	},
+	set(val) {
+		secrets.value = secrets.value.map((secret) => {
+			if (secret.uuid === currentSecretUuid.value) {
+				return val
+			}
+			return secret
+		})
+	},
+})
+
+const locked = computed(() => updating.value || loading.value)
+
+/**
+ * Fetch list of secrets when the component is loaded
+ */
+onMounted(async () => {
+	try {
+		const response = await axios.get(generateOcsUrl('/apps/secrets/api/v1/secrets'))
+		secrets.value = response.data.ocs.data.map(secret => ({
+			...secret,
+			expires: new Date(secret.expires),
+			iv: secret.iv === null ? null : cryptolib.b64StringToArrayBuffer(secret.iv),
+			_decrypted: null,
+			key: null,
+		}))
+		const secretUuidPos = window.location.pathname.indexOf('/s/')
+		if (secretUuidPos !== -1) {
+			currentSecretUuid.value = window.location.pathname.substring(secretUuidPos + 3)
+		}
+	} catch (e) {
+		console.error(e)
+		showError(t('secrets', 'Could not fetch secrets'))
+	}
+	loading.value = false
+})
+
+/**
+ * Create a new secret and focus the secret content field automatically
+ *
+ * @param {object} secret Secret object
+ */
+function openSecret(secret) {
+	if (updating.value) {
+		return
+	}
+	currentSecretUuid.value = secret.uuid
+}
+
+/**
+ * Action tiggered when clicking the save button
+ * create a new secret or save
+ *
+ * @param {object} secret Secret object
+ */
+function saveSecret(secret) {
+	if (currentSecretUuid.value !== '') {
+		showError(t('secrets', "Can't save already existing secret"))
+	}
+	createSecret(secret)
+}
+
+/**
+ * Create a new secret and focus the secret content field automatically
+ * The secret is not yet saved, therefore an id of "" is used until it
+ * has been persisted in the backend
+ */
+async function newSecret() {
+	const key = await cryptolib.generateCryptoKey()
+	const iv = cryptolib.generateIv()
+	if (currentSecretUuid.value !== '') {
+		currentSecretUuid.value = ''
+		const expiryDate = new Date()
+		expiryDate.setDate((new Date()).getDate() + 7)
+		secrets.value.push({
+			uuid: '',
+			title: t('secrets', 'Secret from {date} {time}', {
+				date: (new Date()).toLocaleDateString(),
+				time: (new Date()).toLocaleTimeString(),
+			}),
+			password: '',
+			pwHash: null,
+			key,
+			iv,
+			expires: expiryDate,
+			_decrypted: '',
+		})
+	}
+}
+
+/**
+ * Abort creating a new secret
+ */
+function cancelNewSecret() {
+	secrets.value = secrets.value.filter((secret) => secret.uuid !== '')
+	currentSecretUuid.value = null
+}
+
+/**
+ * Create a new secret by sending the information to the server
+ *
+ * @param {object} secret Secret object
+ */
+async function createSecret(secret) {
+	updating.value = true
+	try {
+		const encryptedPromise = cryptolib.encrypt(secret._decrypted, secret.key, secret.iv)
+		const expiresStr = secret.expires.toISOString()
+		const encryptedSecret = {
+			title: secret.title,
+			password: secret.password === '' ? null : secret.password,
+			expires: expiresStr,
+			encrypted: await encryptedPromise,
+			iv: cryptolib.arrayBufferToB64String(secret.iv),
+		}
+		const response = await axios.post(generateOcsUrl('/apps/secrets/api/v1/secrets'), encryptedSecret)
+		const data = response.data.ocs.data
+		const decrypted = await cryptolib.decrypt(
+			data.encrypted,
+			secret.key,
+			cryptolib.b64StringToArrayBuffer(data.iv),
+		)
+		secrets.value = secrets.value.map(secret => {
+			if (secret.uuid === currentSecretUuid.value) {
+				return {
+					...data,
+					expires: new Date(secret.expires),
+					_decrypted: decrypted,
+					key: secret.key,
+					iv: cryptolib.b64StringToArrayBuffer(data.iv),
+				}
+			}
+			return secret
+		})
+		currentSecretUuid.value = data.uuid
+		currentSecretKeyBuf.value = await window.crypto.subtle.exportKey('raw', currentSecret.value.key)
+	} catch (e) {
+		console.error(e)
+		showError(t('secrets', 'Could not create the secret'))
+	}
+	updating.value = false
+}
+
+/**
+ * Delete a secret, remove it from the frontend and show a hint
+ *
+ * @param {object} secret Secret object
+ */
+async function deleteSecret(secret) {
+	try {
+		if (!secret.uuid) {
+			throw new Error('Secret has no UUID!')
+		}
+		await axios.delete(generateOcsUrl(`/apps/secrets/api/v1/secrets/${secret.uuid}`))
+		secrets.value = secrets.value.filter(match => match.uuid !== secret.uuid)
+		if (this.currentSecretUUId === secret.uuid) {
+			currentSecretUuid.value = null
+			currentSecretKeyBuf.value = null
+		}
+		showSuccess(t('secrets', 'Secret deleted'))
+	} catch (e) {
+		console.error(e)
+		showError(t('secrets', 'Could not delete the secret'))
+	}
+}
+
+/**
+ *
+ * @param secret
+ * @param title
+ */
+async function updateSecretTitle(secret, title) {
+	if (secret.uuid) {
+		await axios.put(generateOcsUrl(`/apps/secrets/api/v1/secrets/${secret.uuid}/title`), { title })
+	}
+	secret.title = title
+}
+
+watch(currentSecret, (newSecret) => {
+	console.log('secret update', newSecret)
+})
+
+</script>
+
 <template>
-	<!--
-    SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
-    SPDX-License-Identifier: AGPL-3.0-or-later
-    -->
-	<div id="content-wrapper">
-		<NcAppNavigation>
+	<NcContent app-name="secrets">
+		<NcAppNavigation :aria-label="t('secrets', 'Navigation')">
 			<template #list>
-				<NcAppNavigationNew v-if="!loading"
-					:text="t('secrets', 'New secret')"
-					:disabled="false"
-					button-id="new-secrets-button"
-					button-class="icon-add"
-					@click="newSecret" />
+				<NcAppNavigationCaption :name="t('secrets', 'Secrets')">
+					<template #actions>
+						<NcActionButton @click="newSecret">
+							<template #icon>
+								<IconPlus :size="20" />
+							</template>
+							{{ t('secrets', 'New secret') }}
+						</NcActionButton>
+					</template>
+				</NcAppNavigationCaption>
 				<NcAppNavigationItem v-for="secret in secrets"
 					:key="secret.uuid"
 					:name="secret.title"
 					:class="{
-						active: currentSecretUUId === secret.uuid,
+						active: currentSecretUuid === secret.uuid,
 						invalidated: secret.encrypted === null
 					}"
 					:editable="true"
@@ -24,25 +238,27 @@
 					:icon="secret.uuid === '' ? 'icon-template-add' : (secret.encrypted === null ? 'icon-toggle' : 'icon-password')"
 					@update:name="(name) => updateSecretTitle(secret, name)"
 					@click="openSecret(secret)">
-					<template slot="actions">
+					<template #actions>
 						<NcActionButton v-if="secret.uuid === ''"
 							icon="icon-close"
-							@click="cancelNewSecret(secret)">
+							@click="cancelNewSecret()">
 							{{
-								t('secrets', 'Cancel secret creation') }}
+								t('secrets', 'Cancel secret creation')
+							}}
 						</NcActionButton>
 						<NcActionButton v-else
 							icon="icon-delete"
 							@click="deleteSecret(secret)">
 							{{
-								t('secrets', 'Delete secret') }}
+								t('secrets', 'Delete secret')
+							}}
 						</NcActionButton>
 					</template>
 				</NcAppNavigationItem>
 			</template>
 		</NcAppNavigation>
 		<NcAppContent>
-			<SecretEditor v-if="currentSecret && currentSecretUUId === ''"
+			<SecretEditor v-if="currentSecret && currentSecretUuid === ''"
 				v-model="currentSecret"
 				:locked="locked"
 				@save-secret="saveSecret" />
@@ -57,246 +273,9 @@
 				<h2>{{ t('secrets', 'Create a secret to get started') }}</h2>
 			</div>
 		</NcAppContent>
-	</div>
+	</NcContent>
 </template>
 
-<script>
-import { NcActionButton, NcAppContent, NcAppNavigation, NcAppNavigationItem, NcAppNavigationNew } from '@nextcloud/vue'
-import Secret from './Secret.vue'
-import SecretEditor from './SecretEditor.vue'
-
-import '@nextcloud/dialogs/styles/toast.scss'
-import { generateOcsUrl } from '@nextcloud/router'
-import { showError, showSuccess } from '@nextcloud/dialogs'
-import axios from '@nextcloud/axios'
-
-export default {
-	name: 'App',
-	components: {
-		NcActionButton,
-		NcAppContent,
-		NcAppNavigation,
-		NcAppNavigationItem,
-		NcAppNavigationNew,
-		Secret,
-		SecretEditor,
-	},
-	data() {
-		return {
-			secrets: [],
-			currentSecretUUId: null,
-			currentSecretKeyBuf: null,
-			updating: false,
-			loading: true,
-		}
-	},
-	computed: {
-		/**
-		 * Return the currently selected secret object
-		 *
-		 * @return {object | null}
-		 */
-		currentSecret: {
-			get() {
-				if (this.currentSecretUUId === null) {
-					return null
-				}
-				return this.secrets.find((secret) => secret.uuid === this.currentSecretUUId)
-			},
-			set(val) {
-
-				const index = this.secrets.findIndex((secret) => secret.uuid === this.currentSecretUUId)
-				this.$set(this.secrets, index, val)
-			},
-		},
-
-		/**
-		 * Returns true if a secret is selected and its title is not empty
-		 *
-		 * @return {boolean}
-		 */
-		savePossible() {
-			return this.currentSecret && this.currentSecret.key
-		},
-		/**
-		 *
-		 * @return {boolean}
-		 */
-		locked() {
-			return this.updating || this.loading
-		},
-	},
-	/**
-	 * Fetch list of secrets when the component is loaded
-	 */
-	async mounted() {
-		try {
-			const response = await axios.get(generateOcsUrl('/apps/secrets/api/v1/secrets'))
-			this.secrets = response.data.ocs.data.map(secret => {
-				return {
-					...secret,
-					expires: new Date(secret.expires),
-					iv: secret.iv === null ? null : this.$cryptolib.b64StringToArrayBuffer(secret.iv),
-					_decrypted: null,
-					key: null,
-				}
-			})
-			const secretUuidPos = window.location.pathname.indexOf('/s/')
-			if (secretUuidPos !== -1) {
-				this.currentSecretUUId = window.location.pathname.substring(secretUuidPos + 3)
-			}
-
-		} catch (e) {
-			console.error(e)
-			showError(t('secrets', 'Could not fetch secrets'))
-		}
-		this.loading = false
-	},
-
-	methods: {
-		/**
-		 * Create a new secret and focus the secret content field automatically
-		 *
-		 * @param {object} secret Secret object
-		 */
-		openSecret(secret) {
-			if (this.updating) {
-				return
-			}
-			this.currentSecretUUId = secret.uuid
-		},
-		saveCurrentSecret(decrypted) {
-			this.currentSecret._decrypted = decrypted
-			this.saveSecret(this.currentSecret)
-		},
-		/**
-		 * Action tiggered when clicking the save button
-		 * create a new secret or save
-		 *
-		 * @param {object} secret Secret object
-		 */
-		saveSecret(secret) {
-			if (this.currentSecretUUId !== '') { showError("Can't save existing secret") }
-			this.createSecret(secret)
-		},
-		/**
-		 * Create a new secret and focus the secret content field automatically
-		 * The secret is not yet saved, therefore an id of "" is used until it
-		 * has been persisted in the backend
-		 */
-		async newSecret() {
-			const key = await this.$cryptolib.generateCryptoKey()
-			const iv = this.$cryptolib.generateIv()
-			if (this.currentSecretUUId !== '') {
-				this.currentSecretUUId = ''
-				const expiryDate = new Date()
-				expiryDate.setDate((new Date()).getDate() + 7)
-				this.secrets.push({
-					uuid: '',
-					title: t('secrets', 'Secret from {date} {time}', { date: (new Date()).toLocaleDateString(), time: (new Date()).toLocaleTimeString() }),
-					password: '',
-					pwHash: null,
-					key,
-					iv,
-					expires: expiryDate,
-					_decrypted: '',
-				})
-			}
-		},
-		/**
-		 * Abort creating a new secret
-		 */
-		cancelNewSecret() {
-			this.secrets.splice(this.secrets.findIndex((secret) => secret.uuid === ''), 1)
-			this.currentSecretUUId = null
-		},
-		updateCurrentSecret(secret) {
-
-			const index = this.secrets.findIndex((match) => match.uuid === this.currentSecretUUId)
-			this.$set(this.secrets, index, secret)
-		},
-		/**
-		 * Create a new secret by sending the information to the server
-		 *
-		 * @param {object} secret Secret object
-		 */
-		async createSecret(secret) {
-			this.updating = true
-			try {
-				const encryptedPromise = this.$cryptolib.encrypt(secret._decrypted, secret.key, secret.iv)
-				const expiresStr = secret.expires.toISOString()
-				const encryptedSecret = {
-					title: secret.title,
-					password: secret.password === '' ? null : secret.password,
-					expires: expiresStr,
-					encrypted: await encryptedPromise,
-					iv: this.$cryptolib.arrayBufferToB64String(secret.iv),
-				}
-				const response = await axios.post(generateOcsUrl('/apps/secrets/api/v1/secrets'), encryptedSecret)
-				const data = response.data.ocs.data
-				const decrypted = await this.$cryptolib.decrypt(
-					data.encrypted,
-					secret.key,
-					this.$cryptolib.b64StringToArrayBuffer(data.iv))
-				const index = this.secrets.findIndex((match) => match.uuid === this.currentSecretUUId)
-				this.$set(this.secrets, index, {
-					...data,
-					expires: new Date(data.expires),
-					_decrypted: decrypted,
-					key: secret.key,
-					iv: this.$cryptolib.b64StringToArrayBuffer(data.iv),
-				})
-				this.currentSecretUUId = data.uuid
-				this.currentSecretKeyBuf = await window.crypto.subtle.exportKey('raw', this.currentSecret.key)
-			} catch (e) {
-				console.error(e)
-				showError(t('secrets', 'Could not create the secret'))
-			}
-			this.updating = false
-		},
-		/**
-		 * Delete a secret, remove it from the frontend and show a hint
-		 *
-		 * @param {object} secret Secret object
-		 */
-		async deleteSecret(secret) {
-			try {
-				if (!secret.uuid) { throw new Error('Secret has no UUID!') }
-				await axios.delete(generateOcsUrl(`/apps/secrets/api/v1/secrets/${secret.uuid}`))
-				this.secrets.splice(this.secrets.indexOf(secret), 1)
-				if (this.currentSecretUUId === secret.uuid) {
-					this.currentSecretUUId = null
-					this.currentSecretKeyBuf = null
-				}
-				showSuccess(t('secrets', 'Secret deleted'))
-			} catch (e) {
-				console.error(e)
-				showError(t('secrets', 'Could not delete the secret'))
-			}
-		},
-		async updateSecretTitle(secret, title) {
-			if (secret.uuid) {
-				await axios.put(generateOcsUrl(`/apps/secrets/api/v1/secrets/${secret.uuid}/title`), { title })
-			}
-			secret.title = title
-		},
-	},
-}
-</script>
-
-<style>
-.app-content {
-	padding: 44px 20px 20px;
-}
-
-.active .app-navigation-entry {
-	background-color: var(--color-background-dark);
-}
-
-#content-wrapper {
-	display: flex;
-	width: 100%;
-	border-radius: var(--body-container-radius);
-	overflow: hidden;
-}
-</style>
+<!--.active .app-navigation-entry {-->
+<!--  background-color: var(&#45;&#45;color-background-dark);-->
+<!--}-->

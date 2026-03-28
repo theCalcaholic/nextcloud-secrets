@@ -85,7 +85,7 @@ class SecretService {
 		$secret->setIv($iv);
 		$secret->setUserId($userId);
 		$secret->setExpiresFromISO8601String($expires);
-		$secret->setPwHash($password ? password_hash($password . $secret->getUuid(), PASSWORD_ARGON2ID) : null);
+		$secret->setPwHash($password ? password_hash($password . $uuid, PASSWORD_ARGON2ID) : null);
 		return $this->mapper->insert($secret);
 	}
 
@@ -174,7 +174,7 @@ class SecretService {
 			throw new UnauthorizedException();
 		}
 		$uuid = $secret->getUuid();
-		$this->invalidate($uuid);
+//		$this->invalidate($uuid);
 
 		return $secret;
 	}
