@@ -12,7 +12,7 @@ import * as https from 'node:https'
 import * as url from 'node:url'
 import process from 'process'
 import { CommandExecutionError } from './CommandExecutionError.ts'
-import CryptoLib from './crypto.import.js'
+import CryptoLib from './crypto.import.ts'
 import { prompt } from './lib.ts'
 
 const btoa = (str: string) => Buffer.from(str, 'binary').toString('base64')
