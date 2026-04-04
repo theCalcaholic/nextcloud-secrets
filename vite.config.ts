@@ -46,8 +46,12 @@ export default createAppConfig(
 			},
 		},
 		test: {
-		// Use the DOM environment for all tests by default
+			// Use the DOM environment for all tests by default
 			runtimeEnv: 'dom',
+			// Vitest configuration
+			name: 'vitest',
+			include: ['tests/unit/**/*.spec.ts', 'cypress/unit/**/*.spec.ts'],
+			exclude: ['cypress/e2e/**'],
 		},
 	},
 )

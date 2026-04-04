@@ -12,7 +12,7 @@ export default class CryptoLib {
 	debug = false
 	private crypto: Crypto
 	private hashApi: HashApi
-	private readonly algorithm: string
+	public readonly algorithm: string
 
 	constructor(theCrypto: Crypto, hashApi: HashApi, debug: boolean) {
 		this.crypto = theCrypto

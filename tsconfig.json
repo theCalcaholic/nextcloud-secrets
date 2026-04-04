@@ -7,18 +7,28 @@
     "module": "ESNext",
     "lib": ["webworker", "DOM"],
     "allowImportingTsExtensions": true,
-    "types": ["bun-types", "@peeky/test"],
+    "types": ["bun-types", "cypress"],
     "paths": {
       "@/*": ["./src/*"]
     },
     "moduleResolution": "bundler",
-    "esModuleInterop": true
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
   },
   "include": [
     "*.ts",
     "*.vue",
     "src/**/*.ts",
     "src/**/*.vue",
+    "cypress/**/*.ts",
 //    "cli/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "tests",
+    "cypress/e2e",
+    "cypress/unit"
   ],
 }
