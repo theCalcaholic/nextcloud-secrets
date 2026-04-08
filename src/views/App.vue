@@ -43,6 +43,8 @@ const currentSecret = computed({
 
 const locked = computed(() => updating.value || loading.value)
 
+const isSecureContext = window.isSecureContext
+
 /**
  * Fetch list of secrets when the component is loaded
  */
@@ -250,7 +252,7 @@ watch(currentSecret, (newSecret) => {
 </script>
 
 <template>
-	<NcContent appName="secrets">
+	<NcContent v-if="isSecureContext" appName="secrets">
 		<NcAppNavigation :aria-label="t('secrets', 'Navigation')">
 			<template #list>
 				<NcAppNavigationCaption :name="t('secrets', 'Secrets')">
@@ -311,6 +313,14 @@ watch(currentSecret, (newSecret) => {
 			<div v-else id="emptycontent">
 				<div class="icon-file" />
 				<h2>{{ t('secrets', 'Create a secret to get started') }}</h2>
+			</div>
+		</NcAppContent>
+	</NcContent>
+	<NcContent v-else appName="secrets">
+		<NcAppContent>
+			<div id="emptycontent">
+				<div class="icon-alert-outline" />
+				<h2>{{ t('secrets', 'Secrets is only available when visiting Nextcloud at an encrypted (https) address.') }}</h2>
 			</div>
 		</NcAppContent>
 	</NcContent>

@@ -22,6 +22,8 @@ import '@nextcloud/dialogs/styles/toast.scss'
 
 type ActionState = 'ready' | 'success' | 'error'
 
+const isSecureContext = window.isSecureContext
+
 const client = createClient(createClientConfig())
 
 const cryptolib: CryptoLib = inject('cryptolib')!
@@ -98,6 +100,9 @@ async function downloadAsFile(content: string): Promise<void> {
  *
  */
 async function loadSecret() {
+	if (!isSecureContext) {
+		return
+	}
 	loading.value = true
 	try {
 		let uuid = window.location.pathname
@@ -135,7 +140,7 @@ async function loadSecret() {
 </script>
 
 <template>
-	<NcContent appName="secrets">
+	<NcContent v-if="isSecureContext" appName="secrets">
 		<NcAppContent :class="$style.content">
 			<h2>{{ t('secrets', 'The following secret has been shared with you securely:') }}</h2>
 			<!--v-on:secret-changed="changeSecret"-->
@@ -208,6 +213,14 @@ async function loadSecret() {
 						</template>
 					</NcEmptyContent>
 				</div>
+			</div>
+		</NcAppContent>
+	</NcContent>
+	<NcContent v-else appName="secrets">
+		<NcAppContent>
+			<div id="emptycontent">
+				<div class="icon-alert-outline" />
+				<h2>{{ t('secrets', 'Secrets is only available when visiting Nextcloud at an encrypted (https) address.') }}</h2>
 			</div>
 		</NcAppContent>
 	</NcContent>
