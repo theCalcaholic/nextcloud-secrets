@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 namespace OCA\Secrets\Db;
 
+use OCA\Secrets\Service\NotificationService;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\AppFramework\Db\QBMapper;
@@ -19,8 +20,11 @@ use Psr\Log\LoggerInterface;
  */
 class SecretMapper extends QBMapper {
 	private LoggerInterface $logger;
-	public function __construct(IDBConnection $db, LoggerInterface $logger) {
+	private NotificationService $notifications;
+
+	public function __construct(IDBConnection $db, LoggerInterface $logger, NotificationService $notifications) {
 		$this->logger = $logger;
+		$this->notifications = $notifications;
 		parent::__construct($db, 'secrets', Secret::class);
 	}
 
@@ -94,11 +98,46 @@ class SecretMapper extends QBMapper {
 		$qb = $this->db->getQueryBuilder();
 		$param = $qb->createNamedParameter($date);
 		$qb->delete($this->tableName)
-			->where(
-				$qb->expr()->lt('expires', $param)
-			);
+			->where($qb->expr()->lt('expires', $param));
 		$this->logger->debug("Deleting expired secrets: '" . $qb->getSQL() . "', param = '" . $date . "'");
 		$qb->executeStatement();
+	}
+
+	/**
+	 * @throws Exception
+	 */
+	public function expire(string $referenceDate): void {
+		$this->logger->warning('EXPIRE SECRETS UP TO ' . $referenceDate);
+		$qb = $this->db->getQueryBuilder();
+		$Param = $qb->createNamedParameter($referenceDate);
+		$qb->select('*')
+			->from('secrets')
+			->where($qb->expr()->lt('expires', $Param))
+			->andWhere($qb->expr()->isNotNull('encrypted'));
+		$toExpire = $this->findEntities($qb);
+		$toExpireIds = [];
+		foreach ($toExpire as $secret) {
+			$this->notifications->notifyExpired($secret);
+			$toExpireIds[] = $secret->getId();
+		}
+
+		if (count($toExpireIds) > 0) {
+			$this->logger->warning('to expire: [' . join(', ', $toExpireIds) . ']');
+			$qb = $this->db->getQueryBuilder();
+			$nullParam = $qb->createNamedParameter(null, IQueryBuilder::PARAM_STR);
+			$expireIdsParam = $qb->createNamedParameter($toExpireIds, IQueryBuilder::PARAM_INT_ARRAY);
+			$qb->update($this->tableName)
+				->set('encrypted', $nullParam)
+				->set('is_expired', $qb->createNamedParameter(true, IQueryBuilder::PARAM_BOOL))
+				->where(
+					$qb->expr()->andX(
+						$qb->expr()->in('id', $expireIdsParam),
+						$qb->expr()->isNotNull('encrypted')
+					)
+				);
+			$this->logger->debug("Deleting expired secrets: '" . $qb->getSQL() . "'");
+			$qb->executeStatement();
+		}
 	}
 
 	/**

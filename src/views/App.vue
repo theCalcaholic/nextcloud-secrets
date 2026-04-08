@@ -127,6 +127,7 @@ async function newSecret() {
 			expires: expiryDate,
 			_decrypted: '',
 			encrypted: null,
+			isExpired: false,
 		})
 	}
 }
@@ -275,7 +276,7 @@ watch(currentSecret, (newSecret) => {
 					}"
 					:editable="true"
 					:editLabel="t('secrets', 'Change Title')"
-					:icon="secret.uuid === '' ? 'icon-template-add' : (secret.encrypted === null ? 'icon-toggle' : 'icon-password')"
+					:icon="secret.uuid === '' ? 'icon-template-add' : (secret.isExpired ? 'icon-delete' : (secret.encrypted === null ? 'icon-toggle' : 'icon-password'))"
 					@update:name="(name) => updateSecretTitle(secret, name)"
 					@click="openSecret(secret)">
 					<template #actions>
@@ -329,3 +330,10 @@ watch(currentSecret, (newSecret) => {
 <!--.active .app-navigation-entry {-->
 <!--  background-color: var(&#45;&#45;color-background-dark);-->
 <!--}-->
+
+<style>
+#secrets-root .app-navigation-entry-link>.app-navigation-entry-icon.icon-delete {
+  background-image: var(--icon-delete-dark);
+  opacity: .5;
+}
+</style>

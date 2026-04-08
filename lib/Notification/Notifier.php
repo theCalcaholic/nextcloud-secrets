@@ -65,21 +65,36 @@ class Notifier implements INotifier {
 		try {
 			$secret = $this->secretService->find($notification->getObjectId(), $notification->getUser());
 		} catch (Exception $e) {
-			$this->logger->error('Could not find secret for creating retrieval notification: ' . $e->getMessage(), ['exception' => $e]);
+			$this->logger->error('Could not find secret for creating notification: ' . $e->getMessage(), ['exception' => $e]);
 			throw new AlreadyProcessedException();
 		}
 
 		$l = $this->factory->get('secrets', $languageCode);
-		$notification->setIcon($this->url->getAbsoluteURL($this->url->imagePath(Application::APP_ID, 'secrets-dark.svg')));
 		$secret_url = $this->url->linkToRoute('secrets.page.show', ['uuid' => $secret->getUuid()]);
-		$notification->setRichSubject($l->t('Secret \'{secret}\' has been retrieved'), [
-			'secret' => [
-				'type' => 'highlight',
-				'id' => $secret->getUuid(),
-				'name' => $secret->getTitle(),
-				'link' => $secret_url
-			]
-		]);
+		switch ($notification->getSubject()) {
+			case 'secret_retrieval':
+				$notification->setRichSubject($l->t('Secret \'{secret}\' has been retrieved'), [
+					'secret' => [
+						'type' => 'highlight',
+						'id' => $secret->getUuid(),
+						'name' => $secret->getTitle(),
+						'link' => $secret_url
+					]
+				]);
+				break;
+			case 'secret_expiry':
+				$notification->setRichSubject($l->t('Secret \'{secret}\' has expired without being retrieved'), [
+					'secret' => [
+						'type' => 'highlight',
+						'id' => $secret->getUuid(),
+						'name' => $secret->getTitle(),
+						'link' => $secret_url
+					]
+				]);
+				break;
+		}
+
+		$notification->setIcon($this->url->getAbsoluteURL($this->url->imagePath(Application::APP_ID, 'secrets-dark.svg')));
 		$this->setParsedSubjectFromRichSubject($notification);
 		return $notification;
 	}

@@ -13,4 +13,5 @@ export interface Secret {
 	expires: Date
 	_decrypted: string | null
 	encrypted: string | null
+	isExpired: boolean
 }
