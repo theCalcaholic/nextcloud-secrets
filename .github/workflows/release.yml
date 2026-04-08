@@ -10,10 +10,10 @@ on:
       - "test*"
 
 jobs:
-  integration-test:
-    uses: ./.github/workflows/integration-tests.yml
+  e2e-test:
+    uses: ./.github/workflows/e2e-tests.yml
   release:
-    needs: integration-test
+    needs: e2e-test
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
