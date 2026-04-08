@@ -12,7 +12,7 @@ import { syncApp } from './util.ts'
  *
  */
 async function start() {
-	const branch = getBranch()
+	const branch = process.env.NC_VERSION ? process.env.NC_VERSION : getBranch()
 	const cwd = process.cwd()
 	const syncPath = path.join(cwd, 'build/test/secrets')
 	await syncApp(cwd, syncPath, [path.join(cwd, 'build')])

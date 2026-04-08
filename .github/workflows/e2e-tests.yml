@@ -22,6 +22,10 @@ jobs:
   playwright-e2e:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        nextcloud_version: ['31', '33']
+
     timeout-minutes: 60
 
     steps:
@@ -58,6 +62,7 @@ jobs:
 
       - name: Run Playwright E2E tests
         run: |
+          export NC_VERSION="stable${{ matrix.nextcloud_version }}"
           npm run test:e2e
 
       - name: Run unit and cli tests
