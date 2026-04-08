@@ -73,7 +73,7 @@ defineEmits(['saveSecret'])
 	}
 
 	input.url-field {
-		float: left;
+		float: inline-start;
 		max-width: 90%;
 		width: 30em;
 	}

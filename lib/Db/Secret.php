@@ -68,13 +68,13 @@ class Secret extends Entity implements JsonSerializable {
 		}
 
 		$datetime = DateTime::createFromFormat(DATETIME_FORMAT_INTERNAL, $this->expires);
-        if (!$datetime) {
-            $datetime = DateTime::createFromFormat(DATE_FORMAT_INTERNAL, $this->expires);
-            if (!$datetime) {
-                return null;
-            }
-        }
-        return $datetime;
+		if (!$datetime) {
+			$datetime = DateTime::createFromFormat(DATE_FORMAT_INTERNAL, $this->expires);
+			if (!$datetime) {
+				return null;
+			}
+		}
+		return $datetime;
 	}
 
 	public function getExpiresAsISO8601(): ?string {

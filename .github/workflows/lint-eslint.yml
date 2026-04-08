@@ -7,19 +7,18 @@
 
 name: Lint
 
-on: {}
-# TODO: Reenable after migration to Vue3
-#  pull_request:
-#    paths:
-#      - '.github/workflows/**'
-#      - 'src/**'
-#      - 'appinfo/info.xml'
-#      - 'package.json'
-#      - 'package-lock.json'
-#      - 'tsconfig.json'
-#      - '**.js'
-#      - '**.ts'
-#      - '**.vue'
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/**'
+      - 'src/**'
+      - 'appinfo/info.xml'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'tsconfig.json'
+      - '**.js'
+      - '**.ts'
+      - '**.vue'
 
 permissions:
   contents: read
@@ -54,7 +53,9 @@ jobs:
         run: npm i -g npm@"${{ steps.versions.outputs.npmVersion }}"
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          npm ci
+          npm run build
 
       - name: Lint
         run: npm run lint

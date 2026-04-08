@@ -218,7 +218,6 @@ async function loadSecret() {
     box-sizing: border-box;
 		width: 100%;
 		min-height: 50%;
-		//padding: 20px;
 		display: flex;
 		flex-direction: column;
     flex-grow: 1;
@@ -247,7 +246,7 @@ async function loadSecret() {
 	}
 
 	.secret-actions>* {
-		margin-left: 1rem;
+		margin-inline-start: 1rem;
 	}
 
 	#reveal-wrapper {
@@ -269,7 +268,7 @@ async function loadSecret() {
 			margin: 0 1rem;
 		}
 		.secret-actions>* {
-			margin-left: 0;
+			margin-inline-start: 0;
 			margin-bottom: 1rem;
 			width: 100%;
 		}

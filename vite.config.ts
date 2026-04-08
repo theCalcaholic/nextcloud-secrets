@@ -28,7 +28,7 @@ export default createAppConfig(
 						/build\/test\/.*/,
 					],
 				},
-				cssCodeSplit: true,
+				cssCodeSplit: false,
 			},
 			plugins: [
 				cleanPlugin({
