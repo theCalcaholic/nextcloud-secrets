@@ -13,6 +13,7 @@ on:
       - "v*"
       - "test*"
   workflow_dispatch:
+  workflow_call:
 
 env:
   APP_NAME: secrets
@@ -57,8 +58,6 @@ jobs:
 
       - name: Run Playwright E2E tests
         run: |
-          npm run start:nextcloud &
-          sleep 120
           npm run test:e2e
 
       - name: Run unit and cli tests
