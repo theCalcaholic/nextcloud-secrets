@@ -35,7 +35,7 @@ program.command('create')
 		} else {
 			passSource = new StringSourcePrompt('Enter Nextcloud passwort/token:')
 		}
-		console.log(JSON.stringify(await createSecret(ncUrl, ncUser, secretSource, passSource, options), null, 2))
+		console.log(JSON.stringify(await createSecret(ncUrl, ncUser, passSource, secretSource, options), null, 2))
 	})
 program.command('retrieve')
 	.description('Retrieve a secret and print it to stdout')

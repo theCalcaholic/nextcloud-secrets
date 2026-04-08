@@ -32,8 +32,6 @@ function createOcsApiClient(baseURL: string, auth?: { user: string, password: st
 	const client = createClient(cfg)
 	if (auth) {
 		client.instance.interceptors.request.use((config) => {
-			console.log('setting up basic auth ...')
-			console.log('Authorization: ', 'Basic ' + Buffer.from(`${auth.user}:${auth.password}`).toString('base64'))
 			config.headers.set('Authorization', 'Basic ' + Buffer.from(`${auth.user}:${auth.password}`).toString('base64'))
 			return config
 		})
