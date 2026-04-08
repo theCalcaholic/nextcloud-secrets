@@ -6,7 +6,6 @@ import type { Secret } from '@/model'
 
 import { t } from '@nextcloud/l10n'
 import { NcDateTimePicker, NcPasswordField } from '@nextcloud/vue'
-import { ref, watch } from 'vue'
 
 import '@nextcloud/dialogs/styles/toast.scss'
 
@@ -17,21 +16,9 @@ defineProps({
 		type: Boolean,
 		default: false,
 	},
-	title: {
-		type: String,
-		default: '',
-	},
 })
 
 defineEmits(['saveSecret'])
-
-const password = ref(model.value?.password)
-
-watch(password, (pw) => {
-	if (model.value) {
-		model.value = { ...model.value, password: pw }
-	}
-})
 
 </script>
 
@@ -47,7 +34,7 @@ watch(password, (pw) => {
 				:placeholder="t('secrets', 'Expiration Date')" />
 		</p>
 		<NcPasswordField
-			v-model="password"
+			v-model="model.password"
 			:label="t('secrets', 'share password (optional)')"
 			:minlength="4"
 			:required="false" />

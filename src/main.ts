@@ -4,11 +4,22 @@
  */
 
 import { n, t } from '@nextcloud/l10n'
+import { client } from '@shared/api/client.gen.ts'
+import CryptoLib from '@shared/crypto.ts'
+import { ocsHeaders } from '@shared/model'
 import { createApp } from 'vue'
 import App from '@/views/App.vue'
-import CryptoLib from './crypto.js'
+import { createClientConfig } from '@/api-client.ts'
 
 const debug = document.getElementById('secrets-root')?.getAttribute('data-debugsecrets') === 'true'
+
+const clientConfig = createClientConfig({
+	headers: {
+		...ocsHeaders,
+	},
+})
+
+client.setConfig(clientConfig)
 
 const app = createApp(App)
 

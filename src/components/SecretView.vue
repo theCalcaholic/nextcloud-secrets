@@ -2,7 +2,7 @@
 // SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import type CryptoLib from '@/crypto.ts'
+import type CryptoLib from '@shared/crypto.ts'
 import type { Secret } from '@/model'
 
 import { showError } from '@nextcloud/dialogs'
@@ -42,11 +42,11 @@ const url = computed(() => {
 })
 
 const formattedDate = computed(() => {
-	if (!model.value) {
+	if (model.value === undefined) {
 		return ''
 	}
 	const fDate = model.value.expires.getFullYear() + '-'
-		+ `${model.value.expires.getMonth() + 1}`
+		+ `${model.value.expires.getMonth() + 1}-`.padStart(3, '0')
 		+ `${model.value.expires.getDate()}`.padStart(2, '0')
 	if (debug) {
 		console.debug('date: ', fDate, model.value.expires)
@@ -98,6 +98,7 @@ async function copyToClipboard(url: string) {
 		await navigator.clipboard.writeText(url)
 		copyState.value = 'success'
 		setTimeout(() => { copyState.value = 'ready' }, 3000)
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (e: any) {
 		showError(e?.message ?? t('secrets', 'Failed to copy the URL to the clipboard'))
 		console.error(e)
@@ -123,14 +124,16 @@ async function copyToClipboard(url: string) {
 				<label for="expires">{{ t('secrets', 'Expires on:') }}</label>
 				<input
 					v-if="model.expires"
-					v-model="formattedDate"
+					:value="formattedDate"
 					type="date"
 					name="expires"
+					data-debug="date-is-set"
 					disabled>
 				<input
 					v-else
 					type="text"
 					name="expires"
+					data-debug="date-is-empty"
 					disabled
 					value="never">
 			</p>

@@ -1,15 +1,15 @@
 {
   "extends": "@vue/tsconfig/tsconfig.json",
   "compilerOptions": {
-//    "allowJs": false,
-//    "checkJs": true,
     "target": "ESNext",
     "module": "ESNext",
     "lib": ["webworker", "DOM"],
     "allowImportingTsExtensions": true,
-    "types": ["bun-types", "cypress"],
+    "types": ["vitest/globals"],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@shared/*": ["./shared/*"],
+      "@cli/*": ["./cli/*"]
     },
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
@@ -21,14 +21,16 @@
     "*.vue",
     "src/**/*.ts",
     "src/**/*.vue",
-    "cypress/**/*.ts",
-//    "cli/**/*.ts"
+    "shared/*.ts",
+    "shared/**/*.ts",
+    "playwright/*.ts",
+    "playwright/**/*.ts",
   ],
   "exclude": [
     "node_modules",
     "dist",
-    "tests",
-    "cypress/e2e",
-    "cypress/unit"
+    "build",
+    "cli/*.ts",
+    "cli/**/*.ts"
   ],
 }

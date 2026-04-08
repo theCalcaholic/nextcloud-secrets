@@ -174,7 +174,7 @@ class SecretService {
 			throw new UnauthorizedException();
 		}
 		$uuid = $secret->getUuid();
-//		$this->invalidate($uuid);
+		$this->invalidate($uuid);
 
 		return $secret;
 	}

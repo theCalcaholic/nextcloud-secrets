@@ -180,7 +180,6 @@ class SecretApiController extends OCSController {
 			return new DataResponse(['message' => 'Unauthorized'], Http::STATUS_UNAUTHORIZED);
 		}
         $new_secret = $this->service->create($title, $encrypted, $iv, $expires, $password, $this->userId)->jsonSerialize();
-        $this->logger->warning("Created secret: \n" . print_r($new_secret, true));
 		return new DataResponse($new_secret, Http::STATUS_CREATED);
 	}
 

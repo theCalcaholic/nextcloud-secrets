@@ -23,7 +23,9 @@ export default class CryptoLib {
 
 	// Encrypt the given string symmetrically
 	async encrypt(plain: string, key: CryptoKey, iv: Uint8Array): Promise<string> {
-		if (this.debug) { console.debug('encryptString(...)') }
+		if (this.debug) {
+			console.debug('encryptString(...)')
+		}
 		const cipherBuffer = await this.crypto.subtle.encrypt(
 			{ name: this.algorithm, iv: this.uint8arrayToArrayBuffer(iv) },
 			key,

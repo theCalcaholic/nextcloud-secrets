@@ -11,5 +11,5 @@ document.addEventListener('DOMContentLoaded', function() {
 	passwordInput.addEventListener('click', eventListener)
 	passwordInput.addEventListener('keyup', eventListener)
 	passwordInput.addEventListener('change', eventListener)
+	passwordInput.addEventListener('input', eventListener)
 })
-console.log('publicshareauth')

@@ -13,7 +13,7 @@
 Secrets now comes with a cli that can be used to automate the provisioning of secret shares: https://github.com/theCalcaholic/nextcloud-secrets/releases]]></description>
     <version>2.1.7</version>
     <licence>agpl</licence>
-    <author mail="thecalcaholic@web.de" homepage="https://github.com/theCalcaholic">Tobias Knöppler</author>
+    <author mail="tobias@knoeppler.org" homepage="https://tobias.knoeppler.org">Tobias Knöppler</author>
     <namespace>Secrets</namespace>
     <category>security</category>
     <category>social</category>

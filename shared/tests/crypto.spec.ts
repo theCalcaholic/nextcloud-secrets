@@ -32,9 +32,7 @@ const mockCrypto = {
 			let k: string
 			let v: unknown
 			for ([k, v] of Object.entries(encryptedObj.key)) {
-				// @ts-ignore: Allow access to CryptoKey properties for testing
 				if ((key as any)[k] !== v && JSON.stringify((key as any)[k]) !== JSON.stringify(v)) {
-					// @ts-ignore: Allow access to CryptoKey properties for testing
 					throw new Error(`decryption key doesn't match encryption key property '${k}': expected '${v}', got '${(key as any)[k]}'`)
 				}
 			}

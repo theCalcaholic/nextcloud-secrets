@@ -14,3 +14,4 @@ js/*hot-update.*
 js/
 .vscode/settings.json
 css/
+playwright-report/

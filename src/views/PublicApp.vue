@@ -2,23 +2,27 @@
 //  SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
 //  SPDX-License-Identifier: AGPL-3.0-or-later
 
-import type CryptoLib from '@/crypto'
+import type CryptoLib from '@shared/crypto.ts'
 
-import axios from '@nextcloud/axios'
 import { showError } from '@nextcloud/dialogs'
 import { t } from '@nextcloud/l10n'
-import { generateOcsUrl } from '@nextcloud/router'
 import { NcAppContent, NcButton, NcContent, NcEmptyContent, NcIconSvgWrapper, NcNoteCard } from '@nextcloud/vue'
+import { secretApiRetrieveSharedSecret } from '@shared/api'
+import { createClient } from '@shared/api/client'
+import { ocsHeaders } from '@shared/model'
 import { computed, inject, ref } from 'vue'
 import IconError from 'vue-material-design-icons/AlertOctagonOutline.vue'
 import IconCheckmark from 'vue-material-design-icons/Check.vue'
 import IconCopy from 'vue-material-design-icons/ContentCopy.vue'
 import IconReveal from 'vue-material-design-icons/Eye.vue'
 import IconDownload from 'vue-material-design-icons/FileDownload.vue'
+import { createClientConfig } from '@/api-client.ts'
 
 import '@nextcloud/dialogs/styles/toast.scss'
 
 type ActionState = 'ready' | 'success' | 'error'
+
+const client = createClient(createClientConfig())
 
 const cryptolib: CryptoLib = inject('cryptolib')!
 const debug: boolean = inject('debugsecrets') ?? false
@@ -57,6 +61,7 @@ async function copyToClipboard(content: string): Promise<void> {
 		await navigator.clipboard.writeText(content)
 		copyState.value = 'success'
 		setTimeout(() => { copyState.value = 'ready' }, 3000)
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (e: any) {
 		showError(e.message ?? e.toString())
 		console.error(e)
@@ -80,6 +85,7 @@ async function downloadAsFile(content: string): Promise<void> {
 		document.body.appendChild(link)
 		link.click()
 		document.body.removeChild(link)
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (e: any) {
 		showError(e.message ?? e.toString())
 		console.error(e)
@@ -96,7 +102,17 @@ async function loadSecret() {
 	try {
 		let uuid = window.location.pathname
 		uuid = uuid.substring(uuid.lastIndexOf('/') + 1)
-		const response = await axios.post(generateOcsUrl('/apps/secrets/api/v1/share'), { uuid })
+		const response = await secretApiRetrieveSharedSecret({
+			...ocsHeaders,
+			client,
+			body: {
+				uuid,
+			},
+		})
+		// const response = await axios.post(generateOcsUrl('/apps/secrets/api/v1/share'), { uuid })
+		if (response.status !== 200 || response.data?.ocs.meta.status !== 'ok') {
+			throw new Error('Failed to retrieve secret: ' + (response.error ?? response.data?.ocs.meta.message ?? 'unknown API error'))
+		}
 		const secret = response.data.ocs.data
 		const iv = cryptolib.b64StringToArrayBuffer(secret.iv)
 		if (debug) {
@@ -138,9 +154,6 @@ async function loadSecret() {
 						:wide="false"
 						:aria-label="t('secrets', 'Copy the secret\'s content to the clipboard')"
 						@click="copyToClipboard(decrypted)">
-						<!--						<template #icon>-->
-						<!--							<component :is="copyButtonIcon" />-->
-						<!--						</template>-->
 						<template #default>
 							{{ t('secrets', 'Copy to Clipboard') }}
 						</template>
@@ -151,9 +164,6 @@ async function loadSecret() {
 						:wide="false"
 						:aria-label="t('secrets', 'Download the secret\'s content as a file')"
 						@click="downloadAsFile(decrypted)">
-						<!--						<template #icon>-->
-						<!--							<component :is="downloadButtonIcon" />-->
-						<!--						</template>-->
 						<template #default>
 							{{ t('secrets', 'Download') }}
 						</template>

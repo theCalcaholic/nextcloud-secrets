@@ -1,9 +1,10 @@
 // SPDX-FileCopyrightText: Nextcloud contributors
 // SPDX-License-Identifier: AGPL-3.0-or-later
+/// <reference types="vitest/config" />
 import { createAppConfig } from '@nextcloud/vite-config'
 import { fileURLToPath } from 'node:url'
 import { join, resolve } from 'path'
-import cleanPlugin from 'vite-plugin-clean'
+import cleanPlugin from 'vite-plugin-clean-pattern'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
 
 export default createAppConfig(
@@ -13,21 +14,26 @@ export default createAppConfig(
 	},
 	{
 		createEmptyCSSEntryPoints: true,
-		extractLicenseInformation: true,
-		thirdPartyLicense: false,
-		build: {
-			cssCodeSplit: false,
+		extractLicenseInformation: {
+			validateLicenses: true,
+			includeSourceMaps: false,
 		},
 		config: {
 			build: {
 				rollupOptions: {
-				// Needed for Nextcloud >= 32. In 33 it got fixed
-				// with https://github.com/nextcloud/server/pull/56941
+					// Needed for Nextcloud >= 32. In 33 it got fixed
+					// with https://github.com/nextcloud/server/pull/56941
 					preserveEntrySignatures: 'strict',
+					external: [
+						/build\/test\/.*/,
+					],
 				},
+				cssCodeSplit: true,
 			},
 			plugins: [
-				cleanPlugin,
+				cleanPlugin({
+					targetFiles: ['js', 'css'],
+				}),
 				viteStaticCopy({
 					targets: [{
 						src: 'js-static/*.js',
@@ -42,16 +48,25 @@ export default createAppConfig(
 						find: '@',
 						replacement: fileURLToPath(new URL('./src', import.meta.url)),
 					},
+					{
+						find: '@shared',
+						replacement: fileURLToPath(new URL('./shared', import.meta.url)),
+					},
 				],
 			},
-		},
-		test: {
-			// Use the DOM environment for all tests by default
-			runtimeEnv: 'dom',
-			// Vitest configuration
-			name: 'vitest',
-			include: ['tests/unit/**/*.spec.ts', 'cypress/unit/**/*.spec.ts'],
-			exclude: ['cypress/e2e/**'],
+			test: {
+				globals: true,
+				environment: 'jsdom',
+				environmentOptions: {
+					jsdom: {
+						url: 'http://localhost',
+					},
+				},
+				include: [
+					'src/tests/**/*.spec.ts',
+					'shared/tests/**/*.spec.ts',
+				],
+			},
 		},
 	},
 )

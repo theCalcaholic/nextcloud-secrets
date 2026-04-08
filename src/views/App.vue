@@ -2,18 +2,22 @@
 // SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import type CryptoLib from '@/crypto.ts'
+import type CryptoLib from '@shared/crypto.ts'
 
 import { showError, showSuccess } from '@nextcloud/dialogs'
 import { t } from '@nextcloud/l10n'
 import { NcActionButton, NcAppContent, NcAppNavigation, NcAppNavigationCaption, NcAppNavigationItem, NcContent } from '@nextcloud/vue'
+import { createClient } from '@shared/api/client'
+import { secretApiCreateSecret, secretApiDelete, secretApiGetAll, secretApiUpdateTitle } from '@shared/api/sdk.gen.ts'
+import { ocsHeaders } from '@shared/model'
 import { computed, inject, onMounted, ref, watch } from 'vue'
 import IconPlus from 'vue-material-design-icons/Plus.vue'
 import SecretEditor from '@/components/SecretEditor.vue'
 import SecretView from '@/components/SecretView.vue'
-import { secretApiCreateSecret, secretApiDelete, secretApiGetAll, secretApiUpdateTitle } from '@/api/sdk.gen.ts'
+import { createClientConfig } from '@/api-client.ts'
 import { type Secret } from '@/model'
-import { ocsHeaders } from '@/model'
+
+const client = createClient(createClientConfig())
 
 import '@nextcloud/dialogs/styles/toast.scss'
 
@@ -44,9 +48,9 @@ const locked = computed(() => updating.value || loading.value)
  */
 onMounted(async () => {
 	try {
-		const response = await secretApiGetAll({ ...ocsHeaders })
+		const response = await secretApiGetAll({ ...ocsHeaders, client })
 		if (!response.data || response.error) {
-			console.error(response.error)
+			console.error(response)
 			showError(t('secrets', 'Could not fetch secrets') + `: ${response.error}`)
 			loading.value = false
 			return
@@ -91,7 +95,7 @@ function openSecret(secret: Secret) {
  */
 function saveSecret(secret: Secret) {
 	if (currentSecretUuid.value !== '') {
-		showError(t('secrets', "Can't save already existing secret"))
+		showError(t('secrets', 'Can\'t save already existing secret'))
 	}
 	createSecret(secret)
 }
@@ -158,7 +162,7 @@ async function createSecret(secret: Secret) {
 			encrypted: await encryptedPromise,
 			iv: cryptolib.arrayBufferToB64String(secret.iv),
 		}
-		const response = await secretApiCreateSecret({ ...ocsHeaders, body: encryptedSecret })
+		const response = await secretApiCreateSecret({ ...ocsHeaders, client, body: encryptedSecret })
 		if (!response.data || response.error) {
 			console.log(response.error)
 			showError(t('secrets', 'Could not create the secret') + `: ${response.error}`)
@@ -203,6 +207,7 @@ async function deleteSecret(secret: Secret) {
 		}
 		const response = await secretApiDelete({
 			...ocsHeaders,
+			client,
 			path: { uuid: secret.uuid },
 		})
 		if (response.error) {
@@ -230,6 +235,7 @@ async function updateSecretTitle(secret: Secret, title: string) {
 	if (secret.uuid) {
 		await secretApiUpdateTitle({
 			...ocsHeaders,
+			client,
 			path: { uuid: secret.uuid },
 			body: { title },
 		})

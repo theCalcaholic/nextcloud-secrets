@@ -1,4 +1,4 @@
-import type { CreateClientConfig } from '@/api/client.gen'
+import type { CreateClientConfig } from '@shared/api/client.gen.ts'
 
 import axios from '@nextcloud/axios'
 import { getBaseUrl } from '@nextcloud/router'
