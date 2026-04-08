@@ -38,7 +38,7 @@ class SecretServiceTest extends TestCase {
 		$this->mapper->expects($this->once())
 			->method('find')
 			->with($this->equalTo('3'))
-			->will($this->returnValue($note));
+			->willReturn($note);
 
 		// the note when updated
 		$updatedNote = Secret::fromRow(['uuid' => '3']);
@@ -46,7 +46,7 @@ class SecretServiceTest extends TestCase {
 		$this->mapper->expects($this->once())
 			->method('update')
 			->with($this->equalTo($updatedNote))
-			->will($this->returnValue($updatedNote));
+			->willReturn($updatedNote);
 
 		$result = $this->service->updateTitle('3', $this->userId, 'title');
 

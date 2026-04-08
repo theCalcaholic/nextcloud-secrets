@@ -56,7 +56,7 @@ class SecretApiControllerTest extends TestCase {
 		$this->logger = $this->getMockBuilder(LoggerInterface::class)->getMock();
 		$class = new \ReflectionClass(IAppManager::class);
 		$this->appManager = $this->getMockBuilder(IAppManager::class)
-			->setMethods(array_map(function ($m) {
+			->onlyMethods(array_map(function ($m) {
 				return $m->name;
 			}, $class->getMethods()))
 			->getMock();

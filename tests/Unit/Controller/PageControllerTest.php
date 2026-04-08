@@ -12,6 +12,7 @@ use OCP\IConfig;
 use OCP\IUser;
 use OCP\IUserSession;
 use OCP\Notification\IManager;
+use OCP\IRequest;
 
 use PHPUnit\Framework\TestCase;
 
@@ -19,18 +20,18 @@ class PageControllerTest extends TestCase {
 	private PageController $controller;
 
 	public function setUp(): void {
-		$request = $this->getMockBuilder(\OCP\IRequest::class)->getMock();
+		$request = $this->getMockBuilder(IRequest::class)->getMock();
 		$notificationManager = $this->getMockBuilder(IManager::class)->getMock();
 		$user = $this->getMockBuilder(IUser::class)->getMock();
 		$user->expects($this->any())
 			->method('getUID')
-			->will($this->returnValue('user'));
+			->willReturn('user');
 		$userSession = $this->getMockBuilder(IUserSession::class)->getMock();
 		$userSession->expects($this->any())
 			->method('getUser')
-			->will($this->returnValue($user));
+			->willReturn($user);
 		$config = $this->getMockBuilder(IConfig::class)->getMock();
-		$config->expects($this->any())->method('getSystemValueBool')->will($this->returnValue(true));
+		$config->expects($this->any())->method('getSystemValueBool')->willReturn(true);
 		$this->controller = new PageController($request, $notificationManager, $userSession, $config);
 	}
 

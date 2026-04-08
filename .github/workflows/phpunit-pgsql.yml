@@ -23,8 +23,11 @@ jobs:
 
     strategy:
       matrix:
-        php-versions: ['8.2', '8.3']
-        server-versions: ['v28.0.6', 'v28.0.2']
+        php-versions: ['8.3', '8.4', '8.5']
+        server-versions: ['stable32', 'stable33']
+        exclude:
+          - php-versions: '8.5'
+            server-versions: 'stable32'
 
     services:
       postgres:

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5b53b258648cc94f3465d76e841dcdad",
+    "content-hash": "862b56dcf20b123d6f7b7de70f4054bb",
     "packages": [],
     "packages-dev": [
         {
@@ -240,12 +240,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nextcloud-deps/ocp.git",
-                "reference": "26aac678bd92adaa91e4e5715ba11cb3f627361d"
+                "reference": "9dcd3e441a1cf86b9070cce74e33341f1bb4d164"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nextcloud-deps/ocp/zipball/26aac678bd92adaa91e4e5715ba11cb3f627361d",
-                "reference": "26aac678bd92adaa91e4e5715ba11cb3f627361d",
+                "url": "https://api.github.com/repos/nextcloud-deps/ocp/zipball/9dcd3e441a1cf86b9070cce74e33341f1bb4d164",
+                "reference": "9dcd3e441a1cf86b9070cce74e33341f1bb4d164",
                 "shasum": ""
             },
             "require": {
@@ -281,7 +281,7 @@
                 "issues": "https://github.com/nextcloud-deps/ocp/issues",
                 "source": "https://github.com/nextcloud-deps/ocp/tree/master"
             },
-            "time": "2026-03-14T01:06:50+00:00"
+            "time": "2026-04-08T01:20:22+00:00"
         },
         {
             "name": "nextcloud/openapi-extractor",
@@ -702,7 +702,7 @@
     },
     "platform-dev": {},
     "platform-overrides": {
-        "php": "8.2"
+        "php": "8.3"
     },
     "plugin-api-version": "2.9.0"
 }
