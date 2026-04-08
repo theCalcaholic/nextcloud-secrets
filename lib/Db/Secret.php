@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-// SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
+// SPDX-FileCopyrightText: Tobias Knöppler <tobias@knoeppler.org>
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 namespace OCA\Secrets\Db;
@@ -30,6 +30,7 @@ use OCP\AppFramework\Db\Entity;
  */
 
 const DATETIME_FORMAT_INTERNAL = 'Y-m-d H:i:s';
+const DATE_FORMAT_INTERNAL = 'Y-m-d';
 const DATETIME_FORMAT_ISO8601 = 'Y-m-d\TH:i:s.uP';
 class Secret extends Entity implements JsonSerializable {
 	protected string $title = '';
@@ -66,7 +67,14 @@ class Secret extends Entity implements JsonSerializable {
 			return null;
 		}
 
-		return DateTime::createFromFormat(DATETIME_FORMAT_INTERNAL, $this->expires);
+		$datetime = DateTime::createFromFormat(DATETIME_FORMAT_INTERNAL, $this->expires);
+		if (!$datetime) {
+			$datetime = DateTime::createFromFormat(DATE_FORMAT_INTERNAL, $this->expires);
+			if (!$datetime) {
+				return null;
+			}
+		}
+		return $datetime;
 	}
 
 	public function getExpiresAsISO8601(): ?string {

@@ -1,0 +1,36 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.json",
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["webworker", "DOM"],
+    "allowImportingTsExtensions": true,
+    "types": ["vitest/globals"],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@shared/*": ["./shared/*"],
+      "@cli/*": ["./cli/*"]
+    },
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "*.ts",
+    "*.vue",
+    "src/**/*.ts",
+    "src/**/*.vue",
+    "shared/*.ts",
+    "shared/**/*.ts",
+    "playwright/*.ts",
+    "playwright/**/*.ts",
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "cli/*.ts",
+    "cli/**/*.ts"
+  ],
+}

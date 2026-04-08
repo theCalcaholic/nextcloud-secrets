@@ -1,0 +1,250 @@
+# SPDX-FileCopyrightText: Nextcloud contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+name: E2E Tests
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  workflow_call:
+
+env:
+  APP_NAME: secrets
+
+jobs:
+  playwright-e2e:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        nextcloud_version: ['31', '33']
+
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout app
+        uses: actions/checkout@v4
+
+      - name: Read package.json node and npm engines version
+        uses: skjnldsv/read-package-engines-version-actions@v1.2
+        id: versions
+        with:
+          fallbackNode: '^24'
+          fallbackNpm: '^11'
+
+      - name: Set up node ${{ steps.versions.outputs.nodeVersion }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ steps.versions.outputs.nodeVersion }}
+          cache: 'npm'
+
+      - uses: oven-sh/setup-bun@v1
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          (cd cli && bun install)
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Build app
+        run: |
+          npm run build
+          (cd cli && bun build --compile cli.ts --outfile nc-secrets)
+
+      - name: Run Playwright E2E tests
+        run: |
+          export NC_VERSION="stable${{ matrix.nextcloud_version }}"
+          npm run test:e2e
+
+      - name: Run unit and cli tests
+        run: |
+          npm run test
+
+      - name: Upload HTML report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright/report
+          retention-days: 30
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-test-results
+          path: playwright/report.json
+          retention-days: 30
+
+#  playwright-e2e-chrome-sharded:
+#    runs-on: ubuntu-latest
+#    needs: playwright-e2e
+#
+#    timeout-minutes: 60
+#
+#    steps:
+#      - name: Checkout app
+#        uses: actions/checkout@v4
+#
+#      - name: Read package.json node and npm engines version
+#        uses: skjnldsv/read-package-engines-version-actions@v1.2
+#        id: versions
+#        with:
+#          fallbackNode: '^24'
+#          fallbackNpm: '^11'
+#
+#      - name: Set up node ${{ steps.versions.outputs.nodeVersion }}
+#        uses: actions/setup-node@v4
+#        with:
+#          node-version: ${{ steps.versions.outputs.nodeVersion }}
+#          cache: 'npm'
+#
+#      - name: Install dependencies
+#        run: npm ci
+#
+#      - name: Install Playwright browsers
+#        run: npx playwright install --with-deps chromium
+#
+#      - name: Build app
+#        run: npm run build
+#
+#      - name: Run Playwright E2E tests (sharded - 1/3)
+#        run: npm run test:e2e -- --shard=1/3
+#
+#      - name: Run Playwright E2E tests (sharded - 2/3)
+#        run: npm run test:e2e -- --shard=2/3
+#
+#      - name: Run Playwright E2E tests (sharded - 3/3)
+#        run: npm run test:e2e -- --shard=3/3
+
+#  playwright-e2e-firefox:
+#    runs-on: ubuntu-latest
+#    needs: playwright-e2e
+#
+#    timeout-minutes: 60
+#
+#    steps:
+#      - name: Checkout app
+#        uses: actions/checkout@v4
+#
+#      - name: Read package.json node and npm engines version
+#        uses: skjnldsv/read-package-engines-version-actions@v1.2
+#        id: versions
+#        with:
+#          fallbackNode: '^24'
+#          fallbackNpm: '^11'
+#
+#      - name: Set up node ${{ steps.versions.outputs.nodeVersion }}
+#        uses: actions/setup-node@v4
+#        with:
+#          node-version: ${{ steps.versions.outputs.nodeVersion }}
+#          cache: 'npm'
+#
+#      - name: Install dependencies
+#        run: npm ci
+#
+#      - name: Install Playwright browsers
+#        run: npx playwright install --with-deps firefox
+#
+#      - name: Build app
+#        run: npm run build
+#
+#      - name: Run Playwright E2E tests (Firefox)
+#        run: npm run test:e2e -- --project=firefox
+#
+#  playwright-e2e-safari:
+#    runs-on: macos-latest
+#    needs: playwright-e2e
+#
+#    timeout-minutes: 60
+#
+#    steps:
+#      - name: Checkout app
+#        uses: actions/checkout@v4
+#
+#      - name: Read package.json node and npm engines version
+#        uses: skjnldsv/read-package-engines-version-actions@v1.2
+#        id: versions
+#        with:
+#          fallbackNode: '^24'
+#          fallbackNpm: '^11'
+#
+#      - name: Set up node ${{ steps.versions.outputs.nodeVersion }}
+#        uses: actions/setup-node@v4
+#        with:
+#          node-version: ${{ steps.versions.outputs.nodeVersion }}
+#          cache: 'npm'
+#
+#      - name: Install dependencies
+#        run: npm ci
+#
+#      - name: Install Playwright browsers
+#        run: npx playwright install --with-deps webkit
+#
+#      - name: Build app
+#        run: npm run build
+#
+#      - name: Run Playwright E2E tests (Safari)
+#        run: npm run test:e2e -- --project=webkit
+#
+#  playwright-e2e-mobile:
+#    runs-on: ubuntu-latest
+#    needs: playwright-e2e
+#
+#    timeout-minutes: 60
+#
+#    steps:
+#      - name: Checkout app
+#        uses: actions/checkout@v4
+#
+#      - name: Read package.json node and npm engines version
+#        uses: skjnldsv/read-package-engines-version-actions@v1.2
+#        id: versions
+#        with:
+#          fallbackNode: '^24'
+#          fallbackNpm: '^11'
+#
+#      - name: Set up node ${{ steps.versions.outputs.nodeVersion }}
+#        uses: actions/setup-node@v4
+#        with:
+#          node-version: ${{ steps.versions.outputs.nodeVersion }}
+#          cache: 'npm'
+#
+#      - name: Install dependencies
+#        run: npm ci
+#
+#      - name: Install Playwright browsers
+#        run: npx playwright install --with-deps chromium
+#
+#      - name: Build app
+#        run: npm run build
+#
+#      - name: Run Playwright E2E tests (Mobile Chrome)
+#        run: npm run test:e2e -- --project="Mobile Chrome"
+#
+#      - name: Run Playwright E2E tests (Mobile Safari)
+#        run: npm run test:e2e -- --project="Mobile Safari"
+
+  playwright-e2e-summary:
+    runs-on: ubuntu-latest
+    needs:
+      - playwright-e2e
+#      - playwright-e2e-chrome-sharded
+#      - playwright-e2e-firefox
+#      - playwright-e2e-safari
+#      - playwright-e2e-mobile
+
+    if: always()
+    name: playwright-e2e-summary
+
+    steps:
+      - name: 'Report'
+        run: |
+          if [[ "${{ needs.playwright-e2e.result }}" != "success" ]]; then
+            exit 1
+          fi

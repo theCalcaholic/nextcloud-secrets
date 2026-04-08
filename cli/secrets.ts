@@ -1,178 +1,175 @@
-// SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
+// SPDX-FileCopyrightText: Tobias Knöppler <tobias@knoeppler.org>
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import console from 'node:console'
-import fs from 'fs'
+import type { StringSource } from '@/model'
+
+import { createClient, createConfig } from '@shared/api/client'
+import {
+	secretApiCreateSecret,
+	secretApiGetVersion,
+	secretApiRetrieveSharedSecret,
+} from '@shared/api/sdk.gen.ts'
+import CryptoLib from '@shared/crypto.ts'
+import { ocsHeaders } from '@shared/model'
 import { Buffer } from 'node:buffer'
-import { webcrypto } from 'node:crypto'
-import http, { RequestOptions } from 'http'
-import CryptoLib from './crypto.import.js'
-import { CommandExecutionError } from './CommandExecutionError.ts'
-import { prompt } from './lib.ts'
-import process from "process";
-import * as url from "node:url";
-import * as https from "node:https";
+import console from 'node:console'
+import { CommandExecutionError } from '@/CommandExecutionError.ts'
+
+/**
+ *
+ * @param baseURL
+ * @param auth
+ * @param auth.user
+ * @param auth.password
+ */
+function createOcsApiClient(baseURL: string, auth?: { user: string, password: string }) {
+	const cfg = createConfig({
+		headers: {
+			'OCS-APIRequest': true,
+		},
+		baseURL,
+	})
+	const client = createClient(cfg)
+	if (auth) {
+		client.instance.interceptors.request.use((config) => {
+			console.log('setting up basic auth ...')
+			console.log('Authorization: ', 'Basic ' + Buffer.from(`${auth.user}:${auth.password}`).toString('base64'))
+			config.headers.set('Authorization', 'Basic ' + Buffer.from(`${auth.user}:${auth.password}`).toString('base64'))
+			return config
+		})
+	}
+	return client
+}
 
 const btoa = (str: string) => Buffer.from(str, 'binary').toString('base64')
 const atob = (str: string) => Buffer.from(str, 'base64').toString('binary')
 
-const cryptolib = new CryptoLib(webcrypto, { atob, btoa }, false)
+const cryptolib = new CryptoLib(globalThis.crypto, { atob, btoa }, false)
 
-/**
- * Parse global options
- *
- * @param options An object containing the global options
- */
-function handleGlobalOptions(options: {insecure: boolean} & any) {
-	if (options.insecure) {
-		process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+type AxiosRequestResult = {
+	status?: number
+	error?: unknown | {
+		ocs: {
+			meta: {
+				message?: string
+			}
+		}
+	}
+	data?: {
+		ocs: {
+			meta: {
+				message?: string
+				status: string
+				statuscode: number
+			}
+		}
 	}
 }
+
+/**
+ *
+ * @param response
+ * @param expectedStatusCode
+ */
+function handleApiError(response: AxiosRequestResult, expectedStatusCode: [number] | [number, number] = [200]) {
+	// @ts-expect-error TODO: better explanation
+	const msg = response.error?.ocs?.meta.message ?? response.data?.ocs.meta.message ?? 'unexpected API error'
+	const statusMin = expectedStatusCode[0]
+	const statusMax = expectedStatusCode.length === 1 ? expectedStatusCode[0] : expectedStatusCode[1]
+	if (response.status === undefined || response.status < statusMin || response.status > statusMax) {
+		throw new CommandExecutionError(`Received status code: ${response.status}, msg: ${msg}`)
+	}
+	if (response.data?.ocs.meta.status !== 'ok') {
+		console.error(msg)
+		throw new CommandExecutionError(`Received ocs status ${response.data?.ocs.meta.status} (${response.data?.ocs.meta.statuscode}), msg: ${msg}`)
+	}
+}
+
 /**
  * Create a new secret
  *
- * @param ncUrl
- * @param ncUser
- * @param secretFile
- * @param options
- * @param options.passFile
- * @param options.expire
- * @param options.password
- * @param options.title
- * @param options.insecure
+ * @param ncUrl The base URL of the nextcloud instance
+ * @param ncUser The nextcloud user for authentication
+ * @param ncPassSource A StringSource for the nextcloud password (for use in basic auth)
+ * @param secretSource A StringSource for the secret content
+ * @param options Optional parameters
+ * @param options.expire A number of days after which the secret should expire
+ * @param options.protect If given, protect the secret with this password
+ * @param options.title A title for the secret
  */
-export async function createSecret(ncUrl: string, ncUser: string, secretFile: string | undefined, options: {
-	passFile: string | undefined,
-	expire: number | undefined,
-	protect: string | undefined,
-	title: string | undefined,
-	insecure: boolean | undefined
-}) {
-	handleGlobalOptions(options)
+export async function createSecret(ncUrl: string, ncUser: string, ncPassSource: StringSource, secretSource: StringSource, options: {
+	expire?: number
+	protect?: string
+	title?: string
+}): Promise<{
+	title: string
+	decryptionKey: string
+	expires: Date
+	shareUrl: string
+	ocsUrl: string
+}> {
 	await getApiInfo(ncUrl)
 
-	let ncPassword: string
-	let plaintext: string
+	const ncPassword = await ncPassSource.read()
 
-	if (options.passFile !== undefined) {
-		ncPassword = fs.readFileSync(options.passFile, 'utf-8')
-	} else {
-		ncPassword = await prompt('Enter Nextcloud passwort/token:')
-	}
-
-	if (secretFile === undefined) {
-		plaintext = await prompt('Enter secret to encrypt>')
-	} else {
-		plaintext = fs.readFileSync(secretFile, 'utf-8')
-	}
+	const plaintext = await secretSource.read()
 
 	const privKey = await cryptolib.generateCryptoKey()
-	const iv = await cryptolib.generateIv()
+	const iv = cryptolib.generateIv()
 	const encrypted = await cryptolib.encrypt(plaintext, privKey, iv)
 
 	const expiryDate = new Date()
 	expiryDate.setDate((new Date()).getDate() + (options.expire ?? 7))
-	const postData = JSON.stringify({
-		title: options.title ?? 'Generated with secrets-cli',
-		password: options.protect,
-		expires: expiryDate,
-		encrypted,
-		iv: cryptolib.arrayBufferToB64String(iv),
-	})
-
-	const rOptions: RequestOptions = {
-		method: 'POST',
-		auth: `${ncUser}:${ncPassword}`,
-		headers: {
-			'OCS-APIRequest': 'true',
-			'Content-Type': 'application/json',
-			'Content-Length': Buffer.byteLength(postData),
+	const response = await secretApiCreateSecret({
+		...ocsHeaders,
+		client: createOcsApiClient(ncUrl, { user: ncUser, password: ncPassword }),
+		body: {
+			title: options.title ?? 'Generated with secrets-cli',
+			password: options.protect,
+			expires: expiryDate.toISOString(),
+			encrypted,
+			iv: cryptolib.arrayBufferToB64String(iv),
 		},
-	}
-
-	const result = await new Promise<string>((resolve, reject) => {
-
-		const req = http_client(ncUrl).request(
-			`${ncUrl}/ocs/v2.php/apps/secrets/api/v1/secrets?format=json`,
-			rOptions,
-			(response) => {
-				response.setEncoding('utf8')
-				const chunks: string[] = []
-				response.on('data', (chunk) => {
-					chunks.push(chunk)
-				})
-				response.on('end', () => {
-					resolve(chunks.join(''))
-				})
-			})
-
-		req.on('error', (e) => {
-			console.error(e.message)
-			reject(e)
-		})
-
-		req.write(postData)
-		req.end()
 	})
+	handleApiError(response, [201])
 
-	let resultData: any
-	try {
-		resultData = JSON.parse(result)
-	} catch (e) {
-		if (e instanceof SyntaxError) {
-			console.error('Could not parse response ', result)
-		}
-		throw e
+	const data = response.data?.ocs.data
+	if (!data) {
+		throw new CommandExecutionError(`Received empty response with message: ${response.error ?? response.data.ocs.meta.message ?? 'no message'}`)
 	}
-
-	if (resultData.ocs.meta.status !== 'ok') {
-		console.error(resultData)
-		throw new CommandExecutionError(resultData.ocs.meta.message)
-	}
-
-	const secret = resultData.ocs.data
-	const keyBuf = await webcrypto.subtle.exportKey('raw', privKey)
+	const keyBuf = await globalThis.crypto.subtle.exportKey('raw', privKey)
 	const keyBufB64 = cryptolib.arrayBufferToB64String(new Uint8Array(keyBuf))
-	console.log(JSON.stringify(
-		{
-			title: secret.title,
-			decryptionKey: keyBufB64,
-			expires: secret.expires,
-			shareUrl: `${ncUrl}/index.php/apps/secrets/share/${secret.uuid}#${keyBufB64}`,
-			ocsUrl: `${ncUrl}/ocs/v2.php/apps/secrets/api/v1/share/${secret.uuid}`,
-		},
-		null,
-		2))
-
+	return {
+		title: data.title,
+		decryptionKey: keyBufB64,
+		expires: new Date(data.expires),
+		shareUrl: `${ncUrl}/index.php/apps/secrets/share/${data.uuid}#${keyBufB64}`,
+		ocsUrl: `${ncUrl}/ocs/v2.php/apps/secrets/api/v1/share/${data.uuid}`,
+	}
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function
 /**
  *
- * @param shareUrlStr
- * @param options
- * @param options.decryptionKey
- * @param options.password
- * @param options.insecure
+ * @param shareUrlStr The URL for secret retrieval (either an ocs URL or a share link)
+ * @param options Optional parameters
+ * @param options.key The decryption key for the secret (required if not contained in shareUrlStr)
+ * @param options.password Required to retrieve password protected secrets
  */
 export async function retrieveSecret(shareUrlStr: string, options: {
-	key: string | undefined,
-	password: string | undefined,
-	insecure: boolean | undefined
+	key?: string
+	password?: string
 }) {
-	handleGlobalOptions(options)
+	const ocsPattern = new RegExp('^/ocs/v\\d+\\.php/apps/secrets/api/v\\d+/share/(?<sId>.*)$')
+	const sharePattern = new RegExp('^/index\\.php/apps/secrets/(share|show)/(?<sId>.*)$')
 
-	let ocs_pattern = new RegExp(`^/ocs/v\\d+\\.php/apps/secrets/api/v\\d+/share/(?<sId>.*)$`)
-	let sharePattern = new RegExp(`^/index\\.php/apps/secrets/(share|show)/(?<sId>.*)$`)
-
-	let shareUrl = new URL(shareUrlStr)
+	const shareUrl = new URL(shareUrlStr)
 
 	let secretId: string
-	const {sId} = ocs_pattern.exec(shareUrl.pathname)?.groups ?? {}
+	const { sId } = ocsPattern.exec(shareUrl.pathname)?.groups ?? {}
 	if (sId === undefined) {
-		const {sId} = sharePattern.exec(shareUrl.pathname)?.groups ?? {}
+		const { sId } = sharePattern.exec(shareUrl.pathname)?.groups ?? {}
 		if (sId === undefined) {
-			throw new CommandExecutionError(`Failed to parse secretId from url`)
+			throw new CommandExecutionError('Failed to parse secretId from url')
 		}
 		secretId = sId
 	} else {
@@ -180,7 +177,7 @@ export async function retrieveSecret(shareUrlStr: string, options: {
 	}
 
 	const secretKey = options.key ?? shareUrl.hash.substring(1)
-	if (!secretKey || secretKey.length == 0) {
+	if (!secretKey || secretKey.length === 0) {
 		throw new CommandExecutionError(`Missing secret decryption key: (got '${secretKey}')`)
 	}
 
@@ -188,120 +185,50 @@ export async function retrieveSecret(shareUrlStr: string, options: {
 
 	await getApiInfo(baseUrl)
 
-	const postData = JSON.stringify({
-		uuid: secretId,
-		password: options.password || null,
-	})
-	const reqOptions: RequestOptions = {
-		method: 'POST',
-		headers: {
-			'OCS-APIRequest': 'true',
-			'Content-Type': 'application/json',
-			'Content-Length': Buffer.byteLength(postData),
+	const response = await secretApiRetrieveSharedSecret({
+		client: createOcsApiClient(baseUrl),
+		...ocsHeaders,
+		body: {
+			uuid: secretId,
+			password: options.password ?? undefined,
 		},
-	}
-
-	const result = await new Promise<string>((resolve, reject) => {
-		const req = http_client(shareUrlStr).request(
-			`${baseUrl}/ocs/v2.php/apps/secrets/api/v1/share?format=json`,
-			reqOptions,
-			(response) => {
-				response.setEncoding('utf8')
-				const chunks: string[] = []
-				response.on('data', (chunk) => {
-					chunks.push(chunk)
-				})
-				response.on('end', () => {
-					resolve(chunks.join(''))
-				})
-			})
-
-		req.on('error', (e) => {
-			console.error(e.message)
-			reject(e)
-		})
-
-		req.write(postData)
-		req.end()
 	})
+	handleApiError(response)
 
-	const resultData = JSON.parse(result)
-
-	if (resultData.ocs.meta.status !== 'ok') {
-		throw new CommandExecutionError(resultData?.ocs?.meta?.message + '\n' + resultData?.ocs?.data?.message)
+	const data = response.data?.ocs.data
+	if (!data) {
+		throw new CommandExecutionError(`Received empty response with message: ${response.error ?? response.data.ocs.meta.message ?? 'no message'}`)
 	}
+	const iv = cryptolib.b64StringToArrayBuffer(data.iv)
+	const key = await cryptolib.importDecryptionKey(secretKey)
 
-	const secret = resultData.ocs.data
-	const iv = cryptolib.b64StringToArrayBuffer(secret.iv)
-	const key = await cryptolib.importDecryptionKey(secretKey, iv)
-
-	console.log(await cryptolib.decrypt(secret.encrypted, key, iv))
-
-}
-
-function http_client(url: string): any {
-
-	let http_client = http
-	if (url.startsWith("https:")) {
-		http_client = https
-	}
-
-	return http_client
+	return await cryptolib.decrypt(data.encrypted, key, iv)
 }
 
 /**
- * @param ncUrl
+ * @param ncUrl The base URL of the nextcloud instance
  */
-async function getApiInfo(ncUrl: string): Promise<string> {
-
-	const result = await new Promise<string>((resolve, reject) => {
-		const req = http_client(ncUrl).request(`${ncUrl}/ocs/v2.php/apps/secrets/version?format=json`,
-			{
-				method: 'GET',
-				headers: {
-					'OCS-APIRequest': 'true',
-					'Content-Type': 'application/json',
-					'Content-Length': 0,
-				},
-			},
-			(response) => {
-				response.setEncoding('utf8')
-				const chunks: string[] = []
-				response.on('data', (chunk) => {
-					chunks.push(chunk)
-				})
-				response.on('end', () => {
-					resolve(chunks.join(''))
-				})
-			})
-		req.on('error', (e) => {
-			console.error(e.message)
-			reject(e)
-		})
-		req.end()
+export async function getApiInfo(ncUrl: string): Promise<string> {
+	const response = await secretApiGetVersion({
+		...ocsHeaders,
+		client: createOcsApiClient(ncUrl),
 	})
-
-	let resultData: string
-	try {
-		resultData = JSON.parse(result)
-	} catch (e) {
-		throw new CommandExecutionError(`Failed to retrieve secrets API information. Is Nextcloud Secrets installed and has version >= 2? (error was: ${e})`)
-	}
-	if (resultData.ocs.meta.status !== 'ok') {
-		throw new CommandExecutionError(resultData?.ocs?.meta?.message + '\n' + resultData?.ocs?.data?.message)
+	handleApiError(response)
+	const data = response.data?.ocs.data
+	if (!data) {
+		throw new CommandExecutionError(`Received empty response with message: ${response.error ?? response.data?.ocs.meta.message ?? 'no message'}`)
 	}
 
-	return resultData.ocs.data.version
+	return data.version
 }
 
 /**
  *
- * @param ncUrl
- * @param options
- * @param options.insecure
+ * @param ncUrl THe base URL of the nextcloud instance
+ * @param options Optional parameters
+ * @param options.silent If true, don't print the api version (used for general connectivity/availability check)
  */
-export async function showApiInfo(ncUrl: string, options: {silent: boolean | undefined, insecure: boolean | undefined}) {
-	handleGlobalOptions(options)
+export async function showApiInfo(ncUrl: string, options: { silent: boolean | undefined }) {
 	const version = await getApiInfo(ncUrl)
 	if (!options.silent) {
 		console.log(`Secrets API version ${version}`)

@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
+# SPDX-FileCopyrightText: Tobias Knöppler <tobias@knoeppler.org>
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 name: Release
@@ -10,16 +10,42 @@ on:
       - "test*"
 
 jobs:
-  integration-test:
-    uses: ./.github/workflows/integration-tests.yml
+  e2e-test:
+    uses: ./.github/workflows/e2e-tests.yml
+  lint-eslint:
+    uses: ./.github/workflows/lint-eslint.yml
+  lint-info-xml:
+    uses: ./.github/workflows/lint-info-xml.yml
+  lint-php:
+    uses: ./.github/workflows/lint-php.yml
+  lint-php-cs:
+    uses: ./.github/workflows/lint-php-cs.yml
+  phpunit-mysql:
+    uses: ./.github/workflows/phpunit-mysql.yml
+  phpunit-pgsql:
+    uses: ./.github/workflows/phpunit-pgsql.yml
+  phpunit-sqlite:
+    uses: ./.github/workflows/phpunit-sqlite.yml
+  reuse:
+    uses: ./.github/workflows/reuse.yml
   release:
-    needs: integration-test
+    needs:
+      - e2e-test
+      - lint-eslint
+      - lint-info-xml
+      - lint-php
+      - lint-php-cs
+      - phpunit-mysql
+      - phpunit-pgsql
+      - phpunit-sqlite
+      - reuse
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
       with:
         path: secrets
     - name: Verify correct versions
+      if: ${{ !startsWith( github.ref, 'refs/tags/test') }}
       working-directory: ./secrets
       run: |
         set -eu
@@ -63,34 +89,29 @@ jobs:
       working-directory: ./secrets
       run: |
         npm install --dev
-        make build
+        make build appstore
     - name: Build cli
       working-directory: ./secrets/cli
       run: |
-        cp ../src/crypto.js ./crypto.import.js
         bun install --dev
         bun build --compile ./cli.ts --outfile nc-secrets
         tar -caf nc-secrets-cli.tar.gz nc-secrets
+        mv nc-secrets-cli.tar.gz ../build/artifacts/
     - name: "Create release"
+      working-directory: ./secrets/build/artifacts/appstore
       run: |
         set -x
-        make build
-        mkdir secrets
-        mv appinfo img js lib l10n LICENSES templates LICENSE.md secrets/
-        tar -caf secrets.tar.gz secrets
         sha256sum secrets.tar.gz > secrets.sha256
         tag_name="${GITHUB_REF##*/}"
         description="$(git tag -n10 --format="%(contents)" test-release-with-cli-1)"
         gh release create --draft -t "${tag_name?}" -F - "${tag_name?}" <<EOF
         ${description}
         EOF
-        mv cli/nc-secrets-cli.tar.gz ./
+        mv ../nc-secrets-cli.tar.gz ./
         for asset in secrets.tar.gz secrets.sha256 nc-secrets-cli.tar.gz
         do
           gh release upload "${tag_name?}" "${asset?}"
         done
-
-      working-directory: ./secrets
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

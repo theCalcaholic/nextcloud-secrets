@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-// SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
+// SPDX-FileCopyrightText: Tobias Knöppler <tobias@knoeppler.org>
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 namespace OCA\Secrets\Controller;
@@ -103,7 +103,7 @@ class SecretShareController extends AuthPublicShareController {
 	 */
 	public function showAuthenticate(): TemplateResponse {
 		return new TemplateResponse('secrets', 'publicshareauth',
-			['debug' => $this->debug], 'guest');
+			['debug' => $this->debug], TemplateResponse::RENDER_AS_GUEST);
 	}
 
 	/**
@@ -116,7 +116,7 @@ class SecretShareController extends AuthPublicShareController {
 	 *
 	 */
 	protected function showAuthFailed(): TemplateResponse {
-		return new TemplateResponse('secrets', 'publicshareauth', ['wrongpw' => true, 'debug' => $this->debug], 'guest');
+		return new TemplateResponse('secrets', 'publicshareauth', ['wrongpw' => true, 'debug' => $this->debug], TemplateResponse::RENDER_AS_GUEST);
 	}
 
 	/**
@@ -128,7 +128,7 @@ class SecretShareController extends AuthPublicShareController {
 	 * @since 24.0.0
 	 */
 	protected function showIdentificationResult(bool $success): TemplateResponse {
-		return new TemplateResponse('secrets', 'publicshareauth', ['identityOk' => $success, 'debug' => $this->debug], 'guest');
+		return new TemplateResponse('secrets', 'publicshareauth', ['identityOk' => $success, 'debug' => $this->debug], TemplateResponse::RENDER_AS_GUEST);
 	}
 
 	/**

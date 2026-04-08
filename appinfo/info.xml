@@ -2,7 +2,7 @@
 <info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
     <!--
-    SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
+    SPDX-FileCopyrightText: Tobias Knöppler <tobias@knoeppler.org>
     SPDX-License-Identifier: CC0-1.0
     -->
     <id>secrets</id>
@@ -13,7 +13,7 @@
 Secrets now comes with a cli that can be used to automate the provisioning of secret shares: https://github.com/theCalcaholic/nextcloud-secrets/releases]]></description>
     <version>2.1.7</version>
     <licence>agpl</licence>
-    <author mail="thecalcaholic@web.de" homepage="https://github.com/theCalcaholic">Tobias Knöppler</author>
+    <author mail="tobias@knoeppler.org" homepage="https://tobias.knoeppler.org">Tobias Knöppler</author>
     <namespace>Secrets</namespace>
     <category>security</category>
     <category>social</category>

@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-// SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
+// SPDX-FileCopyrightText: Tobias Knöppler <tobias@knoeppler.org>
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 namespace OCA\Secrets\Controller;
@@ -37,6 +37,7 @@ class PageController extends Controller {
 	 */
 	public function index(): TemplateResponse {
 		Util::addScript(Application::APP_ID, 'secrets-main');
+		Util::addStyle(Application::APP_ID, 'secrets-style');
 
 		return new TemplateResponse(Application::APP_ID, 'main', ['debug' => $this->debug]);
 	}

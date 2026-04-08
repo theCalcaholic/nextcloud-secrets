@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-// SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
+// SPDX-FileCopyrightText: Tobias Knöppler <tobias@knoeppler.org>
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 namespace OCA\Secrets\Service;
@@ -85,7 +85,7 @@ class SecretService {
 		$secret->setIv($iv);
 		$secret->setUserId($userId);
 		$secret->setExpiresFromISO8601String($expires);
-		$secret->setPwHash($password ? password_hash($password . $secret->getUuid(), PASSWORD_ARGON2ID) : null);
+		$secret->setPwHash($password ? password_hash($password . $uuid, PASSWORD_ARGON2ID) : null);
 		return $this->mapper->insert($secret);
 	}
 

@@ -1,50 +1,74 @@
 {
   "name": "secrets",
-  "description": "Securely share data with anyone",
   "version": "2.1.7",
-  "author": "Tobias Knöppler <thecalcaholic@web.de>",
-  "contributors": [],
+  "private": true,
+  "description": "Securely share data with anyone",
   "bugs": {
     "url": "https://github.com/theCalcaholic/nextcloud-secrets"
   },
-  "license": "agpl",
-  "private": true,
+  "license": "AGPL-3.0-or-later",
+  "author": "Tobias Knöppler <tobias@knoeppler.org>",
+  "contributors": [],
+  "type": "module",
   "scripts": {
-    "build": "webpack --node-env production --progress",
-    "dev": "webpack --node-env development --progress",
-    "watch": "webpack --node-env development --progress --watch",
-    "serve": "webpack --node-env development serve --progress",
-    "peeky:open": "peeky open",
-    "peeky:test": "peeky run",
-    "lint": "eslint --ext .js,.vue src",
-    "lint:fix": "eslint --ext .js,.vue src --fix",
+    "build": "npm run generate-api-types && vue-tsc && vite build --mode production",
+    "dev": "vite build --mode development",
+    "generate-api-types": "openapi-ts",
+    "lint": "vue-tsc && eslint",
+    "lint:fix": "eslint --fix",
+    "serve": "vite --mode development",
+    "start:nextcloud": "node playwright/start-nextcloud-server.ts",
     "stylelint": "stylelint css/*.css css/*.scss src/**/*.scss src/**/*.vue",
-    "stylelint:fix": "stylelint css/*.css css/*.scss src/**/*.scss src/**/*.vue --fix"
-  },
-  "dependencies": {
-    "@nextcloud/axios": "^2.5.0",
-    "@nextcloud/dialogs": "^3.1.4",
-    "@nextcloud/router": "^2.0.0",
-    "@nextcloud/vue": "^8.14.0",
-    "@peculiar/webcrypto": "^1.4.6",
-    "vue": "^2.7.0",
-    "vue-material-design-icons": "^5.3.0"
+    "stylelint:fix": "stylelint css/*.css css/*.scss src/**/*.scss src/**/*.vue --fix",
+    "test": "vitest --config vite.config.ts run && cd cli && bun run test",
+    "test:crypto": "vitest --config vite.config.ts run shared/tests/crypto.spec.ts",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:unit": "vitest --config vite.config.ts run",
+    "watch": "vite build --mode development --watch"
   },
   "browserslist": [
     "extends @nextcloud/browserslist-config"
   ],
-  "engines": {
-    "node": "^16.0.0",
-    "npm": "^7.0.0 || ^8.0.0"
+  "dependencies": {
+    "@nextcloud/axios": "^2.5.2",
+    "@nextcloud/dialogs": "^3.2.0",
+    "@nextcloud/l10n": "^3.4.1",
+    "@nextcloud/router": "^3.1.0",
+    "@nextcloud/vue": "^9.6.0",
+    "vue": "^3.5.31",
+    "vue-material-design-icons": "^5.3.1"
   },
   "devDependencies": {
-    "@nextcloud/babel-config": "^1.0.0",
-    "@nextcloud/browserslist-config": "^2.2.0",
-    "@nextcloud/eslint-config": "^8.0.0",
-    "@nextcloud/stylelint-config": "^2.1.2",
-    "@nextcloud/webpack-vue-config": "^6.0.1",
-    "@peeky/server": "^0.14.0",
-    "@peeky/test": "^0.14.1",
-    "bun-types": "latest"
+    "@eslint/compat": "^2.0.3",
+    "@hey-api/openapi-ts": "^0.94.5",
+    "@nextcloud/auth": "^2.5.3",
+    "@nextcloud/babel-config": "^1.3.0",
+    "@nextcloud/browserslist-config": "^3.1.2",
+    "@nextcloud/e2e-test-server": "^0.4.0",
+    "@nextcloud/eslint-config": "^9.0.0-rc.8",
+    "@nextcloud/initial-state": "^3.0.0",
+    "@nextcloud/sharing": "^0.4.0",
+    "@nextcloud/stylelint-config": "^3.2.1",
+    "@nextcloud/vite-config": "^2.5.2",
+    "@peculiar/webcrypto": "^1.5.0",
+    "@playwright/test": "^1.49.0",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^25.5.2",
+    "@vue/tsconfig": "^0.9.1",
+    "bun-types": "latest",
+    "eslint": "^9.39.4",
+    "jsdom": "^29.0.1",
+    "stylelint-config-recommended-vue": "^1.6.1",
+    "typescript": "^5.0.2",
+    "vite": "^7.1.10",
+    "vite-plugin-clean-pattern": "^1.0.6",
+    "vite-plugin-static-copy": "^4.0.0",
+    "vitest": "^4.1.2",
+    "vue-tsc": "^3.2.6"
+  },
+  "engines": {
+    "node": "^24.0.0",
+    "npm": "^11.3.0"
   }
 }

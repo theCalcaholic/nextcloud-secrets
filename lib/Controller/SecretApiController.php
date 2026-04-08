@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-// SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
+// SPDX-FileCopyrightText: Tobias Knöppler <tobias@knoeppler.org>
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 namespace OCA\Secrets\Controller;
@@ -179,7 +179,8 @@ class SecretApiController extends OCSController {
 		if (!$this->userId) {
 			return new DataResponse(['message' => 'Unauthorized'], Http::STATUS_UNAUTHORIZED);
 		}
-		return new DataResponse($this->service->create($title, $encrypted, $iv, $expires, $password, $this->userId)->jsonSerialize(), Http::STATUS_CREATED);
+		$new_secret = $this->service->create($title, $encrypted, $iv, $expires, $password, $this->userId)->jsonSerialize();
+		return new DataResponse($new_secret, Http::STATUS_CREATED);
 	}
 
 	/**
