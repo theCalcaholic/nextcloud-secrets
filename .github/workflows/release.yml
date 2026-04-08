@@ -63,7 +63,7 @@ jobs:
       working-directory: ./secrets
       run: |
         npm install --dev
-        make build
+        make build appstore
     - name: Build cli
       working-directory: ./secrets/cli
       run: |
@@ -71,26 +71,26 @@ jobs:
         bun install --dev
         bun build --compile ./cli.ts --outfile nc-secrets
         tar -caf nc-secrets-cli.tar.gz nc-secrets
+        mv nc-secrets-cli.tar.gz ../build/artifacts/
     - name: "Create release"
+      working-directory: ./secrets/build/artifacts/appstore
       run: |
         set -x
-        make build
-        mkdir secrets
-        mv appinfo img js lib l10n LICENSES templates LICENSE.md secrets/
-        tar -caf secrets.tar.gz secrets
+        #make build appstore
+        #mkdir secrets
+        #mv appinfo img js lib l10n LICENSES templates LICENSE.md secrets/
+        #tar -caf secrets.tar.gz secrets
         sha256sum secrets.tar.gz > secrets.sha256
         tag_name="${GITHUB_REF##*/}"
         description="$(git tag -n10 --format="%(contents)" test-release-with-cli-1)"
         gh release create --draft -t "${tag_name?}" -F - "${tag_name?}" <<EOF
         ${description}
         EOF
-        mv cli/nc-secrets-cli.tar.gz ./
+        mv ../nc-secrets-cli.tar.gz ./
         for asset in secrets.tar.gz secrets.sha256 nc-secrets-cli.tar.gz
         do
           gh release upload "${tag_name?}" "${asset?}"
         done
-
-      working-directory: ./secrets
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

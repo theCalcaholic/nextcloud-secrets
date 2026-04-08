@@ -1,22 +1,37 @@
 {
   "compilerOptions": {
     "lib": ["ESNext"],
-    "module": "esnext",
-    "target": "esnext",
+    "module": "ESNext",
+    "target": "ESNext",
     "moduleResolution": "bundler",
-    "moduleDetection": "force",
     "allowImportingTsExtensions": true,
     "noEmit": true,
     "composite": true,
     "strict": true,
     "downlevelIteration": true,
     "skipLibCheck": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
     "jsx": "react-jsx",
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "allowJs": true,
     "types": [
-      "bun-types" // add Bun global
-    ]
-  }
+      "bun-types", // add Bun global
+      "node",
+      "vitest/globals"
+    ],
+    "paths": {
+      "@shared/*": ["../shared/*"],
+      "@/*": ["./*"]
+    }
+  },
+  "include": [
+    "*.ts",
+    "**/*.ts",
+    "tests/*.ts",
+    "../shared/*.ts",
+    "../shared/**/*.ts"
+  ],
+  "exclude": ["node_modules"]
 }

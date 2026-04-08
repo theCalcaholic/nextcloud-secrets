@@ -130,31 +130,17 @@ appstore:
 	rm -rf $(appstore_build_directory)
 	mkdir -p $(appstore_build_directory)
 	tar \
-	--exclude-vcs \
-	--exclude="../$(app_name)/build" \
-	--exclude="../$(app_name)/tests" \
-	--exclude="../$(app_name)/Makefile" \
-	--exclude="../$(app_name)/*.log" \
-	--exclude="../$(app_name)/phpunit*xml" \
-	--exclude="../$(app_name)/composer.*" \
-	--exclude="../$(app_name)/vendor-bin" \
-	--exclude="../$(app_name)/js/node_modules" \
-	--exclude="../$(app_name)/js/tests" \
-	--exclude="../$(app_name)/js/test" \
-	--exclude="../$(app_name)/js/*.log" \
-	--exclude="../$(app_name)/js/package.json" \
-	--exclude="../$(app_name)/js/bower.json" \
-	--exclude="../$(app_name)/js/karma.*" \
-	--exclude="../$(app_name)/js/protractor.*" \
-	--exclude="../$(app_name)/package.json" \
-	--exclude="../$(app_name)/bower.json" \
-	--exclude="../$(app_name)/karma.*" \
-	--exclude="../$(app_name)/protractor\.*" \
-	--exclude="../$(app_name)/.*" \
-	--exclude="../$(app_name)/js/.*" \
-	--exclude="../$(app_name)/cli" \
-	-cvzf $(appstore_package_name).tar.gz \
-	../$(app_name)
+		--exclude-vcs \
+		--exclude="../$(app_name)/js/*.map" \
+		-cvzf $(appstore_package_name).tar.gz \
+		../$(app_name)/appinfo \
+		../$(app_name)/img \
+		../$(app_name)/js \
+		../$(app_name)/lib \
+		../$(app_name)/l10n \
+		../$(app_name)/LICENSES \
+		../$(app_name)/templates \
+		../$(app_name)/LICENSE.md
 
 .PHONY: test
 test: composer

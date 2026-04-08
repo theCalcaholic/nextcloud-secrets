@@ -4,28 +4,6 @@
 // import readline from 'node:readline'
 import process from 'process'
 
-// readline breaks in noninteractive environments, so we're building our own prompt function
-//
-// const rl = readline.createInterface({
-// 	input: process.stdin,
-// 	output: process.stdout,
-// 	terminal: false,
-// })
-// export const prompt = (query: string) => new Promise<string>((resolve) => {
-// 	console.log("prompting...")
-//
-// 	if (!process.stdin.isTTY) {
-// 		process.stdin._read()
-// 	}
-//
-// 	return rl.question(query,
-// 			(answer) => {
-// 				rl.close()
-// 				resolve(answer)
-// 			})
-// 	}
-// )
-
 let promptBuf = ''
 
 /**

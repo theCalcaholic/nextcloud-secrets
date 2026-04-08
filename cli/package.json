@@ -5,13 +5,18 @@
   "author": "Tobias Knöppler <thecalcaholic@web.de>",
   "type": "module",
   "module": "cli.ts",
+  "scripts": {
+    "test": "vitest --run --config vite.config.test.ts"
+  },
   "dependencies": {
     "@nextcloud/axios": "^1.11.0",
     "@nextcloud/router": "^2.2.1",
+    "axios": "1.14.0",
     "commander": "^11.1.0"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "vitest": "^4.1.2"
   },
   "peerDependencies": {
     "typescript": "^5.2.2"
