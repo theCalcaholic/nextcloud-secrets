@@ -8,10 +8,6 @@ on:
   push:
     branches:
       - main
-      - stable*
-    tags:
-      - "v*"
-      - "test*"
   workflow_dispatch:
   workflow_call:
 
