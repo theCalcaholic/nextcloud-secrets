@@ -9,10 +9,10 @@ namespace OCA\Secrets\Tests\Unit\Controller;
 use OCA\Secrets\Controller\PageController;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IConfig;
+use OCP\IRequest;
 use OCP\IUser;
 use OCP\IUserSession;
 use OCP\Notification\IManager;
-use OCP\IRequest;
 
 use PHPUnit\Framework\TestCase;
 
