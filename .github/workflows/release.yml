@@ -45,6 +45,7 @@ jobs:
       with:
         path: secrets
     - name: Verify correct versions
+      if: ${{ !startsWith( github.ref, 'refs/tags/test') }}
       working-directory: ./secrets
       run: |
         set -eu
@@ -92,7 +93,6 @@ jobs:
     - name: Build cli
       working-directory: ./secrets/cli
       run: |
-        cp ../src/crypto.js ./crypto.import.js
         bun install --dev
         bun build --compile ./cli.ts --outfile nc-secrets
         tar -caf nc-secrets-cli.tar.gz nc-secrets
@@ -101,10 +101,6 @@ jobs:
       working-directory: ./secrets/build/artifacts/appstore
       run: |
         set -x
-        #make build appstore
-        #mkdir secrets
-        #mv appinfo img js lib l10n LICENSES templates LICENSE.md secrets/
-        #tar -caf secrets.tar.gz secrets
         sha256sum secrets.tar.gz > secrets.sha256
         tag_name="${GITHUB_REF##*/}"
         description="$(git tag -n10 --format="%(contents)" test-release-with-cli-1)"
