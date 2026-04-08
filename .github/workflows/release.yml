@@ -45,6 +45,7 @@ jobs:
       with:
         path: secrets
     - name: Verify correct versions
+      if: ${{ !startsWith( github.ref, 'refs/tags/test') }}
       working-directory: ./secrets
       run: |
         set -eu
