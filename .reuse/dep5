@@ -1,10 +1,10 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: Secrets
-Upstream-Contact: Tobias Knöppler <thecalcaholic@web.de>
+Upstream-Contact: Tobias Knöppler <tobias@knoeppler.org>
 Source: https://github.com/nextcloud/profiler
 
 Files: package-lock.json package.json composer.json composer.lock cli/package.json cli/package-lock.json cli/tsconfig.json cli/bunfig.toml
-Copyright: Tobias Knöppler <thecalcaholic@web.de>
+Copyright: Tobias Knöppler <tobias@knoeppler.org>
 License: GPL-3.0-or-later
 
 Files: vendor-bin/*/composer.json vendor-bin/*/composer.lock

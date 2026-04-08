@@ -11,7 +11,7 @@
   "contributors": [],
   "type": "module",
   "scripts": {
-    "build": "vue-tsc && vite build --mode production",
+    "build": "npm run generate-api-types && vue-tsc && vite build --mode production",
     "dev": "vite build --mode development",
     "generate-api-types": "openapi-ts",
     "lint": "vue-tsc && eslint",

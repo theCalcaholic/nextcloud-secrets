@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: Tobias Knöppler <thecalcaholic@web.de>
+SPDX-FileCopyrightText: Tobias Knöppler <tobias@knoeppler.org>
 SPDX-License-Identifier: CC0-1.0
 -->
 
