@@ -15,3 +15,4 @@ js/
 .vscode/settings.json
 css/
 playwright-report/
+shared/api
