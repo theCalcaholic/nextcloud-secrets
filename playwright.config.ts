@@ -51,9 +51,19 @@ export default defineConfig({
 
 	webServer: {
 		// Starts the Nextcloud docker container
-		command: 'npm run start:nextcloud',
+		command: 'node playwright/start-nextcloud-server.ts',
 		reuseExistingServer: !process.env.CI,
 		url: 'http://127.0.0.1:8089',
+		// we use sigterm to notify the script to stop the container
+		// if it does not respond, we force kill it after 10 seconds
+		gracefulShutdown: {
+			signal: 'SIGTERM',
+			timeout: 10000,
+		},
+		wait: {
+			// we wait for this line to appear in the output of the webserver until consider it done
+			stdout: /Nextcloud is now ready to use/,
+		},
 		stderr: 'pipe',
 		stdout: 'pipe',
 		timeout: 5 * 60 * 1000, // max. 5 minutes for creating the container
