@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: Tobias Knöppler <tobias@knoeppler.org>
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import type { Locator, Page } from '@playwright/test'
 
 type SecretNavEntry = { locator: Locator, title: undefined } | { locator: undefined, title: string }

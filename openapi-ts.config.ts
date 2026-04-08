@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: Tobias Knöppler <tobias@knoeppler.org>
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import { defineConfig } from '@hey-api/openapi-ts'
 
 export default defineConfig({

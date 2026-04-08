@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: Tobias Knöppler <tobias@knoeppler.org>
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import fs from 'fs'
 import { randomUUID } from 'node:crypto'
 import { chmodSync, cpSync, mkdirSync, rmSync } from 'node:fs'

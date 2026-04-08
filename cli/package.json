@@ -1,8 +1,8 @@
 {
   "name": "nc-secrets",
   "version": "2.1.7",
-  "license": "agpl",
-  "author": "Tobias Knöppler <thecalcaholic@web.de>",
+  "license": "AGPL-3.0-or-later",
+  "author": "Tobias Knöppler <tobias@knoeppler.org>",
   "type": "module",
   "module": "cli.ts",
   "scripts": {
