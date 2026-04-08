@@ -12,8 +12,33 @@ on:
 jobs:
   e2e-test:
     uses: ./.github/workflows/e2e-tests.yml
+  lint-eslint:
+    uses: ./.github/workflows/lint-eslint.yml
+  lint-info-xml:
+    uses: ./.github/workflows/lint-info-xml.yml
+  lint-php:
+    uses: ./.github/workflows/lint-php.yml
+  lint-php-cs:
+    uses: ./.github/workflows/lint-php-cs.yml
+  phpunit-mysql:
+    uses: ./.github/workflows/phpunit-mysql.yml
+  phpunit-pgsql:
+    uses: ./.github/workflows/phpunit-pgsql.yml
+  phpunit-sqlite:
+    uses: ./.github/workflows/phpunit-sqlite.yml
+  reuse:
+    uses: ./.github/workflows/reuse.yml
   release:
-    needs: e2e-test
+    needs:
+      - e2e-test
+      - lint-eslint
+      - lint-info-xml
+      - lint-php
+      - lint-php-cs
+      - phpunit-mysql
+      - phpunit-pgsql
+      - phpunit-sqlite
+      - reuse
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
