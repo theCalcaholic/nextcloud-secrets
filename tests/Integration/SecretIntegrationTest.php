@@ -46,6 +46,7 @@ class SecretIntegrationTest extends TestCase {
 		$secret->setTitle('old_title');
 		$secret->setUuid($uuid);
 		$secret->setUserId($this->userId);
+		$secret->setIsExpired(0);
 
 		$newSecret = $this->mapper->insert($secret);
 
