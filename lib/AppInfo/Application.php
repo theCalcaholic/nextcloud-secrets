@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 namespace OCA\Secrets\AppInfo;
 
+use OCA\Secrets\Notification\Notifier;
 use OCP\AppFramework\App;
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\Bootstrap\IBootstrap;
@@ -24,7 +25,6 @@ class Application extends App implements IBootstrap {
 	 * @since 20.0.0
 	 */
 	public function register(IRegistrationContext $context): void {
-		$context->registerNotifierService(\OCA\Secrets\Notification\Notifier::class);
 	}
 
 	/**
@@ -40,5 +40,7 @@ class Application extends App implements IBootstrap {
 	 * @since 20.0.0
 	 */
 	public function boot(IBootContext $context): void {
+		$notificationManager = $this->getContainer()->getServer()->getNotificationManager();
+		$notificationManager->registerNotifierService(Notifier::class);
 	}
 }

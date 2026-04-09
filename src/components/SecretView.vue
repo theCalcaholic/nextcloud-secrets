@@ -163,18 +163,8 @@ async function copyToClipboard(url: string) {
 			disabled />
 
 		<div v-else-if="!model?.encrypted" id="emptycontent">
-			<template v-if="model?.isExpired">
-				<div class="icon-delete" />
-				<h5>
-					{{ t('secrets', 'This secret has expired and its content was consequently deleted from the server.') }}
-				</h5>
-			</template>
-			<template v-else>
-				<div class="icon-toggle" />
-				<h5>
-					{{ t('secrets', 'This secret has already been retrieved and its content was consequently deleted from the server.') }}
-				</h5>
-			</template>
+			<div class="icon-toggle" />
+			<h5>{{ t('secrets', 'This secret has already been retrieved and its content was consequently deleted from the server.') }}</h5>
 		</div>
 		<div v-else id="emptycontent">
 			<div class="icon-password" />
@@ -232,7 +222,4 @@ async function copyToClipboard(url: string) {
 		width: 100%;
 	}
 
-  #emptycontent>.icon-delete {
-    background-image: var(--icon-delete-dark);
-  }
 </style>

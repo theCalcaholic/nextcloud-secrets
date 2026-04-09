@@ -45,23 +45,9 @@ class SecretService {
 		}
 	}
 
-	/**
-	 * @throws SecretNotFound
-	 */
 	public function find(string $uuid, string $userId): Secret {
 		try {
 			return $this->mapper->find($uuid, $userId);
-		} catch (Exception $e) {
-			$this->handleException($e);
-		}
-	}
-
-	/**
-	 * @throws SecretNotFound
-	 */
-	public function findById(int $secretId, string $userId): Secret {
-		try {
-			return $this->mapper->findById($secretId, $userId);
 		} catch (Exception $e) {
 			$this->handleException($e);
 		}
@@ -100,7 +86,6 @@ class SecretService {
 		$secret->setUserId($userId);
 		$secret->setExpiresFromISO8601String($expires);
 		$secret->setPwHash($password ? password_hash($password . $uuid, PASSWORD_ARGON2ID) : null);
-		$secret->setIsExpired(0);
 		return $this->mapper->insert($secret);
 	}
 
@@ -128,13 +113,6 @@ class SecretService {
 	 */
 	public function deleteExpiredAfter(string $date): void {
 		$this->mapper->deleteExpired($date);
-	}
-
-	/**
-	 * @throws \OCP\DB\Exception
-	 */
-	public function expireSecrets(string $referenceDate): void {
-		$this->mapper->expire($referenceDate);
 	}
 
 	/**

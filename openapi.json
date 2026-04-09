@@ -78,6 +78,203 @@
         }
     },
     "paths": {
+        "/index.php/apps/secrets": {
+            "get": {
+                "operationId": "page-index",
+                "summary": "Return secrets page",
+                "tags": [
+                    "page"
+                ],
+                "security": [
+                    {
+                        "bearer_auth": []
+                    },
+                    {
+                        "basic_auth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return secrets page",
+                        "content": {
+                            "text/html": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/index.php/apps/secrets/s/{uuid}": {
+            "get": {
+                "operationId": "page-show",
+                "summary": "Return secrets page and show specific secret",
+                "tags": [
+                    "page"
+                ],
+                "security": [
+                    {
+                        "bearer_auth": []
+                    },
+                    {
+                        "basic_auth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "description": "The uuid of the secret",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return secrets page and show specific secret",
+                        "content": {
+                            "text/html": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/index.php/apps/secrets/share/{token}": {
+            "get": {
+                "operationId": "secret_share-show-share",
+                "summary": "Show shared secret page",
+                "tags": [
+                    "secret_share"
+                ],
+                "security": [
+                    {},
+                    {
+                        "bearer_auth": []
+                    },
+                    {
+                        "basic_auth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Show secret share page",
+                        "content": {
+                            "text/html": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/index.php/apps/secrets/share/{token}/authenticate/{redirect}": {
+            "get": {
+                "operationId": "secret_share-show-authenticate",
+                "summary": "Show the authentication page The form has to submit to the authenticate method route",
+                "tags": [
+                    "secret_share"
+                ],
+                "security": [
+                    {},
+                    {
+                        "bearer_auth": []
+                    },
+                    {
+                        "basic_auth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "redirect",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Show authentication page",
+                        "content": {
+                            "text/html": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/index.php/apps/secrets/show/{token}": {
+            "get": {
+                "operationId": "redirect-share",
+                "summary": "Show shared secret page",
+                "tags": [
+                    "redirect"
+                ],
+                "security": [
+                    {},
+                    {
+                        "bearer_auth": []
+                    },
+                    {
+                        "basic_auth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Show secret share page",
+                        "content": {
+                            "text/html": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/ocs/v2.php/apps/secrets/api/v1/secrets": {
             "get": {
                 "operationId": "secret_api-get-all",
@@ -136,8 +333,7 @@
                                                             "pwHash",
                                                             "encrypted",
                                                             "expires",
-                                                            "iv",
-                                                            "isExpired"
+                                                            "iv"
                                                         ],
                                                         "properties": {
                                                             "uuid": {
@@ -157,41 +353,10 @@
                                                             },
                                                             "iv": {
                                                                 "type": "string"
-                                                            },
-                                                            "isExpired": {
-                                                                "type": "boolean"
                                                             }
                                                         }
                                                     }
                                                 }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Current user is not logged in",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "required": [
-                                        "ocs"
-                                    ],
-                                    "properties": {
-                                        "ocs": {
-                                            "type": "object",
-                                            "required": [
-                                                "meta",
-                                                "data"
-                                            ],
-                                            "properties": {
-                                                "meta": {
-                                                    "$ref": "#/components/schemas/OCSMeta"
-                                                },
-                                                "data": {}
                                             }
                                         }
                                     }
@@ -268,7 +433,7 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "Secret created 401: Unauthorized",
+                        "description": "Secret created",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -298,64 +463,39 @@
                         }
                     },
                     "401": {
-                        "description": "Current user is not logged in",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "anyOf": [
-                                        {
+                                    "type": "object",
+                                    "required": [
+                                        "ocs"
+                                    ],
+                                    "properties": {
+                                        "ocs": {
                                             "type": "object",
                                             "required": [
-                                                "ocs"
+                                                "meta",
+                                                "data"
                                             ],
                                             "properties": {
-                                                "ocs": {
+                                                "meta": {
+                                                    "$ref": "#/components/schemas/OCSMeta"
+                                                },
+                                                "data": {
                                                     "type": "object",
                                                     "required": [
-                                                        "meta",
-                                                        "data"
+                                                        "message"
                                                     ],
                                                     "properties": {
-                                                        "meta": {
-                                                            "$ref": "#/components/schemas/OCSMeta"
-                                                        },
-                                                        "data": {
-                                                            "type": "object",
-                                                            "required": [
-                                                                "message"
-                                                            ],
-                                                            "properties": {
-                                                                "message": {
-                                                                    "type": "string"
-                                                                }
-                                                            }
+                                                        "message": {
+                                                            "type": "string"
                                                         }
                                                     }
                                                 }
                                             }
-                                        },
-                                        {
-                                            "type": "object",
-                                            "required": [
-                                                "ocs"
-                                            ],
-                                            "properties": {
-                                                "ocs": {
-                                                    "type": "object",
-                                                    "required": [
-                                                        "meta",
-                                                        "data"
-                                                    ],
-                                                    "properties": {
-                                                        "meta": {
-                                                            "$ref": "#/components/schemas/OCSMeta"
-                                                        },
-                                                        "data": {}
-                                                    }
-                                                }
-                                            }
                                         }
-                                    ]
+                                    }
                                 }
                             }
                         }
@@ -461,34 +601,6 @@
                                                         }
                                                     }
                                                 }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Current user is not logged in",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "required": [
-                                        "ocs"
-                                    ],
-                                    "properties": {
-                                        "ocs": {
-                                            "type": "object",
-                                            "required": [
-                                                "meta",
-                                                "data"
-                                            ],
-                                            "properties": {
-                                                "meta": {
-                                                    "$ref": "#/components/schemas/OCSMeta"
-                                                },
-                                                "data": {}
                                             }
                                         }
                                     }
@@ -603,34 +715,6 @@
                                                         }
                                                     }
                                                 }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Current user is not logged in",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "required": [
-                                        "ocs"
-                                    ],
-                                    "properties": {
-                                        "ocs": {
-                                            "type": "object",
-                                            "required": [
-                                                "meta",
-                                                "data"
-                                            ],
-                                            "properties": {
-                                                "meta": {
-                                                    "$ref": "#/components/schemas/OCSMeta"
-                                                },
-                                                "data": {}
                                             }
                                         }
                                     }
@@ -758,34 +842,6 @@
                                                         }
                                                     }
                                                 }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Current user is not logged in",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "required": [
-                                        "ocs"
-                                    ],
-                                    "properties": {
-                                        "ocs": {
-                                            "type": "object",
-                                            "required": [
-                                                "meta",
-                                                "data"
-                                            ],
-                                            "properties": {
-                                                "meta": {
-                                                    "$ref": "#/components/schemas/OCSMeta"
-                                                },
-                                                "data": {}
                                             }
                                         }
                                     }

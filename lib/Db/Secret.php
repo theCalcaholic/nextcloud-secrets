@@ -27,8 +27,6 @@ use OCP\AppFramework\Db\Entity;
  * @method setPwHash(?string $pwHash): void
  * @method getExpires(): ?string
  * @method setExpires(?string $expires): void
- * @method getIsExpired(): int
- * @method setIsExpired(int $isExpired): void
  */
 
 const DATETIME_FORMAT_INTERNAL = 'Y-m-d H:i:s';
@@ -42,7 +40,6 @@ class Secret extends Entity implements JsonSerializable {
 	protected ?string $iv = '';
 	protected ?string $pwHash = null;
 	protected ?string $expires = null;
-	protected int $isExpired = 0;
 
 	public function __construct() {
 		$this->addType('id', 'int');
@@ -96,8 +93,7 @@ class Secret extends Entity implements JsonSerializable {
 			'pwHash' => $this->pwHash === null ? null : '',
 			'encrypted' => $this->encrypted,
 			'expires' => $this->getExpiresAsISO8601(),
-			'iv' => $this->iv,
-			'isExpired' => $this->isExpired == 1,
+			'iv' => $this->iv
 		];
 	}
 }
