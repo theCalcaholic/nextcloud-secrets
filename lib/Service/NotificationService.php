@@ -7,6 +7,7 @@ declare(strict_types=1);
 namespace OCA\Secrets\Service;
 
 use DateTime;
+use OCA\Secrets\Activity\CreateSetting;
 use OCA\Secrets\Activity\ExpirySetting;
 use OCA\Secrets\Activity\RetrievalSetting;
 use OCA\Secrets\AppInfo\Application;
@@ -53,6 +54,10 @@ class NotificationService {
 		$this->createExpiryActivity($secret);
 	}
 
+    public function notifyCreated(Secret $secret): void {
+        $this->createCreationActivity($secret);
+    }
+
 	private function createRetrievalNotification(Secret $secret): void {
 		$notification = $this->notificationManager->createNotification();
 		try {
@@ -81,6 +86,15 @@ class NotificationService {
 		}
 	}
 
+    private function createCreationActivity(Secret $secret): void {
+        $event = $this->activityManager->generateEvent();
+        $event->setApp(Application::APP_ID);
+        $event->setType(CreateSetting::IDENTIFIER);
+        $event->setAffectedUser($secret->getUserId());
+        $event->setSubject('secret_creation');//, ['uuid' => $secret->getUuid(), 'title' => $secret->getTitle()]);
+        $event->setObject('secret', $secret->getId(), $secret->getTitle());
+        $this->activityManager->publish($event);
+    }
 	private function createRetrievalActivity(Secret $secret): void {
 		$event = $this->activityManager->generateEvent();
 		$event->setApp(Application::APP_ID);

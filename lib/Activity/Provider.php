@@ -65,6 +65,16 @@ class Provider implements IProvider {
 					]
 				]);
 				break;
+            case 'secret_creation':
+                $event->setRichSubject($l->t('Secret \'{secret}\' has been created'), [
+                    'secret' => [
+                        'type' => 'highlight',
+                        'id' => $secret->getUuid(),
+                        'name' => $secret->getTitle(),
+                        'link' => $secret_url
+                    ]
+                ]);
+                break;
 		}
 		$this->setParsedSubjectFromRichSubject($event);
 		return $event;

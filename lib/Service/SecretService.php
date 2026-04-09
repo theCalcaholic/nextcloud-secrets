@@ -18,10 +18,12 @@ use Psr\Log\LoggerInterface;
 class SecretService {
 	private SecretMapper $mapper;
 	private LoggerInterface $logger;
+    private NotificationService $notifications;
 
-	public function __construct(SecretMapper $mapper, LoggerInterface $logger) {
+	public function __construct(SecretMapper $mapper, LoggerInterface $logger, NotificationService $notifications) {
 		$this->mapper = $mapper;
 		$this->logger = $logger;
+        $this->notifications = $notifications;
 	}
 
 	/**
@@ -101,7 +103,11 @@ class SecretService {
 		$secret->setExpiresFromISO8601String($expires);
 		$secret->setPwHash($password ? password_hash($password . $uuid, PASSWORD_ARGON2ID) : null);
 		$secret->setIsExpired(0);
-		return $this->mapper->insert($secret);
+        $result = $this->mapper->insert($secret);
+
+        $this->notifications->notifyCreated($result);
+
+		return $result;
 	}
 
 	/**

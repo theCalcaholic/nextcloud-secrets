@@ -45,6 +45,7 @@ Secrets now comes with a cli that can be used to automate the provisioning of se
         <settings>
             <setting>OCA\Secrets\Activity\RetrievalSetting</setting>
             <setting>OCA\Secrets\Activity\ExpirySetting</setting>
+            <setting>OCA\Secrets\Activity\CreateSetting</setting>
         </settings>
         <filters>
             <filter>OCA\Secrets\Activity\Filter</filter>
