@@ -1,10 +1,11 @@
 OC.L10N.register(
     "secrets",
     {
-    "Share Link" : "שיתוף קישור",
     "Save" : "שמירה",
+    "Navigation" : "ניווט",
     "Download" : "הורדה",
     "This share is password-protected" : "שיתוף זה מוגן בססמה",
-    "Password" : "ססמה"
+    "Password" : "ססמה",
+    "Share Link" : "שיתוף קישור"
 },
 "nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;");

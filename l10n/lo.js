@@ -1,10 +1,11 @@
 OC.L10N.register(
     "secrets",
     {
-    "Share Link" : "Share Link",
     "Save" : "ບັນທຶກ",
+    "Navigation" : "ການນຳທາງ",
     "Download" : "ດາວໂຫລດ",
     "This share is password-protected" : "ການແບ່ງປັນນີ້ແມ່ນການປ້ອງກັນລະຫັດຜ່ານ",
-    "Password" : "ລະຫັດຜ່ານ"
+    "Password" : "ລະຫັດຜ່ານ",
+    "Share Link" : "Share Link"
 },
 "nplurals=1; plural=0;");

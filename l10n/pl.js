@@ -1,10 +1,11 @@
 OC.L10N.register(
     "secrets",
     {
-    "Share Link" : "Udostępnij link",
     "Save" : "Zapisz",
+    "Navigation" : "Nawigacja",
     "Download" : "Pobierz",
     "This share is password-protected" : "Udostępnienie jest zabezpieczone hasłem",
-    "Password" : "Hasło"
+    "Password" : "Hasło",
+    "Share Link" : "Udostępnij link"
 },
 "nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);");

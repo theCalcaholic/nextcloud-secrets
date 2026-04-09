@@ -2,6 +2,7 @@ OC.L10N.register(
     "secrets",
     {
     "Save" : "Sekles",
+    "Navigation" : "Tunigin",
     "Download" : "Sider",
     "Password" : "Awal uffir"
 },

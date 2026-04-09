@@ -1,10 +1,11 @@
 OC.L10N.register(
     "secrets",
     {
-    "Share Link" : "Del Link",
     "Save" : "Gem",
+    "Navigation" : "Navigation",
     "Download" : "Download",
     "This share is password-protected" : "Delingen er beskyttet af kodeord",
-    "Password" : "Adgangskode"
+    "Password" : "Adgangskode",
+    "Share Link" : "Del Link"
 },
 "nplurals=2; plural=(n != 1);");
