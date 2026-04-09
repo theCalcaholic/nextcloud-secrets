@@ -1,8 +1,9 @@
 { "translations": {
-    "Share Link" : "Partejar per un Ligam",
     "Save" : "Enregistrar",
+    "Navigation" : "Navegacion",
     "Download" : "Telecargar",
     "This share is password-protected" : "Aqueste partiment es protegit per un senhal",
-    "Password" : "Senhal"
+    "Password" : "Senhal",
+    "Share Link" : "Partejar per un Ligam"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

@@ -1,10 +1,11 @@
 OC.L10N.register(
     "secrets",
     {
-    "Share Link" : "Comparteix l'enllaç",
     "Save" : "Desa",
+    "Navigation" : "Navegació",
     "Download" : "Baixa",
     "This share is password-protected" : "Aquesta compartició està protegida amb contrasenya",
-    "Password" : "Contrasenya"
+    "Password" : "Contrasenya",
+    "Share Link" : "Comparteix l'enllaç"
 },
 "nplurals=2; plural=(n != 1);");

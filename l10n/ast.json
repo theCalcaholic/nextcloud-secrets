@@ -1,18 +1,17 @@
 { "translations": {
     "Secrets" : "Secretos",
     "Secret '{secret}' has been retrieved" : "Recuperóse'l secretu «{secret}»",
+    "Expiration Date" : "Data de caducidá",
+    "Save" : "Guardar",
+    "Copy Secret Link" : "Copiar l'enllaz del secretu",
     "Could not fetch secrets" : "Nun se pudo dir en cata de los secretos",
     "Could not create the secret" : "Nun se pudo crear el secretu",
-    "Secret deleted" : "Desanicióse'l secretu",
     "Could not delete the secret" : "Nun se pudo desaniciar el secretu",
+    "Secret deleted" : "Desanicióse'l secretu",
     "New secret" : "Secretu nuevu",
     "Change Title" : "Camudar el títulu",
     "Delete secret" : "Desaniciar el secretu",
     "Create a secret to get started" : "Crear un secretu pa comenzar",
-    "Share Link" : "Compartir l'enllaz",
-    "Copy Secret Link" : "Copiar l'enllaz del secretu",
-    "Expiration Date" : "Data de caducidá",
-    "Save" : "Guardar",
     "Could not decrypt secret" : "Nun se pudo descifrar el secretu",
     "Copy to Clipboard" : "Copiar nel cartafueyu",
     "Download" : "Baxar",
@@ -21,6 +20,7 @@
     "The password is wrong or has expired. Please try again." : "La contraseña ye incorreuta o caducó. Volvi tentalo.",
     "Password" : "Contraseña",
     "New Secret" : "Secretu nuevu",
+    "Share Link" : "Compartir l'enllaz",
     "Retrieving secret..." : "Recuperando'l secretu…"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

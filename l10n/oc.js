@@ -1,10 +1,11 @@
 OC.L10N.register(
     "secrets",
     {
-    "Share Link" : "Partejar per un Ligam",
     "Save" : "Enregistrar",
+    "Navigation" : "Navegacion",
     "Download" : "Telecargar",
     "This share is password-protected" : "Aqueste partiment es protegit per un senhal",
-    "Password" : "Senhal"
+    "Password" : "Senhal",
+    "Share Link" : "Partejar per un Ligam"
 },
 "nplurals=2; plural=(n > 1);");

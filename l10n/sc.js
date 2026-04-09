@@ -1,10 +1,11 @@
 OC.L10N.register(
     "secrets",
     {
-    "Share Link" : "Cumpartzi Lingòngiu",
     "Save" : "Sarva",
+    "Navigation" : "Navigatzione",
     "Download" : "Iscàrriga",
     "This share is password-protected" : "Custa cumpartzidura est amparada dae una crae",
-    "Password" : "Crae"
+    "Password" : "Crae",
+    "Share Link" : "Cumpartzi Lingòngiu"
 },
 "nplurals=2; plural=(n != 1);");
