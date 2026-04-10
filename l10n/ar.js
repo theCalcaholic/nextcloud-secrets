@@ -19,6 +19,7 @@ OC.L10N.register(
     "Could not create the secret" : "تعذر إنشاء السر",
     "Could not delete the secret" : "تعذر حذف السر",
     "Secret deleted" : "تم حذف السر",
+    "Navigation" : "التنقل",
     "New secret" : "سر جديد",
     "Change Title" : "غير العنوان",
     "Cancel secret creation" : "إلغاء إنشاء السر",
