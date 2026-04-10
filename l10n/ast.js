@@ -10,6 +10,7 @@ OC.L10N.register(
     "Could not create the secret" : "Nun se pudo crear el secretu",
     "Could not delete the secret" : "Nun se pudo desaniciar el secretu",
     "Secret deleted" : "Desanicióse'l secretu",
+    "Navigation" : "Navegación",
     "New secret" : "Secretu nuevu",
     "Change Title" : "Camudar el títulu",
     "Delete secret" : "Desaniciar el secretu",

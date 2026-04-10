@@ -12,6 +12,7 @@ OC.L10N.register(
     "Could not create the secret" : "Неуспешно създаване на тайна",
     "Could not delete the secret" : "Неуспешно изтриване на тайната",
     "Secret deleted" : "Изтрита е тайна",
+    "Navigation" : "Навигация",
     "New secret" : "Нова тайна",
     "Change Title" : "Промяна на заглавието",
     "Cancel secret creation" : "Отказ от създаването на тайна",
