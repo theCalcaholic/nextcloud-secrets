@@ -1,8 +1,11 @@
 OC.L10N.register(
     "secrets",
     {
+    "A <strong>Secret</strong> has expired before being retrieved" : "Um <strong>Secret</strong> expirou antes de ser recuperado",
     "Secrets" : "Segredos",
     "Secret '{secret}' has been retrieved" : "Segredo '{secret}' foi recuperado",
+    "Secret '{secret}' has expired without being retrieved" : "O segredo '{secret}' expirou sem ter sido recuperado",
+    "A <strong>Secret</strong> was retrieved" : "Um <strong>segredo</strong>foi revelado",
     "Securely share data via link" : "Compartilhe dados com segurança via link",
     "Secrets allows users to generate share links for text based data (e.g. passwords, CSV lists, bank accounts...) that can be sent to anyone (including receivers without a Nextcloud account) for retrieval. The data itself will be end-to-end encrypted (so not even Nextcloud can access it) and the encryption key will be part of the share link (the anchor part) - but never be actually sent to the server. Once retrieved, the secret will be deleted from the server, ensuring, that if it arrived at the correct receiver it has been seen by nobody else.\n\nSecrets now comes with a cli that can be used to automate the provisioning of secret shares: https://github.com/theCalcaholic/nextcloud-secrets/releases" : "O Segredos permite que os usuários gerem links de compartilhamento para dados baseados em texto (p. ex., senhas, listas CSV, contas bancárias...) que podem ser enviados a qualquer pessoa (incluindo destinatários sem uma conta Nextcloud) para recuperação. Os dados em si serão criptografados de ponta-a-ponta (portanto, nem mesmo o Nextcloud poderá acessá-los) e a chave de criptografia fará parte do link de compartilhamento (a parte âncora) - mas nunca será realmente enviada ao servidor. Depois de ser recuperado, o segredo será excluído do servidor, garantindo que, se chegou ao destinatário correto, não foi visto por mais ninguém.\n\nO Segredos agora vem com uma cli que pode ser usada para automatizar o provisionamento de compartilhamentos secretos: https://github.com/theCalcaholic/nextcloud-secrets/releases",
     "Expires on:" : "Expira em:",
@@ -14,6 +17,7 @@ OC.L10N.register(
     "password protected" : "protegido por senha",
     "Share Link:" : "Compartilhar Link:",
     "Copy Secret Link" : "Copiar Link Secreto",
+    "This secret has expired and its content was consequently deleted from the server." : "Este segredo expirou e, consequentemente, seu conteúdo foi excluído do servidor.",
     "This secret has already been retrieved and its content was consequently deleted from the server." : "Este segredo já foi recuperado e seu conteúdo foi excluído do servidor.",
     "Could not decrypt secret (key not available locally)." : "Não foi possível descriptografar o segredo (chave não disponível localmente).",
     "_Will be deleted in %n day_::_Will be deleted in %n days_" : ["Será excluído em %n dia","Será excluído em %n de dias","Será excluído em %n dias"],
