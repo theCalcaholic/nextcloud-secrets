@@ -1,6 +1,9 @@
 { "translations": {
+    "A <strong>Secret</strong> has expired before being retrieved" : "Ein <strong>Geheimnis</strong> ist abgelaufen, bevor es abgerufen werden konnte",
     "Secrets" : "Geheimnisse",
     "Secret '{secret}' has been retrieved" : "Das Geheimnis \"{secret}\" wurde abgerufen",
+    "Secret '{secret}' has expired without being retrieved" : "Geheimnis \"{secret}\" ist abgelaufen, ohne dass es abgerufen wurde",
+    "A <strong>Secret</strong> was retrieved" : "Ein <strong>Geheimnis</strong> wurde abgerufen",
     "Securely share data via link" : "Daten sicher mittels Link freigeben",
     "Secrets allows users to generate share links for text based data (e.g. passwords, CSV lists, bank accounts...) that can be sent to anyone (including receivers without a Nextcloud account) for retrieval. The data itself will be end-to-end encrypted (so not even Nextcloud can access it) and the encryption key will be part of the share link (the anchor part) - but never be actually sent to the server. Once retrieved, the secret will be deleted from the server, ensuring, that if it arrived at the correct receiver it has been seen by nobody else.\n\nSecrets now comes with a cli that can be used to automate the provisioning of secret shares: https://github.com/theCalcaholic/nextcloud-secrets/releases" : "Mit Secrets können Benutzer Freigabelinks für textbasierte Daten (z. B. Passwörter, CSV-Listen, Bankkonten usw.) generieren, die zum Abrufen an jeden gesendet werden können (auch an Empfänger ohne Nextcloud-Konto). Die Daten selbst werden Ende-zu-Ende verschlüsselt (so dass nicht einmal Nextcloud darauf zugreifen kann) und der Verschlüsselungsschlüssel ist Teil des Freigabelinks (der Ankerteil), wird aber nie tatsächlich an den Server gesendet. Nach dem Abrufen wird das Geheimnis vom Server gelöscht, sodass sichergestellt ist, dass es, wenn es beim richtigen Empfänger angekommen ist, von niemand anderem gesehen wurde.\n\nSecrets verfügt jetzt über ein Kommandozeileninterface, mit dem die Bereitstellung von geheimen Freigaben automatisiert werden kann: https://github.com/theCalcaholic/nextcloud-secrets/releases",
     "Expires on:" : "Ablaufdatum:",
@@ -12,6 +15,7 @@
     "password protected" : "Passwortgeschützt",
     "Share Link:" : "Freigabe-Link",
     "Copy Secret Link" : "Geheimen Link kopieren",
+    "This secret has expired and its content was consequently deleted from the server." : "Dieses Geheimnis ist abgelaufen und sein Inhalt wurde folglich vom Server gelöscht.",
     "This secret has already been retrieved and its content was consequently deleted from the server." : "Dieses Geheimnis wurde bereits abgerufen und sein Inhalt wurde folglich vom Server gelöscht.",
     "Could not decrypt secret (key not available locally)." : "Passwort konnte nicht entschlüsselt werden (Schlüssel lokal nicht verfügbar).",
     "_Will be deleted in %n day_::_Will be deleted in %n days_" : ["Wird in %n Tag gelöscht","Wird in %n Tagen gelöscht"],
