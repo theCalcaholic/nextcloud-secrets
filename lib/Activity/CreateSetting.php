@@ -24,7 +24,7 @@ class CreateSetting implements ISetting {
 
 	public function getName(): string
     {
-		return $this->l->t('You have created a <strong>Secret</strong>');
+		return $this->l->t('A <strong>Secret</strong> was created');
 	}
 
 	public function getPriority(): int

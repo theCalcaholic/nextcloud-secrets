@@ -85,3 +85,34 @@ export async function revealSharedSecretNoPassword(page: Page, shareUrl: string)
 	await revealButton.click()
 	await page.waitForSelector('.secret-container textarea')
 }
+
+export interface ActivityConfig {
+	stream: boolean
+	email: boolean
+}
+
+export interface ActivitiesConfig {
+	secret_creation: ActivityConfig
+	secret_retrieval: ActivityConfig
+	secret_expiry: ActivityConfig
+}
+
+/**
+ *
+ * @param page
+ * @param config
+ */
+export async function setActivityConfig(page: Page, config: ActivitiesConfig) {
+	const originalUrl = page.url()
+	await page.goto('index.php/settings/user/notifications')
+	await page.waitForSelector('tr:has-text("A Secret was created")')
+
+	await page.locator('#secret_creation_email').setChecked(config.secret_creation.email)
+	await page.locator('#secret_creation_notification').setChecked(config.secret_creation.stream)
+	await page.locator('#secret_retrieval_email').setChecked(config.secret_retrieval.email)
+	await page.locator('#secret_retrieval_notification').setChecked(config.secret_retrieval.stream)
+	await page.locator('#secret_expiry_email').setChecked(config.secret_expiry.email)
+	await page.locator('#secret_expiry_notification').setChecked(config.secret_expiry.stream)
+
+	await page.goto(originalUrl)
+}
