@@ -62,34 +62,33 @@ class Notifier implements INotifier {
 		if ($notification->getApp() != Application::APP_ID) {
 			throw new UnknownNotificationException('Unknown app: ' . $notification->getApp());
 		}
+
+        $subjectParams = $notification->getSubjectParameters();
+        $secretSubjectData = [
+            'type' => 'highlight',
+            'id' => $subjectParams['uuid'],
+            'name' => $subjectParams['title'],
+        ];
+
 		try {
 			$secret = $this->secretService->find($notification->getObjectId(), $notification->getUser());
+            $secret_url = $this->url->linkToRoute('secrets.page.show', ['uuid' => $secret->getUuid()]);
+            $secretSubjectData['link'] = $secret_url;
 		} catch (Exception $e) {
-			$this->logger->error('Could not find secret for creating notification: ' . $e->getMessage(), ['exception' => $e]);
+			$this->logger->error('Could not find secret with uuid ' . $notification->getObjectId() . ' for creating notification: ' . $e->getMessage(), ['exception' => $e]);
 			throw new AlreadyProcessedException();
 		}
 
 		$l = $this->factory->get('secrets', $languageCode);
-		$secret_url = $this->url->linkToRoute('secrets.page.show', ['uuid' => $secret->getUuid()]);
 		switch ($notification->getSubject()) {
 			case 'secret_retrieval':
 				$notification->setRichSubject($l->t('Secret \'{secret}\' has been retrieved'), [
-					'secret' => [
-						'type' => 'highlight',
-						'id' => $secret->getUuid(),
-						'name' => $secret->getTitle(),
-						'link' => $secret_url
-					]
+					'secret' => $secretSubjectData
 				]);
 				break;
 			case 'secret_expiry':
 				$notification->setRichSubject($l->t('Secret \'{secret}\' has expired without being retrieved'), [
-					'secret' => [
-						'type' => 'highlight',
-						'id' => $secret->getUuid(),
-						'name' => $secret->getTitle(),
-						'link' => $secret_url
-					]
+					'secret' => $secretSubjectData
 				]);
 				break;
 		}

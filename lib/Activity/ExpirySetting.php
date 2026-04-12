@@ -17,31 +17,38 @@ class ExpirySetting implements ISetting {
 		$this->l = $l;
 	}
 
-	public function getIdentifier() {
+	public function getIdentifier(): string
+    {
 		return ExpirySetting::IDENTIFIER;
 	}
 
-	public function getName() {
-		$this->l->t('A <strong>Secret</strong> has expired before being retrieved');
+	public function getName(): string
+    {
+		return $this->l->t('A <strong>Secret</strong> has expired before being retrieved');
 	}
 
-	public function getPriority() {
+	public function getPriority(): int
+    {
 		return 50;
 	}
 
-	public function canChangeStream() {
+	public function canChangeStream(): bool
+    {
 		return true;
 	}
 
-	public function isDefaultEnabledStream() {
+	public function isDefaultEnabledStream(): bool
+    {
 		return true;
 	}
 
-	public function canChangeMail() {
+	public function canChangeMail(): bool
+    {
 		return true;
 	}
 
-	public function isDefaultEnabledMail() {
+	public function isDefaultEnabledMail(): bool
+    {
 		return false;
 	}
 }
