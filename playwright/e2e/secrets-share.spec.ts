@@ -4,7 +4,12 @@
 import { expect } from '@playwright/test'
 import fs from 'fs'
 import { test } from '../support/fixtures/random-user.ts'
-import { createSecret, revealSharedSecretNoPassword } from '../support/helpers/procedures.ts'
+import {
+	createSecret,
+	revealSharedSecretNoPassword,
+	runExpiryJob,
+} from '../support/helpers/procedures.ts'
+import { getBranch } from '../util.ts'
 
 test.describe.configure({ mode: 'parallel' })
 test.describe('Secret Sharing Operations', () => {
@@ -71,11 +76,36 @@ test.describe('Secret Sharing Operations', () => {
 		await expect(page.locator('#password-submit')).toBeEnabled()
 		await page.click('#password-submit')
 		await page.waitForURL('**/index.php/apps/secrets/share/**')
-		await page.screenshot({ path: 'secrets-share-page.png' })
 		const revealButton = await page.waitForSelector('button:has-text("I understand. Reveal and destroy Secret.")')
 		await revealButton.click()
 		await page.waitForSelector('.secret-container textarea')
 
 		await expect(page.locator('.secret-container textarea')).toHaveValue(sharedContent)
+	})
+
+	test('should expire', async ({ page }) => {
+		test.skip((process.env.NC_VERSION ?? getBranch() ?? 'latest').endsWith('32'), 'occ command automation is currently broken with NC 32')
+		test.setTimeout(150_000)
+		const secret = {
+			title: 'expiry test',
+			content: 'This secret will be shared',
+			expireInDays: -2,
+		}
+		await createSecret(page, secret)
+
+		const expectedExpiry = new Date()
+		expectedExpiry.setUTCDate(expectedExpiry.getUTCDate() + secret.expireInDays)
+		expectedExpiry.setUTCHours(0, 0, 0, 0)
+
+		const actualExpiry = new Date(await page.locator('.secret-container input[name="expires"]').inputValue())
+		expect(actualExpiry).toEqual(expectedExpiry)
+
+		await runExpiryJob(page)
+
+		await page.goto('/index.php/apps/secrets')
+		await page.locator(`.app-navigation-entry a[title="${secret.title}"]`).click()
+		await page.screenshot({ path: 'expiry-test.png' })
+		await expect(page.locator('.secret-container #emptycontent'))
+			.toContainText('This secret has expired and its content was consequently deleted from the server.')
 	})
 })

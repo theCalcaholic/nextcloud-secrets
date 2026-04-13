@@ -7,6 +7,7 @@ declare(strict_types=1);
 namespace OCA\Secrets\Service;
 
 use DateTime;
+use OCA\Secrets\Activity\CreateSetting;
 use OCA\Secrets\Activity\ExpirySetting;
 use OCA\Secrets\Activity\RetrievalSetting;
 use OCA\Secrets\AppInfo\Application;
@@ -53,6 +54,10 @@ class NotificationService {
 		$this->createExpiryActivity($secret);
 	}
 
+	public function notifyCreated(Secret $secret): void {
+		$this->createCreationActivity($secret);
+	}
+
 	private function createRetrievalNotification(Secret $secret): void {
 		$notification = $this->notificationManager->createNotification();
 		try {
@@ -60,7 +65,7 @@ class NotificationService {
 				->setObject('secret', $secret->getUuid())
 				->setUser($secret->getUserId())
 				->setDateTime(new DateTime())
-				->setSubject('secret_retrieval', ['secret' => $secret->getUuid()]);
+				->setSubject('secret_retrieval', ['uuid' => $secret->getUuid(), 'title' => $secret->getTitle()]);
 			$this->notificationManager->notify($notification);
 		} catch (\Exception $e) {
 			$this->logger->error('Failed to create notification for secret retrieval: ' . $e->getMessage(), ['exception' => $e]);
@@ -74,19 +79,29 @@ class NotificationService {
 				->setObject('secret', $secret->getUuid())
 				->setUser($secret->getUserId())
 				->setDateTime(new DateTime())
-				->setSubject('secret_expiry', ['secret' => $secret->getUuid()]);
+				->setSubject('secret_expiry', ['uuid' => $secret->getUuid(), 'title' => $secret->getTitle()]);
 			$this->notificationManager->notify($notification);
 		} catch (\Exception $e) {
 			$this->logger->error('Failed to create notification for secret expiry: ' . $e->getMessage(), ['exception' => $e]);
 		}
 	}
 
+	private function createCreationActivity(Secret $secret): void {
+		$event = $this->activityManager->generateEvent();
+		$event->setApp(Application::APP_ID);
+		$event->setType(CreateSetting::IDENTIFIER);
+		$event->setAuthor($this->activityManager->getCurrentUserId());
+		$event->setAffectedUser($secret->getUserId());
+		$event->setSubject('secret_creation', ['uuid' => $secret->getUuid(), 'title' => $secret->getTitle()]);
+		$event->setObject('secret', $secret->getId(), $secret->getTitle());
+		$this->activityManager->publish($event);
+	}
 	private function createRetrievalActivity(Secret $secret): void {
 		$event = $this->activityManager->generateEvent();
 		$event->setApp(Application::APP_ID);
 		$event->setType(RetrievalSetting::IDENTIFIER);
 		$event->setAffectedUser($secret->getUserId());
-		$event->setSubject('secret_retrieval');//, ['uuid' => $secret->getUuid(), 'title' => $secret->getTitle()]);
+		$event->setSubject('secret_retrieval', ['uuid' => $secret->getUuid(), 'title' => $secret->getTitle()]);
 		$event->setObject('secret', $secret->getId(), $secret->getTitle());
 		$this->activityManager->publish($event);
 	}
@@ -96,7 +111,7 @@ class NotificationService {
 		$event->setApp(Application::APP_ID);
 		$event->setType(ExpirySetting::IDENTIFIER);
 		$event->setAffectedUser($secret->getUserId());
-		$event->setSubject('secret_expiry');
+		$event->setSubject('secret_expiry', ['uuid' => $secret->getUuid(), 'title' => $secret->getTitle()]);
 		$event->setObject('secret', $secret->getId(), $secret->getTitle());
 		$this->activityManager->publish($event);
 	}

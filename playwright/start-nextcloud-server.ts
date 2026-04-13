@@ -6,35 +6,19 @@
 import { startNextcloud, stopNextcloud } from '@nextcloud/e2e-test-server/docker'
 import { readFileSync } from 'fs'
 import path from 'node:path'
-import { syncApp } from './util.ts'
+import { syncApp, getBranch } from './util.ts'
 
 /**
  *
  */
 async function start() {
-	const branch = process.env.NC_VERSION ? process.env.NC_VERSION : getBranch()
+	const branch = process.env.NC_VERSION ?? getBranch()
 	const cwd = process.cwd()
 	const syncPath = path.join(cwd, 'build/test/secrets')
-	await syncApp(cwd, syncPath, [path.join(cwd, 'build')])
+	await syncApp(cwd, syncPath, [path.join(cwd, 'build'), path.join(cwd, '.git')])
 	return await startNextcloud(branch, syncPath, {
 		exposePort: 8089,
 	})
-}
-
-/**
- *
- */
-function getBranch() {
-	try {
-		const appinfo = readFileSync('appinfo/info.xml').toString()
-		const maxVersion = appinfo.match(/<nextcloud\s*min-version="\d+"\s*max-version="(\d\d+)"\s*\/>/)?.[1]
-		return maxVersion ? `stable${maxVersion}` : undefined
-	} catch (err) {
-		// @ts-expect-error error from upstream code
-		if (err?.code === 'ENOENT') {
-			console.warn('No appinfo/info.xml found. Using default server banch.')
-		}
-	}
 }
 
 // Start the Nextcloud docker container

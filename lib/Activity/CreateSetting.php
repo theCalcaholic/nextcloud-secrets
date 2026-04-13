@@ -9,8 +9,8 @@ namespace OCA\Secrets\Activity;
 use OCP\Activity\ISetting;
 use OCP\IL10N;
 
-class ExpirySetting implements ISetting {
-	public const IDENTIFIER = 'secret_expiry';
+class CreateSetting implements ISetting {
+	public const IDENTIFIER = 'secret_creation';
 	protected IL10N $l;
 
 	public function __construct(IL10N $l) {
@@ -18,11 +18,11 @@ class ExpirySetting implements ISetting {
 	}
 
 	public function getIdentifier(): string {
-		return ExpirySetting::IDENTIFIER;
+		return CreateSetting::IDENTIFIER;
 	}
 
 	public function getName(): string {
-		return $this->l->t('A <strong>Secret</strong> has expired before being retrieved');
+		return $this->l->t('A <strong>Secret</strong> was created');
 	}
 
 	public function getPriority(): int {
@@ -34,7 +34,7 @@ class ExpirySetting implements ISetting {
 	}
 
 	public function isDefaultEnabledStream(): bool {
-		return true;
+		return false;
 	}
 
 	public function canChangeMail(): bool {
