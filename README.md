@@ -66,7 +66,7 @@ It's specification can be found [here](./openapi.json);
 
 **However, all of the encryption is not part of the API, but is solved in the client (since Secrets uses solely 
 end-to-end encryption). So take care when using the OCS-API directly.
-You can find the implementation of Secrets' client cryptography [here](./src/crypto.js)**
+You can find the implementation of Secrets' client cryptography [here](shared/crypto.ts)**
 
 ## Development
 
