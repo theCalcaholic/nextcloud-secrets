@@ -9,7 +9,7 @@ test.describe.configure({ mode: 'parallel' })
 test.describe('Secrets CRUD Operations', () => {
 	test('should display empty state when no secrets exist', async ({ page }) => {
 		await page.goto('/index.php/apps/secrets')
-		await expect(page.locator('#emptycontent h2')).toContainText('Create a secret to get started')
+		await expect(page.locator('#emptycontent')).toContainText('Create a secret to get started')
 	})
 
 	test('should create a new secret', async ({ page }) => {
@@ -22,6 +22,24 @@ test.describe('Secrets CRUD Operations', () => {
 
 		await expect(page.locator(`.app-navigation-entry:has(a[title="${secret.title}"]) .app-navigation-entry__name`)).toHaveText(secret.title)
 		await expect(page.locator('.secret-container textarea')).toHaveValue(secret.content)
+	})
+
+	test('should create a new secret with expiry date', async ({ page }) => {
+		const secret = {
+			title: 'test-secret',
+			content: 'secret content',
+			expireInDays: 1,
+		}
+
+		const expectedExpiry = new Date()
+		expectedExpiry.setUTCDate(expectedExpiry.getUTCDate() + secret.expireInDays)
+		expectedExpiry.setUTCHours(0, 0, 0, 0)
+
+		await createSecret(page, secret)
+		await expect(page.locator(`.app-navigation-entry:has(a[title="${secret.title}"]) .app-navigation-entry__name`)).toHaveText(secret.title)
+		await expect(page.locator('.secret-container textarea')).toHaveValue(secret.content)
+		const actualExpiry = new Date(await page.locator('.secret-container input[name="expires"]').inputValue())
+		expect(actualExpiry).toEqual(expectedExpiry)
 	})
 
 	test('should read but not decrypt an existing secret', async ({ page }) => {

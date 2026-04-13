@@ -6,7 +6,7 @@
 import { configureNextcloud, runOcc } from '@nextcloud/e2e-test-server'
 import { test as setup } from '@playwright/test'
 import path from 'node:path'
-import { syncApp } from '../util.ts'
+import { getBranch, syncApp } from '../util.ts'
 
 /**
  * We use this to ensure Nextcloud is configured correctly before running our tests
@@ -17,9 +17,9 @@ import { syncApp } from '../util.ts'
 setup('Configure Nextcloud', async () => {
 	const cwd = process.cwd()
 	const syncPath = path.join(cwd, 'build/test/secrets')
-	await syncApp(cwd, syncPath, [path.join(cwd, 'build')])
-	const appsToInstall: string[] = ['viewer'] // , 'notifications']
-	await configureNextcloud(appsToInstall)
+	await syncApp(cwd, syncPath, [path.join(cwd, 'build'), path.join(cwd, '.git')])
+	const appsToInstall: string[] = ['viewer', 'notifications', 'activity']
+	await configureNextcloud(appsToInstall, process.env.NC_VERSION ?? getBranch())
 	await runOcc(['app:enable', 'secrets'])
 	await runOcc(['user:add', '--password-from-env', 'secretsclitest'], {
 		env: ['NC_PASS=secretsclitest'],

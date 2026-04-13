@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: Tobias Knöppler <tobias@knoeppler.org>
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import fs from 'fs'
+import fs, { readFileSync } from 'fs'
 import { randomUUID } from 'node:crypto'
 import { chmodSync, cpSync, mkdirSync, rmSync } from 'node:fs'
 import path from 'node:path'
@@ -57,4 +57,20 @@ export async function syncApp(src: string, dest: string, excludes: string[]): Pr
 		}
 	}
 	return dest
+}
+
+/**
+ *
+ */
+export function getBranch() {
+	try {
+		const appinfo = readFileSync('appinfo/info.xml').toString()
+		const maxVersion = appinfo.match(/<nextcloud\s*min-version="\d+"\s*max-version="(\d\d+)"\s*\/>/)?.[1]
+		return maxVersion ? `stable${maxVersion}` : undefined
+	} catch (err) {
+		// @ts-expect-error error from upstream code
+		if (err?.code === 'ENOENT') {
+			console.warn('No appinfo/info.xml found. Using default server banch.')
+		}
+	}
 }
