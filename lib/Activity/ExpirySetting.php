@@ -22,7 +22,7 @@ class ExpirySetting implements ISetting {
 	}
 
 	public function getName(): string {
-		return $this->l->t('A <strong>Secret</strong> has expired before being retrieved');
+		return $this->l->t('A <strong>Secret</strong> has expired without being retrieved');
 	}
 
 	public function getPriority(): int {
