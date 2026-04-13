@@ -21,33 +21,27 @@ class RetrievalSetting implements ISetting {
 		return RetrievalSetting::IDENTIFIER;
 	}
 
-	public function getName(): string
-    {
+	public function getName(): string {
 		return $this->l->t('A <strong>Secret</strong> was retrieved');
 	}
 
-	public function getPriority(): int
-    {
+	public function getPriority(): int {
 		return 50;
 	}
 
-	public function canChangeStream(): bool
-    {
+	public function canChangeStream(): bool {
 		return true;
 	}
 
-	public function isDefaultEnabledStream(): bool
-    {
+	public function isDefaultEnabledStream(): bool {
 		return true;
 	}
 
-	public function canChangeMail(): bool
-    {
+	public function canChangeMail(): bool {
 		return true;
 	}
 
-	public function isDefaultEnabledMail(): bool
-    {
+	public function isDefaultEnabledMail(): bool {
 		return false;
 	}
 }

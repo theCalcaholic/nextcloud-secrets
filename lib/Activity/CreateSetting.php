@@ -17,38 +17,31 @@ class CreateSetting implements ISetting {
 		$this->l = $l;
 	}
 
-	public function getIdentifier(): string
-    {
+	public function getIdentifier(): string {
 		return CreateSetting::IDENTIFIER;
 	}
 
-	public function getName(): string
-    {
+	public function getName(): string {
 		return $this->l->t('A <strong>Secret</strong> was created');
 	}
 
-	public function getPriority(): int
-    {
+	public function getPriority(): int {
 		return 50;
 	}
 
-	public function canChangeStream(): bool
-    {
+	public function canChangeStream(): bool {
 		return true;
 	}
 
-	public function isDefaultEnabledStream(): bool
-    {
+	public function isDefaultEnabledStream(): bool {
 		return false;
 	}
 
-	public function canChangeMail(): bool
-    {
+	public function canChangeMail(): bool {
 		return true;
 	}
 
-	public function isDefaultEnabledMail(): bool
-    {
+	public function isDefaultEnabledMail(): bool {
 		return false;
 	}
 }

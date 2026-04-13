@@ -1,16 +1,15 @@
 // SPDX-FileCopyrightText: Tobias Knöppler <tobias@knoeppler.org>
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { runOcc } from '@nextcloud/e2e-test-server'
 import { expect } from '@playwright/test'
 import fs from 'fs'
 import { test } from '../support/fixtures/random-user.ts'
 import {
 	createSecret,
-	findSecretsExpiryJob,
 	revealSharedSecretNoPassword,
 	runExpiryJob,
 } from '../support/helpers/procedures.ts'
+import { getBranch } from '../util.ts'
 
 test.describe.configure({ mode: 'parallel' })
 test.describe('Secret Sharing Operations', () => {
@@ -85,6 +84,7 @@ test.describe('Secret Sharing Operations', () => {
 	})
 
 	test('should expire', async ({ page }) => {
+		test.skip((process.env.NC_VERSION ?? getBranch() ?? 'latest').endsWith('32'), 'occ command automation is currently broken with NC 32')
 		test.setTimeout(150_000)
 		const secret = {
 			title: 'expiry test',
