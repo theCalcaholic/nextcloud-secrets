@@ -1,7 +1,6 @@
 OC.L10N.register(
     "secrets",
     {
-    "A <strong>Secret</strong> has expired before being retrieved" : "<strong>祕密</strong>已在擷取前過期",
     "Secrets" : "祕密",
     "Secret '{secret}' has been retrieved" : "已擷取祕密「{secret}」",
     "Secret '{secret}' has expired without being retrieved" : "祕密「{secret}」已過期但未被擷取",
