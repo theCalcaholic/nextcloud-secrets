@@ -1,5 +1,4 @@
 { "translations": {
-    "A <strong>Secret</strong> has expired before being retrieved" : "Ein <strong>Geheimnis</strong> ist abgelaufen, bevor es abgerufen werden konnte",
     "Secrets" : "Geheimnisse",
     "Secret '{secret}' has been retrieved" : "Das Geheimnis \"{secret}\" wurde abgerufen",
     "Secret '{secret}' has expired without being retrieved" : "Geheimnis \"{secret}\" ist abgelaufen, ohne dass es abgerufen wurde",
