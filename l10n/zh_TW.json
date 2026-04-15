@@ -1,4 +1,6 @@
 { "translations": {
+    "A <strong>Secret</strong> was created" : "已建立<strong>祕密</strong>",
+    "A <strong>Secret</strong> has expired without being retrieved" : "<strong>祕密</strong>未擷取即過期",
     "Secrets" : "祕密",
     "Secret '{secret}' has been retrieved" : "已擷取祕密「{secret}」",
     "Secret '{secret}' has expired without being retrieved" : "祕密「{secret}」已過期但未被擷取",
