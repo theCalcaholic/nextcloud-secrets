@@ -1,6 +1,8 @@
 OC.L10N.register(
     "secrets",
     {
+    "A <strong>Secret</strong> was created" : "Ein <strong>Geheimnis</strong> wurde erstellt",
+    "A <strong>Secret</strong> has expired without being retrieved" : "Ein <strong>Geheimnis</strong> ist abgelaufen, ohne dass es abgerufen wurde",
     "Secrets" : "Geheimnisse",
     "Secret '{secret}' has been retrieved" : "Das Geheimnis \"{secret}\" wurde abgerufen",
     "Secret '{secret}' has expired without being retrieved" : "Geheimnis \"{secret}\" ist abgelaufen, ohne dass es abgerufen wurde",
