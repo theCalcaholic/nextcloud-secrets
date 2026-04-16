@@ -136,6 +136,7 @@ appstore:
 		../$(app_name)/appinfo \
 		../$(app_name)/img \
 		../$(app_name)/js \
+		../$(app_name)/css \
 		../$(app_name)/lib \
 		../$(app_name)/l10n \
 		../$(app_name)/LICENSES \

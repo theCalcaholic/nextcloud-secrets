@@ -50,24 +50,25 @@ jobs:
       run: |
         set -eu
         VERSION="${GITHUB_REF##*/}"
+        VERSION="${VERSION#v}"
         grep "<version>${VERSION?}</version>" appinfo/info.xml || {
           echo "appinfo/info.xml: version does not match git tag ($VERSION)"
           exit 1
         }
-        jq '.version' < package.json | grep "^$VERSION\$" || {
+        [[ "$(jq -r '.version' < package.json)" == "$VERSION" ]] || {
           echo "package.json: version does not match git tag ($VERSION)"
           exit 1
         }
-        jq '.version' < cli/package.json | grep "^$VERSION\$" || {
+        [[ "$(jq -r '.version' < cli/package.json)" == "$VERSION" ]] || {
           echo "cli/package.json: version does not match git tag ($VERSION)"
           exit 1
         }
         
         echo "Version check successful"
-    - name: Set up php 8.2
+    - name: Set up php 8.4
       uses: shivammathur/setup-php@v2
       with:
-        php-version: 8.2
+        php-version: 8.4
         tools: phpunit
         extensions: mbstring, iconv, fileinfo, intl, mysql, pdo_mysql
         coverage: none
