@@ -1,6 +1,8 @@
 OC.L10N.register(
     "secrets",
     {
+    "A <strong>Secret</strong> was created" : "Cruthaíodh <strong>Rún</strong>",
+    "A <strong>Secret</strong> has expired without being retrieved" : "Tá <strong>Rún</strong> imithe in éag gan é a aisghabháil",
     "Secrets" : "Rúin",
     "Secret '{secret}' has been retrieved" : "Aisghabhadh an rún '{secret}'",
     "Secret '{secret}' has expired without being retrieved" : "Tá rún '{secret}' imithe in éag gan é a aisghabháil",
