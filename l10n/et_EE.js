@@ -1,6 +1,8 @@
 OC.L10N.register(
     "secrets",
     {
+    "A <strong>Secret</strong> was created" : "<strong>Saladus</strong> on loodud",
+    "A <strong>Secret</strong> has expired without being retrieved" : "<strong>Saladus</strong> on aegunud ja allalaadimata",
     "Secrets" : "Saladused",
     "Secret '{secret}' has been retrieved" : "„{secret}“ saladus on allalaaditud",
     "Secret '{secret}' has expired without being retrieved" : "Saladus „{secret}“ on aegunud ja teda pole alla laaditud",
