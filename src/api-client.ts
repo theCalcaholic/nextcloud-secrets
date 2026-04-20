@@ -4,10 +4,10 @@
 import type { CreateClientConfig } from '@shared/api/client.gen.ts'
 
 import axios from '@nextcloud/axios'
-import { getBaseUrl } from '@nextcloud/router'
+import { getRootUrl } from '@nextcloud/router'
 
 export const createClientConfig: CreateClientConfig = (config) => ({
 	...config,
 	axios,
-	baseUrl: getBaseUrl(),
+	baseUrl: getRootUrl(),
 })
