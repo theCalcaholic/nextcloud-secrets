@@ -51,6 +51,7 @@ jobs:
         set -eu
         VERSION="${GITHUB_REF##*/}"
         VERSION="${VERSION#v}"
+        VERSION="${VERSION%-rc?*}"
         grep "<version>${VERSION?}</version>" appinfo/info.xml || {
           echo "appinfo/info.xml: version does not match git tag ($VERSION)"
           exit 1
