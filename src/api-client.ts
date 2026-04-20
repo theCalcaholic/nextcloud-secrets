@@ -9,5 +9,6 @@ import { getBaseUrl } from '@nextcloud/router'
 export const createClientConfig: CreateClientConfig = (config) => ({
 	...config,
 	axios,
-	baseUrl: getBaseUrl(),
+	baseURL: getBaseUrl(),
+	allowAbsoluteUrls: false,
 })
