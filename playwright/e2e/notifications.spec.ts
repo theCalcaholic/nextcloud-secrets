@@ -91,7 +91,6 @@ test.describe('Secrets Activity + Notifications', () => {
 
 		await page.goto('/index.php/apps/secrets')
 		await page.locator(`.app-navigation-entry a[title="${secret.title}"]`).click()
-		await page.screenshot({ path: 'expiry-test.png' })
 		await expect(page.locator('.secret-container #emptycontent'))
 			.toContainText('This secret has expired and its content was consequently deleted from the server.')
 
