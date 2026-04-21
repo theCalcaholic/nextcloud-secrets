@@ -50,14 +50,14 @@ jobs:
           echo "SELECT @@sql_mode;" | mysql -h 127.0.0.1 -P 4444 -u root -prootpassword
 
       - name: Checkout server
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           submodules: true
           repository: nextcloud/server
           ref: ${{ matrix.server-versions }}
 
       - name: Checkout app
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           path: apps/${{ env.APP_NAME }}
 

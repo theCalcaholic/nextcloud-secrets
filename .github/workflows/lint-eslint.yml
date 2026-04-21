@@ -36,27 +36,29 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
       - name: Read package.json node and npm engines version
         uses: skjnldsv/read-package-engines-version-actions@v1.2
         id: versions
         with:
-          fallbackNode: '^12'
-          fallbackNpm: '^6'
+          fallbackNode: '^24'
+          fallbackNpm: '^11'
 
       - name: Set up node ${{ steps.versions.outputs.nodeVersion }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ steps.versions.outputs.nodeVersion }}
 
-      - name: Set up npm ${{ steps.versions.outputs.npmVersion }}
-        run: npm i -g npm@"${{ steps.versions.outputs.npmVersion }}"
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          cache: true
 
       - name: Install dependencies
         run: |
-          npm ci
-          npm run build
+          pnpm install
+          pnpm run build
 
       - name: Lint
-        run: npm run lint
+        run: pnpm run lint

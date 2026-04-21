@@ -15,7 +15,7 @@ async function start() {
 	const branch = process.env.NC_VERSION ?? getBranch()
 	const cwd = process.cwd()
 	const syncPath = path.join(cwd, 'build/test/secrets')
-	await syncApp(cwd, syncPath, [path.join(cwd, 'build'), path.join(cwd, '.git')])
+	await syncApp(cwd, syncPath, [path.join(cwd, 'build'), path.join(cwd, '.git'), path.join(cwd, '.pnpm'),  path.join(cwd, 'node_modules')])
 	return await startNextcloud(branch, syncPath, {
 		exposePort: 8089,
 	})
