@@ -28,7 +28,6 @@ class SecretExpiry extends TimedJob {
 	 * @throws Exception
 	 */
 	protected function run($argument) {
-		$this->logger->warning('CRON: Expiring secrets...');
 		$dt = new DateTime('now');
 		$this->service->expireSecrets($dt->format('Y-m-d'));
 	}

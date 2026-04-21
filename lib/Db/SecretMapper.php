@@ -107,7 +107,7 @@ class SecretMapper extends QBMapper {
 	 * @throws Exception
 	 */
 	public function expire(string $referenceDate): void {
-		$this->logger->warning('EXPIRE SECRETS UP TO ' . $referenceDate);
+		$this->logger->debug('EXPIRE SECRETS UP TO ' . $referenceDate);
 		$qb = $this->db->getQueryBuilder();
 		$Param = $qb->createNamedParameter($referenceDate);
 		$qb->select('*')
@@ -122,7 +122,7 @@ class SecretMapper extends QBMapper {
 		}
 
 		if (count($toExpireIds) > 0) {
-			$this->logger->warning('to expire: [' . join(', ', $toExpireIds) . ']');
+			$this->logger->debug('to expire: [' . join(', ', $toExpireIds) . ']');
 			$qb = $this->db->getQueryBuilder();
 			$nullParam = $qb->createNamedParameter(null, IQueryBuilder::PARAM_STR);
 			$expireIdsParam = $qb->createNamedParameter($toExpireIds, IQueryBuilder::PARAM_INT_ARRAY);
