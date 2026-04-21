@@ -31,6 +31,7 @@ export default createAppConfig(
 				cssCodeSplit: false,
 			},
 			plugins: [
+				// @ts-expect-error TODO: Remove once cleanPlugin is compatible with vite 7 again
 				cleanPlugin({
 					targetFiles: ['js', 'css'],
 				}),

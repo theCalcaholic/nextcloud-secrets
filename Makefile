@@ -9,33 +9,24 @@
 # * which
 # * curl: used if phpunit and composer are not installed to fetch them from the web
 # * tar: for building the archive
-# * npm: for building and testing everything JS
+# * pnpm: for building and testing everything JS
 #
 # If no composer.json is in the app root directory, the Composer step
 # will be skipped. The same goes for the package.json which can be located in
 # the app root or the js/ directory.
 #
-# The npm command by launches the npm build script:
+# The pnpm command by launches the pnpm build script:
 #
-#    npm run build
+#    pnpm run build
 #
-# The npm test command launches the npm test script:
+# The pnpm test command launches the pnpm test script:
 #
-#    npm run test
+#    pnpm run test
 #
 # The idea behind this is to be completely testing and build tool agnostic. All
 # build tools and additional package managers should be installed locally in
 # your project, since this won't pollute people's global namespace.
 #
-# The following npm scripts in your package.json install and update the bower
-# and npm dependencies and use gulp as build system (notice how everything is
-# run from the node_modules folder):
-#
-#    "scripts": {
-#        "test": "node node_modules/gulp-cli/bin/gulp.js karma",
-#        "prebuild": "npm install && node_modules/bower/bin/bower install && node_modules/bower/bin/bower update",
-#        "build": "node node_modules/gulp-cli/bin/gulp.js"
-#    },
 
 app_name=$(notdir $(CURDIR))
 build_tools_directory=$(CURDIR)/build/tools
@@ -43,14 +34,14 @@ source_build_directory=$(CURDIR)/build/artifacts/source
 source_package_name=$(source_build_directory)/$(app_name)
 appstore_build_directory=$(CURDIR)/build/artifacts/appstore
 appstore_package_name=$(appstore_build_directory)/$(app_name)
-npm=$(shell which npm 2> /dev/null)
+pnpm=$(shell which pnpm 2> /dev/null)
 composer=$(shell which composer 2> /dev/null)
 
 all: build
 
 # Fetches the PHP and JS dependencies and compiles the JS. If no composer.json
 # is present, the composer step is skipped, if no package.json or js/package.json
-# is present, the npm step is skipped
+# is present, the pnpm step is skipped
 .PHONY: build
 build:
 ifneq (,$(wildcard $(CURDIR)/composer.json))
@@ -83,9 +74,9 @@ endif
 .PHONY: npm
 npm:
 ifeq (,$(wildcard $(CURDIR)/package.json))
-	cd js && $(npm) run build
+	cd js && $(pnpm) run build
 else
-	npm run build
+	pnpm run build
 endif
 	cp -R js-static/* js/
 
