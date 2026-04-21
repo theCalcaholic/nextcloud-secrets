@@ -87,6 +87,7 @@ jobs:
       with:
         cache: true
         package_json_file: './secrets/package.json'
+        cache_dependency_path: './secrets/pnpm-lock.yaml'
 
     - name: Set up node ${{ steps.versions.outputs.nodeVersion }}
       uses: actions/setup-node@v4
