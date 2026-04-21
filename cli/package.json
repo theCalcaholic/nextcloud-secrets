@@ -1,6 +1,6 @@
 {
   "name": "nc-secrets",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "license": "AGPL-3.0-or-later",
   "author": "Tobias Knöppler <tobias@knoeppler.org>",
   "type": "module",
