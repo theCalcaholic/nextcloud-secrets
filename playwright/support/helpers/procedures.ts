@@ -101,7 +101,6 @@ export async function createSecret(page: Page, { title, content, password, expir
 		await dayButtonLocator.click()
 		// await expiryField.fill(formattedDate)
 		// await expiryField.blur()
-		await page.screenshot({ path: 'secrets-creation-expirydate.png' })
 	}
 	await page.fill('textarea', content)
 	await page.click('input.primary[type="button"]')

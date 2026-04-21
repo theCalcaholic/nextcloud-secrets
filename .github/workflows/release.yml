@@ -41,7 +41,7 @@ jobs:
       - reuse
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v6
       with:
         path: secrets
     - name: Verify correct versions
@@ -78,20 +78,33 @@ jobs:
       uses: skjnldsv/read-package-engines-version-actions@v1.2
       id: versions
       with:
-        fallbackNode: '^12'
-        fallbackNpm: '^6'
+        fallbackNode: '^24'
+        fallbackNpm: '^11'
         path: './secrets'
 
-    - name: Set up node ${{ steps.versions.outputs.nodeVersion }}
-      uses: actions/setup-node@v3
+    - name: Set up pnpm
+      uses: pnpm/action-setup@v6
       with:
+        cache: true
+        package_json_file: './secrets/package.json'
+
+    - name: Set up node ${{ steps.versions.outputs.nodeVersion }}
+      uses: actions/setup-node@v4
+      with:
+        cache: 'pnpm'
+        cache-dependency-path: './secrets/pnpm-lock.yaml'
         node-version: ${{ steps.versions.outputs.nodeVersion }}
-    - uses: oven-sh/setup-bun@v1
+
+    - uses: oven-sh/setup-bun@v2
+      with:
+        bun-version-file: "cli/package.json"
+
     - name: Build app
       working-directory: ./secrets
       run: |
-        npm install --dev
+        pnpm install
         make build appstore
+
     - name: Build cli
       working-directory: ./secrets/cli
       run: |
