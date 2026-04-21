@@ -28,24 +28,18 @@ jobs:
       - name: Checkout app
         uses: actions/checkout@v4
 
-      - name: Read package.json node and npm engines version
-        uses: skjnldsv/read-package-engines-version-actions@v1.2
-        id: versions
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
         with:
-          fallbackNode: '^24'
-          fallbackNpm: '^11'
+          cache: true
 
-      - name: Set up node ${{ steps.versions.outputs.nodeVersion }}
-        uses: actions/setup-node@v4
+      - uses: oven-sh/setup-bun@v2
         with:
-          node-version: ${{ steps.versions.outputs.nodeVersion }}
-          cache: 'npm'
-
-      - uses: oven-sh/setup-bun@v1
+          bun-version-file: "cli/package.json"
 
       - name: Install dependencies
         run: |
-          npm ci
+          pnpm ci
           (cd cli && bun install)
 
       - name: Install Playwright browsers
@@ -53,17 +47,17 @@ jobs:
 
       - name: Build app
         run: |
-          npm run build
+          pnpm run build
           (cd cli && bun build --compile cli.ts --outfile nc-secrets)
 
       - name: Run Playwright E2E tests
         run: |
           export NC_VERSION="stable${{ matrix.nextcloud_version }}"
-          npm run test:e2e
+          pnpm run test:e2e
 
       - name: Run unit and cli tests
         run: |
-          npm run test
+          pnpm run test
 
       - name: Upload HTML report
         if: always()

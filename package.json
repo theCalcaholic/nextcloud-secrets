@@ -11,7 +11,7 @@
   "contributors": [],
   "type": "module",
   "scripts": {
-    "build": "npm run generate-api-types && vue-tsc && vite build --mode production",
+    "build": "pnpm run generate-api-types && vue-tsc && vite build --mode production",
     "dev": "vite build --mode development",
     "generate-api-types": "openapi-ts",
     "lint": "vue-tsc && eslint",
@@ -27,6 +27,7 @@
     "test:unit": "vitest --config vite.config.ts run",
     "watch": "vite build --mode development --watch"
   },
+  "packageManager": "pnpm@10.33.0",
   "browserslist": [
     "extends @nextcloud/browserslist-config"
   ],
@@ -37,7 +38,8 @@
     "@nextcloud/router": "^3.1.0",
     "@nextcloud/vue": "^9.6.0",
     "vue": "^3.5.31",
-    "vue-material-design-icons": "^5.3.1"
+    "vue-material-design-icons": "^5.3.1",
+    "axios": "^1.14.0"
   },
   "devDependencies": {
     "@eslint/compat": "^2.0.3",

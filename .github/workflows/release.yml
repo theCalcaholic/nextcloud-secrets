@@ -74,24 +74,22 @@ jobs:
         extensions: mbstring, iconv, fileinfo, intl, mysql, pdo_mysql
         coverage: none
 
-    - name: Read package.json node and npm engines version
-      uses: skjnldsv/read-package-engines-version-actions@v1.2
-      id: versions
+    - name: Set up pnpm
+      uses: pnpm/action-setup@v6
       with:
-        fallbackNode: '^12'
-        fallbackNpm: '^6'
-        path: './secrets'
+        cache: true
+        package_json_file: './secrets/package.json'
 
-    - name: Set up node ${{ steps.versions.outputs.nodeVersion }}
-      uses: actions/setup-node@v3
+    - uses: oven-sh/setup-bun@v2
       with:
-        node-version: ${{ steps.versions.outputs.nodeVersion }}
-    - uses: oven-sh/setup-bun@v1
+        bun-version-file: "cli/package.json"
+
     - name: Build app
       working-directory: ./secrets
       run: |
-        npm install --dev
+        pnpm install --dev
         make build appstore
+
     - name: Build cli
       working-directory: ./secrets/cli
       run: |
