@@ -1,6 +1,8 @@
 OC.L10N.register(
     "secrets",
     {
+    "A <strong>Secret</strong> was created" : "A <strong>Secret</strong> was created",
+    "A <strong>Secret</strong> has expired without being retrieved" : "A <strong>Secret</strong> has expired without being retrieved",
     "Secrets" : "Secrets",
     "Secret '{secret}' has been retrieved" : "Secret '{secret}' has been retrieved",
     "Secret '{secret}' has expired without being retrieved" : "Secret '{secret}' has expired without being retrieved",
