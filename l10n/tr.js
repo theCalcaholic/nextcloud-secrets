@@ -25,7 +25,7 @@ OC.L10N.register(
     "Could not fetch secrets" : "Sırlar alınamadı",
     "Can't save already existing secret" : "Zaten var olan bir sır kaydedilemez",
     "Secret from {date} {time}" : "{date} {time} zamanındaki parola",
-    "Could not create the secret" : "Sır eklenemedi",
+    "Could not create the secret" : "Sır oluşturulamadı",
     "Could not delete the secret" : "Sır silinemedi",
     "Secret deleted" : "Sır silindi",
     "Navigation" : "Gezinme",
@@ -54,7 +54,7 @@ OC.L10N.register(
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Bu yol değişmiş. Sizi yeni konuma yönlendiriyoruz. Yönlendirme yapılamazsa şu bağlantıya tıklayın:",
     "Go to secret" : "Sırra git",
     "Securely share data with anyone. All data is end-to-end encrypted by the user and will be deleted once retrieved successfully" : "Verileri herhangi bir kişi ile güvenli bir şekilde paylaşın. Tüm veriler kullanıcı tarafından uçtan uca şifrelenir ve karşı taraf aldığında silinir",
-    "New Secret" : "Sır ekle",
+    "New Secret" : "Yeni sır",
     "Share Link" : "Paylaşım bağlantısı",
     "Retrieving secret..." : "Sır alınıyor..."
 },
