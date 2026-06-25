@@ -1,6 +1,6 @@
 {
   "name": "nc-secrets",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "license": "AGPL-3.0-or-later",
   "author": "Tobias Knöppler <tobias@knoeppler.org>",
   "type": "module",
@@ -11,7 +11,7 @@
   "dependencies": {
     "@nextcloud/axios": "^1.11.0",
     "@nextcloud/router": "^2.2.1",
-    "axios": "1.14.0",
+    "axios": "1.15.2",
     "commander": "^11.1.0"
   },
   "devDependencies": {
