@@ -75,6 +75,8 @@ export async function createSecret(page: Page, { title, content, password, expir
 		await page.fill('.secret-container input[type=password]', password)
 	}
 	if (expireInDays !== undefined) {
+		const defaultExpiryDate = new Date()
+		defaultExpiryDate.setDate((new Date()).getDate() + 7)
 		const expiryDate = new Date()
 		expiryDate.setDate(expiryDate.getDate() + expireInDays)
 		const isoDateString = expiryDate.toISOString().split('T')[0]
@@ -86,14 +88,14 @@ export async function createSecret(page: Page, { title, content, password, expir
 		await page.waitForSelector('.dp__menu[aria-label="Datepicker menu"]:visible')
 		const dayButtonLocator = page.locator(`#${datepickerFormatDate}`)
 		let buttonSelector = '.dp__menu button[aria-label="Next month"]'
-		if ((new Date()).getMonth() > expiryDate.getMonth()) {
+		if ((defaultExpiryDate).getMonth() > expiryDate.getMonth()) {
 			buttonSelector = '.dp__menu button[aria-label="Previous month"]'
 		}
 		const monthButtonLocator = page.locator(buttonSelector)
 		let tries = 1
 		while (!await dayButtonLocator.isVisible({ timeout: 100 })) {
 			if (tries > 6) {
-				throw new Error('Could not find date time picker button after paging through 6 months')
+				throw new Error(`Could not find date time picker button (${dayButtonLocator}) after paging through 6 months`)
 			}
 			await monthButtonLocator.click()
 			tries += 1
