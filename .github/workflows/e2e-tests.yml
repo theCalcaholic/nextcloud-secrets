@@ -44,7 +44,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           cache: 'pnpm'
-          node-version: ${{ steps.versions.outputs.nodeVersion }}
+          node-version: 25 
+          #${{ steps.versions.outputs.nodeVersion }}
 
       - uses: oven-sh/setup-bun@v2
         with:
