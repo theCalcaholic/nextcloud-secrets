@@ -21,6 +21,7 @@ jobs:
     strategy:
       matrix:
         nextcloud_version: ['32', '33', '34']
+      fail-fast: false
 
     timeout-minutes: 60
 
