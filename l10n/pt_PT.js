@@ -1,11 +1,15 @@
 OC.L10N.register(
     "secrets",
     {
+    "A <strong>Secret</strong> has expired without being retrieved" : "Um <strong>segredo</strong> expirou sem ter sido recuperado",
+    "Securely share data via link" : "Compartilhe dados com segurança via link",
     "Save" : "Guardar",
+    "Secret from {date} {time}" : "Segredo de {date} {time}",
     "Navigation" : "Navegação",
     "Download" : "Transferir",
     "This share is password-protected" : "Esta partilha está protegida por senha",
     "Password" : "Palavra-passe",
+    "Go to secret" : "Ir para o segredo",
     "Share Link" : "Partilhar hiperligação"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
