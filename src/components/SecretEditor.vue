@@ -44,7 +44,7 @@ defineEmits(['saveSecret'])
 		<textarea
 			v-model="model._decrypted"
 			:disabled="locked"
-			:placeholder="t('secrets', 'Type or paste the secret you want to share (e.g. a password, CSV data, or bank account details)...')"
+			:placeholder="t('secrets', 'Type or paste the secret you want to share (e.g. a password, CSV data, or bank account details)…')"
 			:aria-label="t('secrets', 'Secret content')" />
 		<input
 			type="button"
