@@ -5,7 +5,7 @@
 import type { Secret } from '@/model'
 
 import { t } from '@nextcloud/l10n'
-import { NcDateTimePicker, NcPasswordField } from '@nextcloud/vue'
+import { NcDateTimePicker, NcNoteCard, NcPasswordField } from '@nextcloud/vue'
 
 import '@nextcloud/dialogs/styles/toast.scss'
 
@@ -38,7 +38,14 @@ defineEmits(['saveSecret'])
 			:label="t('secrets', 'share password (optional)')"
 			:minlength="4"
 			:required="false" />
-		<textarea v-model="model._decrypted" :disabled="locked" />
+		<NcNoteCard type="info">
+			{{ t('secrets', 'If you set a share password, anyone opening the share link will also need to enter this password before they can view the secret.') }}
+		</NcNoteCard>
+		<textarea
+			v-model="model._decrypted"
+			:disabled="locked"
+			:placeholder="t('secrets', 'Type or paste the secret you want to share (e.g. a password, CSV data, or bank account details)...')"
+			:aria-label="t('secrets', 'Secret content')" />
 		<input
 			type="button"
 			class="primary"
@@ -66,6 +73,10 @@ defineEmits(['saveSecret'])
 		flex-grow: 1;
 		width: 100%;
 		font-family: 'Lucida Console', monospace;
+	}
+
+	:deep(.notecard) {
+		margin-bottom: 12px;
 	}
 
 	.secret-actions {
