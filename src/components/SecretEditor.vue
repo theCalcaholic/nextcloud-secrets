@@ -24,7 +24,7 @@ defineEmits(['saveSecret'])
 
 <template>
 	<div v-if="model" class="secret-container">
-		<p>
+		<p class="expires-container">
 			<label for="expires">{{ t('secrets', 'Expires on:') }}</label>
 			<NcDateTimePicker
 				v-model="model.expires"
@@ -63,10 +63,27 @@ defineEmits(['saveSecret'])
 	div.secret-container {
 		width: 100%;
 		min-height: 50%;
-		padding: 20px;
+		padding: 44px 20px 20px 20px;
 		display: flex;
 		flex-direction: column;
 		height: 100%;
+		overflow-x: hidden;
+		box-sizing: border-box;
+	}
+
+	.expires-container {
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: row;
+		align-items: center;
+	}
+
+	.expires-container label {
+		line-height: 36px;
+		flex-grow: 0;
+		flex-shrink: 0;
+		white-space: nowrap;
+		margin: 3px;
 	}
 
 	textarea {

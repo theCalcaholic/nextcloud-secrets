@@ -188,9 +188,12 @@ async function copyToClipboard(url: string) {
 	div.secret-container {
 		width: 100%;
 		min-height: 50%;
+		padding: 44px 20px 20px 20px;
 		display: flex;
 		flex-direction: column;
 		height: 100%;
+		overflow-x: hidden;
+		box-sizing: border-box;
 	}
 
 	textarea {
@@ -211,7 +214,7 @@ async function copyToClipboard(url: string) {
 
 	.url-container, .expires-container {
 		display: flex;
-		flex-wrap: nowrap;
+		flex-wrap: wrap;
 		flex-direction: row;
 	}
 
