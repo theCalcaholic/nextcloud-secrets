@@ -8,10 +8,8 @@ namespace OCA\Secrets\Tests\Unit\Service;
 
 use OCA\Secrets\Db\Secret;
 use OCA\Secrets\Db\SecretMapper;
-
 use OCA\Secrets\Service\NotificationService;
 use OCA\Secrets\Service\SecretNotFound;
-
 use OCA\Secrets\Service\SecretService;
 use OCP\Activity\IManager as IActivityManager;
 use OCP\AppFramework\Db\DoesNotExistException;

@@ -8,7 +8,6 @@ namespace OCA\Secrets\Db;
 
 use DateTime;
 use JsonSerializable;
-
 use OCP\AppFramework\Db\Entity;
 
 /**

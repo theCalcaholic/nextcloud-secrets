@@ -13,7 +13,6 @@ use OCP\IRequest;
 use OCP\IUser;
 use OCP\IUserSession;
 use OCP\Notification\IManager;
-
 use PHPUnit\Framework\TestCase;
 
 class PageControllerTest extends TestCase {

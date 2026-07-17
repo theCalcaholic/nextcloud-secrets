@@ -13,10 +13,8 @@ use OCA\Secrets\Service\SecretService;
 use OCP\App\IAppManager;
 use OCP\AppFramework\Http;
 use OCP\IRequest;
-
 use OCP\ISession;
 use OCP\IURLGenerator;
-
 use OCP\Notification\IManager as INotificationManager;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -78,7 +76,6 @@ class SecretApiControllerTest extends TestCase {
 
 		$this->controller->updateTitle('3', 'title');
 	}
-
 
 	public function testUpdateNotFound(): void {
 		// test the correct status code if no note is found

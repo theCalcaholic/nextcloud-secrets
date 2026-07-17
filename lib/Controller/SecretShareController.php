@@ -13,10 +13,12 @@ use OCA\Secrets\Service\SecretNotFound;
 use OCA\Secrets\Service\SecretService;
 use OCP\AppFramework\AuthPublicShareController;
 use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\Attribute\BruteForceProtection;
+use OCP\AppFramework\Http\Attribute\PublicPage;
+use OCP\AppFramework\Http\Attribute\UseSession;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IConfig;
 use OCP\IRequest;
-
 use OCP\ISession;
 use OCP\IURLGenerator;
 use OCP\Util;
@@ -104,6 +106,19 @@ class SecretShareController extends AuthPublicShareController {
 	public function showAuthenticate(): TemplateResponse {
 		return new TemplateResponse('secrets', 'publicshareauth',
 			['debug' => $this->debug], TemplateResponse::RENDER_AS_GUEST);
+	}
+
+	/**
+	 * Authenticate the share
+	 *
+	 * @since 14.0.0
+	 */
+	#[BruteForceProtection(action: 'publicLinkAuth')]
+	#[PublicPage]
+	#[UseSession]
+	private function authenticateX(string $password = '', string $passwordRequest = 'no', string $identityToken = '') {
+		// This method a rather ugly workaround for https://github.com/nextcloud/openapi-extractor/issues/28
+		throw new \Exception('This method should never be called (it\'s only used for OpenAPI generation');
 	}
 
 	/**

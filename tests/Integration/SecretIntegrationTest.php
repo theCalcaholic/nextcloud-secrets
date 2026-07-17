@@ -9,7 +9,6 @@ namespace OCA\Secrets\Tests\Integration\Controller;
 use OCA\Secrets\Controller\SecretApiController;
 use OCA\Secrets\Db\Secret;
 use OCA\Secrets\Db\SecretMapper;
-
 use OCA\Secrets\Service\SecretService;
 use OCP\AppFramework\App;
 use OCP\AppFramework\Db\QBMapper;

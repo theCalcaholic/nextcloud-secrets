@@ -104,6 +104,7 @@ jobs:
       working-directory: ./secrets
       run: |
         pnpm install
+        export COMPOSER_NO_DEV=1
         make build appstore
 
     - name: Build cli

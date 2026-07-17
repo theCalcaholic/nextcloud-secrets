@@ -7,10 +7,8 @@ declare(strict_types=1);
 namespace OCA\Secrets\Service;
 
 use Exception;
-
 use OCA\Secrets\Db\Secret;
 use OCA\Secrets\Db\SecretMapper;
-
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use Psr\Log\LoggerInterface;

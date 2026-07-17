@@ -11,7 +11,6 @@ use OCA\Secrets\Activity\CreateSetting;
 use OCA\Secrets\Activity\ExpirySetting;
 use OCA\Secrets\Activity\RetrievalSetting;
 use OCA\Secrets\AppInfo\Application;
-
 use OCA\Secrets\Db\Secret;
 use OCP\Activity\IManager as IActivityManager;
 use OCP\IURLGenerator;

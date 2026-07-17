@@ -7,11 +7,9 @@ declare(strict_types=1);
 namespace OCA\Secrets\Controller;
 
 use Closure;
-
 use OCA\Secrets\Service\SecretNotFound;
 use OCA\Secrets\Service\UnauthorizedException;
 use OCP\AppFramework\Http;
-
 use OCP\AppFramework\Http\DataResponse;
 
 trait Errors {

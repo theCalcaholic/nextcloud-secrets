@@ -138,3 +138,10 @@ appstore:
 test: composer
 	$(CURDIR)/vendor/bin/phpunit -c phpunit.xml
 	$(CURDIR)/vendor/bin/phpunit -c phpunit.integration.xml
+
+.PHONY: openapi
+openapi:
+	sed -i -e 's/private function authenticateX[(]/final public function authenticate(/' lib/Controller/SecretShareController.php
+	composer require --dev nextcloud/openapi-extractor
+	composer exec generate-spec . ./openapi.json
+	sed -i -e 's/final public function authenticate[(]/private function authenticateX(/' lib/Controller/SecretShareController.php

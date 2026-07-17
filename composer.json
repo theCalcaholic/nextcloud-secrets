@@ -12,7 +12,7 @@
 		"bamarni/composer-bin-plugin": "^1.8",
 		"nextcloud/coding-standard": "^v1.2.1",
 		"nextcloud/ocp": "dev-master",
-		"nextcloud/openapi-extractor": "^1.4"
+		"nextcloud/openapi-extractor": "^1.8"
 	},
 	"scripts": {
 		"bin": "echo 'bin not installed'",

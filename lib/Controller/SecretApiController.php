@@ -213,8 +213,9 @@ class SecretApiController extends OCSController {
 	 * @param string $uuid The uuid of the secret
 	 *
 	 * @return DataResponse<Http::STATUS_OK, array{message: string}, array{}>|DataResponse<Http::STATUS_NOT_FOUND, array{message: string}, array{}>
-	 *                                                                                                                                              200: Secret deleted
-	 *                                                                                                                                              404: Secret not found
+	 *
+	 * 200: Secret deleted
+	 * 404: Secret not found
 	 */
 	public function delete(string $uuid): DataResponse {
 		try {
