@@ -33,12 +33,12 @@ test.describe('Secrets CRUD Operations', () => {
 
 		const expectedExpiry = new Date()
 		expectedExpiry.setUTCDate(expectedExpiry.getUTCDate() + secret.expireInDays)
-		expectedExpiry.setUTCHours(0, 0, 0, 0)
+		expectedExpiry.setHours(0, 0, 0, 0)
 
 		await createSecret(page, secret)
 		await expect(page.locator(`.app-navigation-entry:has(a[title="${secret.title}"]) .app-navigation-entry__name`)).toHaveText(secret.title)
 		await expect(page.locator('.secret-container textarea')).toHaveValue(secret.content)
-		const actualExpiry = new Date(await page.locator('.secret-container input[name="expires"]').inputValue())
+		const actualExpiry = new Date(await page.locator('.secret-container :has(label:has-text("Expires on:")) input[type=text]:visible').inputValue())
 		expect(actualExpiry).toEqual(expectedExpiry)
 	})
 
@@ -92,8 +92,8 @@ test.describe('Secrets CRUD Operations', () => {
 	test('should cancel creating a new secret', async ({ page }) => {
 		await page.goto('/index.php/apps/secrets')
 		await page.click('.app-navigation-caption__actions button[title="New secret"]')
-		await page.waitForSelector('div.icon-template-add:visible')
-		await page.waitForSelector('label:has-text("Expires on:")')
+		await page.waitForSelector('.file-document-plus-outline-icon')
+		await page.waitForSelector('label:has-text("Expires on:"):visible')
 
 		const activeEntryLocator = page.locator('.app-navigation-entry-wrapper.active .app-navigation-entry')
 		const actionMenu = await openSecretActions(page, { locator: activeEntryLocator, title: undefined })

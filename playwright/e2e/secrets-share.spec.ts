@@ -20,7 +20,7 @@ test.describe('Secret Sharing Operations', () => {
 		}
 		await createSecret(page, secret)
 		await context.grantPermissions(['clipboard-read'])
-		const shareUrl = await page.locator('.secret-container input.url-field').inputValue()
+		const shareUrl = await page.locator('.secret-container span:visible:has(button:text("Share Link:"))>:not(button)').innerText()
 		// await page.locator('.secret-container button[aria-label="Copy Secret Link"]').click()
 		// await page.waitForTimeout(5000)
 		// const clipboardContent = await page.evaluate(async () => await navigator.clipboard.readText())
@@ -51,8 +51,8 @@ test.describe('Secret Sharing Operations', () => {
 			content: 'This secret will be shared',
 		}
 		await createSecret(page, secret)
-		const shareURL = await page.locator('.secret-container input.url-field').inputValue()
-		await revealSharedSecretNoPassword(page, shareURL)
+		const shareUrl = await page.locator('.secret-container span:visible:has(button:text("Share Link:"))>:not(button)').innerText()
+		await revealSharedSecretNoPassword(page, shareUrl)
 		await expect(page.locator('.secret-container textarea')).toHaveValue(secret.content)
 		const response = await page.reload()
 		expect(response?.status()).toEqual(404)
@@ -63,8 +63,8 @@ test.describe('Secret Sharing Operations', () => {
 		const testTitle = 'shared secret'
 		const secretPassword = 'revealme'
 		await createSecret(page, { title: testTitle, content: sharedContent, password: secretPassword })
-		const shareURL = await page.locator('.secret-container input.url-field').inputValue()
-		await page.goto(shareURL)
+		const shareUrl = await page.locator('.secret-container span:visible:has(button:text("Share Link:"))>:not(button)').innerText()
+		await page.goto(shareUrl)
 
 		// should show password page
 		await expect(page.getByText('This share is password-protected')).toBeVisible()
@@ -95,9 +95,9 @@ test.describe('Secret Sharing Operations', () => {
 
 		const expectedExpiry = new Date()
 		expectedExpiry.setUTCDate(expectedExpiry.getUTCDate() + secret.expireInDays)
-		expectedExpiry.setUTCHours(0, 0, 0, 0)
+		expectedExpiry.setHours(0, 0, 0, 0)
 
-		const actualExpiry = new Date(await page.locator('.secret-container input[name="expires"]').inputValue())
+		const actualExpiry = new Date(await page.locator('.secret-container :has(label:has-text("Expires on:")) input[type=text]:visible').inputValue())
 		expect(actualExpiry).toEqual(expectedExpiry)
 
 		await runExpiryJob(page)

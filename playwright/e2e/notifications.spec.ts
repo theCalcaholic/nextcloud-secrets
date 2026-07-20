@@ -58,7 +58,7 @@ test.describe('Secrets Activity + Notifications', () => {
 			title: secretTitle,
 			content: 'my test secret',
 		})
-		const shareUrl = await page.locator('.secret-container input.url-field').inputValue()
+		const shareUrl = await page.locator('.secret-container span:visible:has(button:text("Share Link:"))>:not(button)').innerText()
 
 		await revealSharedSecretNoPassword(page, shareUrl)
 
@@ -82,9 +82,9 @@ test.describe('Secrets Activity + Notifications', () => {
 
 		const expectedExpiry = new Date()
 		expectedExpiry.setUTCDate(expectedExpiry.getUTCDate() + secret.expireInDays)
-		expectedExpiry.setUTCHours(0, 0, 0, 0)
+		expectedExpiry.setHours(0, 0, 0, 0)
 
-		const actualExpiry = new Date(await page.locator('.secret-container input[name="expires"]').inputValue())
+		const actualExpiry = new Date(await page.locator('.secret-container :has(label:has-text("Expires on:")) input[type=text]:visible').inputValue())
 		expect(actualExpiry).toEqual(expectedExpiry)
 
 		await runExpiryJob(page)

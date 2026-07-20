@@ -105,7 +105,7 @@ export async function createSecret(page: Page, { title, content, password, expir
 		// await expiryField.blur()
 	}
 	await page.fill('textarea', content)
-	await page.click('input.primary[type="button"]')
+	await page.click('button:has-text("Save")')
 	await page.waitForSelector('.secret-container .notecard--success')
 }
 
