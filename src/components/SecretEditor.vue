@@ -36,7 +36,7 @@ defineEmits(['saveSecret'])
 		<NcPasswordField
 			v-model="model.password"
 			:label="t('secrets', 'share password (optional)')"
-			:helper-text="t('secrets', 'If you set a share password, anyone opening the share link will also need to enter this password before they can view the secret.')"
+			:helperText="t('secrets', 'If you set a share password, anyone opening the share link will also need to enter this password before they can view the secret.')"
 			:minlength="4"
 			:required="false" />
 		<textarea
