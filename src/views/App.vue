@@ -11,7 +11,12 @@ import { createClient } from '@shared/api/client'
 import { secretApiCreateSecret, secretApiDelete, secretApiGetAll, secretApiUpdateTitle } from '@shared/api/sdk.gen.ts'
 import { ocsHeaders } from '@shared/model'
 import { computed, inject, onMounted, ref, watch } from 'vue'
+import IconEye from 'vue-material-design-icons/EyeOutline.vue'
+import IconFileDocumentPlus from 'vue-material-design-icons/FileDocumentPlusOutline.vue'
+import IconLockOpen from 'vue-material-design-icons/LockOpen.vue'
+import IconLock from 'vue-material-design-icons/LockOutline.vue'
 import IconPlus from 'vue-material-design-icons/Plus.vue'
+import IconTrashCan from 'vue-material-design-icons/TrashCanOutline.vue'
 import SecretEditor from '@/components/SecretEditor.vue'
 import SecretView from '@/components/SecretView.vue'
 import { createClientConfig } from '@/api-client.ts'
@@ -157,7 +162,9 @@ async function createSecret(secret: Secret) {
 	updating.value = true
 	try {
 		const encryptedPromise = cryptolib.encrypt(secret._decrypted, secret.key, secret.iv)
-		const expiresStr = secret.expires.toISOString()
+		const expiresDate = new Date(secret.expires.getTime())
+		expiresDate.setHours(0, 0, 0, 0)
+		const expiresStr = expiresDate.toISOString()
 		const encryptedSecret = {
 			title: secret.title,
 			password: secret.password === '' ? null : secret.password,
@@ -177,17 +184,18 @@ async function createSecret(secret: Secret) {
 			secret.key,
 			cryptolib.b64StringToArrayBuffer(data.iv),
 		)
-		secrets.value = secrets.value.map((secret: Secret) => {
-			if (secret.uuid === currentSecretUuid.value) {
+		secrets.value = secrets.value.map((sec: Secret) => {
+			if (sec.uuid === currentSecretUuid.value) {
 				return {
 					...data,
-					expires: new Date(secret.expires),
+					expires: new Date(data.expires),
 					_decrypted: decrypted,
-					key: secret.key,
+					key: sec.key,
 					iv: cryptolib.b64StringToArrayBuffer(data.iv),
+					pwHash: secret.password ? '' : undefined,
 				} as Secret
 			}
-			return secret
+			return sec
 		})
 		currentSecretUuid.value = data.uuid
 		currentSecretKeyBuf.value = await window.crypto.subtle.exportKey('raw', secret.key)
@@ -211,7 +219,7 @@ async function deleteSecret(secret: Secret) {
 		const response = await secretApiDelete({
 			...ocsHeaders,
 			client,
-			path: { uuid: secret.uuid },
+			path: { uuid: secret.uuid! },
 		})
 		if (response.error) {
 			showError(t('secrets', 'Could not delete the secret') + `: ${response.error}`)
@@ -276,9 +284,15 @@ watch(currentSecret, (newSecret) => {
 					}"
 					:editable="true"
 					:editLabel="t('secrets', 'Change Title')"
-					:icon="secret.uuid === '' ? 'icon-template-add' : (secret.isExpired ? 'icon-delete' : (secret.encrypted === null ? 'icon-toggle' : 'icon-password'))"
 					@update:name="(name) => updateSecretTitle(secret, name)"
 					@click="openSecret(secret)">
+					<template #icon>
+						<IconFileDocumentPlus v-if="secret.uuid === ''" :size="20" />
+						<IconTrashCan v-else-if="secret.isExpired" :size="20" />
+						<IconEye v-else-if="secret.encrypted === null" :size="20" />
+						<IconLockOpen v-else-if="secret._decrypted" :size="20" />
+						<IconLock v-else :size="20" />
+					</template>
 					<template #actions>
 						<NcActionButton
 							v-if="secret.uuid === ''"
@@ -335,5 +349,39 @@ watch(currentSecret, (newSecret) => {
 #secrets-root .app-navigation-entry-link>.app-navigation-entry-icon.icon-delete {
   background-image: var(--icon-delete-dark);
   opacity: .5;
+}
+
+.secret-content.textarea {
+  flex-grow: 1;
+  width: 100%;
+  font-family: 'Lucida Console', monospace;
+  margin-top: calc(4 * var(--default-grid-baseline));
+}
+
+.secret-content.textarea *:not(label) {
+  height: 100%;
+}
+
+.formBoxInput {
+  color: var(--color-primary-element-light-text) !important;
+}
+.formBoxInput, .formBoxInput label {
+  background-color: var(--color-primary-element-light-hover) !important;
+}
+
+.secret-info-box {
+  display: none;
+}
+.secret-info-box.mobile {
+  display: flex;
+}
+
+@media only screen and (min-width: 1024px) {
+  .secret-info-box {
+    display: flex !important;
+  }
+  .secret-info-box.mobile {
+    display: none !important;
+  }
 }
 </style>

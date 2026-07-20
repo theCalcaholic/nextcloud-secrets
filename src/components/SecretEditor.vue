@@ -5,11 +5,11 @@
 import type { Secret } from '@/model'
 
 import { t } from '@nextcloud/l10n'
-import { NcDateTimePicker, NcPasswordField } from '@nextcloud/vue'
+import { NcButton, NcDateTimePicker, NcPasswordField, NcTextArea } from '@nextcloud/vue'
 
 import '@nextcloud/dialogs/styles/toast.scss'
 
-const model = defineModel<Secret | undefined>(undefined)
+const model = defineModel<Secret>()
 
 defineProps({
 	locked: {
@@ -35,21 +35,26 @@ defineEmits(['saveSecret'])
 		</p>
 		<NcPasswordField
 			v-model="model.password"
-			:label="t('secrets', 'share password (optional)')"
-			:helperText="t('secrets', 'If you set a share password, anyone opening the share link will also need to enter this password before they can view the secret.')"
+			:label="t('secrets', 'access password (optional)')"
+			:helperText="t('secrets', 'If you set an access password, anyone opening the share link will also need to enter this password before they can view the secret.')"
 			:minlength="4"
 			:required="false" />
-		<textarea
-			v-model="model._decrypted"
+		<NcTextArea
+			class="secret-content"
+			:modelValue="model._decrypted ?? ''"
 			:disabled="locked"
+			:label="t('secrets', 'Secret content')"
 			:placeholder="t('secrets', 'Type or paste the secret you want to share (e.g. a password, CSV data, or bank account details)…')"
-			:aria-label="t('secrets', 'Secret content')" />
-		<input
+			:aria-label="t('secrets', 'Secret content')"
+			@update:modelValue="(val) => { if (model) { model._decrypted = val } }" />
+		<NcButton
 			type="button"
-			class="primary"
-			:value="t('secrets', 'Save')"
+			variant="primary"
+			wide
 			:disabled="locked"
 			@click="$emit('saveSecret', model)">
+			{{ t('secrets', 'Save') }}
+		</NcButton>
 	</div>
 	<div v-else class="secret-container">
 		{{ t('secrets', 'No secret selected') }}
@@ -67,36 +72,5 @@ defineEmits(['saveSecret'])
 		height: 100%;
 		overflow-x: hidden;
 		box-sizing: border-box;
-	}
-
-	.expires-container {
-		display: flex;
-		flex-wrap: wrap;
-		flex-direction: row;
-		align-items: center;
-	}
-
-	.expires-container label {
-		line-height: 36px;
-		flex-grow: 0;
-		flex-shrink: 0;
-		white-space: nowrap;
-		margin: 3px;
-	}
-
-	textarea {
-		flex-grow: 1;
-		width: 100%;
-		font-family: 'Lucida Console', monospace;
-	}
-
-	.secret-actions {
-		display: inline-block;
-	}
-
-	input.url-field {
-		float: inline-start;
-		max-width: 90%;
-		width: 30em;
 	}
 </style>

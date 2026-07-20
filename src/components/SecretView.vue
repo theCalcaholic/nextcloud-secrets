@@ -5,11 +5,11 @@
 import type CryptoLib from '@shared/crypto.ts'
 import type { Secret } from '@/model'
 
-import { showError } from '@nextcloud/dialogs'
 import { n, t } from '@nextcloud/l10n'
 import { generateUrl } from '@nextcloud/router'
-import { NcActionButton, NcActions, NcCheckboxRadioSwitch, NcNoteCard } from '@nextcloud/vue'
+import { NcFormGroup, NcNoteCard, NcTextArea } from '@nextcloud/vue'
 import { computed, inject, ref, watch } from 'vue'
+import SecretInfoBox from '@/components/SecretInfoBox.vue'
 
 import '@nextcloud/dialogs/styles/toast.scss'
 
@@ -22,8 +22,8 @@ interface Props {
 	warning?: string
 	success?: string
 }
+
 const keyBuf = ref<ArrayBuffer | null>(null)
-const copyState = ref('ready')
 
 const isDecrypted = computed(() => !!model.value?.key)
 
@@ -41,19 +41,6 @@ const url = computed(() => {
 	return window.location.protocol + '//' + window.location.host + generateUrl(`/apps/secrets/share/${model.value.uuid}#${keyStr}`)
 })
 
-const formattedDate = computed(() => {
-	if (model.value === undefined) {
-		return ''
-	}
-	const fDate = model.value.expires.getFullYear() + '-'
-		+ `${model.value.expires.getMonth() + 1}-`.padStart(3, '0')
-		+ `${model.value.expires.getDate()}`.padStart(2, '0')
-	if (debug) {
-		console.debug('date: ', fDate, model.value.expires)
-	}
-	return fDate
-})
-
 const daysToDeletion = computed(() => {
 	if (!model.value?.expires) {
 		return 999
@@ -68,16 +55,6 @@ const daysToDeletion = computed(() => {
 	return Math.floor(+deletionDate - +today / 86_400_000)
 })
 
-const copyButtonIcon = computed(() => {
-	return {
-		success: 'icon-checkmark',
-		error: 'icon-error',
-		ready: 'icon-clippy',
-	}[copyState.value]
-})
-
-const isPasswordProtected = computed(() => model.value?.pwHash !== undefined)
-
 watch(model, async (val) => {
 	if (val?.key) {
 		keyBuf.value = await window.crypto.subtle.exportKey('raw', val.key)
@@ -85,32 +62,11 @@ watch(model, async (val) => {
 }, {
 	immediate: true,
 })
-
-// TODO: Keep only one implementation of 'copyToClipboard'
-/**
- * Copy the given string to the clipboard
- *
- * @param url The string to copy to the clipboard
- * @return
- */
-async function copyToClipboard(url: string) {
-	try {
-		await navigator.clipboard.writeText(url)
-		copyState.value = 'success'
-		setTimeout(() => { copyState.value = 'ready' }, 3000)
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	} catch (e: any) {
-		showError(e?.message ?? t('secrets', 'Failed to copy the URL to the clipboard'))
-		console.error(e)
-		copyState.value = 'error'
-		setTimeout(() => { copyState.value = 'ready' }, 3000)
-	}
-}
 </script>
 
 <template>
 	<div class="secret-container">
-		<div>
+		<NcFormGroup :label="model?.title || 'Secret'">
 			<NcNoteCard v-if="success" type="success">
 				<p>{{ success }}</p>
 			</NcNoteCard>
@@ -120,48 +76,16 @@ async function copyToClipboard(url: string) {
 			<NcNoteCard v-if="daysToDeletion <= 7" type="warning">
 				<p>{{ n('secrets', 'Will be deleted in %n day', 'Will be deleted in %n days', daysToDeletion) }}</p>
 			</NcNoteCard>
-			<p v-if="model?.encrypted" class="expires-container">
-				<label for="expires">{{ t('secrets', 'Expires on:') }}</label>
-				<input
-					v-if="model.expires"
-					:value="formattedDate"
-					type="date"
-					name="expires"
-					data-debug="date-is-set"
-					disabled>
-				<input
-					v-else
-					type="text"
-					name="expires"
-					data-debug="date-is-empty"
-					disabled
-					value="never">
-			</p>
-			<NcCheckboxRadioSwitch v-model="isPasswordProtected" :disabled="true">
-				{{ t('secrets', 'password protected') }}
-			</NcCheckboxRadioSwitch>
-			<p v-if="url" class="url-container">
-				<label for="url">{{ t('secrets', 'Share Link:') }}</label>
-				<input
-					type="text"
-					name="url"
-					disabled
-					:value="url"
-					:size="url.length"
-					class="url-field">
-				<NcActions class="secret-actions">
-					<NcActionButton
-						:icon="copyButtonIcon"
-						:aria-label="t('secrets', 'Copy Secret Link')"
-						@click="copyToClipboard(url)" />
-				</NcActions>
-			</p>
-		</div>
-		<textarea
+			<SecretInfoBox :secret="model" :url="url" wrapperClass="mobile" />
+			<SecretInfoBox :secret="model" :url="url" row />
+			<!-- TODO: Reduce code duplication -->
+		</NcFormGroup>
+		<NcTextArea
 			v-if="model?._decrypted"
-			v-model="model._decrypted"
-			disabled />
-
+			class="secret-content"
+			:label="t('secrets', 'Secret content')"
+			:modelValue="model._decrypted ?? ''"
+			:disabled="true" />
 		<div v-else-if="!model?.encrypted" id="emptycontent">
 			<template v-if="model?.isExpired">
 				<div class="icon-delete" />
@@ -172,7 +96,9 @@ async function copyToClipboard(url: string) {
 			<template v-else>
 				<div class="icon-toggle" />
 				<h5>
-					{{ t('secrets', 'This secret has already been retrieved and its content was consequently deleted from the server.') }}
+					{{
+						t('secrets', 'This secret has already been retrieved and its content was consequently deleted from the server.')
+					}}
 				</h5>
 			</template>
 		</div>
@@ -185,57 +111,24 @@ async function copyToClipboard(url: string) {
 
 <style scoped>
 
-	div.secret-container {
-		width: 100%;
-		min-height: 50%;
-		padding: 44px 20px 20px 20px;
-		display: flex;
-		flex-direction: column;
-		height: 100%;
-		overflow-x: hidden;
-		box-sizing: border-box;
-	}
+div.secret-container {
+  width: 100%;
+  min-height: 50%;
+  padding: 44px 20px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  gap: var(--form-group-content-gap)
+}
 
-	textarea {
-		flex-grow: 1;
-		width: 100%;
-		font-family: 'Lucida Console', monospace;
-	}
+#emptycontent > .icon-delete {
+  background-image: var(--icon-delete-dark);
+}
 
-	/*
-	textarea.warning {
-		color: var(--color-warning);
-	}
-	*/
+.secret-wrapper {
+  height: 100%;
+}
 
-	.secret-actions {
-		display: inline-block;
-	}
-
-	.url-container, .expires-container {
-		display: flex;
-		flex-wrap: wrap;
-		flex-direction: row;
-	}
-
-	.url-container label, .expires-container label {
-		line-height: 36px;
-		flex-grow: 0;
-		flex-shrink: 0;
-		white-space: nowrap;
-		width: 8em;
-		margin: 3px;
-	}
-
-	.url-container actions {
-		flex-grow: 0;
-	}
-
-	input.url-field {
-		width: 100%;
-	}
-
-  #emptycontent>.icon-delete {
-    background-image: var(--icon-delete-dark);
-  }
 </style>
