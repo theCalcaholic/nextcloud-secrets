@@ -11,6 +11,7 @@ use OCA\Secrets\Db\Secret;
 use OCA\Secrets\Db\SecretMapper;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
+use OCP\AppFramework\OCS\OCSBadRequestException;
 use Psr\Log\LoggerInterface;
 
 class SecretService {
@@ -89,8 +90,25 @@ class SecretService {
 		return bin2hex($uuid_bytes);
 	}
 
+	/**
+	 * Create a new secret in the DB
+	 *
+	 * @param string $title
+	 * @param string $encrypted
+	 * @param string $iv
+	 * @param string|null $expires
+	 * @param string|null $password
+	 * @param string $userId
+	 * @return Secret
+	 *
+	 * @throws OCSBadRequestException
+	 */
 	public function create(string $title, string $encrypted, string $iv, ?string $expires, ?string $password, string $userId): Secret {
 		$uuid = self::getRandomUuid();
+
+		if ($title == null) {
+			throw new OCSBadRequestException('secret title must not be emtpy');
+		}
 
 		$secret = new Secret();
 		$secret->setUuid($uuid);
@@ -159,6 +177,9 @@ class SecretService {
 	 * @throws SecretNotFound
 	 */
 	public function updateTitle(string $uuid, string $userId, string $title): Secret {
+		if ($title == null) {
+			throw new OCSBadRequestException('secret title must not be emtpy');
+		}
 		try {
 			$secret = $this->mapper->find($uuid, $userId);
 			$secret->setTitle($title);

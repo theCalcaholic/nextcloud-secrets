@@ -175,8 +175,7 @@ async function createSecret(secret: Secret) {
 		const response = await secretApiCreateSecret({ ...ocsHeaders, client, body: encryptedSecret })
 		if (!response.data || response.error) {
 			console.log(response.error)
-			showError(t('secrets', 'Could not create the secret') + `: ${response.error}`)
-			return
+			throw new Error(response.error?.ocs.meta.message ?? response.error?.toString() ?? 'failed to create secret', { cause: response.error })
 		}
 		const data = response.data.ocs.data
 		const decrypted = await cryptolib.decrypt(
@@ -201,7 +200,7 @@ async function createSecret(secret: Secret) {
 		currentSecretKeyBuf.value = await window.crypto.subtle.exportKey('raw', secret.key)
 	} catch (e) {
 		console.error(e)
-		showError(t('secrets', 'Could not create the secret'))
+		showError(t('secrets', 'Could not create the secret') + (e?.toString ? ('\n' + e.toString()) : ''))
 	}
 	updating.value = false
 }

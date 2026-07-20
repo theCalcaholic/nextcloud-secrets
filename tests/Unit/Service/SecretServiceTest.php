@@ -13,6 +13,8 @@ use OCA\Secrets\Service\SecretNotFound;
 use OCA\Secrets\Service\SecretService;
 use OCP\Activity\IManager as IActivityManager;
 use OCP\AppFramework\Db\DoesNotExistException;
+use OCP\AppFramework\Db\Entity;
+use OCP\AppFramework\OCS\OCSBadRequestException;
 use OCP\IURLGenerator;
 use OCP\Notification\IManager as INotificationManager;
 use PHPUnit\Framework\TestCase;
@@ -48,26 +50,26 @@ class SecretServiceTest extends TestCase {
 
 	public function testUpdateWithSuccess(): void {
 		// the existing note
-		$note = Secret::fromRow([
+		$secret = Secret::fromRow([
 			'uuid' => '3',
 			'title' => 'yo',
 		]);
 		$this->mapper->expects($this->once())
 			->method('find')
 			->with($this->equalTo('3'))
-			->willReturn($note);
+			->willReturn($secret);
 
-		// the note when updated
-		$updatedNote = Secret::fromRow(['uuid' => '3']);
-		$updatedNote->setTitle('title');
+		// the secret when updated
+		$updatedSecret = Secret::fromRow(['uuid' => '3']);
+		$updatedSecret->setTitle('title');
 		$this->mapper->expects($this->once())
 			->method('update')
-			->with($this->equalTo($updatedNote))
-			->willReturn($updatedNote);
+			->with($this->equalTo($updatedSecret))
+			->willReturn($updatedSecret);
 
 		$result = $this->service->updateTitle('3', $this->userId, 'title');
 
-		$this->assertEquals($updatedNote, $result);
+		$this->assertEquals($updatedSecret, $result);
 	}
 
 	public function testUpdateNotFound(): void {
@@ -79,5 +81,44 @@ class SecretServiceTest extends TestCase {
 			->will($this->throwException(new DoesNotExistException('')));
 
 		$this->service->updateTitle('3', $this->userId, 'title');
+	}
+
+	public function testCreateEmptyTitle(): void {
+		$this->expectException(OCSBadRequestException::class);
+		$title = '';
+		$encrypted = 'someencryptedstring';
+		$iv = 'someiv';
+		$userId = 'someuser';
+		$this->mapper->expects($this->never())
+			->method('insert');
+
+		$this->service->create($title, $encrypted, $iv, null, null, $userId);
+	}
+
+	public function testCreate(): void {
+		$notificationService = $this->createMock(NotificationService::class);
+		$service = new SecretService($this->mapper, new NullLogger(), $notificationService);
+		$title = 'sometitle';
+		$encrypted = 'someencryptedstring';
+		$iv = 'someiv';
+		$userId = 'someuser';
+
+		$secret = new Secret();
+		$secret->setTitle($title);
+		$secret->setEncrypted($encrypted);
+		$secret->setIv($iv);
+		$secret->setUserId($userId);
+		$this->mapper->method('insert')->willReturn($secret);
+		$this->mapper->expects($this->once())
+			->method('insert')
+			->with($this->callback(function (Entity $secret) {
+				$this->assertContains('title', array_keys($secret->getUpdatedFields()));
+				$this->assertContains('encrypted', array_keys($secret->getUpdatedFields()));
+				$this->assertContains('iv', array_keys($secret->getUpdatedFields()));
+				return true;
+			}));
+		$notificationService->expects($this->once())->method('notifyCreated')->with($secret);
+
+		$service->create($title, $encrypted, $iv, null, null, $userId);
 	}
 }
