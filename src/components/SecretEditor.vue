@@ -24,7 +24,7 @@ defineEmits(['saveSecret'])
 
 <template>
 	<div v-if="model" class="secret-container">
-		<p>
+		<p class="expires-container">
 			<label for="expires">{{ t('secrets', 'Expires on:') }}</label>
 			<NcDateTimePicker
 				v-model="model.expires"
@@ -36,9 +36,14 @@ defineEmits(['saveSecret'])
 		<NcPasswordField
 			v-model="model.password"
 			:label="t('secrets', 'share password (optional)')"
+			:helperText="t('secrets', 'If you set a share password, anyone opening the share link will also need to enter this password before they can view the secret.')"
 			:minlength="4"
 			:required="false" />
-		<textarea v-model="model._decrypted" :disabled="locked" />
+		<textarea
+			v-model="model._decrypted"
+			:disabled="locked"
+			:placeholder="t('secrets', 'Type or paste the secret you want to share (e.g. a password, CSV data, or bank account details)…')"
+			:aria-label="t('secrets', 'Secret content')" />
 		<input
 			type="button"
 			class="primary"
@@ -56,10 +61,27 @@ defineEmits(['saveSecret'])
 	div.secret-container {
 		width: 100%;
 		min-height: 50%;
-		padding: 20px;
+		padding: 44px 20px 20px 20px;
 		display: flex;
 		flex-direction: column;
 		height: 100%;
+		overflow-x: hidden;
+		box-sizing: border-box;
+	}
+
+	.expires-container {
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: row;
+		align-items: center;
+	}
+
+	.expires-container label {
+		line-height: 36px;
+		flex-grow: 0;
+		flex-shrink: 0;
+		white-space: nowrap;
+		margin: 3px;
 	}
 
 	textarea {
