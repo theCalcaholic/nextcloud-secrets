@@ -2,6 +2,7 @@ OC.L10N.register(
     "secrets",
     {
     "Save" : "Sàbhail",
+    "never" : "chan ann idir",
     "Download" : "Luchdaich a-nuas",
     "Password" : "Facal-faire"
 },

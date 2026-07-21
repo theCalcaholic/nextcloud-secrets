@@ -2,6 +2,7 @@ OC.L10N.register(
     "secrets",
     {
     "Save" : "Guardar",
+    "never" : "nunca",
     "Navigation" : "Navegación",
     "Download" : "Descargar",
     "This share is password-protected" : "Este elemento compartido está protegido con contraseña",

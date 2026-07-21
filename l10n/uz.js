@@ -2,6 +2,7 @@ OC.L10N.register(
     "secrets",
     {
     "Save" : "Saqlash",
+    "never" : "hech qachon",
     "Navigation" : "Navigatsiya",
     "Download" : "Yuklab olish",
     "This share is password-protected" : "Bu almashish parol bilan himoyalangan",

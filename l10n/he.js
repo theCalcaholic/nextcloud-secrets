@@ -2,6 +2,7 @@ OC.L10N.register(
     "secrets",
     {
     "Save" : "שמירה",
+    "never" : "מעולם לא",
     "Navigation" : "ניווט",
     "Download" : "הורדה",
     "This share is password-protected" : "שיתוף זה מוגן בססמה",

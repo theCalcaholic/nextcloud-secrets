@@ -2,6 +2,7 @@ OC.L10N.register(
     "secrets",
     {
     "Save" : "Shrani",
+    "never" : "nikoli",
     "Navigation" : "Krmarjenje",
     "Change Title" : "Spremeni naziv",
     "Download" : "Prejmi",
