@@ -2,6 +2,7 @@ OC.L10N.register(
     "secrets",
     {
     "Save" : "Lagre",
+    "never" : "aldri",
     "Download" : "Last ned",
     "Password" : "Passord"
 },

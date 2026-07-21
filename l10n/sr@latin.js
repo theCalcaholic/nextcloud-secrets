@@ -2,6 +2,7 @@ OC.L10N.register(
     "secrets",
     {
     "Save" : "Sačuvaj",
+    "never" : "nikada",
     "Password" : "Lozinka",
     "Share Link" : "Podeli vezu"
 },

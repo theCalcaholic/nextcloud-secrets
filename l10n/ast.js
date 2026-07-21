@@ -5,7 +5,6 @@ OC.L10N.register(
     "Secret '{secret}' has been retrieved" : "Recuperóse'l secretu «{secret}»",
     "Expiration Date" : "Data de caducidá",
     "Save" : "Guardar",
-    "Copy Secret Link" : "Copiar l'enllaz del secretu",
     "Could not fetch secrets" : "Nun se pudo dir en cata de los secretos",
     "Could not create the secret" : "Nun se pudo crear el secretu",
     "Could not delete the secret" : "Nun se pudo desaniciar el secretu",
@@ -24,6 +23,7 @@ OC.L10N.register(
     "Password" : "Contraseña",
     "New Secret" : "Secretu nuevu",
     "Share Link" : "Compartir l'enllaz",
+    "Copy Secret Link" : "Copiar l'enllaz del secretu",
     "Retrieving secret..." : "Recuperando'l secretu…"
 },
 "nplurals=2; plural=(n != 1);");

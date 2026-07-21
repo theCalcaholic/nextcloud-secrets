@@ -2,6 +2,7 @@ OC.L10N.register(
     "secrets",
     {
     "Save" : "Cadw",
+    "never" : "byth",
     "Navigation" : "Llywio",
     "Download" : "Llwytho i lawr",
     "Password" : "Cyfrinair"

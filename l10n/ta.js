@@ -2,6 +2,7 @@ OC.L10N.register(
     "secrets",
     {
     "Save" : "சேமிக்க ",
+    "never" : "ஒருபோதும்",
     "Download" : "பதிவிறக்குக",
     "Password" : "கடவுச்சொல்"
 },

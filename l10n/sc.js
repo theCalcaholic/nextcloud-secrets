@@ -2,6 +2,7 @@ OC.L10N.register(
     "secrets",
     {
     "Save" : "Sarva",
+    "never" : "mai",
     "Navigation" : "Navigatzione",
     "Download" : "Iscàrriga",
     "This share is password-protected" : "Custa cumpartzidura est amparada dae una crae",

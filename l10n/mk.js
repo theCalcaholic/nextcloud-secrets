@@ -2,6 +2,7 @@ OC.L10N.register(
     "secrets",
     {
     "Save" : "Зачувај",
+    "never" : "никогаш",
     "Navigation" : "Навигација",
     "Download" : "Преземи",
     "This share is password-protected" : "Ова споделување е заштитено со лозинка",

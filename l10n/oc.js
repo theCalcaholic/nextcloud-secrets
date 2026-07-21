@@ -2,6 +2,7 @@ OC.L10N.register(
     "secrets",
     {
     "Save" : "Enregistrar",
+    "never" : "pas jamai",
     "Navigation" : "Navegacion",
     "Download" : "Telecargar",
     "This share is password-protected" : "Aqueste partiment es protegit per un senhal",
