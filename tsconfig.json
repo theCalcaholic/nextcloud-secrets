@@ -3,7 +3,7 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
-    "lib": ["webworker", "DOM"],
+    "lib": ["webworker", "DOM", "esnext"],
     "allowImportingTsExtensions": true,
     "types": ["vitest/globals"],
     "paths": {
