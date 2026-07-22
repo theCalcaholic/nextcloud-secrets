@@ -3,6 +3,7 @@
     "Secret '{secret}' has been retrieved" : "Recuperóse'l secretu «{secret}»",
     "Expiration Date" : "Data de caducidá",
     "Save" : "Guardar",
+    "never" : "enxamás",
     "Could not fetch secrets" : "Nun se pudo dir en cata de los secretos",
     "Could not create the secret" : "Nun se pudo crear el secretu",
     "Could not delete the secret" : "Nun se pudo desaniciar el secretu",

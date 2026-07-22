@@ -8,6 +8,7 @@ OC.L10N.register(
     "Expires on:" : "تنتهي صلاحيته في:",
     "Expiration Date" : "تاريخ انتهاء الصلاحية",
     "Save" : "حفظ",
+    "never" : "أبداً",
     "Share Link:" : "مشاركة الرابط",
     "This secret has already been retrieved and its content was consequently deleted from the server." : "تم استرداد هذا السر بالفعل وبالتالي تم حذف محتواه من الخادم.",
     "Could not decrypt secret (key not available locally)." : "تعذر فك تشفير السر (المفتاح غير متوفر محليًا).",
