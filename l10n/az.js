@@ -2,6 +2,7 @@ OC.L10N.register(
     "secrets",
     {
     "Save" : "Saxla",
+    "never" : "heç vaxt",
     "Download" : "Yüklə",
     "This share is password-protected" : "Bu paylaşım şifrə ilə müdafiəlidir",
     "Password" : "Şifrə"
