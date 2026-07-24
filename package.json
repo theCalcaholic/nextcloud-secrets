@@ -1,6 +1,6 @@
 {
   "name": "secrets",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "private": true,
   "description": "Securely share data with anyone",
   "bugs": {
