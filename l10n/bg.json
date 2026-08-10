@@ -3,6 +3,7 @@
     "Secret '{secret}' has been retrieved" : "Тайната '{secret}' е извлечена",
     "Securely share data via link" : "Сигурно споделяне на данни чрез връзка",
     "Save" : "Запиши",
+    "never" : "никога",
     "This secret has already been retrieved and its content was consequently deleted from the server." : "Тази тайна вече е била изтеглена и впоследствие съдържанието й е било изтрито от сървъра.",
     "Could not decrypt secret (key not available locally)." : "Тайната не можа да се дешифрира (ключът не е наличен локално).",
     "_Will be deleted in %n day_::_Will be deleted in %n days_" : ["Ще бъде изтрита след %n дни","Ще бъде изтрита след %n дни"],
