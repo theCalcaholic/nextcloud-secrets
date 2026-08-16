@@ -5,4 +5,4 @@ declare(strict_types=1);
 \OCP\Util::addStyle('secrets', 'secrets-style');
 ?>
 <!--<div class="guest-box" style="display: flex; flex-grow: 1; flex-direction: row">-->
-<div id="secrets-root" data-debugsecrets="<?php echo(isset($_['debug']) && $_['debug'] ? 'true' : 'false')?>" class="display: block; heigth: 100%;"></div>
+<div id="secrets-root" data-debugsecrets="<?php echo(isset($_['debug']) && $_['debug'] ? 'true' : 'false')?>"></div>

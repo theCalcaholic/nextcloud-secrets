@@ -10,9 +10,9 @@
 node_modules/
 /.php-cs-fixer.cache
 .phpunit.result.cache
-js/*hot-update.*
-js/
+/js/*hot-update.*
+/js/
 .vscode/settings.json
-css/
+/css/
 playwright-report/
-shared/api
+/shared/api

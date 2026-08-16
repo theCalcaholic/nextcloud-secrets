@@ -72,5 +72,6 @@ defineEmits(['saveSecret'])
 		height: 100%;
 		overflow-x: hidden;
 		box-sizing: border-box;
+    gap: calc(var(--default-grid-baseline) * 4);
 	}
 </style>

@@ -345,42 +345,5 @@ watch(currentSecret, (newSecret) => {
 <!--}-->
 
 <style>
-#secrets-root .app-navigation-entry-link>.app-navigation-entry-icon.icon-delete {
-  background-image: var(--icon-delete-dark);
-  opacity: .5;
-}
-
-.secret-content.textarea {
-  flex-grow: 1;
-  width: 100%;
-  font-family: 'Lucida Console', monospace;
-  margin-top: calc(4 * var(--default-grid-baseline));
-}
-
-.secret-content.textarea *:not(label) {
-  height: 100%;
-}
-
-.formBoxInput {
-  color: var(--color-primary-element-light-text) !important;
-}
-.formBoxInput, .formBoxInput label {
-  background-color: var(--color-primary-element-light-hover) !important;
-}
-
-.secret-info-box {
-  display: none;
-}
-.secret-info-box.mobile {
-  display: flex;
-}
-
-@media only screen and (min-width: 1024px) {
-  .secret-info-box {
-    display: flex !important;
-  }
-  .secret-info-box.mobile {
-    display: none !important;
-  }
-}
+@import '@/css/base.css';
 </style>
