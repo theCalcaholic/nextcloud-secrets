@@ -3,8 +3,8 @@ OC.L10N.register(
     {
     "Save" : "Salvează",
     "never" : "niciodată",
-    "Navigation" : "Navigare",
     "Download" : "Descărcare",
+    "Navigation" : "Navigare",
     "This share is password-protected" : "Această partajare este protejată cu parolă",
     "Password" : "Parolă",
     "Share Link" : "Partajează linkul"

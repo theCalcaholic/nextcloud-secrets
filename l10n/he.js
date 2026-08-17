@@ -3,8 +3,8 @@ OC.L10N.register(
     {
     "Save" : "שמירה",
     "never" : "מעולם לא",
-    "Navigation" : "ניווט",
     "Download" : "הורדה",
+    "Navigation" : "ניווט",
     "This share is password-protected" : "שיתוף זה מוגן בססמה",
     "Password" : "ססמה",
     "Share Link" : "שיתוף קישור"

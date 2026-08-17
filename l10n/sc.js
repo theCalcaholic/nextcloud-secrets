@@ -3,8 +3,8 @@ OC.L10N.register(
     {
     "Save" : "Sarva",
     "never" : "mai",
-    "Navigation" : "Navigatzione",
     "Download" : "Iscàrriga",
+    "Navigation" : "Navigatzione",
     "This share is password-protected" : "Custa cumpartzidura est amparada dae una crae",
     "Password" : "Crae",
     "Share Link" : "Cumpartzi Lingòngiu"

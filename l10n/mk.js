@@ -3,8 +3,8 @@ OC.L10N.register(
     {
     "Save" : "Зачувај",
     "never" : "никогаш",
-    "Navigation" : "Навигација",
     "Download" : "Преземи",
+    "Navigation" : "Навигација",
     "This share is password-protected" : "Ова споделување е заштитено со лозинка",
     "Password" : "Лозинка",
     "Share Link" : "Сподели линк"

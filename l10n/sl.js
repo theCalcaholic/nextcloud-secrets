@@ -3,9 +3,9 @@ OC.L10N.register(
     {
     "Save" : "Shrani",
     "never" : "nikoli",
+    "Download" : "Prejmi",
     "Navigation" : "Krmarjenje",
     "Change Title" : "Spremeni naziv",
-    "Download" : "Prejmi",
     "This share is password-protected" : "To mesto souporabe je zaščiteno z geslom",
     "Password" : "Geslo",
     "Share Link" : "Objavi povezavo"

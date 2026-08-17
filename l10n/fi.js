@@ -3,8 +3,8 @@ OC.L10N.register(
     {
     "Save" : "Tallenna",
     "never" : "ei koskaan",
-    "Navigation" : "Navigointi",
     "Download" : "Lataa",
+    "Navigation" : "Navigointi",
     "This share is password-protected" : "Jako on salasanasuojattu",
     "Password" : "Salasana",
     "Share Link" : "Jaa linkki"

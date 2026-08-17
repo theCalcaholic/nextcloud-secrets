@@ -3,8 +3,8 @@ OC.L10N.register(
     {
     "Save" : "ບັນທຶກ",
     "never" : "ບໍ່ເຄີຍ",
-    "Navigation" : "ການນຳທາງ",
     "Download" : "ດາວໂຫລດ",
+    "Navigation" : "ການນຳທາງ",
     "This share is password-protected" : "ການແບ່ງປັນນີ້ແມ່ນການປ້ອງກັນລະຫັດຜ່ານ",
     "Password" : "ລະຫັດຜ່ານ",
     "Share Link" : "Share Link"

@@ -3,8 +3,8 @@ OC.L10N.register(
     {
     "Save" : "Sekles",
     "never" : "werjin",
-    "Navigation" : "Tunigin",
     "Download" : "Sider",
+    "Navigation" : "Tunigin",
     "Password" : "Awal uffir"
 },
 "nplurals=2; plural=(n != 1);");

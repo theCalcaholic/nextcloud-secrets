@@ -3,8 +3,8 @@ OC.L10N.register(
     {
     "Save" : "Saqlash",
     "never" : "hech qachon",
-    "Navigation" : "Navigatsiya",
     "Download" : "Yuklab olish",
+    "Navigation" : "Navigatsiya",
     "This share is password-protected" : "Bu almashish parol bilan himoyalangan",
     "Password" : "Password"
 },

@@ -3,8 +3,8 @@ OC.L10N.register(
     {
     "Save" : "Хадгалах",
     "never" : "—Ö—ç–∑—ç—ç —á “Ø–≥“Ø–π",
-    "Navigation" : "Навигаци",
     "Download" : "Татах",
+    "Navigation" : "Навигаци",
     "This share is password-protected" : "Энэ хуваалцалт нууц үгээр хамгаалагдсан",
     "Password" : "Нууц үг"
 },

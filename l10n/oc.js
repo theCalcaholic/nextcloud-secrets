@@ -3,8 +3,8 @@ OC.L10N.register(
     {
     "Save" : "Enregistrar",
     "never" : "pas jamai",
-    "Navigation" : "Navegacion",
     "Download" : "Telecargar",
+    "Navigation" : "Navegacion",
     "This share is password-protected" : "Aqueste partiment es protegit per un senhal",
     "Password" : "Senhal",
     "Share Link" : "Partejar per un Ligam"
