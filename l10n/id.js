@@ -3,8 +3,8 @@ OC.L10N.register(
     {
     "Save" : "Simpan",
     "never" : "tidak pernah",
-    "Navigation" : "Navigasi",
     "Download" : "Unduh",
+    "Navigation" : "Navigasi",
     "This share is password-protected" : "Berbagi ini dilindungi kata sandi",
     "Password" : "Kata sandi",
     "Share Link" : "Bagikan Tautan"

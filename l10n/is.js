@@ -3,8 +3,8 @@ OC.L10N.register(
     {
     "Save" : "Vista",
     "never" : "aldrei",
-    "Navigation" : "Yfirsýn",
     "Download" : "Sækja",
+    "Navigation" : "Yfirsýn",
     "This share is password-protected" : "Þessi sameign er varin með lykilorði",
     "Password" : "Lykilorð",
     "Share Link" : "Deila tengli"

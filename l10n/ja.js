@@ -3,8 +3,8 @@ OC.L10N.register(
     {
     "Save" : "保存",
     "never" : "なし",
-    "Navigation" : "ナビゲーション",
     "Download" : "ダウンロード",
+    "Navigation" : "ナビゲーション",
     "This share is password-protected" : "この共有はパスワードで保護されています",
     "Password" : "パスワード",
     "Share Link" : "共有リンク"

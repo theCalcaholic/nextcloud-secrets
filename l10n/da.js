@@ -3,8 +3,8 @@ OC.L10N.register(
     {
     "Save" : "Gem",
     "never" : "aldrig",
-    "Navigation" : "Navigation",
     "Download" : "Download",
+    "Navigation" : "Navigation",
     "This share is password-protected" : "Delingen er beskyttet af kodeord",
     "Password" : "Adgangskode",
     "Share Link" : "Del Link"

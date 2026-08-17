@@ -3,8 +3,8 @@ OC.L10N.register(
     {
     "Save" : "Desa",
     "never" : "mai",
-    "Navigation" : "Navegació",
     "Download" : "Baixa",
+    "Navigation" : "Navegació",
     "This share is password-protected" : "Aquesta compartició està protegida amb contrasenya",
     "Password" : "Contrasenya",
     "Share Link" : "Comparteix l'enllaç"

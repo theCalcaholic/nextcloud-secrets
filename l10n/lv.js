@@ -3,8 +3,8 @@ OC.L10N.register(
     {
     "Save" : "Saglabāt",
     "never" : "nekad",
-    "Navigation" : "Navigācija",
     "Download" : "Lejupielādēt",
+    "Navigation" : "Navigācija",
     "This share is password-protected" : "Šī koplietotne ir aizsargāta ar paroli",
     "Password" : "Parole",
     "This path has changed. Redirecting you to the new location. If this doesn't work, click the following link:" : "Šis ceļš tika mainīts. Pārvirza uz jauno atrašanās vietu. Ja tas nedarbojas, jāklikšķina uz šīs saites:"
