@@ -19,6 +19,7 @@ OC.L10N.register(
     "No secret selected" : "Aucun secret sélectionné",
     "never" : "jamais",
     "has access password" : "a un mot de passe d'accès",
+    "no access password" : "pas de mot de passe d'accès",
     "Share Link:" : "Lien de partage :",
     "Copy to Clipboard" : "Copier dans le presse-papier",
     "Copy the secret to the clipboard" : "Copier le secret dans le presse-papiers",
