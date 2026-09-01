@@ -2,7 +2,7 @@ OC.L10N.register(
     "secrets",
     {
     "Save" : "Späicheren",
-    "never" : "Ni",
+    "never" : "Nimools",
     "Download" : "Eroflueden",
     "Password" : "Passwuert"
 },
