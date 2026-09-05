@@ -44,7 +44,7 @@ OC.L10N.register(
     "Create a secret to get started" : "Créer un secret pour commencer",
     "Secrets is only available when visiting Nextcloud at an encrypted (https) address." : "Secrets n'est disponible que lorsque vous accédez à Nextcloud via une adresse chiffrée (https).",
     "Could not decrypt secret" : "Impossible de déchiffrer le secret",
-    "Are you sure you want to leave the page? You will not be able to retrieve the secret again." : "Êtes-vous sûr de vouloir quitter la page ? Vous ne serez plus en mesure de récupérer le secret.",
+    "Are you sure you want to leave the page? You will not be able to retrieve the secret again." : "Êtes-vous sûr de vouloir quitter cette page ? Vous ne pourrez plus récupérer ce secret à nouveau.",
     "The following secret has been shared with you securely:" : "Le secret suivant a été partagé avec vous en toute sécurité :",
     "Please make sure you have copied and stored the secret before closing this page! It is now deleted on the server." : "Assurez-vous d'avoir copié et enregistré le secret avant de fermer cette page ! Il est maintenant supprimé du serveur.",
     "Retrieving secret…" : "Récupération du secret...",
