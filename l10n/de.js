@@ -14,7 +14,7 @@ OC.L10N.register(
     "access password (optional)" : "Zugriffspasswort (Optional)",
     "If you set an access password, anyone opening the share link will also need to enter this password before they can view the secret." : "Wenn du ein Zugriffspasswort festlegst, muss jeder, der den Freigabelink öffnet, dieses Passwort eingeben, bevor er das Geheimnis einsehen kann.",
     "Secret content" : "Geheimer Inhalt",
-    "Type or paste the secret you want to share (e.g. a password, CSV data, or bank account details)…" : "Gebe oder füge das Geheimnis ein, das du weitergeben möchtest (z. B. ein Passwort, CSV-Daten oder Bankkontodaten) …",
+    "Type or paste the secret you want to share (e.g. a password, CSV data, or bank account details)…" : "Gib oder füge das Geheimnis ein, das du weitergeben möchtest (z. B. ein Passwort, CSV-Daten oder Bankkontodaten) …",
     "Save" : "Speichern",
     "No secret selected" : "Kein Geheimnis ausgewählt",
     "never" : "Niemals",
