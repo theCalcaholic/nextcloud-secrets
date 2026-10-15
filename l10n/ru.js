@@ -36,7 +36,7 @@ OC.L10N.register(
     "Could not delete the secret" : "Не удалось удалить секрет",
     "Secret deleted" : "Секрет удалён",
     "Navigation" : "Навигация",
-    "New secret" : "Новый секрет",
+    "New secret" : "Создать секрет",
     "Change Title" : "Изменить заголовок",
     "Cancel secret creation" : "Отменить создание секрета",
     "Delete secret" : "Удалить секрет",
