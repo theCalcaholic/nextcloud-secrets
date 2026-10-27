@@ -4,6 +4,7 @@ OC.L10N.register(
     "Save" : "Ruaj",
     "never" : "kurrë",
     "Download" : "Shkarko",
+    "Navigation" : "Lundrim",
     "This share is password-protected" : "Kjo pjesë është e mbrojtur me fjalëkalim",
     "Password" : "Fjalëkalim",
     "Share Link" : "Ndani Lidhjen"

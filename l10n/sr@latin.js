@@ -3,6 +3,8 @@ OC.L10N.register(
     {
     "Save" : "Sačuvaj",
     "never" : "nikada",
+    "Download" : "Preuzmi",
+    "Navigation" : "Navigacija",
     "Password" : "Lozinka",
     "Share Link" : "Podeli vezu"
 },
