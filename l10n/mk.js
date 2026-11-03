@@ -1,6 +1,7 @@
 OC.L10N.register(
     "secrets",
     {
+    "Expiration Date" : "Рок на траење",
     "Save" : "Зачувај",
     "never" : "никогаш",
     "Download" : "Преземи",
